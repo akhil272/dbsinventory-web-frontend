@@ -20,11 +20,7 @@ export type AuthDispatchTypes =
   | { type: typeof RETRIEVE_USER_INIT }
   | {
       type: typeof RETRIEVE_USER_SUCCESS;
-      payload: {
-        username: string | any;
-        accessToken: string | any;
-        userRole: string | any;
-      };
+      payload: { username: string; accessToken: string; userRole: string };
     }
   | { type: typeof RETRIEVE_USER_FAIL; payload: string }
   | { type: typeof USER_LOGOUT_INIT }

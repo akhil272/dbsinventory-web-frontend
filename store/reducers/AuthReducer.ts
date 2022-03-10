@@ -9,7 +9,7 @@ import {
   RETRIEVE_USER_INIT,
   RETRIEVE_USER_SUCCESS,
   RETRIEVE_USER_FAIL,
-} from '../actions/AuthActionTypes';
+} from "../actions/AuthActionTypes";
 
 interface AuthDefaultStateI {
   isLoading: boolean;
@@ -25,7 +25,7 @@ const defaultState: AuthDefaultStateI = {
 
 const authReducer = (
   state: AuthDefaultStateI = defaultState,
-  action: AuthDispatchTypes,
+  action: AuthDispatchTypes
 ): AuthDefaultStateI => {
   switch (action.type) {
     case USER_LOGIN_INIT:
@@ -56,15 +56,15 @@ const authReducer = (
       return {
         ...state,
         isLoading: false,
-        username: '',
+        username: "",
         token: null,
-        userRole: '',
+        userRole: "",
       };
     case USER_LOGOUT_FAIL:
       return {
         ...state,
         isLoading: false,
-        errorMessage: 'Log out failed please try again',
+        errorMessage: "Log out failed please try again",
       };
     case RETRIEVE_USER_INIT:
       return {
@@ -83,9 +83,7 @@ const authReducer = (
       return {
         ...state,
         isLoading: false,
-        token: action.payload.accessToken,
-        username: action.payload.username,
-        userRole: action.payload.userRole,
+        errorMessage: action.payload,
       };
     default:
       return state;
