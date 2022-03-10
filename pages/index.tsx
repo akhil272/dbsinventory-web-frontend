@@ -1,9 +1,19 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStore } from "../store";
+import { retrieveUser } from "../store/actions/AuthActions";
+import Login from "./login";
+import Search from "./search";
+
 function Homepage() {
-  return (
-    <h1 className="text-center my-24 font-black tracking-tight text-6xl">
-      DBS Inventory
-    </h1>
-  );
+  const dispatch = useDispatch();
+  const token = useSelector((state: RootStore) => state.auth.token);
+
+  useEffect(() => {
+    dispatch(retrieveUser());
+  }, []);
+
+  return <div>{token != null ? <Search /> : <Login />}</div>;
 }
 
 export default Homepage;
