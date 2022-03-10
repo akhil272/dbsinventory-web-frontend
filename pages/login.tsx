@@ -22,7 +22,7 @@ const Login = () => {
   };
 
   const {
-    login,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<loginFormData>();
@@ -45,14 +45,14 @@ const Login = () => {
                 <input
                   placeholder="Enter your username"
                   className="bg-gray-200 rounded-lg p-2 w-full"
-                  {...login("username", { required: true, maxLength: 20 })}
+                  {...register("username", { required: true, maxLength: 20 })}
                 />
               </div>
               <div>
                 <input
                   placeholder="Enter your password"
                   className="bg-gray-200 rounded-lg p-2 w-full"
-                  {...login("password", { required: true, maxLength: 20 })}
+                  {...register("password", { required: true, maxLength: 20 })}
                 />
               </div>
               {errors.username?.type === "required" && "username is required"}
