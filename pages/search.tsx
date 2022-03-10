@@ -15,7 +15,7 @@ const Search = () => {
   };
 
   return (
-    <div className="h-screen bg-zinc-100 px-10 md:px-96">
+    <div className="h-screen pt-4 bg-zinc-100 px-10 md:px-96">
       <div className="pt-10">
         <h1 className="font-bold text-gray-500 text-2xl capitalize pb-4">
           Search for stocks
