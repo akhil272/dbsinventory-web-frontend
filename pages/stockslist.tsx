@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingAnimation from "../components/LoadingAnimation";
 import StockDetail from "../components/StockDetail";
 import { RootStore } from "../store";
 import { getAllStocks } from "../store/actions/StockActions";
@@ -31,9 +32,10 @@ const StocksList = () => {
     console.log("effect is called");
     dispatch(getAllStocks(token, page, take));
   }, [dispatch, page]);
+
   return (
     <div className="bg-zinc-100 py-10 md:px-96">
-      {isLoading && <div>Loading</div>}
+      {isLoading && <LoadingAnimation />}
       {stocks?.map((stock) => (
         <StockDetail
           key={stock.id}

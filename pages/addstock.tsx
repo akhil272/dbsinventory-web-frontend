@@ -60,6 +60,7 @@ const AddStock = () => {
             <InputField
               placeholder="Purchase date"
               register={register("purchase_date")}
+              type="date"
               error={errors.purchase_date?.message}
             />
             <InputField

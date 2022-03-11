@@ -1,9 +1,12 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import Router from "next/router";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import InputField from "../components/InputField";
 import { RootStore } from "../store";
 import { signIn } from "../store/actions/AuthActions";
+import UserAuthSchema from "../utils/UserAuthSchema";
 
 type loginFormData = {
   username: string;
@@ -16,6 +19,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleLogin = (data: loginFormData) => {
     dispatch(signIn(data.username, data.password));
+    console.log(data);
     if (token != null) {
       Router.push("search");
     }
@@ -25,38 +29,36 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginFormData>();
+  } = useForm<loginFormData>({ resolver: yupResolver(UserAuthSchema) });
   const onSubmit = handleSubmit((data) => handleLogin(data));
   return (
     <div className="h-screen px-6 w-screen bg-gray-300 flex items-center justify-center">
-      <div className="h-1/2 w-96 p-4 bg-white shadow-lg rounded-2xl">
+      <div className=" w-96 p-4 bg-zinc-100 shadow-lg rounded-2xl">
         <div className="p-4">
           <div className="flex items-center justify-center">
             <h1 className="font-semibold text-3xl ">Login Now</h1>
           </div>
           <div className="flex items-center justify-center">
-            <p className="text-md py-4">
+            <p className="text-md py-2">
               Please enter your credentials to login
             </p>
           </div>
           <div>
             <form className="space-y-5" onSubmit={onSubmit}>
-              <div className="flex justify-center">
-                <input
+              <div className="flex-col justify-center">
+                <InputField
                   placeholder="Enter your username"
-                  className="bg-gray-200 rounded-lg p-2 w-full"
-                  {...register("username", { required: true, maxLength: 20 })}
+                  register={register("username")}
+                  error={errors.username?.message}
+                />
+                <InputField
+                  placeholder="Enter your username"
+                  register={register("password")}
+                  error={errors.password?.message}
+                  type="password"
                 />
               </div>
-              <div>
-                <input
-                  placeholder="Enter your password"
-                  className="bg-gray-200 rounded-lg p-2 w-full"
-                  {...register("password", { required: true, maxLength: 20 })}
-                />
-              </div>
-              {errors.username?.type === "required" && "username is required"}
-              {errors.password?.type === "required" && "password is required"}
+
               <button
                 className="bg-red-500 w-full uppercase rounded-lg text-white p-4 mt-4"
                 type="button"
