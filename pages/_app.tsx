@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <Header />
+
       <Component {...pageProps} />
     </Provider>
   );

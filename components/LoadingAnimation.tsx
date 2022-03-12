@@ -1,6 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+interface LoadingAnimationProps {
+  message?: string;
+}
 const _size = 20;
 const loadingContainerVariants = {
   start: {
@@ -25,12 +28,13 @@ const loadingCirclesVariants = {
 };
 
 const loadingCirclesTransitions = {
-  duration: 0.4,
+  duration: 1,
   repeat: Infinity,
+  type: "tween",
   ease: "easeInOut",
 };
 
-const LoadingAnimation = () => {
+const LoadingAnimation = ({ message }: LoadingAnimationProps) => {
   return (
     <motion.div className="w-screen bg-zinc-100  h-screen flex justify-center items-center">
       <motion.div
@@ -54,6 +58,9 @@ const LoadingAnimation = () => {
           transition={loadingCirclesTransitions}
           className="w-10 h-10 rounded-full bg-red-500"
         />
+      </motion.div>
+      <motion.div className="text-center text-red-600 text-lg">
+        {message}
       </motion.div>
     </motion.div>
   );

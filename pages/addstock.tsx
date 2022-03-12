@@ -4,14 +4,44 @@ import InputField from "../components/InputField";
 import { Stock } from "../store/actions/StockActionTypes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AddStockSchema from "../utils/AddStockSchema";
+import { useDispatch, useSelector } from "react-redux";
+import { addStock } from "../store/actions/StockActions";
+import { RootStore } from "../store";
+import LoadingAnimation from "../components/LoadingAnimation";
+import Link from "next/link";
+
 const AddStock = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Stock>({ resolver: yupResolver(AddStockSchema) });
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => addStockToDatabase(data));
 
+  const token = useSelector((state: RootStore) => state.auth.token);
+  const isLoading = useSelector((state: RootStore) => state.stock.isLoading);
+  const onSuccess = useSelector((state: RootStore) => state.stock.onSuccess);
+  const addStockToDatabase = (data) => {
+    dispatch(addStock(data, token));
+    console.log("stocks dispatch", data);
+  };
+  if (isLoading) {
+    return (
+      <LoadingAnimation message="Add stocks to DBS Inventory. Please wait..." />
+    );
+  }
+  if (onSuccess === "true") {
+    return (
+      <div className="h-screen w-screen bg-red-300 items-center justify-center">
+        <div className="text-lg py-10 text-black">Stock added</div>
+        <div className="flex-col space-x-3">
+          <Link href="/search">Search Page</Link>
+          <Link href="/addstock">Add new stock</Link>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className=" bg-zinc-100 px-10 pt-4 md:px-96">
       <div className="pt-10">

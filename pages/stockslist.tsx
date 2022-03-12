@@ -32,10 +32,11 @@ const StocksList = () => {
     console.log("effect is called");
     dispatch(getAllStocks(token, page, take));
   }, [dispatch, page]);
-
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
   return (
     <div className="bg-zinc-100 py-10 md:px-96">
-      {isLoading && <LoadingAnimation />}
       {stocks?.map((stock) => (
         <StockDetail
           key={stock.id}

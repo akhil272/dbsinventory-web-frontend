@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import Router from "next/router";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import InputField from "../components/InputField";
+import LoadingAnimation from "../components/LoadingAnimation";
 import { RootStore } from "../store";
 import { signIn } from "../store/actions/AuthActions";
 import UserAuthSchema from "../utils/UserAuthSchema";
@@ -14,15 +15,13 @@ type loginFormData = {
 };
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const token = useSelector((state: RootStore) => state.auth.token);
-
+  const isLoading = useSelector((state: RootStore) => state.auth.isLoading);
+  const router = useRouter();
   const dispatch = useDispatch();
   const handleLogin = (data: loginFormData) => {
     dispatch(signIn(data.username, data.password));
-    console.log(data);
-    if (token != null) {
-      Router.push("search");
-    }
   };
 
   const {
@@ -31,6 +30,12 @@ const Login = () => {
     formState: { errors },
   } = useForm<loginFormData>({ resolver: yupResolver(UserAuthSchema) });
   const onSubmit = handleSubmit((data) => handleLogin(data));
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
+  if (token != null) {
+    router.push("search");
+  }
   return (
     <div className="h-screen px-6 w-screen bg-gray-300 flex items-center justify-center">
       <div className=" w-96 p-4 bg-zinc-100 shadow-lg rounded-2xl">
@@ -55,7 +60,8 @@ const Login = () => {
                   placeholder="Enter your username"
                   register={register("password")}
                   error={errors.password?.message}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="on"
                 />
               </div>
 
