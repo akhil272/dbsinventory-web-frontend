@@ -41,9 +41,16 @@ export const addOrder =
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => dispatch({ type: ADD_ORDER_SUCCESS }))
-        .catch(() =>
-          dispatch({ type: ADD_ORDER_FAIL, payload: "Failed in backend" })
-        );
+        .catch((error) => {
+          if ((error.status = "409")) {
+            dispatch({
+              type: ADD_ORDER_FAIL,
+              payload: "Not enough stock to sell",
+            });
+          } else {
+            dispatch({ type: ADD_ORDER_FAIL, payload: error.message });
+          }
+        });
     } catch (error) {
       dispatch({ type: ADD_ORDER_FAIL, payload: "Frontend failure" });
     }

@@ -31,7 +31,7 @@ const Login = () => {
   } = useForm<loginFormData>({ resolver: yupResolver(UserAuthSchema) });
   const onSubmit = handleSubmit((data) => handleLogin(data));
   if (isLoading) {
-    return <LoadingAnimation />;
+    return <LoadingAnimation message="Please wait..." />;
   }
   if (token != null) {
     router.push("search");

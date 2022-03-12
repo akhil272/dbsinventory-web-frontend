@@ -10,13 +10,13 @@ import {
   StocksDispatchTypes,
   STOCKS_FAIL,
   STOCKS_SUCCESS,
-} from '../actions/StockActionTypes';
-import {STOCKS_LOADING} from './../actions/StockActionTypes';
+} from "../actions/StockActionTypes";
+import { STOCKS_LOADING } from "./../actions/StockActionTypes";
 
 interface StockDefaultStateI {
   isLoading: boolean;
   stocksData?: StocksData;
-  meta?: {total: number; page: number; last_page: number};
+  meta?: { total: number; page: number; last_page: number };
   errorMessage?: string;
   onSuccess?: string;
 }
@@ -26,7 +26,7 @@ const defaultState: StockDefaultStateI = {
 
 const stockReducer = (
   state: StockDefaultStateI = defaultState,
-  action: StocksDispatchTypes,
+  action: StocksDispatchTypes
 ): StockDefaultStateI => {
   switch (action.type) {
     case STOCKS_LOADING:
@@ -34,7 +34,7 @@ const stockReducer = (
       return {
         ...state,
         isLoading: true,
-        onSuccess: 'false',
+        onSuccess: "false",
       };
     }
 
@@ -44,8 +44,8 @@ const stockReducer = (
         ...state,
         stocksData: action.payload,
         isLoading: false,
-        errorMessage: '',
-        onSuccess: 'true',
+        errorMessage: "",
+        onSuccess: "true",
       };
     }
 
@@ -55,7 +55,7 @@ const stockReducer = (
         ...state,
         errorMessage: action.payload,
         isLoading: false,
-        onSuccess: 'false',
+        onSuccess: "false",
       };
     }
 
@@ -63,28 +63,28 @@ const stockReducer = (
       return {
         ...state,
         isLoading: true,
-        onSuccess: '',
-        errorMessage: '',
+        onSuccess: "",
+        errorMessage: "",
       };
     case ADD_STOCKS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        onSuccess: 'true',
-        errorMessage: '',
+        onSuccess: "true",
+        errorMessage: "",
       };
     case ADD_STOCKS_FAIL:
       return {
         ...state,
         isLoading: false,
-        onSuccess: 'false',
+        onSuccess: "false",
         errorMessage: action.payload,
       };
     case CLEAR_STOCKS_STATES:
       return {
         ...state,
-        onSuccess: '',
-        errorMessage: '',
+        onSuccess: "",
+        errorMessage: "",
       };
     default:
       return state;

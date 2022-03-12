@@ -2,12 +2,13 @@ import {
   ADD_ORDER_FAIL,
   ADD_ORDER_INIT,
   ADD_ORDER_SUCCESS,
+  CLEAR_ORDER_STATES,
   Order,
   OrderDispatchTypes,
   ORDERS_FAIL,
   ORDERS_LOADING,
   ORDERS_SUCCESS,
-} from '../actions/OrderActionTypes';
+} from "../actions/OrderActionTypes";
 
 interface OrderDefaultStateI {
   isLoading: boolean;
@@ -21,7 +22,7 @@ const defaultState: OrderDefaultStateI = {
 
 const orderReducer = (
   state: OrderDefaultStateI = defaultState,
-  action: OrderDispatchTypes,
+  action: OrderDispatchTypes
 ): OrderDefaultStateI => {
   switch (action.type) {
     case ORDERS_LOADING:
@@ -45,20 +46,27 @@ const orderReducer = (
       return {
         ...state,
         isLoading: true,
-        onSuccess: 'false',
+        onSuccess: "false",
       };
     case ADD_ORDER_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        onSuccess: 'true',
+        onSuccess: "true",
       };
     case ADD_ORDER_FAIL:
       return {
         ...state,
         isLoading: false,
         errorMessage: action.payload,
-        onSuccess: 'false',
+        onSuccess: "false",
+      };
+
+    case CLEAR_ORDER_STATES:
+      return {
+        ...state,
+        onSuccess: "",
+        errorMessage: "",
       };
     default:
       return state;

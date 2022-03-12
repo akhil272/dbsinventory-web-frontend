@@ -37,6 +37,9 @@ const loadingCirclesTransitions = {
 const LoadingAnimation = ({ message }: LoadingAnimationProps) => {
   return (
     <motion.div className="w-screen bg-zinc-100  h-screen flex justify-center items-center">
+      <motion.div className="text-center justify-center absolute bottom-64 items-center text-red-600 text-lg">
+        {message}
+      </motion.div>
       <motion.div
         variants={loadingContainerVariants}
         initial="start"
@@ -58,9 +61,6 @@ const LoadingAnimation = ({ message }: LoadingAnimationProps) => {
           transition={loadingCirclesTransitions}
           className="w-10 h-10 rounded-full bg-red-500"
         />
-      </motion.div>
-      <motion.div className="text-center text-red-600 text-lg">
-        {message}
       </motion.div>
     </motion.div>
   );

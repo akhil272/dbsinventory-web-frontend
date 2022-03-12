@@ -50,7 +50,7 @@ export default function SideBar({ open, setOpen }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="w-72 h-screen fixed px-2 pt-3 bg-zinc-200"
+            className="w-72 h-screen z-10 fixed px-2 pt-3 bg-zinc-200"
             initial={{ width: 0 }}
             animate={{
               width: 300,

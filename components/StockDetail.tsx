@@ -1,6 +1,7 @@
 import React from "react";
 import { EditOutlined } from "@ant-design/icons";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 interface StockItemProps {
   brand: string;
@@ -14,7 +15,7 @@ interface StockItemProps {
   location: string;
   quantity: number | string;
   cost: number | string;
-  onEditOrder?: any;
+  stockId?: string;
 }
 
 const StockDetail = ({
@@ -29,8 +30,12 @@ const StockDetail = ({
   location,
   quantity,
   cost,
-  onEditOrder,
+  stockId,
 }: StockItemProps) => {
+  const router = useRouter();
+  const onEditOrder = (id: string) => {
+    router.push(`/stock/${id}`);
+  };
   return (
     <div className="rounded-lg bg-zinc-300 mx-4 shadow-md">
       <div className="bg-[#2C3359] rounded-t-lg p-2 flex text-white">
@@ -45,7 +50,10 @@ const StockDetail = ({
               <div className="text-lg font-semibold">{vendor}</div>
             </div>
             <div>
-              <div className="absolute right-0 top-0" onClick={onEditOrder}>
+              <div
+                className="absolute right-0 top-0"
+                onClick={() => onEditOrder(stockId)}
+              >
                 <EditOutlined />
               </div>
             </div>

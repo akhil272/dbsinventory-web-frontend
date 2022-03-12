@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import InputField from "../components/InputField";
-import { Stock } from "../store/actions/StockActionTypes";
+import { CLEAR_STOCKS_STATES, Stock } from "../store/actions/StockActionTypes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AddStockSchema from "../utils/AddStockSchema";
 import { useDispatch, useSelector } from "react-redux";
 import { addStock } from "../store/actions/StockActions";
 import { RootStore } from "../store";
 import LoadingAnimation from "../components/LoadingAnimation";
-import Link from "next/link";
+import Modal from "../components/Modal";
 
 const AddStock = () => {
   const dispatch = useDispatch();
@@ -22,36 +22,43 @@ const AddStock = () => {
   const token = useSelector((state: RootStore) => state.auth.token);
   const isLoading = useSelector((state: RootStore) => state.stock.isLoading);
   const onSuccess = useSelector((state: RootStore) => state.stock.onSuccess);
+  const errorMessage = useSelector(
+    (state: RootStore) => state.stock.errorMessage
+  );
   const addStockToDatabase = (data) => {
     dispatch(addStock(data, token));
-    console.log("stocks dispatch", data);
   };
+
+  useEffect(() => {
+    dispatch({ type: CLEAR_STOCKS_STATES });
+  }, []);
+
   if (isLoading) {
     return (
-      <LoadingAnimation message="Add stocks to DBS Inventory. Please wait..." />
+      <LoadingAnimation message="Adding stock to DBS Inventory. Please wait..." />
     );
   }
   if (onSuccess === "true") {
     return (
-      <div className="h-screen w-screen bg-red-300 items-center justify-center">
-        <div className="text-lg py-10 text-black">Stock added</div>
-        <div className="flex-col space-x-3">
-          <Link href="/search">Search Page</Link>
-          <Link href="/addstock">Add new stock</Link>
-        </div>
-      </div>
+      <Modal
+        data="stock"
+        description="Stock successfully added to DBS Inventory"
+      />
     );
   }
+  if (errorMessage?.length > 3) {
+    return <Modal data="stock" description={`Failed. ${errorMessage}`} />;
+  }
+
   return (
-    <div className=" bg-zinc-100 px-10 pt-4 md:px-96">
-      <div className="pt-10">
+    <div className="bg-zinc-100 px-10 pt-4 pb-10 md:px-96">
+      <div className="pt-10 md:px-96">
         <h1 className="font-bold text-gray-500 text-2xl capitalize pb-4">
           Add Stock
         </h1>
       </div>
-      <div className="space-y-4"></div>
       <div>
-        <form className="space-y-5" onSubmit={onSubmit}>
+        <form className="space-y-5 md:px-96" onSubmit={onSubmit}>
           <div className="flex-col justify-center">
             <div>
               <label>Select Product Line</label>
