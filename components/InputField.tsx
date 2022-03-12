@@ -16,7 +16,7 @@ const InputField = ({
   return (
     <>
       <input
-        className="p-3 shadow-md w-full bg-white rounded-lg my-2"
+        className="p-3 shadow-md w-full rounded-lg my-2"
         placeholder={placeholder}
         {...register}
         type={type}
