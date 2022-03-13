@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MenuOutlined } from "@ant-design/icons";
+import {
+  MenuOutlined,
+  SearchOutlined,
+  HomeOutlined,
+  FileAddOutlined,
+  LogoutOutlined,
+} from "@ant-design/icons";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../store/actions/AuthActions";
@@ -8,9 +14,9 @@ import { useRouter } from "next/router";
 import { RootStore } from "../store";
 
 const links = [
-  { name: "Home", to: "/search", id: 1 },
-  { name: "Search", to: "/search", id: 2 },
-  { name: "Add Stock", to: "/addstock", id: 3 },
+  { name: "Home", to: "/search", id: 1, iconName: <HomeOutlined /> },
+  { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
+  { name: "Add Stock", to: "/addstock", id: 3, iconName: <FileAddOutlined /> },
 ];
 
 const itemVariants = {
@@ -53,11 +59,11 @@ export default function SideBar({ open, setOpen }) {
             className="w-72 h-screen z-10 fixed px-2 pt-3 bg-zinc-200"
             initial={{ width: 0 }}
             animate={{
-              width: 300,
+              width: 250,
             }}
             exit={{
               width: 0,
-              transition: { delay: 0.7, duration: 0.3 },
+              transition: { delay: 0.5, duration: 0.3 },
             }}
           >
             <motion.div
@@ -88,36 +94,72 @@ export default function SideBar({ open, setOpen }) {
                   variants={sideVariants}
                   className="h-20 w-20 rounded-full bg-slate-800"
                 />
-                <motion.div variants={sideVariants} className="flex-row px-4 ">
-                  <motion.div variants={itemVariants}>{username}</motion.div>
-                  <motion.div variants={itemVariants}>{userRole}</motion.div>
+                <motion.div
+                  variants={sideVariants}
+                  className="flex-col self-center  px-4 "
+                >
                   <motion.div
+                    className="text-lg uppercase font-semibold"
                     variants={itemVariants}
-                    className="text-red-500 font-bold uppercase"
-                    onClick={signOutUser}
                   >
-                    Sign Out
+                    {username}
+                  </motion.div>
+                  <motion.div
+                    className="text-md capitalize font-normal"
+                    variants={itemVariants}
+                  >
+                    {userRole}
                   </motion.div>
                 </motion.div>
               </motion.div>
 
-              {links.map(({ name, to, id }) => (
+              {links.map(({ name, to, id, iconName }) => (
                 <motion.div onClick={() => setOpen(!open)} key={id}>
                   <Link href={to}>
                     <motion.a
-                      className="text-gray-700 p-1 text-md block"
+                      className="text-gray-700 h-10 items-center flex p-1 text-md  "
                       whileHover={{
                         scale: 1.1,
                         x: 50,
                         color: "black",
+                        transition: { type: "spring", stiffness: 80 },
                       }}
                       variants={itemVariants}
                     >
-                      {name}
+                      <motion.div className="pr-4 h-8 text-red-500 ">
+                        {iconName}
+                      </motion.div>
+                      <motion.div className="flex"> {name}</motion.div>
                     </motion.a>
                   </Link>
                 </motion.div>
               ))}
+            </motion.div>
+            <motion.div
+              initial="closed"
+              animate="open"
+              exit="closed"
+              variants={sideVariants}
+              className="text-red-500  absolute bottom-4 font-bold uppercase"
+              onClick={signOutUser}
+              whileHover={{
+                scale: 1.1,
+                x: 50,
+                color: "red",
+              }}
+            >
+              <motion.label
+                variants={itemVariants}
+                className="pr-4 h-8 text-red-500 "
+              >
+                <LogoutOutlined />
+              </motion.label>
+              <motion.label
+                variants={itemVariants}
+                className=" h-10 align-middle items-center"
+              >
+                Sign Out
+              </motion.label>
             </motion.div>
           </motion.div>
         )}
