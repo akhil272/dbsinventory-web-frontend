@@ -1,14 +1,16 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingAnimation from "../components/LoadingAnimation";
-import StockDetail from "../components/StockDetail";
-import { RootStore } from "../store";
-import { getAllStocks } from "../store/actions/StockActions";
+import LoadingAnimation from "../../components/LoadingAnimation";
+import StockDetail from "../../components/StockDetail";
+import { RootStore } from "../../store";
+import { getStocksBySearch } from "../../store/actions/StockActions";
 
 const StocksList = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { searchTerm } = router.query;
+
   const token = useSelector((state: RootStore) => state.auth.token);
   const isLoading = useSelector((state: RootStore) => state.stock.isLoading);
   const errorMessage = useSelector(
@@ -29,7 +31,7 @@ const StocksList = () => {
     setPage(page - 1);
   };
   useEffect(() => {
-    dispatch(getAllStocks(token, page, take));
+    dispatch(getStocksBySearch(String(searchTerm), token, page, take));
   }, [dispatch, page]);
   if (isLoading) {
     return (

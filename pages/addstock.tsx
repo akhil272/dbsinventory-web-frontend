@@ -51,14 +51,14 @@ const AddStock = () => {
   }
 
   return (
-    <div className="bg-zinc-100 px-10 pt-4 pb-10 md:px-96">
+    <div className="bg-zinc-100 px-10 pt-4 pb-10 2xl:px-96">
       <div className="pt-10 md:px-96">
         <h1 className="font-bold text-gray-500 text-2xl capitalize pb-4">
           Add Stock
         </h1>
       </div>
       <div>
-        <form className="space-y-5 md:px-96" onSubmit={onSubmit}>
+        <form className="space-y-5 2xl:px-56" onSubmit={onSubmit}>
           <div className="flex-col justify-center">
             <div>
               <label>Select Product Line</label>
