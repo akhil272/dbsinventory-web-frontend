@@ -17,7 +17,7 @@ const ManageUsers = () => {
     console.log("how manytimes");
     dispatch(getAllUsers(token));
   }, [dispatch]);
-  if (userRole != "manager") {
+  if (userRole != "admin") {
     return (
       <div className="text-2xl text-red-400 flex items-center justify-center h-screen">
         Access Denied. Please contact Bibin
