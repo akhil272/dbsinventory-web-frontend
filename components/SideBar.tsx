@@ -6,6 +6,7 @@ import {
   HomeOutlined,
   FileAddOutlined,
   LogoutOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +18,12 @@ const links = [
   { name: "Home", to: "/search", id: 1, iconName: <HomeOutlined /> },
   { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
   { name: "Add Stock", to: "/addstock", id: 3, iconName: <FileAddOutlined /> },
+  {
+    name: "Manage Users",
+    to: "/manageusers",
+    id: 4,
+    iconName: <UserAddOutlined />,
+  },
 ];
 
 const itemVariants = {

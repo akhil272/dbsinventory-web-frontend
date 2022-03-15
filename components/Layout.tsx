@@ -11,7 +11,6 @@ const Layout = ({ children }) => {
   const token = useSelector((state: RootStore) => state.auth.token);
   const isLoading = useSelector((state: RootStore) => state.auth.isLoading);
   useEffect(() => {
-    console.log("who many times");
     dispatch(retrieveUser());
   }, []);
   if (isLoading) {
