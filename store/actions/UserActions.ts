@@ -51,9 +51,20 @@ export const createUser =
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => dispatch({ type: CREATE_NEW_USER_SUCCESS }))
-        .catch(() => dispatch({ type: CREATE_NEW_USER_FAIL }));
+        .catch((error) => {
+          if (error.status === "409") {
+            dispatch({
+              type: CREATE_NEW_USER_FAIL,
+              payload: "User already exists",
+            });
+          }
+          dispatch({
+            type: CREATE_NEW_USER_FAIL,
+            payload: "user already exists",
+          });
+        });
     } catch (error) {
-      dispatch({ type: CREATE_NEW_USER_FAIL });
+      dispatch({ type: CREATE_NEW_USER_FAIL, payload: error.message });
     }
   };
 
@@ -68,9 +79,11 @@ export const updateUserRole =
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => dispatch({ type: UPDATE_USER_SUCCESS }))
-        .catch(() => dispatch({ type: UPDATE_USER_FAIL }));
+        .catch((error) =>
+          dispatch({ type: UPDATE_USER_FAIL, payload: error.message })
+        );
     } catch (error) {
-      dispatch({ type: UPDATE_USER_FAIL });
+      dispatch({ type: UPDATE_USER_FAIL, payload: error.message });
     }
   };
 
@@ -84,8 +97,10 @@ export const deleteUser =
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(() => dispatch({ type: DELETE_USER_SUCCESS }))
-        .catch(() => dispatch({ type: DELETE_USER_FAIL }));
+        .catch((error) =>
+          dispatch({ type: DELETE_USER_FAIL, payload: error.message })
+        );
     } catch (error) {
-      dispatch({ type: DELETE_USER_FAIL });
+      dispatch({ type: DELETE_USER_FAIL, payload: error.message });
     }
   };

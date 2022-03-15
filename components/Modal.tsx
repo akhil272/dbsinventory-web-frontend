@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { CLEAR_ORDER_STATES } from "../store/actions/OrderActionTypes";
 import { CLEAR_STOCKS_STATES } from "../store/actions/StockActionTypes";
+import { CLEAR_USER_STATES } from "../store/actions/UserActionTypes";
 interface ModalProps {
   description: string;
   data: string;
@@ -12,10 +13,14 @@ const Modal = ({ description, data, id }: ModalProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const onContinue = () => {
-    {
-      data === "stock"
-        ? (dispatch({ type: CLEAR_STOCKS_STATES }), router.push("/addstock"))
-        : (dispatch({ type: CLEAR_ORDER_STATES }), router.push(`/stock/${id}`));
+    if (data === "user") {
+      dispatch({ type: CLEAR_USER_STATES }), router.push("/users");
+    }
+    if (data === "stock") {
+      dispatch({ type: CLEAR_STOCKS_STATES }), router.push("/addstock");
+    }
+    if (data === "order") {
+      dispatch({ type: CLEAR_ORDER_STATES }), router.push(`/stock/${id}`);
     }
   };
   return (

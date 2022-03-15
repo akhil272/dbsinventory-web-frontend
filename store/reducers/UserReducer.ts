@@ -11,7 +11,9 @@ import {
   UPDATE_USER_SUCCESS,
   DELETE_USER_SUCCESS,
   CLEAR_USER_STATES,
-} from '../actions/UserActionTypes';
+  CREATE_NEW_USER_FAIL,
+  UPDATE_USER_FAIL,
+} from "../actions/UserActionTypes";
 
 interface UserDefaultStateI {
   isLoading: boolean;
@@ -22,12 +24,12 @@ interface UserDefaultStateI {
 
 const defaultState: UserDefaultStateI = {
   isLoading: false,
-  onSuccess: 'false',
+  onSuccess: "false",
 };
 
 const userReducer = (
   state: UserDefaultStateI = defaultState,
-  action: UserDispatchActions,
+  action: UserDispatchActions
 ): UserDefaultStateI => {
   switch (action.type) {
     case GET_ALL_USERS_INIT:
@@ -37,8 +39,8 @@ const userReducer = (
       return {
         ...state,
         isLoading: true,
-        onSuccess: '',
-        errorMessage: '',
+        onSuccess: "",
+        errorMessage: "",
       };
     }
 
@@ -47,8 +49,8 @@ const userReducer = (
         ...state,
         isLoading: false,
         users: action.payload,
-        onSuccess: 'true',
-        errorMessage: '',
+        onSuccess: "true",
+        errorMessage: "",
       };
     case CREATE_NEW_USER_SUCCESS:
     case UPDATE_USER_SUCCESS:
@@ -56,24 +58,27 @@ const userReducer = (
       return {
         ...state,
         isLoading: false,
-        onSuccess: 'true',
-        errorMessage: '',
+        onSuccess: "true",
+        errorMessage: "",
       };
     }
 
     case GET_ALL_USERS_FAIL:
+    case CREATE_NEW_USER_FAIL:
+    case UPDATE_USER_FAIL: {
       return {
         ...state,
         isLoading: false,
         errorMessage: action.payload,
-        onSuccess: 'false',
+        onSuccess: "false",
       };
+    }
 
     case CLEAR_USER_STATES:
       return {
         ...state,
-        onSuccess: '',
-        errorMessage: '',
+        onSuccess: "",
+        errorMessage: "",
       };
     default:
       return state;

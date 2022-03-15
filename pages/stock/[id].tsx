@@ -66,8 +66,8 @@ const OrderDetail = () => {
   return (
     <div className="bg-zinc-100 h-screen px-10 pt-4 pb-10 md:px-96">
       <div className="pt-10 md:px-96">
-        <h1 className="font-bold text-gray-500 text-2xl capitalize pb-4">
-          Add Orders to stock
+        <h1 className="font-bold text-gray-500 text-2xl capitalize pb-2">
+          Record sales
         </h1>
       </div>
       <div>

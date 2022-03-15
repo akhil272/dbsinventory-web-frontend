@@ -5,4 +5,8 @@ const UserAuthSchema = Yup.object().shape({
   password: Yup.string().required("Required"),
 });
 
+export const UserUpdateRoleSchema = Yup.object().shape({
+  userRole: Yup.string().required("Required"),
+});
+
 export default UserAuthSchema;
