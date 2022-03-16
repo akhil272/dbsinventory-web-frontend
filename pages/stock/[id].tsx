@@ -1,12 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import InputField from "../../components/InputField";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import Modal from "../../components/Modal";
+import SaleRecords from "../../components/SaleRecords";
 import { RootStore } from "../../store";
-import { addOrder } from "../../store/actions/OrderActions";
+import { addOrder, getAllOrders } from "../../store/actions/OrderActions";
 import { Order } from "../../store/actions/OrderActionTypes";
 import AddOrderSchema from "../../utils/AddOrderSchema";
 const OrderDetail = () => {
@@ -16,17 +18,23 @@ const OrderDetail = () => {
   const username = useSelector((state: RootStore) => state.auth.username);
   const isLoading = useSelector((state: RootStore) => state.order.isLoading);
   const onSuccess = useSelector((state: RootStore) => state.order.onSuccess);
+  const orders = useSelector((state: RootStore) => state.order.orders);
+  const userRole = useSelector((state: RootStore) => state.auth.userRole);
+
   const errorMessage = useSelector(
     (state: RootStore) => state.order.errorMessage
   );
   const { id } = router.query;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Order>({ resolver: yupResolver(AddOrderSchema) });
   const onSubmit = handleSubmit((data) => addOrderToDatabase(data));
-
+  useEffect(() => {
+    dispatch(getAllOrders(String(id), token));
+  }, []);
   const addOrderToDatabase = (data) => {
     const sale_date = new Date();
     const order = {
@@ -63,6 +71,7 @@ const OrderDetail = () => {
       />
     );
   }
+
   return (
     <div className="bg-zinc-100 h-screen px-10 pt-4 pb-10 md:px-96">
       <div className="pt-10 md:px-96">
@@ -98,6 +107,19 @@ const OrderDetail = () => {
             Submit
           </button>
         </form>
+      </div>
+      <div>
+        {userRole === "admin" &&
+          orders?.map((order) => (
+            <SaleRecords
+              key={order.id}
+              sold_by_user={order.sold_by_user}
+              sold_price={order.sold_price}
+              customer_name={order.customer_name}
+              sale_date={order.sale_date}
+              quantity={order.quantity}
+            />
+          ))}
       </div>
     </div>
   );

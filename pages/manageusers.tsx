@@ -7,7 +7,7 @@ import LoadingAnimation from "../components/LoadingAnimation";
 import UpdateRoleModal from "../components/UpdateRoleModal";
 import UserCard from "../components/UserCard";
 import { RootStore } from "../store";
-import { deleteUser, getAllUsers } from "../store/actions/UserActions";
+import { getAllUsers } from "../store/actions/UserActions";
 import { CLEAR_USER_STATES } from "../store/actions/UserActionTypes";
 
 const ManageUsers = () => {
