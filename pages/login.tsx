@@ -57,7 +57,7 @@ const Login = () => {
                   error={errors.username?.message}
                 />
                 <InputField
-                  placeholder="Enter your username"
+                  placeholder="Enter your password"
                   register={register("password")}
                   error={errors.password?.message}
                   type={showPassword ? "text" : "password"}
