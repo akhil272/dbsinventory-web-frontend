@@ -3,9 +3,15 @@ import {
   ADD_STOCKS_INIT,
   ADD_STOCKS_SUCCESS,
   CLEAR_STOCKS_STATES,
+  DELETE_STOCK_FAIL,
+  DELETE_STOCK_INIT,
+  DELETE_STOCK_SUCCESS,
   GET_STOCKS_BY_SEARCH_FAIL,
   GET_STOCKS_BY_SEARCH_INIT,
   GET_STOCKS_BY_SEARCH_SUCCESS,
+  GET_STOCK_BY_ID_FAIL,
+  GET_STOCK_BY_ID_INIT,
+  GET_STOCK_BY_ID_SUCCESS,
   StocksData,
   StocksDispatchTypes,
   STOCKS_FAIL,
@@ -30,6 +36,7 @@ const stockReducer = (
 ): StockDefaultStateI => {
   switch (action.type) {
     case STOCKS_LOADING:
+    case GET_STOCK_BY_ID_INIT:
     case GET_STOCKS_BY_SEARCH_INIT: {
       return {
         ...state,
@@ -50,6 +57,7 @@ const stockReducer = (
     }
 
     case STOCKS_FAIL:
+    case GET_STOCK_BY_ID_FAIL:
     case GET_STOCKS_BY_SEARCH_FAIL: {
       return {
         ...state,
@@ -58,6 +66,15 @@ const stockReducer = (
         onSuccess: "false",
       };
     }
+
+    case GET_STOCK_BY_ID_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        onSuccess: "true",
+        errorMessage: "",
+        stocksData: action.payload,
+      };
 
     case ADD_STOCKS_INIT:
       return {
@@ -79,6 +96,27 @@ const stockReducer = (
         isLoading: false,
         onSuccess: "false",
         errorMessage: action.payload,
+      };
+    case DELETE_STOCK_INIT:
+      return {
+        ...state,
+        isLoading: true,
+        onSuccess: "",
+        errorMessage: "",
+      };
+    case DELETE_STOCK_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        onSuccess: "true",
+        errorMessage: "",
+      };
+    case DELETE_STOCK_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        onSuccess: "false",
+        errorMessage: "Failed to delete.Contact admin",
       };
     case CLEAR_STOCKS_STATES:
       return {

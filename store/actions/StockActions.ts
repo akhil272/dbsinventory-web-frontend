@@ -5,9 +5,15 @@ import {
   ADD_STOCKS_FAIL,
   ADD_STOCKS_INIT,
   ADD_STOCKS_SUCCESS,
+  DELETE_STOCK_FAIL,
+  DELETE_STOCK_INIT,
+  DELETE_STOCK_SUCCESS,
   GET_STOCKS_BY_SEARCH_FAIL,
   GET_STOCKS_BY_SEARCH_INIT,
   GET_STOCKS_BY_SEARCH_SUCCESS,
+  GET_STOCK_BY_ID_FAIL,
+  GET_STOCK_BY_ID_INIT,
+  GET_STOCK_BY_ID_SUCCESS,
   Stock,
   StocksDispatchTypes,
   STOCKS_FAIL,
@@ -85,5 +91,54 @@ export const addStock =
         );
     } catch (error) {
       dispatch({ type: ADD_STOCKS_FAIL, payload: "Frontend failure" });
+    }
+  };
+
+export const getStockById =
+  (token: string | null | undefined, id: string) =>
+  async (dispatch: Dispatch<StocksDispatchTypes>) => {
+    console.log("redux", id);
+    dispatch({ type: GET_STOCK_BY_ID_INIT });
+    try {
+      const stocksData = await dbsServerApi
+        .get(`/stocks/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => response.data)
+        .catch((error) =>
+          dispatch({ type: GET_STOCK_BY_ID_FAIL, payload: error.message })
+        );
+      dispatch({ type: GET_STOCK_BY_ID_SUCCESS, payload: stocksData });
+      console.log("redux", stocksData);
+    } catch (error) {
+      dispatch({
+        type: GET_STOCK_BY_ID_FAIL,
+        payload: "Failed to connect with server.",
+      });
+    }
+  };
+
+export const deleteStock =
+  (token: string | null | undefined, id: string) =>
+  async (dispatch: Dispatch<StocksDispatchTypes>) => {
+    dispatch({ type: DELETE_STOCK_INIT });
+    try {
+      await dbsServerApi
+        .delete(`/stocks/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => response.data)
+        .catch((error) =>
+          dispatch({
+            type: DELETE_STOCK_FAIL,
+            payload: "Failed to delete stock from database.",
+          })
+        );
+      dispatch({ type: DELETE_STOCK_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: DELETE_STOCK_FAIL,
+        payload: "Failed to delete stock from database.",
+      });
     }
   };
