@@ -22,6 +22,9 @@ const Modal = ({ description, data, id }: ModalProps) => {
     if (data === "order") {
       dispatch({ type: CLEAR_ORDER_STATES }), router.push(`/stock/${id}`);
     }
+    if (data === "deleteStock") {
+      dispatch({ type: CLEAR_STOCKS_STATES }), router.push("/stockslist");
+    }
   };
   return (
     <div className="h-screen px-6 w-screen bg-gray-300 flex items-center justify-center">

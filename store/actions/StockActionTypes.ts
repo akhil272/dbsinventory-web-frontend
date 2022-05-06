@@ -20,17 +20,47 @@ export const DELETE_STOCK_FAIL = "ADD_STOCKS_FAIL";
 
 export const CLEAR_STOCKS_STATES = "CLEAR_STOCKS_STATES";
 
+type Brand = {
+  id: string;
+  name: string;
+};
+
+type Pattern = {
+  brand: Brand;
+  id: string;
+  name: string;
+};
+
+type Location = {
+  id: string;
+  name: string;
+};
+type Transport = {
+  id: string;
+  mode: string;
+};
+type Vendor = {
+  id: string;
+  name: string;
+};
+type TyreSize = {
+  id: string;
+  size: string;
+};
+type TyreDetail = {
+  pattern: Pattern;
+  tyreSize: TyreSize;
+};
+
 export type Stock = {
-  id?: string;
+  id: string;
   product_line: string;
-  brand: string;
-  tyre_size: string;
-  pattern_name: string;
+  tyreDetail: TyreDetail;
   dom: string;
   purchase_date: string;
-  transport_mode: string;
-  vendor: string;
-  location: string;
+  transport: Transport;
+  vendor: Vendor;
+  location: Location;
   quantity: string;
   cost: string;
 };

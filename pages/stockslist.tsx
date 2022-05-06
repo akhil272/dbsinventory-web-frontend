@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingAnimation from "../components/LoadingAnimation";
@@ -8,7 +7,6 @@ import { getAllStocks } from "../store/actions/StockActions";
 
 const StocksList = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const token = useSelector((state: RootStore) => state.auth.token);
   const isLoading = useSelector((state: RootStore) => state.stock.isLoading);
   const errorMessage = useSelector(
@@ -37,24 +35,26 @@ const StocksList = () => {
     );
   }
   return (
-    <div className="bg-zinc-100  py-10 lg:px-96">
-      {stocks?.map((stock) => (
-        <StockDetail
-          key={stock.id}
-          brand={stock.brand}
-          vendor={stock.vendor}
-          tyre_size={stock.tyre_size}
-          pattern_name={stock.pattern_name}
-          dom={stock.dom}
-          product_line={stock.product_line}
-          transport_mode={stock.transport_mode}
-          purchase_date={stock.purchase_date}
-          location={stock.location}
-          quantity={stock.quantity}
-          cost={stock.cost}
-          stockId={stock.id}
-        />
-      ))}
+    <div className="bg-zinc-100 ">
+      <div className="pt-16">
+        {stocks?.map((stock) => (
+          <StockDetail
+            key={stock.id}
+            brand={stock.tyreDetail?.pattern.brand.name}
+            vendor={stock.vendor?.name}
+            tyre_size={stock.tyreDetail?.tyreSize.size}
+            pattern_name={stock.tyreDetail?.pattern.name}
+            dom={stock.dom}
+            product_line={stock.product_line}
+            transport_mode={stock.transport.mode}
+            purchase_date={stock.purchase_date}
+            location={stock.location?.name}
+            quantity={stock.quantity}
+            cost={stock.cost}
+            stockId={stock.id}
+          />
+        ))}
+      </div>
       <div className="flex place-items-center w-full text-sm justify-between">
         <div>Total Results : {meta?.total}</div>
         <button
