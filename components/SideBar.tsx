@@ -9,10 +9,7 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../store/actions/AuthActions";
 import { useRouter } from "next/router";
-import { RootStore } from "../store";
 
 const links = [
   { name: "Home", to: "/search", id: 1, iconName: <HomeOutlined /> },
@@ -49,15 +46,8 @@ const sideVariants = {
 };
 
 export default function SideBar({ open, setOpen }) {
-  const dispatch = useDispatch();
   const router = useRouter();
-  const username = useSelector((state: RootStore) => state.auth.username);
-  const userRole = useSelector((state: RootStore) => state.auth.userRole);
-  const signOutUser = () => {
-    dispatch(signOut());
-    setOpen(!open);
-    router.push("/");
-  };
+
   return (
     <main>
       <AnimatePresence>
@@ -108,15 +98,11 @@ export default function SideBar({ open, setOpen }) {
                   <motion.div
                     className="text-lg uppercase font-semibold"
                     variants={itemVariants}
-                  >
-                    {username}
-                  </motion.div>
+                  ></motion.div>
                   <motion.div
                     className="text-md capitalize font-normal"
                     variants={itemVariants}
-                  >
-                    {userRole}
-                  </motion.div>
+                  ></motion.div>
                 </motion.div>
               </motion.div>
 
@@ -148,7 +134,6 @@ export default function SideBar({ open, setOpen }) {
               exit="closed"
               variants={sideVariants}
               className="text-red-500  absolute bottom-4 font-bold uppercase"
-              onClick={signOutUser}
               whileHover={{
                 scale: 1.1,
                 x: 50,

@@ -1,21 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import LoadingAnimation from "../components/LoadingAnimation";
 import StockDetail from "../components/StockDetail";
-import { RootStore } from "../store";
-import { getAllStocks } from "../store/actions/StockActions";
 
 const StocksList = () => {
-  const dispatch = useDispatch();
-  const token = useSelector((state: RootStore) => state.auth.token);
-  const isLoading = useSelector((state: RootStore) => state.stock.isLoading);
-  const errorMessage = useSelector(
-    (state: RootStore) => state.stock.errorMessage
-  );
-  const meta = useSelector((state: RootStore) => state.stock.stocksData?.meta);
-  const stocks = useSelector(
-    (state: RootStore) => state.stock.stocksData?.stocks
-  );
   const [page, setPage] = useState<number>(1);
 
   const take = 10;
@@ -26,14 +12,7 @@ const StocksList = () => {
   const previousPage = () => {
     setPage(page - 1);
   };
-  useEffect(() => {
-    dispatch(getAllStocks(token, page, take));
-  }, [dispatch, page]);
-  if (isLoading) {
-    return (
-      <LoadingAnimation message="Fetching stock data from database. Please wait..." />
-    );
-  }
+
   return (
     <div className="bg-zinc-100 ">
       <div className="pt-16">
