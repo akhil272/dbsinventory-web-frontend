@@ -19,15 +19,9 @@ export type Users = {
   user: User | null;
 };
 
-export type children = {
-  children: ReactChildren;
-};
-
 export type LayoutDispatchProps = {
   getUserByid: (id: string) => Promise<ApiReturnType<UserPayload>>;
 };
-
-export type LayoutProps = Users & children;
 
 type GetUserInitAction = {
   type: typeof GET_USER_INIT;
