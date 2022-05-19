@@ -1,5 +1,4 @@
 import { ApiReturnType } from "@Store/api";
-import { ReactChildren } from "react";
 
 export const GET_USER_INIT = "GET:USER:INIT";
 export const GET_USER_SUCCESS = "GET:USER:SUCCESS";
@@ -20,7 +19,7 @@ export type Users = {
 };
 
 export type LayoutDispatchProps = {
-  getUserByid: (id: string) => Promise<ApiReturnType<UserPayload>>;
+  getUserById: (id: string) => Promise<ApiReturnType<UserPayload>>;
 };
 
 type GetUserInitAction = {

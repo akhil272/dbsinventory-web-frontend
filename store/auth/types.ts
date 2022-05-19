@@ -16,6 +16,15 @@ export const LOGIN_INIT = "LOGIN:INIT";
 export const LOGIN_SUCCESS = "LOGIN:SUCCESS";
 export const LOGIN_FAIL = "LOGIN:FAIL";
 
+export type User = {
+  id: number;
+  phone_number: string;
+  email: string;
+  first_name: string;
+  last_name: string | undefined;
+  roles: string;
+};
+
 export type registerPayload = {
   first_name: string;
   last_name: string;
@@ -29,20 +38,22 @@ export type registerApiResponse = {
 
 export type Login = {
   loading: boolean;
+  user: User | null;
 };
 
-export type sendOtpPayload = {
+export type loginPayload = {
   phone_number: string;
   otp: string;
 };
 
-export type loginPayload = {
+export type sendOtpPayload = {
   phone_number: string;
 };
 
 export type loginResponseApi = {
   accessToken: string;
   refreshToken: string;
+  user: User;
 };
 
 export type validateVerificationPayload = {
@@ -60,8 +71,8 @@ export type RegisterDispatchProps = {
 };
 
 export type LoginDispatchProps = {
-  login: (payload: sendOtpPayload) => Promise<ApiReturnType<loginResponseApi>>;
-  sendOtp: (payload: loginPayload) => Promise<ApiReturnType<{}>>;
+  login: (payload: loginPayload) => Promise<ApiReturnType<loginResponseApi>>;
+  sendOtp: (payload: sendOtpPayload) => Promise<ApiReturnType<{}>>;
 };
 export type RegisterProps = RegisterDispatchProps;
 export type LoginProps = LoginDispatchProps;
@@ -112,6 +123,7 @@ type LoginInitAction = {
 };
 type LoginSuccessAction = {
   type: typeof LOGIN_SUCCESS;
+  payload: ApiReturnType<loginResponseApi>;
 };
 type LoginFailAction = {
   type: typeof LOGIN_FAIL;

@@ -6,13 +6,14 @@ export const STOCKS_FETCH_SUCCESS = "STOCKS:FETCH:SUCCESS";
 export const STOCKS_FETCH_FAIL = "STOCKS:FETCH:FAIL";
 
 export type Pattern = {
-  id: string;
+  id: number;
 };
 export type TyreSize = {
-  id: string;
+  id: number;
+  size: string;
 };
 export type TyreDetail = {
-  id: string;
+  id: number;
   tyreSizeId: string;
   patternId: string;
   stocks: Stock[];
@@ -20,24 +21,24 @@ export type TyreDetail = {
   tyreSize: TyreSize;
 };
 export type Transport = {
-  id: string;
+  id: number;
   mode: string;
   stocks: Stock[];
 };
 export type Vendor = {
-  id: string;
+  id: number;
   name: string;
   stocks: Stock[];
 };
 
 export type Location = {
-  id: string;
+  id: number;
   name: string;
   stocks: Stock[];
 };
 
 export type Stock = {
-  id: string;
+  id: number;
   product_line: string;
   dom: string;
   purchase_date: Date;

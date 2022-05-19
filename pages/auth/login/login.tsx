@@ -1,7 +1,7 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginProps } from "@Store/auth/types";
-import { LoginSchema } from "@Utils/RegisterAuthSchema";
+import { LoginSchema } from "@Utils/schemas/RegisterAuthSchema";
 import storage from "@Utils/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -23,13 +23,12 @@ const Login = ({ login, sendOtp }: LoginProps) => {
   } = useForm<formData>({ resolver: yupResolver(LoginSchema) });
   const onSubmit = handleSubmit((data) => handleLogin(data));
   const handleLogin = async (data) => {
-    if (!userOtp) {
+    if (!data.otp) {
       const response = await sendOtp({
         phone_number: data.phone_number,
       });
-
       if (response.success) {
-        setUserOtp(!userOtp);
+        setUserOtp(true);
       }
     }
     if (data.otp) {
@@ -40,7 +39,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
       if (response.success && response.data) {
         storage().setAccessToken(response.data?.accessToken);
         storage().setRefreshToken(response.data?.refreshToken);
-        router.push("/search");
+        router.push("/");
       }
     }
   };

@@ -20,6 +20,7 @@ import {
 
 export const initialState: Login = {
   loading: false,
+  user: null,
 };
 
 const reducer = (state = initialState, action: RegisterActionTypes) => {
@@ -27,7 +28,10 @@ const reducer = (state = initialState, action: RegisterActionTypes) => {
     case LOGIN_INIT:
       return Object.assign({}, state, { loading: true });
     case LOGIN_SUCCESS:
-      return Object.assign({}, state, { loading: false });
+      return Object.assign({}, state, {
+        loading: false,
+        user: action.payload?.data,
+      });
     case LOGIN_FAIL:
       return Object.assign({}, state, { loading: false });
     case VALIDATE_VERIFICATION_INIT:

@@ -23,26 +23,9 @@ import {
   REGISTER_FAIL,
 } from "./types";
 
-export const login = async (data: sendOtpPayload) => {
+export const login = async (data: loginPayload) => {
   const { VALIDATE_OTP } = API_END_POINTS;
   const url = `${VALIDATE_OTP}`;
-  const apiArgs = {
-    method: API_METHODS.POST,
-    data,
-    url,
-    authRequired: false,
-    TYPES: {
-      requestType: SEND_OTP_INIT,
-      successType: SEND_OTP_SUCCESS,
-      failureType: SEND_OTP_FAIL,
-    },
-  };
-  return fetchAsync(apiArgs);
-};
-
-export const sendOtp = async (data: loginPayload) => {
-  const { GENERATE_OTP } = API_END_POINTS;
-  const url = `${GENERATE_OTP}`;
   const apiArgs = {
     method: API_METHODS.POST,
     data,
@@ -52,6 +35,23 @@ export const sendOtp = async (data: loginPayload) => {
       requestType: LOGIN_INIT,
       successType: LOGIN_SUCCESS,
       failureType: LOGIN_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const sendOtp = async (data: sendOtpPayload) => {
+  const { GENERATE_OTP } = API_END_POINTS;
+  const url = `${GENERATE_OTP}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    data,
+    url,
+    authRequired: false,
+    TYPES: {
+      requestType: SEND_OTP_INIT,
+      successType: SEND_OTP_SUCCESS,
+      failureType: SEND_OTP_FAIL,
     },
   };
   return fetchAsync(apiArgs);

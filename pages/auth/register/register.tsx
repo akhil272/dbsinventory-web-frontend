@@ -1,7 +1,7 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterProps } from "@Store/auth/types";
-import { RegisterAuthSchema } from "@Utils/RegisterAuthSchema";
+import { RegisterAuthSchema } from "@Utils/schemas/RegisterAuthSchema";
 import storage from "@Utils/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
