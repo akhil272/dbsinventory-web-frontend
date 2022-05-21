@@ -22,6 +22,12 @@ import {
   TYRE_DETAIL_CREATE_FAIL,
   TYRE_DETAIL_CREATE_INIT,
   TYRE_DETAIL_CREATE_SUCCESS,
+  TYRE_DETAIL_SIZES_FETCH_FAIL,
+  TYRE_DETAIL_SIZES_FETCH_INIT,
+  TYRE_DETAIL_SIZES_FETCH_SUCCESS,
+  TYRE_DETAIL_SIZE_CREATE_FAIL,
+  TYRE_DETAIL_SIZE_CREATE_INIT,
+  TYRE_DETAIL_SIZE_CREATE_SUCCESS,
 } from "./types";
 
 export const initialState: TyreData = {
@@ -33,6 +39,21 @@ export const initialState: TyreData = {
 
 const reducer = (state = initialState, action: TyreDataActionTypes) => {
   switch (action.type) {
+    case TYRE_DETAIL_SIZE_CREATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case TYRE_DETAIL_SIZE_CREATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case TYRE_DETAIL_SIZE_CREATE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case TYRE_DETAIL_SIZES_FETCH_INIT:
+      return Object.assign({}, state, { loading: true });
+    case TYRE_DETAIL_SIZES_FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        tyreDetails: action.payload.data,
+      });
+    case TYRE_DETAIL_SIZES_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
     case TYRE_DETAIL_CREATE_INIT:
       return Object.assign({}, state, { loading: true });
     case TYRE_DETAIL_CREATE_SUCCESS:

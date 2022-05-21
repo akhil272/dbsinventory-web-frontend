@@ -85,9 +85,9 @@ export default function AutoComplete({
                       />
                     </div>
                   ) : (
-                    filtereddata.map((item) => (
+                    filtereddata.map((item, i) => (
                       <Combobox.Option
-                        key={item.id}
+                        key={i}
                         className={({ active }) =>
                           `relative cursor-default select-none py-2 pl-10 pr-4 ${
                             active ? "bg-teal-600 text-white" : "text-gray-900"

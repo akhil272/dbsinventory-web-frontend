@@ -10,6 +10,7 @@ import {
   createBrandPayload,
   createPatternPayload,
   createTyreDetailPayload,
+  createTyreDetailSizePayload,
   createTyreSizePayload,
   getBrandsPayload,
   getTyreDetailsPayload,
@@ -23,11 +24,32 @@ import {
   TYRE_DETAIL_CREATE_FAIL,
   TYRE_DETAIL_CREATE_INIT,
   TYRE_DETAIL_CREATE_SUCCESS,
+  TYRE_DETAIL_SIZE_CREATE_FAIL,
+  TYRE_DETAIL_SIZE_CREATE_INIT,
+  TYRE_DETAIL_SIZE_CREATE_SUCCESS,
   TYRE_SIZES_FETCH_FAIL,
   TYRE_SIZES_FETCH_INIT,
   TYRE_SIZES_FETCH_SUCCESS,
 } from "./types";
 
+export const createTyreDetailSize = async (
+  data: createTyreDetailSizePayload
+) => {
+  const { TYRE_DETAIL, CREATE } = API_END_POINTS;
+  const pathname = `${TYRE_DETAIL}${CREATE}`;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: TYRE_DETAIL_SIZE_CREATE_INIT,
+      successType: TYRE_DETAIL_SIZE_CREATE_SUCCESS,
+      failureType: TYRE_DETAIL_SIZE_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 export const createTyreDetail = async (data: createTyreDetailPayload) => {
   const { TYRE_DETAIL } = API_END_POINTS;
   const pathname = TYRE_DETAIL;

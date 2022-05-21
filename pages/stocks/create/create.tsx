@@ -1,45 +1,36 @@
 import AutoComplete from "@Components/AutoComplete";
+import DatePicker from "@Components/DatePicker";
 import InputField from "@Components/InputField";
 import ListBox from "@Components/ListBox";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TyresDataProps } from "@Store/tyre/types";
+import { CreateStockProps } from "@Store/stocks/types";
+
 import { AddStockFormData } from "@Utils/formTypes/AddStockFormData";
 import CreateStockSchema from "@Utils/schemas/CreateStockSchema";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+
+const product_line = [{ name: "PC" }, { name: "TB" }, { name: "2R" }];
 
 const CreateStock = ({
   brands,
-  tyreSizes,
+  vendors,
+  transports,
+  locations,
   tyreDetails,
   getBrands,
   createBrand,
   createPattern,
-  getTyreSizes,
-  createTyreSize,
   getTyreDetails,
-  createTyreDetail,
-}: TyresDataProps) => {
-  useEffect(() => {
-    getBrands({ search: "" });
-  }, [getBrands]);
-  useEffect(() => {
-    getTyreSizes({ search: "" });
-  }, [getTyreSizes]);
-  useEffect(() => {
-    getTyreDetails({ search: "" });
-  }, [getTyreDetails]);
-  console.log("Tyre Details State", tyreDetails);
-
-  const extractTyreSize = tyreDetails?.map(({ tyreSize }) => ({
-    tyreSize,
-  }));
-  const extractPattern = tyreDetails?.map(({ pattern }) => ({
-    pattern,
-  }));
-
-  console.log("extractTyreSize", extractTyreSize);
-  console.log("extractPattern", extractPattern);
+  createTyreDetailSize,
+  getVendors,
+  createVendor,
+  getTransports,
+  createTransport,
+  getLocations,
+  createLocation,
+  createStock,
+}: CreateStockProps) => {
   const {
     handleSubmit,
     control,
@@ -47,12 +38,87 @@ const CreateStock = ({
     watch,
     setValue,
   } = useForm<AddStockFormData>({ resolver: yupResolver(CreateStockSchema) });
-  const onSubmit = handleSubmit((data) => console.log("clicked", data));
+  const onSubmit = handleSubmit((data) => addStock(data));
+
+  const addStock = async (data: AddStockFormData) => {
+    const response = await createStock({
+      product_line: data.product_line.name,
+      dom: data.dom,
+      purchase_date: data.purchase_date,
+      transport_id: data.transport.id,
+      vendor_id: data.vendor.id,
+      location_id: data.location.id,
+      quantity: data.quantity,
+      cost: data.cost,
+      tyre_detail_id: data.tyre_detail_id.id,
+    });
+    if (response.success && response.data) {
+      console.log("Stocks added");
+    }
+  };
+
   const selectedBrand = watch("brand");
+  const selectedPattern = watch("pattern");
+
+  const createPatternAction = async ({ name }) => {
+    const response = await createPattern({ name, brand_id: selectedBrand.id });
+    if (response.success) {
+      const { id, name, patterns } = selectedBrand;
+      setValue("brand", {
+        id,
+        name,
+        patterns: [
+          ...patterns,
+          { id: response.data.id, name: response.data.name },
+        ],
+      });
+    }
+    return response;
+  };
+  const createTyreSizeAction = async ({ name }) => {
+    const response = await createTyreDetailSize({
+      size: name,
+      pattern_id: selectedPattern?.id,
+    });
+    if (response.success) {
+      const { id, name } = selectedPattern;
+      setValue("pattern", {
+        id,
+        name,
+      });
+      setValue("tyre_size", {
+        id: response.data.tyreSize.id,
+        size: response.data.tyreSize.size,
+      });
+      setValue("tyre_detail_id", {
+        id: response.data.id,
+      });
+    }
+    return response;
+  };
+
   useEffect(() => {
     setValue("pattern", null);
   }, [selectedBrand]);
-  const product_line = [{ name: "PC" }, { name: "TB" }, { name: "2R" }];
+  useEffect(() => {
+    setValue("tyre_detail_id", null);
+  }, [selectedPattern]);
+  useEffect(() => {
+    getBrands({ search: "" });
+  }, [getBrands]);
+  useEffect(() => {
+    getTyreDetails({ search: "" });
+  }, [getTyreDetails]);
+  useEffect(() => {
+    getVendors({ search: "" });
+  }, [getVendors]);
+  useEffect(() => {
+    getTransports({ search: "" });
+  }, [getTransports]);
+  useEffect(() => {
+    getLocations({ search: "" });
+  }, [getLocations]);
+
   return (
     <div className="pt-20">
       Create a stock
@@ -81,26 +147,61 @@ const CreateStock = ({
             <AutoComplete
               placeholder="Enter pattern name"
               onSuccess={() => {
-                setValue("brand", null);
                 getBrands({ search: "" });
               }}
-              create={({ name }) =>
-                createPattern({ name, brand_id: selectedBrand.id })
-              }
+              create={createPatternAction}
               control={control}
               name={"pattern"}
               data={selectedBrand?.patterns ?? []}
             />
             <AutoComplete
               placeholder="Enter tyre size"
-              onSuccess={() => getTyreSizes({ search: "" })}
-              create={({ name }) => createTyreSize({ size: name })}
+              onSuccess={() => getTyreDetails({ search: "" })}
+              create={createTyreSizeAction}
               control={control}
-              name={"tyre_size"}
-              data={tyreSizes?.map(({ size, ...rest }) => ({
+              name={"tyre_detail_id"}
+              data={tyreDetails
+                ?.filter((pattern) => pattern.patternId === selectedPattern?.id)
+                .map(({ tyreSize }) => ({
+                  tyreSize,
+                }))
+                .map(({ tyreSize }) => ({
+                  name: tyreSize.size,
+                  id: tyreSize.id,
+                }))}
+            />
+            <DatePicker
+              control={control}
+              name="purchase_date"
+              placeholder="Pick a date"
+              error={errors.purchase_date?.message}
+            />
+            <AutoComplete
+              placeholder="Enter vendor name"
+              onSuccess={() => getVendors({ search: "" })}
+              create={createVendor}
+              control={control}
+              name={"vendor"}
+              data={vendors}
+            />
+            <AutoComplete
+              placeholder="Enter transport name"
+              onSuccess={() => getTransports({ search: "" })}
+              create={({ name }) => createTransport({ mode: name })}
+              control={control}
+              name={"transport"}
+              data={transports?.map(({ mode, ...rest }) => ({
                 ...rest,
-                name: size,
+                name: mode,
               }))}
+            />
+            <AutoComplete
+              placeholder="Enter location name"
+              onSuccess={() => getLocations({ search: "" })}
+              create={createLocation}
+              control={control}
+              name={"location"}
+              data={locations}
             />
             <InputField
               control={control}
@@ -116,6 +217,7 @@ const CreateStock = ({
               type="text"
               error={errors.cost?.message}
             />
+
             <button onClick={onSubmit}>Submit</button>
           </form>
         </div>

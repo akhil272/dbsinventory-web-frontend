@@ -2,22 +2,20 @@ import React from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { RootStore } from "../store";
 
 interface StockItemProps {
-  brand: string;
-  vendor: string;
-  tyre_size: string;
-  pattern_name: string;
+  brand?: string;
+  vendor?: string;
+  tyre_size?: string;
+  pattern_name?: string;
   dom: string;
   product_line: string;
-  transport_mode: string;
+  transport_mode?: string;
   purchase_date?: string | Date;
   location: string;
   quantity: number | string;
   cost: number | string;
-  stockId?: string;
+  stockId?: number;
 }
 
 const StockDetail = ({
@@ -35,13 +33,13 @@ const StockDetail = ({
   stockId,
 }: StockItemProps) => {
   const router = useRouter();
-  const onEditOrder = (id: string) => {
-    router.push(`/stock/${id}`);
-  };
-  const onDeleteStock = (id: string) => {
-    router.push(`/stock/delete/${id}`);
-  };
-  const userRole = useSelector((state: RootStore) => state.auth.userRole);
+  // const onEditOrder = (id: string) => {
+  //   router.push(`/stock/${id}`);
+  // };
+  // const onDeleteStock = (id: string) => {
+  //   router.push(`/stock/delete/${id}`);
+  // };
+  // const userRole = useSelector((state: RootStore) => state.auth.userRole);
 
   return (
     <div className="lg:px-96">
@@ -60,13 +58,13 @@ const StockDetail = ({
               <div className="flex-col w-1/2 ">
                 <div
                   className="justify-end py-1 flex"
-                  onClick={() => onEditOrder(stockId)}
+                  // onClick={() => onEditOrder(stockId)}
                 >
                   <EditOutlined />
                 </div>
                 {userRole === "admin" && (
                   <div
-                    onClick={() => onDeleteStock(stockId)}
+                    // onClick={() => onDeleteStock(stockId)}
                     className="justify-end py-1 flex"
                   >
                     <DeleteOutlined />

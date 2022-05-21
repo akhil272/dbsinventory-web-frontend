@@ -16,6 +16,7 @@ const API_END_POINTS = {
   TRANSPORT: "/transport",
   LOCATION: "/location",
   SEARCH: "search",
+  CREATE: "/create",
 };
 
 enum API_METHODS {

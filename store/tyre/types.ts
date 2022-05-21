@@ -1,5 +1,14 @@
 import { ApiReturnType } from "@Store/api";
 
+export const TYRE_DETAIL_SIZE_CREATE_INIT = "TYRE_DETAIL_SIZE:CREATE:INIT";
+export const TYRE_DETAIL_SIZE_CREATE_SUCCESS =
+  "TYRE_DETAIL_SIZE:CREATE:SUCCESS";
+export const TYRE_DETAIL_SIZE_CREATE_FAIL = "TYRE_DETAIL_SIZES:CREATE:FAIL";
+export const TYRE_DETAIL_SIZES_FETCH_INIT = "TYRE_DETAILS_SIZES:FETCH:INIT";
+export const TYRE_DETAIL_SIZES_FETCH_SUCCESS =
+  "TYRE_DETAILS_SIZE:FETCH:SUCCESS";
+export const TYRE_DETAIL_SIZES_FETCH_FAIL = "TYRE_DETAILS_SIZES:FETCH:FAIL";
+
 export const TYRE_DETAIL_CREATE_INIT = "TYRE_DETAIL:CREATE:INIT";
 export const TYRE_DETAIL_CREATE_SUCCESS = "TYRE_DETAIL:CREATE:SUCCESS";
 export const TYRE_DETAIL_CREATE_FAIL = "TYRE_DETAIL:CREATE:FAIL";
@@ -25,13 +34,39 @@ export const BRANDS_FETCH_INIT = "BRANDS:FETCH:INIT";
 export const BRANDS_FETCH_SUCCESS = "BRANDS:FETCH:SUCCESS";
 export const BRANDS_FETCH_FAIL = "BRANDS:FETCH:FAIL";
 
-export type createTyreDetailResponse = {};
+export type createTyreDetailResponse = {
+  id: number;
+  tyreSizeId: number;
+  patternId: number;
+  pattern: {
+    id: number;
+    name: string;
+  };
+  tyreSize: {
+    id: number;
+    size: string;
+  };
+};
 
+export type createTyreDetailSizePayload = {
+  size: string;
+  pattern_id: number;
+};
 export type createTyreDetailPayload = {
   tyre_size_id: number;
   pattern_id: number;
 };
 
+export type TyreDetailSizePayload = {
+  id: number;
+  tyreSizeId: number;
+  patternId: number;
+  tyreSize: TyreSize;
+  pattern: {
+    id: number;
+    name: string;
+  };
+};
 export type TyreDetailPayload = {
   id: number;
   tyreSizeId: number;
@@ -47,6 +82,9 @@ export type TyreDetailPayload = {
   };
 };
 
+export type getTyreDetailSizesPayload = {
+  search?: string;
+};
 export type getTyreDetailsPayload = {
   search?: string;
 };
@@ -73,7 +111,10 @@ export type createPatternPayload = {
   brand_id: number;
 };
 
-export type createPatternResponse = {};
+export type createPatternResponse = {
+  id: number;
+  name: string;
+};
 
 export type getBrandsPayload = {
   search?: string;
@@ -104,6 +145,12 @@ export type createBrandPayload = {
 export type createBrandResponse = {};
 
 export type TyresDispatchProps = {
+  createTyreDetailSize: (
+    data: createTyreDetailSizePayload
+  ) => Promise<ApiReturnType<createTyreDetailResponse>>;
+  getTyreDetailSizes: (
+    payload: getTyreDetailSizesPayload
+  ) => Promise<ApiReturnType<TyreDetailSizePayload[]>>;
   createTyreDetail: (
     data: createTyreDetailPayload
   ) => Promise<ApiReturnType<createTyreDetailResponse>>;
@@ -133,7 +180,29 @@ export type TyresStateProps = {
   tyreDetails: TyreDetail[];
 };
 
-export type TyresDataProps = TyresStateProps & TyresDispatchProps;
+export type TyreDataProps = TyresStateProps & TyresDispatchProps;
+
+type tyreDetailSizeCreateInit = {
+  type: typeof TYRE_DETAIL_SIZE_CREATE_INIT;
+};
+type tyreDetailSizeCreateSuccess = {
+  type: typeof TYRE_DETAIL_SIZE_CREATE_SUCCESS;
+  payload: ApiReturnType<createTyreDetailResponse>;
+};
+type tyreDetailSizeCreateFail = {
+  type: typeof TYRE_DETAIL_SIZE_CREATE_FAIL;
+};
+
+type tyreDetailSizesFetchInit = {
+  type: typeof TYRE_DETAIL_SIZES_FETCH_INIT;
+};
+type tyreDetailSizesFetchSuccess = {
+  type: typeof TYRE_DETAIL_SIZES_FETCH_SUCCESS;
+  payload: ApiReturnType<TyreDetailSizePayload[]>;
+};
+type tyreDetailSizesFetchFail = {
+  type: typeof TYRE_DETAIL_SIZES_FETCH_FAIL;
+};
 
 type tyreDetailCreateInit = {
   type: typeof TYRE_DETAIL_CREATE_INIT;
@@ -211,6 +280,12 @@ type brandsFetchFail = {
 };
 
 export type TyreDataActionTypes =
+  | tyreDetailSizeCreateInit
+  | tyreDetailSizeCreateSuccess
+  | tyreDetailSizeCreateFail
+  | tyreDetailSizesFetchInit
+  | tyreDetailSizesFetchSuccess
+  | tyreDetailSizesFetchFail
   | tyreDetailCreateInit
   | tyreDetailCreateSuccess
   | tyreDetailCreateFail

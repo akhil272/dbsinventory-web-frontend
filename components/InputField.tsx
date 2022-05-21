@@ -14,11 +14,9 @@ interface InputFieldProps {
 
 const InputField = ({
   placeholder,
-
   error,
   type,
   autoComplete,
-
   name,
   control,
 }: InputFieldProps) => {
