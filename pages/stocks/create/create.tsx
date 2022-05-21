@@ -59,7 +59,6 @@ const CreateStock = ({
 
   const selectedBrand = watch("brand");
   const selectedPattern = watch("pattern");
-
   const createPatternAction = async ({ name }) => {
     const response = await createPattern({ name, brand_id: selectedBrand.id });
     if (response.success) {
@@ -89,9 +88,6 @@ const CreateStock = ({
       setValue("tyre_size", {
         id: response.data.tyreSize.id,
         size: response.data.tyreSize.size,
-      });
-      setValue("tyre_detail_id", {
-        id: response.data.id,
       });
     }
     return response;
@@ -162,12 +158,13 @@ const CreateStock = ({
               name={"tyre_detail_id"}
               data={tyreDetails
                 ?.filter((pattern) => pattern.patternId === selectedPattern?.id)
-                .map(({ tyreSize }) => ({
+                .map(({ tyreSize, id }) => ({
                   tyreSize,
+                  id,
                 }))
-                .map(({ tyreSize }) => ({
+                .map(({ tyreSize, id }) => ({
                   name: tyreSize.size,
-                  id: tyreSize.id,
+                  id,
                 }))}
             />
             <DatePicker

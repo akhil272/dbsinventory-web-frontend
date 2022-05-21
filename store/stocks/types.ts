@@ -2,6 +2,7 @@ import { AdminPanelProps } from "@Store/adminPanel/types";
 import { ApiReturnType } from "@Store/api";
 import { Order } from "@Store/orders/types";
 import {
+  Brand,
   TyreDataProps,
   TyresDispatchProps,
   TyresStateProps,
@@ -33,6 +34,8 @@ export type createStockPayload = {
 
 export type Pattern = {
   id: number;
+  name: string;
+  brand: Brand;
 };
 export type TyreSize = {
   id: number;

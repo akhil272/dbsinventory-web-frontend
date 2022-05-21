@@ -24,10 +24,10 @@ const Stocks = ({ stocks, getStocks }: StocksProps) => {
         {stocks?.map((stock) => (
           <StockDetail
             key={stock.id}
-            // brand={stock.tyreDetail?.pattern?.name}
+            brand={stock.tyreDetail.pattern.brand.name}
             vendor={stock.vendor?.name}
             tyre_size={stock.tyreDetail?.tyreSize.size}
-            // pattern_name={stock.tyreDetail?.pattern.id}
+            pattern_name={stock.tyreDetail?.pattern.name}
             dom={stock.dom}
             product_line={stock.product_line}
             transport_mode={stock.transport.mode}
