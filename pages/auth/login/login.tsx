@@ -7,7 +7,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import LoginArt from "../../../public/images/Login_Art.png";
+import Image from "next/image";
 type formData = {
   phone_number?: string;
   otp?: string;
@@ -44,49 +45,59 @@ const Login = ({ login, sendOtp }: LoginProps) => {
     }
   };
   return (
-    <div className="h-screen px-6 w-screen bg-gray-300 flex items-center justify-center">
-      <div className=" w-96 p-4 bg-zinc-100 shadow-lg rounded-2xl">
-        <div className="p-4">
-          <div className="flex items-center justify-center">
-            <h1 className="font-semibold text-3xl ">Login Now</h1>
-          </div>
-          <div className="flex items-center justify-center">
-            <p className="text-md py-2">
-              Please enter your credentials to login
-            </p>
-          </div>
-          <div>
-            <form className="space-y-5" onSubmit={onSubmit}>
-              <div className="flex-col justify-center">
-                <InputField
-                  control={control}
-                  name="phone_number"
-                  placeholder="Enter phone number"
-                  type="text"
-                  error={errors.phone_number?.message}
-                />
-                {userOtp && (
+    <div className="min-h-screen ">
+      <div className="flex flex-col ">
+        <div className="rounded-2xl h-1/2 mt-16  bg-[#fc9797] flex flex-col justify-center items-center w-full">
+          <img
+            className="flex justify-end items-end py-10 mt-10"
+            src="/images/Login_Art.png"
+          />
+        </div>
+        <div className="flex flex-col py-2 mt-2 font-bold text-3xl text-center">
+          <h3>Welcome to </h3>
+          <h2>DBS Automotive</h2>
+        </div>
+        <div className="w-full h-fullrounded-2xl">
+          <div className="p-4">
+            <div className="flex items-center justify-center">
+              <h1 className="font-semibold text-3xl ">Login Now</h1>
+            </div>
+            <div className="flex items-center justify-center">
+              <p className="text-md ">Please enter your credentials to login</p>
+            </div>
+            <div>
+              <form className="space-y-5" onSubmit={onSubmit}>
+                <div className="flex-col my-2 justify-center">
                   <InputField
                     control={control}
-                    name="otp"
-                    placeholder="Enter otp"
+                    name="phone_number"
+                    placeholder="Enter phone number"
                     type="text"
-                    error={errors.otp?.message}
+                    error={errors.phone_number?.message}
                   />
-                )}
-              </div>
-              <div>
-                Don't have an account?
-                <Link href="/auth/register">Register</Link>{" "}
-              </div>
-              <button
-                className="bg-red-500 w-full uppercase rounded-lg text-white p-4 mt-4"
-                type="button"
-                onClick={onSubmit}
-              >
-                Submit
-              </button>
-            </form>
+                  {userOtp && (
+                    <InputField
+                      control={control}
+                      name="otp"
+                      placeholder="Enter otp"
+                      type="text"
+                      error={errors.otp?.message}
+                    />
+                  )}
+                </div>
+                <div>
+                  Don't have an account?
+                  <Link href="/auth/register">Register</Link>{" "}
+                </div>
+                <button
+                  className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
+                  type="button"
+                  onClick={onSubmit}
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

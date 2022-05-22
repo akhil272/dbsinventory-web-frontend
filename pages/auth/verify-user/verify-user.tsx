@@ -27,7 +27,7 @@ const VerifyUser = ({ validateVerification }: RegisterDispatchProps) => {
     }
   };
   return (
-    <div className="h-screen px-6 w-screen bg-gray-300 flex items-center justify-center">
+    <div className="h-screen px-6 w-screen flex items-center justify-center">
       <div className=" w-96 p-4 bg-zinc-100 shadow-lg rounded-2xl">
         <div className="p-4">
           <div className="flex items-center justify-center">

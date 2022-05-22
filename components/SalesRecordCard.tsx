@@ -1,8 +1,8 @@
 import moment from "moment";
 import React from "react";
 
-const SaleRecords = ({
-  sold_by_user,
+const SalesRecordCard = ({
+  employee_name,
   sold_price,
   customer_name,
   sale_date,
@@ -27,7 +27,7 @@ const SaleRecords = ({
           </div>
           <div className="flex-col w-1/2 px-2">
             <div className=" pt-2 text-sm">Sold by employee</div>
-            <div className="text-lg font-semibold">{sold_by_user}</div>
+            <div className="text-lg font-semibold">{employee_name}</div>
           </div>
         </div>
 
@@ -44,4 +44,4 @@ const SaleRecords = ({
   );
 };
 
-export default SaleRecords;
+export default SalesRecordCard;

@@ -13,13 +13,13 @@ const Search = () => {
     if (brand.length > 0 || size.length > 0) {
       router.push(`/search/${brand}`);
     } else {
-      router.push("stockslist");
+      router.push("stocks");
     }
   };
 
   return (
     <div className="pt-4 h-screen bg-zinc-100 flex justify-center">
-      <div className="w-max-2xl px-6">
+      <div className="w-max-2xl ">
         <div className="mt-10">
           <h1 className="font-bold text-gray-500 text-2xl  pb-4">
             Search for stocks

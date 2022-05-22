@@ -31,7 +31,7 @@ const InputField = ({
           render={({ field: { onChange, onBlur, value } }) => (
             <div className="flex relative">
               <input
-                className="p-3 shadow-md w-full rounded-lg my-2"
+                className="p-3 shadow-md w-full rounded-lg"
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
@@ -55,7 +55,7 @@ const InputField = ({
           name={name}
           render={({ field: { onChange, onBlur, value } }) => (
             <input
-              className="p-3 shadow-md w-full rounded-lg my-2"
+              className="p-2 shadow-md w-full rounded-lg "
               placeholder={placeholder}
               value={value}
               onChange={onChange}

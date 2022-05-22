@@ -33,9 +33,9 @@ const StockDetail = ({
   stockId,
 }: StockItemProps) => {
   const router = useRouter();
-  // const onEditOrder = (id: string) => {
-  //   router.push(`/stock/${id}`);
-  // };
+  const onEditOrder = (id: number) => {
+    router.push(`/orders/${id}`);
+  };
   // const onDeleteStock = (id: string) => {
   //   router.push(`/stock/delete/${id}`);
   // };
@@ -43,7 +43,7 @@ const StockDetail = ({
 
   return (
     <div className="lg:px-96">
-      <div className="rounded-lg bg-zinc-300 mx-4 shadow-md">
+      <div className="rounded-lg bg-zinc-300  shadow-md">
         <div className="bg-[#2C3359] rounded-t-lg p-2 flex text-white">
           <div className="flex-col w-1/2 px-2">
             <div className=" pt-2 text-sm">Brand</div>
@@ -58,18 +58,18 @@ const StockDetail = ({
               <div className="flex-col w-1/2 ">
                 <div
                   className="justify-end py-1 flex"
-                  // onClick={() => onEditOrder(stockId)}
+                  onClick={() => onEditOrder(stockId)}
                 >
                   <EditOutlined />
                 </div>
-                {userRole === "admin" && (
+                {/* {userRole === "admin" && (
                   <div
                     // onClick={() => onDeleteStock(stockId)}
                     className="justify-end py-1 flex"
                   >
                     <DeleteOutlined />
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>

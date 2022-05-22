@@ -53,7 +53,7 @@ export default function SideBar({ open, setOpen }) {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="w-72 h-screen z-10 fixed px-2 pt-3 bg-zinc-200"
+            className="w-72 h-screen z-10 absolute px-2 pt-3 bg-zinc-200"
             initial={{ width: 0 }}
             animate={{
               width: 250,
@@ -65,7 +65,7 @@ export default function SideBar({ open, setOpen }) {
           >
             <motion.div
               onClick={() => setOpen(!open)}
-              className="absolute left-4 "
+              className="absolute right-4 "
             >
               <MenuOutlined />
             </motion.div>

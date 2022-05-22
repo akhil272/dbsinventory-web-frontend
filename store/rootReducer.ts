@@ -5,6 +5,9 @@ import stocksReducer, { initialState as stocksState } from "./stocks/reducer";
 import adminPanelReducer, {
   initialState as adminPanelState,
 } from "@Store/adminPanel/reducer";
+import ordersReducer, {
+  initialState as ordersState,
+} from "@Store/orders/reducer";
 import { combineReducers } from "redux";
 
 export const initialState = {
@@ -13,6 +16,7 @@ export const initialState = {
   tyres: tyresState,
   stocks: stocksState,
   adminPanel: adminPanelState,
+  orders: ordersState,
 };
 
 export default combineReducers({
@@ -21,4 +25,5 @@ export default combineReducers({
   tyres: tyresReducer,
   stocks: stocksReducer,
   adminPanel: adminPanelReducer,
+  orders: ordersReducer,
 });

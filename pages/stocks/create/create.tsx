@@ -119,8 +119,8 @@ const CreateStock = ({
     <div className="pt-20">
       Create a stock
       <div>
-        <div className=" w-72">
-          <form onSubmit={onSubmit}>
+        <div className="">
+          <form className="space-y-3" onSubmit={onSubmit}>
             <ListBox
               control={control}
               name={"product_line"}
@@ -214,7 +214,6 @@ const CreateStock = ({
               type="text"
               error={errors.cost?.message}
             />
-
             <button onClick={onSubmit}>Submit</button>
           </form>
         </div>

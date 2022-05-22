@@ -14,16 +14,25 @@ const DatePicker = ({ control, name, placeholder, error }) => {
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
-          <div onClick={() => setShowCalender(!showCalender)}>
+          <div
+            className="relative"
+            onClick={() => setShowCalender(!showCalender)}
+          >
             <input
-              className="p-3 shadow-md w-full rounded-lg my-2"
+              className="p-2 relative shadow-md w-full rounded-lg"
               placeholder={placeholder}
               value={value.toLocaleDateString("en-US")}
               onChange={onChange}
               type="text"
               onBlur={onBlur}
             />
-            {showCalender && <Calendar date={new Date()} onChange={onChange} />}
+            {showCalender && (
+              <Calendar
+                className="absolute top-14 -right-10 rounded-lg z-10"
+                date={new Date()}
+                onChange={onChange}
+              />
+            )}
           </div>
         )}
       />

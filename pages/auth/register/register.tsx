@@ -38,8 +38,8 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
     }
   };
   return (
-    <div className="h-screen px-6 w-screen bg-gray-300 flex items-center justify-center">
-      <div className=" w-96 p-4 bg-zinc-100 shadow-lg rounded-2xl">
+    <div className="flex flex-col min-h-screen items-center justify-center ">
+      <div className="w-full  bg-white shadow-lg rounded-2xl">
         <div className="p-4">
           <div className="flex items-center justify-center">
             <h1 className="font-semibold text-3xl ">Register Now</h1>
@@ -49,7 +49,7 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
           </div>
           <div>
             <form className="space-y-5" onSubmit={onSubmit}>
-              <div className="flex-col justify-center">
+              <div className="flex-col space-y-2 justify-center">
                 <InputField
                   control={control}
                   name="first_name"

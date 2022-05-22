@@ -19,7 +19,7 @@ const Stocks = ({ stocks, getStocks }: StocksProps) => {
   };
 
   return (
-    <div className="bg-zinc-100 ">
+    <div>
       <div className="pt-16">
         {stocks?.map((stock) => (
           <StockDetail
