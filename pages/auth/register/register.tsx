@@ -39,13 +39,21 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
   };
   return (
     <div className="flex flex-col min-h-screen items-center justify-center ">
-      <div className="w-full  bg-white shadow-lg rounded-2xl">
+      <div className="h-1/2 mt-12 items-center justify-center flex ">
+        <img
+          className="object-cover h-96 mt-2  rounded-xl"
+          src="/images/Register_ArtCover.png"
+        />
+      </div>
+      <div className="w-full rounded-2xl">
         <div className="p-4">
           <div className="flex items-center justify-center">
             <h1 className="font-semibold text-3xl ">Register Now</h1>
           </div>
           <div className="flex items-center justify-center">
-            <p className="text-md py-2">Fill details below to register</p>
+            <p className="text-md py-2">
+              Fill in the details below to register
+            </p>
           </div>
           <div>
             <form className="space-y-5" onSubmit={onSubmit}>
@@ -53,42 +61,46 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
                 <InputField
                   control={control}
                   name="first_name"
-                  placeholder="Enter first_name"
+                  placeholder="Enter first name"
                   type="text"
                   error={errors.first_name?.message}
                 />
                 <InputField
                   control={control}
                   name="last_name"
-                  placeholder="Enter last_name"
+                  placeholder="Enter last name"
                   type="text"
                   error={errors.last_name?.message}
                 />
                 <InputField
                   control={control}
                   name="email"
-                  placeholder="Enter email"
+                  placeholder="Enter your email"
                   type="text"
                   error={errors.email?.message}
                 />
                 <InputField
                   control={control}
                   name="phone_number"
-                  placeholder="Enter phone_number"
+                  placeholder="Enter your phone number"
                   type="text"
                   error={errors.phone_number?.message}
                 />
               </div>
-              <div>
-                Already have an account? <Link href="/auth/login">Login</Link>
-              </div>
+
               <button
-                className="bg-red-500 w-full uppercase rounded-lg text-white p-4 mt-4"
+                className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
                 type="button"
                 onClick={onSubmit}
               >
                 Submit
               </button>
+              <div className="flex">
+                Already have an account?
+                <div className="text-primary font-bold px-1">
+                  <Link href="/auth/login">Login</Link>
+                </div>
+              </div>
             </form>
           </div>
         </div>

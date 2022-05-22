@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
       <div className="fixed w-full bg-inherit">
         <Header />
       </div>
-      <div className="px-2">{children}</div>
+      <div className="px-5">{children}</div>
     </div>
   );
 };

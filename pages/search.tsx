@@ -20,26 +20,28 @@ const Search = () => {
   return (
     <div className="pt-4 h-screen bg-zinc-100 flex justify-center">
       <div className="w-max-2xl ">
+        <div className="h-1/2 mt-12 items-center justify-center flex ">
+          <img
+            className="object-cover h-96 mt-2  rounded-xl"
+            src="/images/Search_Art.png"
+          />
+        </div>
         <div className="mt-10">
-          <h1 className="font-bold text-gray-500 text-2xl  pb-4">
-            Search for stocks
-          </h1>
+          <h1 className="font-bold text-2xl  pb-4">Search for stocks</h1>
         </div>
         <div className="space-y-4">
           <input
-            className="p-3 shadow-md w-full rounded-lg"
+            className="p-3  w-full rounded-lg"
             placeholder="Brand"
             onChange={(e) => setBrand(e.target.value)}
           />
           <input
-            className="p-3 shadow-md w-full rounded-lg "
+            className="p-3  w-full rounded-lg "
             placeholder="Size"
             onChange={(e) => setBrand(e.target.value)}
           />
-        </div>
-        <div>
           <button
-            className="p-3 mt-5 bg-red-500 w-full text-white uppercase text-xl rounded-lg shadow-md shadow-red-500"
+            className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
             onClick={getStocks}
           >
             Search

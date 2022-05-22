@@ -55,7 +55,7 @@ const InputField = ({
           name={name}
           render={({ field: { onChange, onBlur, value } }) => (
             <input
-              className="p-2 shadow-md w-full rounded-lg "
+              className="p-2  w-full rounded-lg "
               placeholder={placeholder}
               value={value}
               onChange={onChange}

@@ -47,27 +47,27 @@ const Login = ({ login, sendOtp }: LoginProps) => {
   return (
     <div className="min-h-screen ">
       <div className="flex flex-col ">
-        <div className="rounded-2xl h-1/2 mt-16  bg-[#fc9797] flex flex-col justify-center items-center w-full">
+        <div className="h-1/2 mt-12 items-center justify-center flex ">
           <img
-            className="flex justify-end items-end py-10 mt-10"
-            src="/images/Login_Art.png"
+            className="object-cover h-96 mt-2  rounded-xl"
+            src="/images/Login_ArtCover.png"
           />
         </div>
         <div className="flex flex-col py-2 mt-2 font-bold text-3xl text-center">
-          <h3>Welcome to </h3>
+          <h3 className="text-lg">Welcome to </h3>
           <h2>DBS Automotive</h2>
         </div>
         <div className="w-full h-fullrounded-2xl">
-          <div className="p-4">
-            <div className="flex items-center justify-center">
+          <div className="p-4 mt-4">
+            <div className="flex flex-col space-y-3 items-center justify-center">
               <h1 className="font-semibold text-3xl ">Login Now</h1>
-            </div>
-            <div className="flex items-center justify-center">
-              <p className="text-md ">Please enter your credentials to login</p>
+              <p className="text-md ">
+                Please enter your registered phone number
+              </p>
             </div>
             <div>
-              <form className="space-y-5" onSubmit={onSubmit}>
-                <div className="flex-col my-2 justify-center">
+              <form className="space-y-4" onSubmit={onSubmit}>
+                <div className="flex-col my-2 space-y-2 justify-center">
                   <InputField
                     control={control}
                     name="phone_number"
@@ -85,10 +85,6 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                     />
                   )}
                 </div>
-                <div>
-                  Don't have an account?
-                  <Link href="/auth/register">Register</Link>{" "}
-                </div>
                 <button
                   className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
                   type="button"
@@ -96,6 +92,12 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                 >
                   Submit
                 </button>
+                <div className="flex">
+                  Don't have an account?
+                  <div className="text-primary font-bold px-1">
+                    <Link href="/auth/register">Register</Link>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
