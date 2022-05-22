@@ -19,7 +19,7 @@ const DatePicker = ({ control, name, placeholder, error }) => {
             onClick={() => setShowCalender(!showCalender)}
           >
             <input
-              className="p-2 relative shadow-md w-full rounded-lg"
+              className="p-2 relative  w-full rounded-lg"
               placeholder={placeholder}
               value={value.toLocaleDateString("en-US")}
               onChange={onChange}
@@ -28,7 +28,7 @@ const DatePicker = ({ control, name, placeholder, error }) => {
             />
             {showCalender && (
               <Calendar
-                className="absolute top-14 -right-10 rounded-lg z-10"
+                className="absolute top-12 left-0 rounded-lg z-10"
                 date={new Date()}
                 onChange={onChange}
               />

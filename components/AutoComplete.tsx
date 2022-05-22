@@ -53,7 +53,7 @@ export default function AutoComplete({
         render={({ field: { onChange, value } }) => (
           <Combobox value={value} onChange={onChange}>
             <div className="relative">
-              <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+              <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                 <Combobox.Input
                   className="w-full border-none py-2 pl-3 pr-10 text-md leading-5 text-gray-900 focus:ring-0"
                   displayValue={(item: dataType) => item?.name}

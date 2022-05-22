@@ -1,3 +1,4 @@
+import StockCard from "@Components/StockCard";
 import StockDetail from "@Components/StockDetail";
 import { StocksProps } from "@Store/stocks/types";
 import React, { useEffect, useState } from "react";
@@ -22,7 +23,7 @@ const Stocks = ({ stocks, getStocks }: StocksProps) => {
     <div>
       <div className="pt-16">
         {stocks?.map((stock) => (
-          <StockDetail
+          <StockCard
             key={stock.id}
             brand={stock.tyreDetail.pattern.brand.name}
             vendor={stock.vendor?.name}

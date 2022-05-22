@@ -9,7 +9,7 @@ const SalesRecordCard = ({
   quantity,
 }) => {
   return (
-    <div className="rounded-lg bg-zinc-300  my-4 shadow-md">
+    <div className="rounded-lg   my-4 shadow-md">
       <div className="bg-[#2C3359] rounded-t-lg p-2 flex text-white">
         <div className="flex-col w-1/2 px-2">
           <div className="text-lg font-semibold">

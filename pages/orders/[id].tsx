@@ -1,6 +1,7 @@
 import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import SalesRecordCard from "@Components/SalesRecordCard";
+import StockSaleCard from "@Components/StockSaleCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addOrderToStock, getOrders } from "@Store/orders/actions";
 import { AddOrderProps } from "@Store/orders/types";
@@ -58,11 +59,15 @@ const AddOrder = ({ orders, getOrders, addOrderToStock }: AddOrderProps) => {
   }
   console.log(orders, "how many times called");
   return (
-    <div className="  pt-4 pb-10 md:px-96">
+    <div className="pt-4 pb-10 md:px-96">
+      <div className="h-1/2 mt-12 items-center justify-center flex ">
+        <img
+          className="object-contain mt-2 rounded-xl"
+          src="/images/Record_Sale.png"
+        />
+      </div>
       <div className="pt-10 md:px-96">
-        <h1 className="font-bold text-gray-500 text-2xl capitalize pb-2">
-          Record sales
-        </h1>
+        <h1 className="font-bold text-2xl capitalize pb-2">Record sale</h1>
       </div>
       <div>
         <form className="space-y-5 md:px-96" onSubmit={onSubmit}>
@@ -85,19 +90,19 @@ const AddOrder = ({ orders, getOrders, addOrderToStock }: AddOrderProps) => {
               name={"customer_name"}
               error={errors.customer_name?.message}
             />
+            <button
+              className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
+              onClick={onSubmit}
+            >
+              Submit
+            </button>
           </div>
-          <button
-            className="bg-red-500 w-full uppercase rounded-lg text-white p-4 mt-4"
-            onClick={onSubmit}
-          >
-            Submit
-          </button>
         </form>
       </div>
       <div>
         {userRole === "admin" &&
           orders?.map((order) => (
-            <SalesRecordCard
+            <StockSaleCard
               key={order.id}
               employee_name={order.employee_name}
               sold_price={order.sold_price}
