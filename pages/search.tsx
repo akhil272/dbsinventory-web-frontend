@@ -1,21 +1,50 @@
+import InputField from "@Components/InputField";
+import SearchField from "@Components/SearchField";
+import { initialState } from "@Store/rootReducer";
+import { getBrands, getTyreSizes } from "@Store/tyre/actions";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootStore } from "../store";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
-const Search = () => {
-  const [brand, setBrand] = useState("");
-  const [size, setSize] = useState("");
+const mapStateToProps = ({ tyres }: typeof initialState) => ({
+  brands: tyres.brands,
+  tyreSizes: tyres.tyreSizes,
+});
+
+const mapDispatchToProps = () => ({
+  getBrands,
+  getTyreSizes,
+});
+
+const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchBrand, setSearchBrand] = useState(brands[0]);
+  const [searchTyreSize, setSearchTyreSize] = useState(tyreSizes[0]);
   const router = useRouter();
-  const token = useSelector((state: RootStore) => state.auth.token);
-
-  const getStocks = () => {
-    if (brand.length > 0 || size.length > 0) {
-      router.push(`/search/${brand}`);
-    } else {
-      router.push("stocks");
+  const handleSearch = () => {
+    if (searchBrand) {
+      router.push(`/search/&brand=${searchBrand?.name}`);
+    }
+    if (searchTyreSize) {
+      setSearchBrand(brands[0]);
+      const trim = searchTyreSize?.name?.substring(0, 3);
+      router.push(`/search/&size=${trim}`);
+    }
+    if (searchTerm) {
+      router.push(`/search/=${searchTerm}`);
+    }
+    if (!searchTerm && !searchBrand && !searchBrand) {
+      router.push("/stocks");
     }
   };
+  useEffect(() => {
+    getBrands({ search: "" });
+    setSearchBrand(brands[0]);
+  }, [getBrands]);
+  useEffect(() => {
+    getTyreSizes({ search: "" });
+    setSearchBrand(tyreSizes[0]);
+  }, [getTyreSizes]);
 
   return (
     <div className="pt-4 h-screen flex justify-center">
@@ -30,19 +59,30 @@ const Search = () => {
           <h1 className="font-bold text-2xl  pb-4">Search for stocks</h1>
         </div>
         <div className="space-y-4">
-          <input
-            className="p-3  w-full rounded-lg"
-            placeholder="Brand"
-            onChange={(e) => setBrand(e.target.value)}
+          <SearchField
+            selected={searchBrand}
+            setSelected={setSearchBrand}
+            data={brands}
+            placeholder="Brand name"
+          />
+          <SearchField
+            selected={searchTyreSize}
+            setSelected={setSearchTyreSize}
+            data={tyreSizes?.map(({ size, id }) => ({
+              name: size,
+              id,
+            }))}
+            placeholder="Tyre size"
           />
           <input
-            className="p-3  w-full rounded-lg "
-            placeholder="Size"
-            onChange={(e) => setBrand(e.target.value)}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search in brand / tyre size / pattern"
+            className="relative w-full cursor-default p-2 rounded-lg bg-white text-left    sm:text-sm"
           />
           <button
+            onClick={handleSearch}
             className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-            onClick={getStocks}
           >
             Search
           </button>
@@ -52,4 +92,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

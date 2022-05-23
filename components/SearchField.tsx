@@ -9,11 +9,18 @@ type dataType = {
 type SearchFieldProps = {
   data: dataType[];
   placeholder: string;
+  selected: any;
+  setSelected: any;
 };
 
-export default function SearchField({ placeholder, data }: SearchFieldProps) {
+export default function SearchField({
+  placeholder,
+  data,
+  selected,
+  setSelected,
+}: SearchFieldProps) {
   const [query, setQuery] = useState("");
-  const [selected, setSelected] = useState(data[0]);
+
   const filtereddata =
     query === ""
       ? data
