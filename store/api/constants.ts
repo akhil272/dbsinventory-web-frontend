@@ -18,6 +18,8 @@ const API_END_POINTS = {
   SEARCH: "search",
   CREATE: "/create",
   ORDERS: "/orders",
+  USER: "/user",
+  INFO: "/info",
 };
 
 enum API_METHODS {

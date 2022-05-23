@@ -18,11 +18,11 @@ const Search = () => {
   };
 
   return (
-    <div className="pt-4 h-screen bg-zinc-100 flex justify-center">
+    <div className="pt-4 h-screen flex justify-center">
       <div className="w-max-2xl ">
         <div className="h-1/2 mt-12 items-center justify-center flex ">
           <img
-            className="object-contain mt-2  rounded-xl"
+            className="object-contain mt-2 rounded-xl"
             src="/images/Search_Art.png"
           />
         </div>

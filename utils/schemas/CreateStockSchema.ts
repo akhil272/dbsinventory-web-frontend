@@ -5,7 +5,6 @@ const CreateStockSchema = Yup.object().shape({
     .typeError("Please select from drop down")
     .required("Required"),
 
-  // brand: Yup.string().required("Required"),
   // tyre_size: Yup.string()
   //   .required("Required")
   //   .matches(/^[0-9]+\/\d\dR\d\d$/, "Only accept 175/80R12 format"),

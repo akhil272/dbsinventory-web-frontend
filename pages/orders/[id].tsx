@@ -1,6 +1,5 @@
 import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
-import SalesRecordCard from "@Components/SalesRecordCard";
 import StockSaleCard from "@Components/StockSaleCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addOrderToStock, getOrders } from "@Store/orders/actions";
@@ -12,21 +11,28 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
-const mapStateToProps = ({ orders }: typeof initialState) => ({
+const mapStateToProps = ({ orders, users }: typeof initialState) => ({
   orders: orders.orders,
+  loading: orders.loading,
+  user: users.user,
 });
 const mapDispatchToProps = () => ({
   getOrders,
   addOrderToStock,
 });
-const AddOrder = ({ orders, getOrders, addOrderToStock }: AddOrderProps) => {
+const AddOrder = ({
+  orders,
+  getOrders,
+  addOrderToStock,
+  loading,
+  user,
+}: AddOrderProps) => {
   const { query, isReady } = useRouter();
   const userRole = "admin";
-
   const { id } = query;
   const stockId = Number(id);
-  console.log(id, "id here", stockId, "stockid");
   const {
     handleSubmit,
     control,
@@ -44,11 +50,15 @@ const AddOrder = ({ orders, getOrders, addOrderToStock }: AddOrderProps) => {
       sold_price: data.sold_price,
     });
     if (response.success) {
-      console.log("added successfully");
+      if (response.success && response.data) {
+        toast.success(`Successfully recorded sale in the system.`);
+      }
+      if (response.error) {
+        toast.error(`Failed to record sale in the system. ${response.message}`);
+      }
       getOrders({ id: stockId });
     }
   };
-
   useEffect(() => {
     if (isReady) {
       getOrders({ id: stockId });
@@ -57,9 +67,11 @@ const AddOrder = ({ orders, getOrders, addOrderToStock }: AddOrderProps) => {
   if (!isReady) {
     return <LoadingAnimation message="Please wait..." />;
   }
-  console.log(orders, "how many times called");
+  if (loading) {
+    return <LoadingAnimation message="Loading orders. Please wait.." />;
+  }
   return (
-    <div className="pt-4 pb-10 md:px-96">
+    <div className="pt-4 pb-10">
       <div className="h-1/2 mt-12 items-center justify-center flex ">
         <img
           className="object-contain mt-2 rounded-xl"
@@ -100,7 +112,7 @@ const AddOrder = ({ orders, getOrders, addOrderToStock }: AddOrderProps) => {
         </form>
       </div>
       <div>
-        {userRole === "admin" &&
+        {user?.roles === "admin" &&
           orders?.map((order) => (
             <StockSaleCard
               key={order.id}

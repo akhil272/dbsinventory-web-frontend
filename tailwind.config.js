@@ -1,3 +1,4 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -9,6 +10,9 @@ module.exports = {
         primary: "#F21313",
         secondary: "#2A265F",
         pastel_green: "#00A388",
+      },
+      fontFamily: {
+        sans: ["Noto Sans", ...defaultTheme.fontFamily.sans],
       },
     },
   },

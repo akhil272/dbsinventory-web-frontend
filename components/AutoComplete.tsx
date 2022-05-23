@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, PlusIcon, SelectorIcon } from "@heroicons/react/solid";
 import { Control, Controller } from "react-hook-form";
-
+import { toast } from "react-toastify";
 type dataType = {
   id: number;
   name: string;
@@ -40,8 +40,11 @@ export default function AutoComplete({
   const addItem = async () => {
     const response = await create({ name: query });
     if (response.success) {
-      console.log(`Successfully added ${name} to system.`);
+      toast.success(`Successfully added ${name} to system.`);
       onSuccess();
+    }
+    if (response.error) {
+      toast.error(`Failed to add ${name} to system.`);
     }
   };
   return (

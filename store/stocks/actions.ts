@@ -31,12 +31,12 @@ export const createStock = async (data: createStockPayload) => {
 export const getStocks = async (payload: getStocksPayload) => {
   const { STOCKS, SEARCH } = API_END_POINTS;
   const { search = "" } = payload;
-  const pathname = `${STOCKS}`;
-  const urlParams = new URLSearchParams();
-  if (search) {
-    urlParams.append(SEARCH, search);
-  }
-  const url = `${pathname}?${urlParams}`;
+  const pathname = `${STOCKS}?${SEARCH}`;
+  // const urlParams = new URLSearchParams();
+  // if (search) {
+  //   urlParams.append(SEARCH, search);
+  // }
+  const url = `${pathname}${search}`;
   const apiArgs = {
     method: API_METHODS.GET,
     url,

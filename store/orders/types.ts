@@ -1,5 +1,6 @@
 import { ApiReturnType } from "@Store/api";
 import { Stock } from "@Store/stocks/types";
+import { User } from "@Store/users/types";
 
 export const ORDER_TO_STOCK_CREATE_INIT = "ORDER_TO_STOCK:CREATE:INIT";
 export const ORDER_TO_STOCK_CREATE_SUCCESS = "ORDER_TO_STOCK:CREATE:SUCCESS";
@@ -45,6 +46,8 @@ export type OrderDispatchProps = {
 
 export type AddOrderStateProps = {
   orders: Order[];
+  loading: boolean;
+  user: User;
 };
 
 export type AddOrderProps = AddOrderStateProps & OrderDispatchProps;

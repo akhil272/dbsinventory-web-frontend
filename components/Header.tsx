@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons";
-import Image from "next/image";
 import SideBar from "./SideBar";
 import Link from "next/link";
-const Header = () => {
+const Header = ({ userRole }) => {
   const [open, setOpen] = useState(false);
   return (
     <header>
@@ -13,10 +12,11 @@ const Header = () => {
         </Link>
 
         <div>
-          <button>
+          <button onClick={() => setOpen(!open)}>
             <MenuOutlined />
           </button>
         </div>
+        {open && <SideBar userRole={userRole} open={open} setOpen={setOpen} />}
       </nav>
     </header>
   );

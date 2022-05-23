@@ -1,7 +1,6 @@
-import React from "react";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import moment from "moment";
 import { useRouter } from "next/router";
+import { stringify } from "querystring";
 
 interface StockItemProps {
   brand?: string;
@@ -16,6 +15,7 @@ interface StockItemProps {
   quantity: number | string;
   cost: number | string;
   stockId?: number;
+  role: string;
 }
 
 const StockCard = ({
@@ -31,6 +31,7 @@ const StockCard = ({
   quantity,
   cost,
   stockId,
+  role,
 }: StockItemProps) => {
   const router = useRouter();
   const onEditOrder = (id: number) => {
@@ -40,11 +41,19 @@ const StockCard = ({
   //   router.push(`/stock/delete/${id}`);
   // };
   // const userRole = useSelector((state: RootStore) => state.auth.userRole);
-
+  const handleContactUs = () => {
+    let url = `https://web.whatsapp.com/send?phone=+919446821132`;
+    const message = `I would like to know the price of ${stringify({
+      stockId,
+    })}`;
+    // Appending the message to the URL by encoding it
+    url += `&text=${encodeURI(message)}&app_absent=0`;
+    window.open(url);
+  };
   return (
     <div className="lg:px-96">
       <div className="flex mt-4">
-        <div className="bg-secondary space-y-4 text-white px-2 py-4 w-1/3 rounded-l-xl">
+        <div className="bg-secondary space-y-3 text-white px-2 pb-3 w-1/3 rounded-l-xl">
           <div className="px-2 pt-4 -space-y-1 ">
             <div className="text-sm">Brand</div>
             <div className="text-md font-semibold">{brand}</div>
@@ -55,10 +64,12 @@ const StockCard = ({
             <div className="text-md font-semibold">{pattern_name}</div>
           </div>
           <div className="px-2 pt-2">
-            <div className="text-md font-semibold">Rs. {cost}</div>
+            <div onClick={handleContactUs} className="text-md font-semibold">
+              {role === "user" ? "Contact Us" : `Rs. ${cost}`}
+            </div>
           </div>
         </div>
-        <div className="flex flex-col w-2/3 bg-white py-4 space-y-3  rounded-r-xl">
+        <div className="flex flex-col w-2/3 bg-white pb-3 space-y-3  rounded-r-xl">
           <div className="px-2 pt-2 flex">
             <div className="flex-col -space-y-1 w-1/2 px-2">
               <div className=" pt-2 text-sm">Purchase Date</div>
@@ -79,15 +90,22 @@ const StockCard = ({
               <div className="text-md font-semibold">{quantity}</div>
             </div>
           </div>
-          <div className="flex text-white text-sm justify-around px-2 ">
-            <div className="p-2 rounded-lg  bg-secondary">Update</div>
-            <div className="p-2 rounded-lg  bg-secondary">Delete</div>
-            <div
-              onClick={() => onEditOrder(stockId)}
-              className="p-2 rounded-lg  bg-secondary"
-            >
-              Add Sale
-            </div>
+
+          <div className="flex text-white text-sm justify-between px-2 ">
+            {role === "admin" && (
+              <div className="p-2 rounded-lg  bg-secondary">Update</div>
+            )}
+            {role === "admin" && (
+              <div className="p-2 rounded-lg  bg-secondary">Delete</div>
+            )}
+            {role !== "user" && (
+              <div
+                onClick={() => onEditOrder(stockId)}
+                className="p-2 rounded-lg  bg-secondary"
+              >
+                Add Sale
+              </div>
+            )}
           </div>
         </div>
       </div>

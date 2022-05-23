@@ -107,6 +107,8 @@ export type StocksStateProps = {
   total: number;
   page: number;
   last_page: number;
+  loading: boolean;
+  user: User;
 };
 export type StocksDispatchProps = {
   getStocks: (

@@ -9,7 +9,7 @@ import { AddStockFormData } from "@Utils/formTypes/AddStockFormData";
 import CreateStockSchema from "@Utils/schemas/CreateStockSchema";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-
+import { toast } from "react-toastify";
 const product_line = [{ name: "PC" }, { name: "TB" }, { name: "2R" }];
 
 const CreateStock = ({
@@ -53,7 +53,10 @@ const CreateStock = ({
       tyre_detail_id: data.tyre_detail_id.id,
     });
     if (response.success && response.data) {
-      console.log("Stocks added");
+      toast.success(`Successfully added new stock to system.`);
+    }
+    if (response.error) {
+      toast.error(`Failed to new stock to system. ${response.message}`);
     }
   };
 
@@ -116,8 +119,16 @@ const CreateStock = ({
   }, [getLocations]);
 
   return (
-    <div className="pt-20">
-      Create a stock
+    <div className="py-10 ">
+      <div className="h-1/2 mt-12 items-center justify-center flex ">
+        <img
+          className="object-contain rounded-xl"
+          src="/images/Create_Stock.png"
+        />
+      </div>
+      <div className="mt-2">
+        <h1 className="font-bold text-2xl pb-4">Add stock</h1>
+      </div>
       <div>
         <div className="">
           <form className="space-y-3" onSubmit={onSubmit}>
@@ -214,7 +225,12 @@ const CreateStock = ({
               type="text"
               error={errors.cost?.message}
             />
-            <button onClick={onSubmit}>Submit</button>
+            <button
+              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+              onClick={onSubmit}
+            >
+              Submit
+            </button>
           </form>
         </div>
       </div>
