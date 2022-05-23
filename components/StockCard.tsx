@@ -34,7 +34,7 @@ const StockCard = ({
   role,
 }: StockItemProps) => {
   const router = useRouter();
-  const onEditOrder = (id: number) => {
+  const addSale = (id: number) => {
     router.push(`/orders/${id}`);
   };
   // const onDeleteStock = (id: string) => {
@@ -65,7 +65,9 @@ const StockCard = ({
           </div>
           <div className="px-2 pt-2">
             <div onClick={handleContactUs} className="text-md font-semibold">
-              {role === "user" ? "Contact Us" : `Rs. ${cost}`}
+              {role === "user" || role == undefined
+                ? "Contact Us"
+                : `Rs. ${cost}`}
             </div>
           </div>
         </div>
@@ -98,9 +100,9 @@ const StockCard = ({
             {role === "admin" && (
               <div className="p-2 rounded-lg  bg-secondary">Delete</div>
             )}
-            {role !== "user" && (
+            {role != "user" && role != undefined && (
               <div
-                onClick={() => onEditOrder(stockId)}
+                onClick={() => addSale(stockId)}
                 className="p-2 rounded-lg  bg-secondary"
               >
                 Add Sale

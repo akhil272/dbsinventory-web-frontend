@@ -28,6 +28,7 @@ const Stocks = ({
   if (loading) {
     return <LoadingAnimation message="Loading stocks. Please wait.." />;
   }
+
   return (
     <div>
       <div className="pt-16">

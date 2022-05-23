@@ -1,10 +1,6 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RegisterProps } from "@Store/auth/types";
-import { RegisterAuthSchema } from "@Utils/schemas/RegisterAuthSchema";
-import storage from "@Utils/storage";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { CreateUserSchema } from "@Utils/schemas/CreateUserSchema";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -14,31 +10,29 @@ type formData = {
   last_name: string;
   email: string;
   phone_number: string;
+  roles: string;
 };
 
-const Register = ({ register, initiateVerification }: RegisterProps) => {
-  const router = useRouter();
+const Create = ({ createUser }) => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<formData>({ resolver: yupResolver(RegisterAuthSchema) });
-  const onSubmit = handleSubmit((data) => handleLogin(data));
-  const handleLogin = async (data: formData) => {
-    const response = await register({
+  } = useForm<formData>({ resolver: yupResolver(CreateUserSchema) });
+  const onSubmit = handleSubmit((data) => createAUserByAdmin(data));
+  const createAUserByAdmin = async (data: formData) => {
+    const response = await createUser({
       first_name: data.first_name,
       last_name: data.last_name,
       phone_number: data.phone_number,
       email: data.email,
+      roles: data.roles,
     });
-
-    if (response.success && response.data) {
-      storage().setAccessToken(response.data?.accessToken);
-      initiateVerification();
-      router.push("/auth/verify-user");
+    if (response.success) {
+      toast.success("Created user");
     }
-    if (response.error) {
-      toast.error(`Error. ${response.message} `);
+    if (response.status === 409) {
+      toast.error(`Failed to create user. ${response.message}`);
     }
   };
   return (
@@ -46,18 +40,16 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
       <div className="h-1/2 mt-12 items-center justify-center flex ">
         <img
           className="object-cover h-96 mt-2  rounded-xl"
-          src="/images/Register_ArtCover.png"
+          src="/images/Create_User.png"
         />
       </div>
       <div className="w-full rounded-2xl">
         <div className="p-4">
           <div className="flex items-center justify-center">
-            <h1 className="font-semibold text-3xl ">Register Now</h1>
+            <h1 className="font-semibold text-3xl ">Create User</h1>
           </div>
           <div className="flex items-center justify-center">
-            <p className="text-md py-2">
-              Fill in the details below to register
-            </p>
+            <p className="text-md py-2">Fill in the details below</p>
           </div>
           <div>
             <form className="space-y-5" onSubmit={onSubmit}>
@@ -79,7 +71,7 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
                 <InputField
                   control={control}
                   name="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter your email (optional)"
                   type="text"
                   error={errors.email?.message}
                 />
@@ -90,6 +82,13 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
                   type="text"
                   error={errors.phone_number?.message}
                 />
+                <InputField
+                  control={control}
+                  name="roles"
+                  placeholder="Enter your user role"
+                  type="text"
+                  error={errors.roles?.message}
+                />
               </div>
 
               <button
@@ -99,12 +98,6 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
               >
                 Submit
               </button>
-              <div className="flex">
-                Already have an account?
-                <div className="text-primary font-bold px-1">
-                  <Link href="/auth/login">Login</Link>
-                </div>
-              </div>
             </form>
           </div>
         </div>
@@ -113,4 +106,4 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
   );
 };
 
-export default Register;
+export default Create;

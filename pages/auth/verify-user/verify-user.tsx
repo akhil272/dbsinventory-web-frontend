@@ -1,10 +1,10 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterDispatchProps } from "@Store/auth/types";
-import { ValidateVerificationSchema } from "@Utils/RegisterAuthSchema";
+import { ValidateVerificationSchema } from "@Utils/schemas/RegisterAuthSchema";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 type formData = {
   verification_code: string;
 };
@@ -24,6 +24,9 @@ const VerifyUser = ({ validateVerification }: RegisterDispatchProps) => {
     });
     if (response.success) {
       router.push("/auth/login");
+    }
+    if (!response.success) {
+      toast.error(`Error. ${response.message} `);
     }
   };
   return (

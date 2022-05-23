@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoginArt from "../../../public/images/Login_Art.png";
 import Image from "next/image";
+import { toast } from "react-toastify";
 type formData = {
   phone_number?: string;
   otp?: string;
@@ -41,6 +42,9 @@ const Login = ({ login, sendOtp }: LoginProps) => {
         storage().setAccessToken(response.data?.accessToken);
         storage().setRefreshToken(response.data?.refreshToken);
         router.push("/");
+      }
+      if (!response.success) {
+        toast.error(`Error. ${response.message} `);
       }
     }
   };

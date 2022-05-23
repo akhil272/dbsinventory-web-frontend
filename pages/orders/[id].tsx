@@ -52,11 +52,11 @@ const AddOrder = ({
     if (response.success) {
       if (response.success && response.data) {
         toast.success(`Successfully recorded sale in the system.`);
+        getOrders({ id: stockId });
       }
       if (response.error) {
         toast.error(`Failed to record sale in the system. ${response.message}`);
       }
-      getOrders({ id: stockId });
     }
   };
   useEffect(() => {

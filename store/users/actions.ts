@@ -35,8 +35,8 @@ export const getUserInfo = async () => {
 };
 
 export const createUser = async (data: createUserPayload) => {
-  const { USERS } = API_END_POINTS;
-  const pathname = USERS;
+  const { USERS, CREATE } = API_END_POINTS;
+  const pathname = `${USERS}${CREATE}`;
   const url = `${pathname}`;
   const apiArgs = {
     method: API_METHODS.POST,
