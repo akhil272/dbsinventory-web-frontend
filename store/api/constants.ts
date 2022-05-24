@@ -2,6 +2,8 @@ const API_END_POINTS = {
   REGISTER: "/auth/register",
   AUTH: "/auth/log-in",
   INITIATE_VERIFICATION: "/sms/initiate-verification",
+  RETRY_VERIFICATION: "/sms/retry-verification",
+  RETRY_INITIATE_VERIFICATION: "/sms/retry-initiate",
   VALIDATE_VERIFICATION_CODE: "/sms/check-verification-code",
   GENERATE_OTP: "/auth/otp/generate",
   VALIDATE_OTP: "/auth/otp/validate",

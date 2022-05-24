@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 type formData = {
   first_name: string;
   last_name: string;
-  email: string;
+  email?: string;
   phone_number: string;
 };
 
@@ -34,10 +34,17 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
 
     if (response.success && response.data) {
       storage().setAccessToken(response.data?.accessToken);
-      initiateVerification();
-      router.push("/auth/verify-user");
+      const initiate = await initiateVerification();
+      if (initiate.success) {
+        router.push("/auth/verify-user");
+      }
+      if (!initiate.success) {
+        toast.error(
+          `Failed to initiate user verification. ${initiate.message} `
+        );
+      }
     }
-    if (response.error) {
+    if (!response.success) {
       toast.error(`Error. ${response.message} `);
     }
   };
@@ -79,7 +86,7 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
                 <InputField
                   control={control}
                   name="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter your email (optional)"
                   type="text"
                   error={errors.email?.message}
                 />

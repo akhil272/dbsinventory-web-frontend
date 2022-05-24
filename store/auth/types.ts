@@ -1,5 +1,12 @@
 import { ApiReturnType } from "@Store/api";
-
+export const RETRY_VERIFICATION_INIT = "RETRY_VERIFICATION:INIT";
+export const RETRY_VERIFICATION_SUCCESS = "RETRY_VERIFICATION:SUCCESS";
+export const RETRY_VERIFICATION_FAIL = "RETRY_VERIFICATION:FAIL";
+export const RETRY_INITIATE_VERIFICATION_INIT =
+  "RETRY_INITIATE_VERIFICATION:INIT";
+export const RETRY_INITIATE_VERIFICATION_SUCCESS =
+  "RETRY_INITIATE_VERIFICATION:SUCCESS";
+export const RETRY_INITIATE_VERIFICATION_FAIL = "INITIATE_VERIFICATION:FAIL";
 export const VALIDATE_VERIFICATION_INIT = "VALIDATE_VERIFICATION:INIT";
 export const VALIDATE_VERIFICATION_SUCCESS = "VALIDATE_VERIFICATION:SUCCESS";
 export const VALIDATE_VERIFICATION_FAIL = "VALIDATE_VERIFICATION:FAIL";
@@ -32,6 +39,17 @@ export type registerPayload = {
   phone_number: string;
 };
 
+export type retryVerificationPayload = {
+  phone_number?: string;
+  otp?: string;
+};
+export type retryInitiateVerificationPayload = {
+  phone_number: string;
+};
+
+export type retryVerificationResponse = {
+  success: boolean;
+};
 export type registerApiResponse = {
   accessToken: string;
 };
@@ -61,6 +79,12 @@ export type validateVerificationPayload = {
 };
 
 export type RegisterDispatchProps = {
+  retryInitiateVerification: (
+    payload: retryInitiateVerificationPayload
+  ) => Promise<ApiReturnType<retryVerificationResponse>>;
+  retryVerification: (
+    payload: retryVerificationPayload
+  ) => Promise<ApiReturnType<retryVerificationResponse>>;
   register: (
     payload: registerPayload
   ) => Promise<ApiReturnType<registerApiResponse>>;
@@ -76,6 +100,27 @@ export type LoginDispatchProps = {
 };
 export type RegisterProps = RegisterDispatchProps;
 export type LoginProps = LoginDispatchProps;
+
+type RetryVerificationInitAction = {
+  type: typeof RETRY_VERIFICATION_INIT;
+};
+type RetryVerificationSuccessAction = {
+  type: typeof RETRY_VERIFICATION_SUCCESS;
+  payload: ApiReturnType<retryVerificationResponse>;
+};
+type RetryVerificationFailAction = {
+  type: typeof RETRY_VERIFICATION_FAIL;
+};
+type RetryInitiateVerificationInitAction = {
+  type: typeof RETRY_INITIATE_VERIFICATION_INIT;
+};
+type RetryInitiateVerificationSuccessAction = {
+  type: typeof RETRY_INITIATE_VERIFICATION_SUCCESS;
+  payload: ApiReturnType<retryVerificationResponse>;
+};
+type RetryInitiateVerificationFailAction = {
+  type: typeof RETRY_INITIATE_VERIFICATION_FAIL;
+};
 
 type SendOtpInitAction = {
   type: typeof SEND_OTP_INIT;
@@ -102,6 +147,7 @@ type InitiateVerificationInitAction = {
 };
 type InitiateVerificationSuccessAction = {
   type: typeof INITIATE_VERIFICATION_SUCCESS;
+  payload: ApiReturnType<retryVerificationResponse>;
 };
 type InitiateVerificationFailAction = {
   type: typeof INITIATE_VERIFICATION_FAIL;
@@ -129,6 +175,12 @@ type LoginFailAction = {
   type: typeof LOGIN_FAIL;
 };
 export type RegisterActionTypes =
+  | RetryVerificationInitAction
+  | RetryVerificationSuccessAction
+  | RetryVerificationFailAction
+  | RetryInitiateVerificationInitAction
+  | RetryInitiateVerificationSuccessAction
+  | RetryInitiateVerificationFailAction
   | SendOtpInitAction
   | SendOtpSuccessAction
   | SendOtpFailAction

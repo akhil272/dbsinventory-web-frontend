@@ -7,8 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import LoginArt from "../../../public/images/Login_Art.png";
-import Image from "next/image";
 import { toast } from "react-toastify";
 type formData = {
   phone_number?: string;
@@ -32,6 +30,9 @@ const Login = ({ login, sendOtp }: LoginProps) => {
       if (response.success) {
         setUserOtp(true);
       }
+      if (!response.success) {
+        toast.error(`${response.message}`);
+      }
     }
     if (data.otp) {
       const response = await login({
@@ -41,7 +42,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
       if (response.success && response.data) {
         storage().setAccessToken(response.data?.accessToken);
         storage().setRefreshToken(response.data?.refreshToken);
-        router.push("/");
+        router.push("/search");
       }
       if (!response.success) {
         toast.error(`Error. ${response.message} `);

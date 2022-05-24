@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import storage from "@Utils/storage";
 
 const adminLink = [
   { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
@@ -66,7 +67,11 @@ const sideVariants = {
 
 export default function SideBar({ open, setOpen, userRole }) {
   const router = useRouter();
-
+  const signOutUser = () => {
+    storage().clear();
+    router.push("/");
+    console.log("clicked on it");
+  };
   return (
     <main>
       <AnimatePresence>
@@ -207,6 +212,7 @@ export default function SideBar({ open, setOpen, userRole }) {
               initial="closed"
               animate="open"
               exit="closed"
+              onClick={signOutUser}
               variants={sideVariants}
               className="text-red-500  absolute bottom-4 font-bold uppercase"
               whileHover={{

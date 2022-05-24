@@ -23,6 +23,7 @@ const VerifyUser = ({ validateVerification }: RegisterDispatchProps) => {
       verification_code: data.verification_code,
     });
     if (response.success) {
+      toast.success("Phone number successfully verified.");
       router.push("/auth/login");
     }
     if (!response.success) {
@@ -30,8 +31,8 @@ const VerifyUser = ({ validateVerification }: RegisterDispatchProps) => {
     }
   };
   return (
-    <div className="h-screen px-6 w-screen flex items-center justify-center">
-      <div className=" w-96 p-4 bg-zinc-100 shadow-lg rounded-2xl">
+    <div className="h-screen  flex items-center justify-center">
+      <div className=" w-96 p-4  rounded-2xl">
         <div className="p-4">
           <div className="flex items-center justify-center">
             <h1 className="font-semibold text-3xl ">Enter the OTP</h1>
@@ -51,7 +52,7 @@ const VerifyUser = ({ validateVerification }: RegisterDispatchProps) => {
                 />
               </div>
               <button
-                className="bg-red-500 w-full uppercase rounded-lg text-white p-4 mt-4"
+                className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
                 type="button"
                 onClick={onSubmit}
               >

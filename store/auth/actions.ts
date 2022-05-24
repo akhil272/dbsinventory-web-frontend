@@ -21,7 +21,49 @@ import {
   SEND_OTP_INIT,
   SEND_OTP_SUCCESS,
   REGISTER_FAIL,
+  retryVerificationPayload,
+  RETRY_VERIFICATION_FAIL,
+  RETRY_VERIFICATION_INIT,
+  RETRY_VERIFICATION_SUCCESS,
+  RETRY_INITIATE_VERIFICATION_FAIL,
+  RETRY_INITIATE_VERIFICATION_INIT,
+  RETRY_INITIATE_VERIFICATION_SUCCESS,
 } from "./types";
+
+export const retryVerification = async (data: retryVerificationPayload) => {
+  const { RETRY_VERIFICATION } = API_END_POINTS;
+  const url = `${RETRY_VERIFICATION}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    authRequired: false,
+    TYPES: {
+      requestType: RETRY_VERIFICATION_INIT,
+      successType: RETRY_VERIFICATION_SUCCESS,
+      failureType: RETRY_VERIFICATION_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+export const retryInitiateVerification = async (
+  data: retryVerificationPayload
+) => {
+  const { RETRY_INITIATE_VERIFICATION } = API_END_POINTS;
+  const url = `${RETRY_INITIATE_VERIFICATION}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    authRequired: false,
+    TYPES: {
+      requestType: RETRY_INITIATE_VERIFICATION_INIT,
+      successType: RETRY_INITIATE_VERIFICATION_SUCCESS,
+      failureType: RETRY_INITIATE_VERIFICATION_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const login = async (data: loginPayload) => {
   const { VALIDATE_OTP } = API_END_POINTS;
