@@ -57,67 +57,69 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
     purchase_date: `${stock?.purchase_date}`,
   };
   return (
-    <div className="py-10 ">
-      <div className="h-1/2 mt-12 items-center justify-center flex ">
-        <img
-          className="object-contain rounded-xl"
-          src="/images/Update_Stock.png"
-        />
-      </div>
-      <div className="mt-2">
-        <h1 className="font-bold text-2xl pb-4">Update stock</h1>
-      </div>
-      <div>
-        <div className="">
-          <form className="space-y-3" onSubmit={onSubmit}>
-            <div>
-              <p className="text-sm text-gray-500">DOM</p>
-              <InputField
-                placeholder={"Enter DOM"}
-                name={"dom"}
-                control={control}
-                error={errors.dom?.message}
-                defaultValue={initialValues.dom}
-              />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Purchase Date</p>
-              <DatePicker
-                defaultValue={new Date(initialValues.purchase_date)}
-                control={control}
-                name="purchase_date"
-                placeholder="Pick a date"
-                error={errors.purchase_date?.message}
-              />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Quantity</p>
-              <InputField
-                placeholder={"Enter quantity"}
-                name={"quantity"}
-                control={control}
-                error={errors.quantity?.message}
-                defaultValue={initialValues.quantity}
-              />
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Cost</p>
-              <InputField
-                placeholder={"Enter cost"}
-                name={"cost"}
-                control={control}
-                error={errors.cost?.message}
-                defaultValue={initialValues.cost}
-              />
-            </div>
+    <div className="py-10 flex justify-center ">
+      <div className="max-w-2xl">
+        <div className="items-center justify-center flex ">
+          <img
+            className="object-contain rounded-xl"
+            src="/images/Update_Stock.png"
+          />
+        </div>
+        <div className="mt-2">
+          <h1 className="font-bold text-2xl pb-4">Update stock</h1>
+        </div>
+        <div>
+          <div className="">
+            <form className="space-y-3" onSubmit={onSubmit}>
+              <div>
+                <p className="text-sm text-gray-500">DOM</p>
+                <InputField
+                  placeholder={"Enter DOM"}
+                  name={"dom"}
+                  control={control}
+                  error={errors.dom?.message}
+                  defaultValue={initialValues.dom}
+                />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Purchase Date</p>
+                <DatePicker
+                  defaultValue={new Date(initialValues.purchase_date)}
+                  control={control}
+                  name="purchase_date"
+                  placeholder="Pick a date"
+                  error={errors.purchase_date?.message}
+                />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Quantity</p>
+                <InputField
+                  placeholder={"Enter quantity"}
+                  name={"quantity"}
+                  control={control}
+                  error={errors.quantity?.message}
+                  defaultValue={initialValues.quantity}
+                />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Cost</p>
+                <InputField
+                  placeholder={"Enter cost"}
+                  name={"cost"}
+                  control={control}
+                  error={errors.cost?.message}
+                  defaultValue={initialValues.cost}
+                />
+              </div>
 
-            <button
-              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-              onClick={onSubmit}
-            >
-              Submit
-            </button>
-          </form>
+              <button
+                className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+                onClick={onSubmit}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

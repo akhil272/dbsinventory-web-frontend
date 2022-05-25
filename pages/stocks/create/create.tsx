@@ -119,119 +119,123 @@ const CreateStock = ({
   }, [getLocations]);
 
   return (
-    <div className="py-10 ">
-      <div className="h-1/2 mt-12 items-center justify-center flex ">
-        <img
-          className="object-contain rounded-xl"
-          src="/images/Create_Stock.png"
-        />
-      </div>
-      <div className="mt-2">
-        <h1 className="font-bold text-2xl pb-4">Add stock</h1>
-      </div>
-      <div>
-        <div className="">
-          <form className="space-y-3" onSubmit={onSubmit}>
-            <ListBox
-              control={control}
-              name={"product_line"}
-              data={product_line}
-            />
-            <InputField
-              placeholder={"Enter DOM"}
-              name={"dom"}
-              control={control}
-              error={errors.dom?.message}
-            />
-            <AutoComplete
-              placeholder="Enter brand name"
-              onSuccess={() => getBrands({ search: "" })}
-              create={createBrand}
-              control={control}
-              name={"brand"}
-              data={brands}
-            />
-            <AutoComplete
-              placeholder="Enter pattern name"
-              onSuccess={() => {
-                getBrands({ search: "" });
-              }}
-              create={createPatternAction}
-              control={control}
-              name={"pattern"}
-              data={selectedBrand?.patterns ?? []}
-            />
-            <AutoComplete
-              placeholder="Enter tyre size"
-              onSuccess={() => getTyreDetails({ search: "" })}
-              create={createTyreSizeAction}
-              control={control}
-              name={"tyre_detail_id"}
-              data={tyreDetails
-                ?.filter((pattern) => pattern.patternId === selectedPattern?.id)
-                .map(({ tyreSize, id }) => ({
-                  tyreSize,
-                  id,
-                }))
-                .map(({ tyreSize, id }) => ({
-                  name: tyreSize.size,
-                  id,
+    <div className="py-10 flex justify-center ">
+      <div className="max-w-2xl">
+        <div className="items-center justify-center flex ">
+          <img
+            className="object-contain rounded-xl"
+            src="/images/Create_Stock.png"
+          />
+        </div>
+        <div className="mt-2">
+          <h1 className="font-bold text-2xl pb-4">Add stock</h1>
+        </div>
+        <div>
+          <div className="">
+            <form className="space-y-3" onSubmit={onSubmit}>
+              <ListBox
+                control={control}
+                name={"product_line"}
+                data={product_line}
+              />
+              <InputField
+                placeholder={"Enter DOM"}
+                name={"dom"}
+                control={control}
+                error={errors.dom?.message}
+              />
+              <AutoComplete
+                placeholder="Enter brand name"
+                onSuccess={() => getBrands({ search: "" })}
+                create={createBrand}
+                control={control}
+                name={"brand"}
+                data={brands}
+              />
+              <AutoComplete
+                placeholder="Enter pattern name"
+                onSuccess={() => {
+                  getBrands({ search: "" });
+                }}
+                create={createPatternAction}
+                control={control}
+                name={"pattern"}
+                data={selectedBrand?.patterns ?? []}
+              />
+              <AutoComplete
+                placeholder="Enter tyre size eg. 265/65R17"
+                onSuccess={() => getTyreDetails({ search: "" })}
+                create={createTyreSizeAction}
+                control={control}
+                name={"tyre_detail_id"}
+                data={tyreDetails
+                  ?.filter(
+                    (pattern) => pattern.patternId === selectedPattern?.id
+                  )
+                  .map(({ tyreSize, id }) => ({
+                    tyreSize,
+                    id,
+                  }))
+                  .map(({ tyreSize, id }) => ({
+                    name: tyreSize.size,
+                    id,
+                  }))}
+              />
+              <DatePicker
+                control={control}
+                name="purchase_date"
+                placeholder="Pick a date"
+                error={errors.purchase_date?.message}
+              />
+              <AutoComplete
+                placeholder="Enter vendor name"
+                onSuccess={() => getVendors({ search: "" })}
+                create={createVendor}
+                control={control}
+                name={"vendor"}
+                data={vendors}
+              />
+              <AutoComplete
+                placeholder="Enter transport name"
+                onSuccess={() => getTransports({ search: "" })}
+                create={({ name }) => createTransport({ mode: name })}
+                control={control}
+                name={"transport"}
+                data={transports?.map(({ mode, ...rest }) => ({
+                  ...rest,
+                  name: mode,
                 }))}
-            />
-            <DatePicker
-              control={control}
-              name="purchase_date"
-              placeholder="Pick a date"
-              error={errors.purchase_date?.message}
-            />
-            <AutoComplete
-              placeholder="Enter vendor name"
-              onSuccess={() => getVendors({ search: "" })}
-              create={createVendor}
-              control={control}
-              name={"vendor"}
-              data={vendors}
-            />
-            <AutoComplete
-              placeholder="Enter transport name"
-              onSuccess={() => getTransports({ search: "" })}
-              create={({ name }) => createTransport({ mode: name })}
-              control={control}
-              name={"transport"}
-              data={transports?.map(({ mode, ...rest }) => ({
-                ...rest,
-                name: mode,
-              }))}
-            />
-            <AutoComplete
-              placeholder="Enter location name"
-              onSuccess={() => getLocations({ search: "" })}
-              create={createLocation}
-              control={control}
-              name={"location"}
-              data={locations}
-            />
-            <InputField
-              control={control}
-              name="quantity"
-              placeholder="Enter quantity"
-              type="text"
-              error={errors.quantity?.message}
-            />
-            <InputField
-              control={control}
-              name="cost"
-              placeholder="Enter cost"
-              type="text"
-              error={errors.cost?.message}
-            />
-            <button
-              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-              onClick={onSubmit}
-            >
-              Submit
-            </button>
-          </form>
+              />
+              <AutoComplete
+                placeholder="Enter location name"
+                onSuccess={() => getLocations({ search: "" })}
+                create={createLocation}
+                control={control}
+                name={"location"}
+                data={locations}
+              />
+              <InputField
+                control={control}
+                name="quantity"
+                placeholder="Enter quantity"
+                type="text"
+                error={errors.quantity?.message}
+              />
+              <InputField
+                control={control}
+                name="cost"
+                placeholder="Enter cost"
+                type="text"
+                error={errors.cost?.message}
+              />
+              <button
+                className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+                onClick={onSubmit}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

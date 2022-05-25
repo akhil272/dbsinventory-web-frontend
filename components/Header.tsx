@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons";
 import SideBar from "./SideBar";
 import Link from "next/link";
-import MenuBar from "./Menu";
 const Header = ({ userRole, userName }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -17,7 +16,6 @@ const Header = ({ userRole, userName }) => {
           </button>
         )}
       </nav>
-
       {open && (
         <SideBar
           userRole={userRole}

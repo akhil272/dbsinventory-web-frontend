@@ -69,7 +69,7 @@ export default function SideBar({ open, setOpen, userRole, userName }) {
   const router = useRouter();
   const signOutUser = () => {
     storage().clear();
-    router.push("/");
+    router.push("/logout");
   };
   return (
     <main>
