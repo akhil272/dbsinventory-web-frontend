@@ -31,7 +31,7 @@ const Stocks = ({
 
   return (
     <div>
-      <div>
+      <div className="pt-10">
         {stocks?.map((stock) => (
           <StockCard
             key={stock.id}

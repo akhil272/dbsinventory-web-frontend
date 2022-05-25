@@ -5,8 +5,8 @@ import Link from "next/link";
 const Header = ({ userRole, userName }) => {
   const [open, setOpen] = useState(false);
   return (
-    <header>
-      <nav className="flex  px-5 py-3 justify-between items-center">
+    <header className="bg-inherit">
+      <nav className="flex bg-inherit fixed w-full  px-5 py-3 justify-between items-center">
         <Link href={"/"}>
           <h2 className="font-bold text-lg">DBS Automotive</h2>
         </Link>
