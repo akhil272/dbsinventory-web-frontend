@@ -9,7 +9,7 @@ const StockSaleCard = ({
   quantity,
 }) => {
   return (
-    <div className="lg:px-96">
+    <div className="max-w-xl">
       <div className="flex mt-4">
         <div className="bg-pastel_green  text-white px-2 py-2 w-2/5 rounded-l-xl">
           <div className="px-2 pt-4 -space-y-1 ">

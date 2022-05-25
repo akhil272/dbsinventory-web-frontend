@@ -50,11 +50,11 @@ const Login = ({ login, sendOtp }: LoginProps) => {
     }
   };
   return (
-    <div className="min-h-screen ">
-      <div className="flex flex-col ">
+    <div className="min-h-screen flex justify-center ">
+      <div className="flex flex-col max-w-3xl">
         <div className="h-1/2 mt-12 items-center justify-center flex ">
           <img
-            className="object-cover h-96 mt-2  rounded-xl"
+            className="object-contain h-96 mt-2  rounded-xl"
             src="/images/Login_ArtCover.png"
           />
         </div>
@@ -62,7 +62,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
           <h3 className="text-lg">Welcome to </h3>
           <h2>DBS Automotive</h2>
         </div>
-        <div className="w-full h-fullrounded-2xl">
+        <div className="w-full ">
           <div className="p-4 mt-4">
             <div className="flex flex-col space-y-3 items-center justify-center">
               <h1 className="font-semibold text-3xl ">Login Now</h1>

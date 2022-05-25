@@ -1,5 +1,5 @@
 import { initialState } from "@Store/rootReducer";
-import { getStocks } from "@Store/stocks/actions";
+import { deleteStock, getStocks } from "@Store/stocks/actions";
 
 import { connect } from "react-redux";
 

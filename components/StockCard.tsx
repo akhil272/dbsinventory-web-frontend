@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { stringify } from "querystring";
 
@@ -95,18 +96,24 @@ const StockCard = ({
 
           <div className="flex text-white text-sm justify-between px-2 ">
             {role === "admin" && (
-              <div className="p-2 rounded-lg  bg-secondary">Update</div>
+              <Link href={{ pathname: "/stocks/update", query: { stockId } }}>
+                <a className="p-2 rounded-lg  bg-secondary">Update</a>
+              </Link>
             )}
             {role === "admin" && (
-              <div className="p-2 rounded-lg  bg-secondary">Delete</div>
+              <Link
+                href={{
+                  pathname: "/stocks/delete",
+                  query: { stockId, brand, tyre_size, quantity, cost },
+                }}
+              >
+                <a className="p-2 rounded-lg  bg-secondary">Delete</a>
+              </Link>
             )}
             {role != "user" && role != undefined && (
-              <div
-                onClick={() => addSale(stockId)}
-                className="p-2 rounded-lg  bg-secondary"
-              >
-                Add Sale
-              </div>
+              <Link href={{ pathname: "/orders", query: { stockId } }}>
+                <a className="p-2 rounded-lg  bg-secondary">Add Sale</a>
+              </Link>
             )}
           </div>
         </div>

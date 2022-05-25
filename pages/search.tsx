@@ -22,20 +22,20 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   const [searchTyreSize, setSearchTyreSize] = useState(tyreSizes[0]);
   const router = useRouter();
   const handleSearch = () => {
-    if (searchBrand) {
-      router.push(`/search/&brand=${searchBrand?.name}`);
-    }
-    if (searchTyreSize) {
-      setSearchBrand(brands[0]);
-      const trim = searchTyreSize?.name?.substring(0, 3);
-      router.push(`/search/&size=${trim}`);
-    }
-    if (searchTerm) {
-      router.push(`/search/=${searchTerm}`);
-    }
-    if (!searchTerm && !searchBrand && !searchBrand) {
-      router.push("/stocks");
-    }
+    // if (searchBrand) {
+    //   router.push(`/search/&brand=${searchBrand?.name}`);
+    // }
+    // if (searchTyreSize) {
+    //   setSearchBrand(brands[0]);
+    //   const trim = searchTyreSize?.name?.substring(0, 3);
+    //   router.push(`/search/&size=${trim}`);
+    // }
+    // if (searchTerm) {
+    //   router.push(`/search/=${searchTerm}`);
+    // }
+    // if (!searchTerm && !searchBrand[0] && !searchBrand[0]) {
+    router.push("/stocks");
+    // }
   };
   useEffect(() => {
     getBrands({ search: "" });
@@ -48,44 +48,46 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
 
   return (
     <div className="pt-4 h-screen flex justify-center">
-      <div className="w-max-2xl ">
-        <div className="h-1/2 mt-12 items-center justify-center flex ">
-          <img
-            className="object-contain mt-2 rounded-xl"
-            src="/images/Search_Art.png"
-          />
-        </div>
-        <div className="mt-10">
-          <h1 className="font-bold text-2xl  pb-4">Search for stocks</h1>
-        </div>
-        <div className="space-y-4">
-          <SearchField
-            selected={searchBrand}
-            setSelected={setSearchBrand}
-            data={brands}
-            placeholder="Brand name"
-          />
-          <SearchField
-            selected={searchTyreSize}
-            setSelected={setSearchTyreSize}
-            data={tyreSizes?.map(({ size, id }) => ({
-              name: size,
-              id,
-            }))}
-            placeholder="Tyre size"
-          />
-          <input
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search in brand / tyre size / pattern"
-            className="relative w-full cursor-default p-2 rounded-lg bg-white text-left    sm:text-sm"
-          />
-          <button
-            onClick={handleSearch}
-            className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-          >
-            Search
-          </button>
+      <div className="max-w-xl">
+        <div>
+          <div className="mt-12 items-center justify-center flex ">
+            <img
+              className="object-contain mt-2 rounded-xl"
+              src="/images/Search_Art.png"
+            />
+          </div>
+          <div className="mt-10">
+            <h1 className="font-bold text-2xl  pb-4">Search for stocks</h1>
+          </div>
+          <div className="space-y-4">
+            <SearchField
+              selected={searchBrand}
+              setSelected={setSearchBrand}
+              data={brands}
+              placeholder="Brand name"
+            />
+            <SearchField
+              selected={searchTyreSize}
+              setSelected={setSearchTyreSize}
+              data={tyreSizes?.map(({ size, id }) => ({
+                name: size,
+                id,
+              }))}
+              placeholder="Tyre size"
+            />
+            <input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search in brand / tyre size / pattern"
+              className="relative w-full cursor-default p-2 rounded-lg bg-white text-left    sm:text-sm"
+            />
+            <button
+              onClick={handleSearch}
+              className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
     </div>
