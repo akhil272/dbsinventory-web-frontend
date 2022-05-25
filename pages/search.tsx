@@ -80,7 +80,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search in brand / tyre size / pattern"
-              className="relative w-full cursor-default p-2 rounded-lg bg-white text-left    sm:text-sm"
+              className=" w-full cursor-default p-2 rounded-lg bg-white text-left    sm:text-sm"
             />
             <button
               onClick={handleSearch}

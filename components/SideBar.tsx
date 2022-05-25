@@ -65,19 +65,18 @@ const sideVariants = {
   },
 };
 
-export default function SideBar({ open, setOpen, userRole }) {
+export default function SideBar({ open, setOpen, userRole, userName }) {
   const router = useRouter();
   const signOutUser = () => {
     storage().clear();
     router.push("/");
-    console.log("clicked on it");
   };
   return (
     <main>
       <AnimatePresence>
         {open && (
           <motion.div
-            className="w-40 h-screen z-40 absolute top-0 right-2 px-2  bg-zinc-100"
+            className="w-40 min-h-screen fixed top-0 z-10 right-2 px-2 bg-zinc-100"
             initial={{ width: 0 }}
             animate={{
               width: 250,
@@ -95,7 +94,7 @@ export default function SideBar({ open, setOpen, userRole }) {
             </motion.div>
 
             <motion.div
-              className="h-full mt-10 "
+              className="h-full  mt-10 "
               initial="closed"
               animate="open"
               exit="closed"
@@ -124,11 +123,15 @@ export default function SideBar({ open, setOpen, userRole }) {
                   <motion.div
                     className="text-lg uppercase font-semibold"
                     variants={itemVariants}
-                  ></motion.div>
+                  >
+                    {userName}
+                  </motion.div>
                   <motion.div
                     className="text-md capitalize font-normal"
                     variants={itemVariants}
-                  ></motion.div>
+                  >
+                    {userRole}
+                  </motion.div>
                 </motion.div>
               </motion.div>
               {userRole === "admin" && (

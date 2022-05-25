@@ -18,11 +18,11 @@ const Layout = ({ children, user, loading }) => {
     storage().getAccessToken();
     getUserInfo();
   }, []);
-
+  const userName = user?.first_name;
   return (
     <div className="bg-neutral-100 min-h-screen ">
-      <div className="fixed w-full bg-inherit">
-        {user?.roles && <Header userRole={user?.roles} />}
+      <div className=" bg-inherit">
+        {user?.roles && <Header userRole={user?.roles} userName={userName} />}
       </div>
       <div className="px-4">{children}</div>
     </div>
