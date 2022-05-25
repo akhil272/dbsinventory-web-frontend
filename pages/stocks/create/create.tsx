@@ -55,7 +55,7 @@ const CreateStock = ({
     if (response.success && response.data) {
       toast.success(`Successfully added new stock to system.`);
     }
-    if (response.error) {
+    if (!response.success) {
       toast.error(`Failed to new stock to system. ${response.message}`);
     }
   };

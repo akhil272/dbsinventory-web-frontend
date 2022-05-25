@@ -10,6 +10,7 @@ interface InputFieldProps {
   autoComplete?: string;
   name: string;
   control: any;
+  defaultValue?: string;
 }
 
 const InputField = ({
@@ -19,13 +20,14 @@ const InputField = ({
   autoComplete,
   name,
   control,
+  defaultValue = "",
 }: InputFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <>
       {type === "password" ? (
         <Controller
-          defaultValue=""
+          defaultValue={defaultValue}
           control={control}
           name={name}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -50,7 +52,7 @@ const InputField = ({
         />
       ) : (
         <Controller
-          defaultValue=""
+          defaultValue={defaultValue}
           control={control}
           name={name}
           render={({ field: { onChange, onBlur, value } }) => (

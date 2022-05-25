@@ -4,13 +4,19 @@ import { Calendar } from "react-date-range";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
 
-const DatePicker = ({ control, name, placeholder, error }) => {
+const DatePicker = ({
+  control,
+  name,
+  placeholder,
+  error,
+  defaultValue = new Date(),
+}) => {
   const [showCalender, setShowCalender] = useState(false);
 
   return (
     <div>
       <Controller
-        defaultValue={new Date()}
+        defaultValue={defaultValue}
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (

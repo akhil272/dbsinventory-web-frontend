@@ -24,7 +24,7 @@ const Layout = ({ children, user, loading }) => {
       <div className="fixed w-full bg-inherit">
         {user?.roles && <Header userRole={user?.roles} />}
       </div>
-      <div className="px-5    ">{children}</div>
+      <div className="px-4">{children}</div>
     </div>
   );
 };

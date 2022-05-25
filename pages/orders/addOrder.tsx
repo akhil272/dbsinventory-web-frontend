@@ -47,7 +47,7 @@ const AddOrder = ({
         toast.success(`Successfully recorded sale in the system.`);
         getOrders({ id });
       }
-      if (response.error) {
+      if (!response.success) {
         toast.error(`Failed to record sale in the system. ${response.message}`);
       }
     }

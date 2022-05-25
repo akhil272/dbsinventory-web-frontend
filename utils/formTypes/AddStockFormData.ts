@@ -27,3 +27,10 @@ export type AddStockFormData = {
 //   ...rest,
 //   name: size,
 // }))
+
+export type UpdateStockFormData = {
+  dom: string;
+  quantity: number;
+  cost: number;
+  purchase_date: Date;
+};

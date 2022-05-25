@@ -37,13 +37,8 @@ export type deleteStockPayload = {
 
 export type updateStockPayload = {
   id: number;
-  product_line: string;
-  tyre_detail_id: number;
   dom: string;
   purchase_date: Date;
-  transport_id: number;
-  vendor_id: number;
-  location_id: number;
   quantity: number;
   cost: number;
 };

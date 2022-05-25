@@ -23,3 +23,14 @@ const CreateStockSchema = Yup.object().shape({
 });
 
 export default CreateStockSchema;
+
+export const UpdateStockSchema = Yup.object().shape({
+  dom: Yup.string()
+    .max(4, "Please enter in format 1921")
+    .required("You must enter DOM"),
+  quantity: Yup.number()
+    .typeError("You must enter a number")
+    .required("Required"),
+  cost: Yup.number().typeError("You must enter a number").required(),
+  purchase_date: Yup.date().required(),
+});

@@ -24,6 +24,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   const handleSearch = () => {
     // if (searchBrand) {
     //   router.push(`/search/&brand=${searchBrand?.name}`);
+    //   setSearchBrand(null);
     // }
     // if (searchTyreSize) {
     //   setSearchBrand(brands[0]);
@@ -47,7 +48,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   }, [getTyreSizes]);
 
   return (
-    <div className="pt-4 h-screen flex justify-center">
+    <div className="pt-4  flex justify-center">
       <div className="max-w-xl">
         <div>
           <div className="mt-12 items-center justify-center flex ">
@@ -57,7 +58,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
             />
           </div>
           <div className="mt-10">
-            <h1 className="font-bold text-2xl  pb-4">Search for stocks</h1>
+            <h1 className="font-bold text-2xl pb-4">Search for stocks</h1>
           </div>
           <div className="space-y-4">
             <SearchField

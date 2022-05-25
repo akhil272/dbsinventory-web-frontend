@@ -28,8 +28,9 @@ export const updateStock = async (data: updateStockPayload) => {
   const { id } = data;
   const pathname = STOCKS;
   const url = `${pathname}/${id}`;
+  delete data.id;
   const apiArgs = {
-    method: API_METHODS.DELETE,
+    method: API_METHODS.PATCH,
     url,
     data,
     TYPES: {
