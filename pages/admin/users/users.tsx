@@ -19,7 +19,7 @@ const Users = ({ users, getUsers, createUser, loading }: UsersProps) => {
   };
 
   return (
-    <div className="pt-4 h-screen flex justify-center">
+    <div className="pt-4  flex justify-center">
       <div className="max-w-xl">
         <div>
           <div className=" mt-12 items-center justify-center flex flex-col ">
@@ -59,6 +59,7 @@ const Users = ({ users, getUsers, createUser, loading }: UsersProps) => {
               .map((user) => (
                 <UserCard
                   key={user.id}
+                  id={user.id}
                   first_name={user.first_name}
                   last_name={user.last_name}
                   role={user.roles}

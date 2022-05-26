@@ -10,9 +10,15 @@ import {
   USER_CREATE_FAIL,
   USER_CREATE_INIT,
   USER_CREATE_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_DELETE_INIT,
+  USER_DELETE_SUCCESS,
   USER_INFO_FETCH_FAIL,
   USER_INFO_FETCH_INIT,
   USER_INFO_FETCH_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_INIT,
+  USER_UPDATE_SUCCESS,
 } from "./types";
 
 export const initialState: Users = {
@@ -23,6 +29,18 @@ export const initialState: Users = {
 
 const reducer = (state = initialState, action: UsersActionTypes) => {
   switch (action.type) {
+    case USER_DELETE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case USER_DELETE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case USER_DELETE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case USER_UPDATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case USER_UPDATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case USER_UPDATE_FAIL:
+      return Object.assign({}, state, { loading: false });
     case USER_INFO_FETCH_INIT:
       return Object.assign({}, state, { loading: true });
     case USER_INFO_FETCH_SUCCESS:

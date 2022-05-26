@@ -5,8 +5,8 @@ import ListBox from "@Components/ListBox";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateStockProps } from "@Store/stocks/types";
 
-import { AddStockFormData } from "@Utils/formTypes/AddStockFormData";
-import CreateStockSchema from "@Utils/schemas/CreateStockSchema";
+import { AddStockFormData } from "@Utils/formTypes/StockFormData";
+import { CreateStockSchema } from "@Utils/schemas/StockSchema";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -123,7 +123,7 @@ const CreateStock = ({
       <div className="max-w-2xl">
         <div className="items-center justify-center flex ">
           <img
-            className="object-contain rounded-xl"
+            className="object-contain my-4 rounded-xl"
             src="/images/Create_Stock.png"
           />
         </div>

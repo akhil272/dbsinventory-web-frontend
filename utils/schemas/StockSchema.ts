@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const CreateStockSchema = Yup.object().shape({
+export const CreateStockSchema = Yup.object().shape({
   product_line: Yup.object()
     .typeError("Please select from drop down")
     .required("Required"),
@@ -21,8 +21,6 @@ const CreateStockSchema = Yup.object().shape({
     .required("Required"),
   cost: Yup.number().typeError("You must enter a number").required(),
 });
-
-export default CreateStockSchema;
 
 export const UpdateStockSchema = Yup.object().shape({
   dom: Yup.string()

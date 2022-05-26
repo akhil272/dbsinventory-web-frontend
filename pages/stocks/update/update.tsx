@@ -4,10 +4,10 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateProps } from "@Store/stocks/types";
 
-import { UpdateStockFormData } from "@Utils/formTypes/AddStockFormData";
-import { UpdateStockSchema } from "@Utils/schemas/CreateStockSchema";
+import { UpdateStockFormData } from "@Utils/formTypes/StockFormData";
+import { UpdateStockSchema } from "@Utils/schemas/StockSchema";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -20,6 +20,7 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
   const {
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<UpdateStockFormData>({
     resolver: yupResolver(UpdateStockSchema),
@@ -42,20 +43,25 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
   };
 
   useEffect(() => {
-    getStockById({ id: +stockId });
-  }, [getStockById]);
+    if (router.isReady) {
+      getStockById({ id: +stockId });
+    }
+  }, [router.isReady]);
   console.log(stock, "stock data load");
+
+  useEffect(() => {
+    if (stock) {
+      setValue("dom", stock.dom);
+      setValue("cost", stock.cost);
+      setValue("quantity", stock.quantity);
+      setValue("purchase_date", new Date(stock.purchase_date));
+    }
+  }, [stock]);
 
   if (loading) {
     return <LoadingAnimation message="Please wait.." />;
   }
 
-  const initialValues = {
-    dom: `${stock?.dom}`,
-    cost: `${stock?.cost}`,
-    quantity: `${stock?.quantity}`,
-    purchase_date: `${stock?.purchase_date}`,
-  };
   return (
     <div className="py-10  flex justify-center ">
       <div className="max-w-2xl">
@@ -78,13 +84,13 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
                   name={"dom"}
                   control={control}
                   error={errors.dom?.message}
-                  defaultValue={initialValues.dom}
+                  defaultValue={stock?.dom ?? ""}
                 />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Purchase Date</p>
                 <DatePicker
-                  defaultValue={new Date(initialValues.purchase_date)}
+                  defaultValue={new Date()}
                   control={control}
                   name="purchase_date"
                   placeholder="Pick a date"
@@ -98,7 +104,7 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
                   name={"quantity"}
                   control={control}
                   error={errors.quantity?.message}
-                  defaultValue={initialValues.quantity}
+                  defaultValue={String(stock?.quantity ?? 0)}
                 />
               </div>
               <div>
@@ -108,7 +114,7 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
                   name={"cost"}
                   control={control}
                   error={errors.cost?.message}
-                  defaultValue={initialValues.cost}
+                  defaultValue={String(stock?.cost ?? 0)}
                 />
               </div>
 

@@ -96,7 +96,12 @@ const StockCard = ({
 
           <div className="flex text-white text-sm justify-between px-2 ">
             {role === "admin" && (
-              <Link href={{ pathname: "/stocks/update", query: { stockId } }}>
+              <Link
+                href={{
+                  pathname: "/stocks/update",
+                  query: { stockId },
+                }}
+              >
                 <a className="p-2 rounded-lg  bg-secondary">Update</a>
               </Link>
             )}

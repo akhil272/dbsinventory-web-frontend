@@ -1,16 +1,16 @@
 import { initialState } from "@Store/rootReducer";
-import { getStockById, updateStock } from "@Store/stocks/actions";
+import { getUserById, updateUser } from "@Store/users/actions";
 
 import { connect } from "react-redux";
 import Update from "./update";
-const mapStateToProps = ({ stocks }: typeof initialState) => ({
-  stock: stocks.stock,
-  loading: stocks.loading,
+const mapStateToProps = ({ users }: typeof initialState) => ({
+  user: users.user,
+  loading: users.loading,
 });
 
 const mapDispatchToProps = () => ({
-  getStockById,
-  updateStock,
+  getUserById,
+  updateUser,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Update);

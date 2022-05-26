@@ -3,20 +3,64 @@ import { API_END_POINTS, API_METHODS } from "@Store/api/constants";
 
 import {
   createUserPayload,
+  deleteUserPayload,
   getUsersPayload,
   GET_USER_FAIL,
   GET_USER_INIT,
   GET_USER_SUCCESS,
+  updateUserPayload,
   USERS_FETCH_FAIL,
   USERS_FETCH_INIT,
   USERS_FETCH_SUCCESS,
   USER_CREATE_FAIL,
   USER_CREATE_INIT,
   USER_CREATE_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_DELETE_INIT,
+  USER_DELETE_SUCCESS,
   USER_INFO_FETCH_FAIL,
   USER_INFO_FETCH_INIT,
   USER_INFO_FETCH_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_INIT,
+  USER_UPDATE_SUCCESS,
 } from "./types";
+
+export const deleteUser = async (data: deleteUserPayload) => {
+  const { USERS } = API_END_POINTS;
+  const { id } = data;
+  const pathname = USERS;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: USER_DELETE_INIT,
+      successType: USER_DELETE_SUCCESS,
+      failureType: USER_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateUser = async (data: updateUserPayload) => {
+  const { USERS } = API_END_POINTS;
+  const { id } = data;
+  const pathname = `${USERS}/${id}`;
+  const url = `${pathname}`;
+  delete data.id;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: USER_UPDATE_INIT,
+      successType: USER_UPDATE_SUCCESS,
+      failureType: USER_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const getUserInfo = async () => {
   const { USERS, USER, INFO } = API_END_POINTS;
@@ -72,7 +116,7 @@ export const getUsers = async (payload: getUsersPayload) => {
   return fetchAsync(apiArgs);
 };
 
-export const getUserById = async (id: string) => {
+export const getUserById = async (id: number) => {
   const { USERS } = API_END_POINTS;
   const url = `${USERS}/${id}`;
   const apiArgs = {

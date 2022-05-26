@@ -44,7 +44,7 @@ export default function AutoComplete({
       onSuccess();
     }
     if (!response.success) {
-      toast.error(`Failed to add ${name} to system.`);
+      toast.error(`Failed to add ${name} to system. ${response.message}`);
     }
   };
   return (

@@ -184,32 +184,56 @@ export default function SideBar({ open, setOpen, userRole, userName }) {
                   ))}
                 </>
               )}
-              {userRole === "manager" ||
-                (userRole === "employee" && (
-                  <>
-                    {managerLink.map(({ name, to, id, iconName }) => (
-                      <motion.div onClick={() => setOpen(!open)} key={id}>
-                        <Link href={to}>
-                          <motion.a
-                            className="text-gray-700 h-10 items-center flex p-1 text-md  "
-                            whileHover={{
-                              scale: 1.1,
-                              x: 50,
-                              color: "black",
-                              transition: { type: "spring", stiffness: 80 },
-                            }}
-                            variants={itemVariants}
-                          >
-                            <motion.div className="pr-4 h-8 text-red-500 ">
-                              {iconName}
-                            </motion.div>
-                            <motion.div className="flex"> {name}</motion.div>
-                          </motion.a>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </>
-                ))}
+              {userRole === "manager" && (
+                <>
+                  {managerLink.map(({ name, to, id, iconName }) => (
+                    <motion.div onClick={() => setOpen(!open)} key={id}>
+                      <Link href={to}>
+                        <motion.a
+                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          whileHover={{
+                            scale: 1.1,
+                            x: 50,
+                            color: "black",
+                            transition: { type: "spring", stiffness: 80 },
+                          }}
+                          variants={itemVariants}
+                        >
+                          <motion.div className="pr-4 h-8 text-red-500 ">
+                            {iconName}
+                          </motion.div>
+                          <motion.div className="flex"> {name}</motion.div>
+                        </motion.a>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </>
+              )}
+              {userRole === "employee" && (
+                <>
+                  {managerLink.map(({ name, to, id, iconName }) => (
+                    <motion.div onClick={() => setOpen(!open)} key={id}>
+                      <Link href={to}>
+                        <motion.a
+                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          whileHover={{
+                            scale: 1.1,
+                            x: 50,
+                            color: "black",
+                            transition: { type: "spring", stiffness: 80 },
+                          }}
+                          variants={itemVariants}
+                        >
+                          <motion.div className="pr-4 h-8 text-red-500 ">
+                            {iconName}
+                          </motion.div>
+                          <motion.div className="flex"> {name}</motion.div>
+                        </motion.a>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </>
+              )}
             </motion.div>
             <motion.div
               initial="closed"

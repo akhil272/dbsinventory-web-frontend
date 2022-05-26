@@ -9,3 +9,11 @@ export const CreateUserSchema = Yup.object().shape({
     .matches(/^\+[1-9]\d{1,14}$/),
   roles: Yup.string().required(),
 });
+
+export const UpdateUserSchema = Yup.object().shape({
+  first_name: Yup.string(),
+  last_name: Yup.string(),
+  email: Yup.string().email(),
+  phone_number: Yup.string().matches(/^\+[1-9]\d{1,14}$/),
+  roles: Yup.string(),
+});

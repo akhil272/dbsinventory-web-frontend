@@ -48,7 +48,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   }, [getTyreSizes]);
 
   return (
-    <div className="pt-4  flex justify-center">
+    <div className="pt-4 h-max flex justify-center">
       <div className="max-w-xl">
         <div>
           <div className="mt-12 items-center justify-center flex ">

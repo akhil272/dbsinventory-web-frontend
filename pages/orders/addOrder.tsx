@@ -2,15 +2,12 @@ import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import StockSaleCard from "@Components/StockSaleCard";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { addOrderToStock, getOrders } from "@Store/orders/actions";
 import { AddOrderProps } from "@Store/orders/types";
-import { initialState } from "@Store/rootReducer";
 import { AddOrderToStockData } from "@Utils/formTypes/AddOrderToStockData";
 import OrderToStockSchema from "@Utils/schemas/OrderToStockSchema";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
 const AddOrder = ({
@@ -25,7 +22,6 @@ const AddOrder = ({
     query: { stockId },
   } = router;
   const id = Number(stockId);
-  console.log(id);
   const {
     handleSubmit,
     control,
@@ -53,8 +49,10 @@ const AddOrder = ({
     }
   };
   useEffect(() => {
-    getOrders({ id });
-  }, [getOrders]);
+    if (router.isReady) {
+      getOrders({ id });
+    }
+  }, [getOrders, router.isReady]);
 
   if (loading) {
     return <LoadingAnimation message="Loading orders. Please wait.." />;

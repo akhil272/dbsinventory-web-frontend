@@ -71,7 +71,6 @@ export const deleteStock = async (data: deleteStockPayload) => {
   const apiArgs = {
     method: API_METHODS.DELETE,
     url,
-    data,
     TYPES: {
       requestType: STOCK_DELETE_INIT,
       successType: STOCK_DELETE_SUCCESS,
