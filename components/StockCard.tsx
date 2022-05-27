@@ -1,6 +1,5 @@
 import moment from "moment";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { stringify } from "querystring";
 
 interface StockItemProps {
@@ -34,16 +33,8 @@ const StockCard = ({
   stockId,
   role,
 }: StockItemProps) => {
-  const router = useRouter();
-  const addSale = (id: number) => {
-    router.push(`/orders/${id}`);
-  };
-  // const onDeleteStock = (id: string) => {
-  //   router.push(`/stock/delete/${id}`);
-  // };
-  // const userRole = useSelector((state: RootStore) => state.auth.userRole);
   const handleContactUs = () => {
-    let url = `https://web.whatsapp.com/send?phone=+919446821132`;
+    let url = `https://web.whatsapp.com/send?phone=${process.env.PHONE_NUMBER}`;
     const message = `I would like to know the price of ${stringify({
       stockId,
     })}`;

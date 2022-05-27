@@ -22,31 +22,29 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   const [searchTyreSize, setSearchTyreSize] = useState(tyreSizes[0]);
   const router = useRouter();
   const handleSearch = () => {
-    // if (searchBrand) {
-    //   router.push(`/search/&brand=${searchBrand?.name}`);
-    //   setSearchBrand(null);
-    // }
-    // if (searchTyreSize) {
+    if (searchBrand?.name) {
+      router.push(`/search/&brand=${searchBrand?.name}`);
+      setSearchBrand(brands[0]);
+    }
+    // if (searchTyreSize?.name) {
     //   setSearchBrand(brands[0]);
     //   const trim = searchTyreSize?.name?.substring(0, 3);
     //   router.push(`/search/&size=${trim}`);
     // }
-    // if (searchTerm) {
-    //   router.push(`/search/=${searchTerm}`);
-    // }
+    if (searchTerm.length > 1) {
+      router.push(`/search/=${searchTerm}`);
+    }
     // if (!searchTerm && !searchBrand[0] && !searchBrand[0]) {
+    console.log("whats going on");
     router.push("/stocks");
     // }
   };
   useEffect(() => {
     getBrands({ search: "" });
-    setSearchBrand(brands[0]);
-  }, [getBrands]);
-  useEffect(() => {
     getTyreSizes({ search: "" });
-    setSearchBrand(tyreSizes[0]);
-  }, [getTyreSizes]);
+  }, []);
 
+  console.log(searchTerm, "search Term");
   return (
     <div className="pt-4 h-max flex justify-center">
       <div className="max-w-xl">

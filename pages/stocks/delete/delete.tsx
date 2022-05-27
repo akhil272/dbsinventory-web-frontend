@@ -23,9 +23,9 @@ const DeleteAStock = ({ deleteStock }) => {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center ">
       <div className="max-w-2xl">
-        <div className=" mt-12 items-center justify-center flex ">
+        <div className=" items-center justify-center flex ">
           <img
-            className="object-contain h-96 mt-2  rounded-xl"
+            className="object-contain  mt-2  rounded-xl"
             src="/images/Delete_Stock.png"
           />
         </div>

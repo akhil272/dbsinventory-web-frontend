@@ -35,7 +35,7 @@ export type ApiReturnType<T = any> = {
 
 const fetchAsync = async (payload: ApiPayload): Promise<ApiReturnType> => {
   const {
-    baseUrl = "http://localhost:3000",
+    baseUrl = process.env.BASE_URL,
     method,
     url,
     data,

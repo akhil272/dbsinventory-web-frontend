@@ -16,6 +16,7 @@ export type Order = {
   quantity: number;
   employee_name: string;
   customer_name: string;
+  profit: number;
   stock: Stock;
 };
 export type OrdersDataPayload = Order;

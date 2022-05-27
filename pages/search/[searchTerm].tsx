@@ -30,9 +30,6 @@ const SearchResult = ({
 }) => {
   const router = useRouter();
   const { searchTerm } = router.query;
-  if (!router.isReady) {
-    return <LoadingAnimation message="Loading stocks. Please wait.." />;
-  }
 
   const [page, setPage] = useState<number>(1);
   console.log("search term", searchTerm);
@@ -49,7 +46,10 @@ const SearchResult = ({
     if (router.isReady) {
       getStocks({ search: `${searchTerm}&take=${take}&page=${page}` });
     }
-  }, [getStocks, page]);
+  }, [router.isReady, getStocks, page]);
+  if (loading) {
+    return <LoadingAnimation message="Loading stocks. Please wait.." />;
+  }
 
   return (
     <div>

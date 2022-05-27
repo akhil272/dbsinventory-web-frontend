@@ -19,7 +19,7 @@ const refreshSession = async (payload: ApiPayload): Promise<ApiReturnType> => {
     router.push("/login");
     return failureResponse;
   }
-  const API_URL = `${process.env.REACT_APP_BASE_URL}${AUTH}${REFRESH}`;
+  const API_URL = `${process.env.BASE_URL}${AUTH}${REFRESH}`;
   const refreshTokenPayload = {
     method: API_METHODS.POST,
     body: JSON.stringify({

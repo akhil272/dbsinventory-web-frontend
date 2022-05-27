@@ -110,6 +110,7 @@ const AddOrder = ({
                   customer_name={order.customer_name}
                   sale_date={order.sale_date}
                   quantity={order.quantity}
+                  profit={order.profit}
                 />
               ))}
           </div>
