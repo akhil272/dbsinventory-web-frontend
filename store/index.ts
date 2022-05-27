@@ -1,9 +1,15 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import RootReducer from "./reducers/RootReducer";
+import { applyMiddleware, compose, createStore, Dispatch, Store } from "redux";
+import { createLogger } from "redux-logger";
 
-const store = createStore(RootReducer, applyMiddleware(thunk));
+import rootReducer, { initialState } from "./rootReducer";
 
-export type RootStore = ReturnType<typeof RootReducer>;
+const middlewares =
+  !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+    ? [createLogger()]
+    : [];
+
+const store: Store<typeof initialState> & {
+  dispatch: Dispatch;
+} = createStore(rootReducer, compose(applyMiddleware(...middlewares)));
 
 export default store;

@@ -1,29 +1,30 @@
 import React, { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons";
-import Image from "next/image";
-import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../store/actions/AuthActions";
-import { RootStore } from "../store";
-import { useRouter } from "next/router";
 import SideBar from "./SideBar";
-const Header = () => {
-  const token = useSelector((state: RootStore) => state.auth.token);
+import Link from "next/link";
+const Header = ({ userRole, userName }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div>
-      <div className="w-full h-12 flex items-center absolute justify-center bg-gray-200">
-        {token != null && (
-          <div onClick={() => setOpen(!open)} className="absolute left-4 ">
+    <header className="bg-inherit">
+      <nav className="flex bg-inherit fixed w-full  px-5 py-3 justify-between items-center">
+        <Link href={"/"}>
+          <h2 className="font-bold text-lg">DBS Automotive</h2>
+        </Link>
+        {!open && (
+          <button onClick={() => setOpen(!open)}>
             <MenuOutlined />
-          </div>
+          </button>
         )}
-
-        <div className="flex ">
-          <Image width={100} height={35} src={"/images/DBS_Logo_Header.png"} />
-        </div>
-      </div>
-      <SideBar open={open} setOpen={setOpen} />
-    </div>
+      </nav>
+      {open && (
+        <SideBar
+          userRole={userRole}
+          open={open}
+          setOpen={setOpen}
+          userName={userName}
+        />
+      )}
+    </header>
   );
 };
 

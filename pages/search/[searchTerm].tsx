@@ -1,27 +1,38 @@
+import LoadingAnimation from "@Components/LoadingAnimation";
+import StockCard from "@Components/StockCard";
+import stocks from "@Pages/stocks";
+import { initialState } from "@Store/rootReducer";
+import { getStocks } from "@Store/stocks/actions";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import LoadingAnimation from "../../components/LoadingAnimation";
-import StockDetail from "../../components/StockDetail";
-import { RootStore } from "../../store";
-import { getStocksBySearch } from "../../store/actions/StockActions";
+import { connect } from "react-redux";
 
-const StocksList = () => {
-  const dispatch = useDispatch();
+const mapStateToProps = ({ stocks, users }: typeof initialState) => ({
+  stocks: stocks.stocks,
+  total: stocks.total,
+  page: stocks.page,
+  last_page: stocks.last_page,
+  loading: stocks.loading,
+  user: users.user,
+});
+
+const mapDispatchToProps = () => ({
+  getStocks,
+});
+
+const SearchResult = ({
+  loading,
+  user,
+  stocks,
+  total,
+  page: metaPage,
+  last_page,
+}) => {
   const router = useRouter();
   const { searchTerm } = router.query;
 
-  const token = useSelector((state: RootStore) => state.auth.token);
-  const isLoading = useSelector((state: RootStore) => state.stock.isLoading);
-  const errorMessage = useSelector(
-    (state: RootStore) => state.stock.errorMessage
-  );
-  const meta = useSelector((state: RootStore) => state.stock.stocksData?.meta);
-  const stocks = useSelector(
-    (state: RootStore) => state.stock.stocksData?.stocks
-  );
   const [page, setPage] = useState<number>(1);
-
+  console.log("search term", searchTerm);
   const take = 10;
   const nextPage = () => {
     setPage(page + 1);
@@ -30,65 +41,82 @@ const StocksList = () => {
   const previousPage = () => {
     setPage(page - 1);
   };
+
   useEffect(() => {
-    dispatch(getStocksBySearch(String(searchTerm), token, page, take));
-  }, [dispatch, page]);
-  if (isLoading) {
-    return (
-      <LoadingAnimation message="Fetching stock data from database. Please wait..." />
-    );
+    if (router.isReady) {
+      getStocks({ search: `${searchTerm}&take=${take}&page=${page}` });
+    }
+  }, [router.isReady, getStocks, page]);
+  if (loading) {
+    return <LoadingAnimation message="Loading stocks. Please wait.." />;
   }
+
   return (
-    <div className="bg-zinc-100  py-10 lg:px-96">
-      {stocks?.map((stock) => (
-        <StockDetail
-          key={stock.id}
-          brand={stock.brand}
-          vendor={stock.vendor}
-          tyre_size={stock.tyre_size}
-          pattern_name={stock.pattern_name}
-          dom={stock.dom}
-          product_line={stock.product_line}
-          transport_mode={stock.transport_mode}
-          purchase_date={stock.purchase_date}
-          location={stock.location}
-          quantity={stock.quantity}
-          cost={stock.cost}
-          stockId={stock.id}
-        />
-      ))}
-      <div className="flex place-items-center w-full text-sm justify-between">
-        <div>Total Results : {meta?.total}</div>
+    <div>
+      <div className="pt-16">
+        {stocks?.map((stock) => (
+          <StockCard
+            key={stock.id}
+            brand={stock.tyreDetail.pattern.brand.name}
+            vendor={stock.vendor?.name}
+            tyre_size={stock.tyreDetail?.tyreSize.size}
+            pattern_name={stock.tyreDetail?.pattern.name}
+            dom={stock.dom}
+            product_line={stock.product_line}
+            transport_mode={stock.transport.mode}
+            purchase_date={stock.purchase_date}
+            location={stock.location?.name}
+            quantity={stock.quantity}
+            cost={stock.cost}
+            stockId={stock.id}
+            role={user?.roles}
+          />
+        ))}
+      </div>
+      <div className="flex place-items-center w-full pt-4 text-md justify-between">
         <button
-          disabled={Number(meta?.page) <= 1 ? true : false}
-          className={
-            Number(meta?.page) <= 1
-              ? "bg-stone-300 text-stone-400 rounded-md w-24 p-2"
-              : "bg-stone-300 rounded-md w-24 p-2"
-          }
+          disabled={metaPage <= 1 ? true : false}
+          className={metaPage <= 1 ? " text-stone-400 py-2" : " py-2"}
           onClick={previousPage}
         >
           Previous
         </button>
+        {page >= 2 && (
+          <button
+            disabled={metaPage <= 1 ? true : false}
+            onClick={previousPage}
+            className="text-sm text-gray-400"
+          >
+            {page - 1}
+          </button>
+        )}
+        <div className="text-md py-1 font-bold px-3 text-white rounded-md bg-secondary">
+          {page}
+        </div>
+        {page <= last_page && (
+          <button
+            disabled={metaPage >= last_page ? true : false}
+            onClick={nextPage}
+            className="text-sm text-gray-400"
+          >
+            {page + 1}
+          </button>
+        )}
+
         <button
-          disabled={
-            Number(meta?.page) >= Number(meta?.last_page) ? true : false
-          }
-          className={
-            Number(meta?.page) >= Number(meta?.last_page)
-              ? "bg-stone-300 text-stone-400 rounded-md w-24 p-2"
-              : "bg-stone-300 rounded-md w-24 p-2"
-          }
+          disabled={metaPage >= last_page ? true : false}
+          className={metaPage >= last_page ? " text-stone-400  py-2" : "  py-2"}
           onClick={nextPage}
         >
           Next
         </button>
-        <div>
-          Page : {meta?.page} of {meta?.last_page} pages
-        </div>
+      </div>
+      <div className="flex justify-between text-sm pb-2 text-gray-400">
+        <div>Total Results : {total}</div>
+        Page : {metaPage} of {last_page} pages
       </div>
     </div>
   );
 };
 
-export default StocksList;
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResult);

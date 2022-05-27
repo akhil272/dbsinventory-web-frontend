@@ -9,20 +9,37 @@ import {
   UserAddOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../store/actions/AuthActions";
 import { useRouter } from "next/router";
-import { RootStore } from "../store";
+import storage from "@Utils/storage";
 
-const links = [
-  { name: "Home", to: "/search", id: 1, iconName: <HomeOutlined /> },
+const adminLink = [
+  { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
   { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
-  { name: "Add Stock", to: "/addstock", id: 3, iconName: <FileAddOutlined /> },
+  {
+    name: "Add Stock",
+    to: "/stocks/create",
+    id: 3,
+    iconName: <FileAddOutlined />,
+  },
   {
     name: "Manage Users",
-    to: "/manageusers",
+    to: "/admin/users",
     id: 4,
     iconName: <UserAddOutlined />,
+  },
+];
+const userLink = [
+  { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
+  { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
+];
+const managerLink = [
+  { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
+  { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
+  {
+    name: "Add Stock",
+    to: "/stocks/create",
+    id: 3,
+    iconName: <FileAddOutlined />,
   },
 ];
 
@@ -48,22 +65,18 @@ const sideVariants = {
   },
 };
 
-export default function SideBar({ open, setOpen }) {
-  const dispatch = useDispatch();
+export default function SideBar({ open, setOpen, userRole, userName }) {
   const router = useRouter();
-  const username = useSelector((state: RootStore) => state.auth.username);
-  const userRole = useSelector((state: RootStore) => state.auth.userRole);
   const signOutUser = () => {
-    dispatch(signOut());
-    setOpen(!open);
-    router.push("/");
+    storage().clear();
+    router.push("/logout");
   };
   return (
     <main>
       <AnimatePresence>
         {open && (
           <motion.div
-            className="w-72 h-screen z-10 fixed px-2 pt-3 bg-zinc-200"
+            className="w-40 min-h-screen fixed top-0 z-10 right-2 px-2 bg-zinc-100"
             initial={{ width: 0 }}
             animate={{
               width: 250,
@@ -75,13 +88,13 @@ export default function SideBar({ open, setOpen }) {
           >
             <motion.div
               onClick={() => setOpen(!open)}
-              className="absolute left-4 "
+              className="absolute right-3 top-3 "
             >
               <MenuOutlined />
             </motion.div>
 
             <motion.div
-              className="h-full mt-10 "
+              className="h-full  mt-10 "
               initial="closed"
               animate="open"
               exit="closed"
@@ -99,17 +112,19 @@ export default function SideBar({ open, setOpen }) {
                   animate="open"
                   exit="closed"
                   variants={sideVariants}
-                  className="h-20 w-20 rounded-full bg-slate-800"
-                />
+                  className="h-20 w-20 rounded-full bg-zinc-800"
+                >
+                  <img src="/images/Avatar.png" />
+                </motion.div>
                 <motion.div
                   variants={sideVariants}
-                  className="flex-col self-center  px-4 "
+                  className="flex-col self-center px-4 "
                 >
                   <motion.div
                     className="text-lg uppercase font-semibold"
                     variants={itemVariants}
                   >
-                    {username}
+                    {userName}
                   </motion.div>
                   <motion.div
                     className="text-md capitalize font-normal"
@@ -119,36 +134,114 @@ export default function SideBar({ open, setOpen }) {
                   </motion.div>
                 </motion.div>
               </motion.div>
-
-              {links.map(({ name, to, id, iconName }) => (
-                <motion.div onClick={() => setOpen(!open)} key={id}>
-                  <Link href={to}>
-                    <motion.a
-                      className="text-gray-700 h-10 items-center flex p-1 text-md  "
-                      whileHover={{
-                        scale: 1.1,
-                        x: 50,
-                        color: "black",
-                        transition: { type: "spring", stiffness: 80 },
-                      }}
-                      variants={itemVariants}
-                    >
-                      <motion.div className="pr-4 h-8 text-red-500 ">
-                        {iconName}
-                      </motion.div>
-                      <motion.div className="flex"> {name}</motion.div>
-                    </motion.a>
-                  </Link>
-                </motion.div>
-              ))}
+              {userRole === "admin" && (
+                <>
+                  {adminLink.map(({ name, to, id, iconName }) => (
+                    <motion.div onClick={() => setOpen(!open)} key={id}>
+                      <Link href={to}>
+                        <motion.a
+                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          whileHover={{
+                            scale: 1.1,
+                            x: 50,
+                            color: "black",
+                            transition: { type: "spring", stiffness: 80 },
+                          }}
+                          variants={itemVariants}
+                        >
+                          <motion.div className="pr-4 h-8 text-red-500 ">
+                            {iconName}
+                          </motion.div>
+                          <motion.div className="flex"> {name}</motion.div>
+                        </motion.a>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </>
+              )}
+              {userRole === "user" && (
+                <>
+                  {userLink.map(({ name, to, id, iconName }) => (
+                    <motion.div onClick={() => setOpen(!open)} key={id}>
+                      <Link href={to}>
+                        <motion.a
+                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          whileHover={{
+                            scale: 1.1,
+                            x: 50,
+                            color: "black",
+                            transition: { type: "spring", stiffness: 80 },
+                          }}
+                          variants={itemVariants}
+                        >
+                          <motion.div className="pr-4 h-8 text-red-500 ">
+                            {iconName}
+                          </motion.div>
+                          <motion.div className="flex"> {name}</motion.div>
+                        </motion.a>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </>
+              )}
+              {userRole === "manager" && (
+                <>
+                  {managerLink.map(({ name, to, id, iconName }) => (
+                    <motion.div onClick={() => setOpen(!open)} key={id}>
+                      <Link href={to}>
+                        <motion.a
+                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          whileHover={{
+                            scale: 1.1,
+                            x: 50,
+                            color: "black",
+                            transition: { type: "spring", stiffness: 80 },
+                          }}
+                          variants={itemVariants}
+                        >
+                          <motion.div className="pr-4 h-8 text-red-500 ">
+                            {iconName}
+                          </motion.div>
+                          <motion.div className="flex"> {name}</motion.div>
+                        </motion.a>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </>
+              )}
+              {userRole === "employee" && (
+                <>
+                  {managerLink.map(({ name, to, id, iconName }) => (
+                    <motion.div onClick={() => setOpen(!open)} key={id}>
+                      <Link href={to}>
+                        <motion.a
+                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          whileHover={{
+                            scale: 1.1,
+                            x: 50,
+                            color: "black",
+                            transition: { type: "spring", stiffness: 80 },
+                          }}
+                          variants={itemVariants}
+                        >
+                          <motion.div className="pr-4 h-8 text-red-500 ">
+                            {iconName}
+                          </motion.div>
+                          <motion.div className="flex"> {name}</motion.div>
+                        </motion.a>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </>
+              )}
             </motion.div>
             <motion.div
               initial="closed"
               animate="open"
               exit="closed"
+              onClick={signOutUser}
               variants={sideVariants}
               className="text-red-500  absolute bottom-4 font-bold uppercase"
-              onClick={signOutUser}
               whileHover={{
                 scale: 1.1,
                 x: 50,

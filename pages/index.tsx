@@ -1,12 +1,33 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootStore } from "../store";
-import Login from "./login";
+import { getUserById, getUserInfo } from "@Store/users/actions";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import Login from "./auth/login";
 import Search from "./search";
+import { initialState } from "@Store/rootReducer";
+import storage from "@Utils/storage";
+import LoadingAnimation from "@Components/LoadingAnimation";
 
-function Homepage() {
-  const token = useSelector((state: RootStore) => state.auth.token);
+const mapStateToProps = ({ users }: typeof initialState) => ({
+  user: users.user,
+  loading: users.loading,
+});
 
-  return <div>{token != null ? <Search /> : <Login />}</div>;
-}
+// const mapStateToProps = ({ auth }: typeof initialState) => ({
+//   user: auth.user,
+// });
 
-export default Homepage;
+// const mapDispatchToProps = () => ({
+//   getUserById,
+// });
+
+const Homepage = ({ user, loading }) => {
+  if (loading) {
+    return <LoadingAnimation message="Please wait..." />;
+  }
+  if (!user) {
+    return <Login />;
+  }
+  return <Search />;
+};
+
+export default connect(mapStateToProps)(Homepage);

@@ -8,4 +8,8 @@ module.exports = withPWA({
     skipWaiting: true,
     disable: process.env.NODE_ENV === "development",
   },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+    PHONE_NUMBER: process.env.PHONE_NUMBER,
+  },
 });

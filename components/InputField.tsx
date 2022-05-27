@@ -1,27 +1,73 @@
+import EyeInvisibleOutlined from "@ant-design/icons/lib/icons/EyeInvisibleOutlined";
+import EyeOutlined from "@ant-design/icons/lib/icons/EyeOutlined";
+import { useState } from "react";
+import { Controller } from "react-hook-form";
+
 interface InputFieldProps {
   placeholder: string;
-  register: any;
   error: any;
   type?: string;
   autoComplete?: string;
+  name: string;
+  control: any;
+  defaultValue?: string;
 }
 
 const InputField = ({
   placeholder,
-  register,
   error,
   type,
   autoComplete,
+  name,
+  control,
+  defaultValue = "",
 }: InputFieldProps) => {
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <>
-      <input
-        className="p-3 shadow-md w-full rounded-lg my-2"
-        placeholder={placeholder}
-        {...register}
-        type={type}
-        autoComplete={autoComplete}
-      />
+      {type === "password" ? (
+        <Controller
+          defaultValue={defaultValue}
+          control={control}
+          name={name}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <div className="flex relative">
+              <input
+                className="p-3 shadow-md w-full rounded-lg"
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                type={showPassword ? "text" : "password"}
+                onBlur={onBlur}
+                autoComplete={autoComplete}
+              />
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-2 bottom-5"
+              >
+                {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+              </div>
+            </div>
+          )}
+        />
+      ) : (
+        <Controller
+          defaultValue={defaultValue}
+          control={control}
+          name={name}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <input
+              className="p-2  w-full rounded-lg "
+              placeholder={placeholder}
+              value={value}
+              onChange={onChange}
+              type="text"
+              onBlur={onBlur}
+              autoComplete={autoComplete}
+            />
+          )}
+        />
+      )}
       <p className="text-sm text-red-600">{error}</p>
     </>
   );

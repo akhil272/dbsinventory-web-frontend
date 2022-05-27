@@ -1,31 +1,28 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Login from "../pages/login";
-import { RootStore } from "../store";
-import { retrieveUser } from "../store/actions/AuthActions";
+import { initialState } from "@Store/rootReducer";
+import { getUserInfo } from "@Store/users/actions";
+import storage from "@Utils/storage";
+import { useEffect } from "react";
+import { connect } from "react-redux";
 import Header from "./Header";
-import LoadingAnimation from "./LoadingAnimation";
 
-const Layout = ({ children }) => {
-  const dispatch = useDispatch();
-  const token = useSelector((state: RootStore) => state.auth.token);
-  const isLoading = useSelector((state: RootStore) => state.auth.isLoading);
+const mapStateToProps = ({ users }: typeof initialState) => ({
+  user: users.user,
+  loading: users.loading,
+});
+const Layout = ({ children, user, loading }) => {
   useEffect(() => {
-    dispatch(retrieveUser());
+    storage().getAccessToken();
+    getUserInfo();
   }, []);
-  if (isLoading) {
-    return <LoadingAnimation message="Loading..please wait." />;
-  }
-  if (token === null) {
-    return <Login />;
-  } else {
-    return (
-      <>
-        <Header />
-        <div>{children}</div>
-      </>
-    );
-  }
+  const userName = user?.first_name;
+  return (
+    <div className="bg-neutral-100 min-h-screen ">
+      <div className="bg-inherit">
+        {user?.roles && <Header userRole={user?.roles} userName={userName} />}
+      </div>
+      <div className="px-4">{children}</div>
+    </div>
+  );
 };
 
-export default Layout;
+export default connect(mapStateToProps)(Layout);
