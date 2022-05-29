@@ -33,7 +33,7 @@ const DatePicker = ({
             {showCalender && (
               <Calendar
                 className="absolute top-12 left-0 rounded-lg z-10"
-                date={new Date()}
+                date={value}
                 onChange={onChange}
               />
             )}
