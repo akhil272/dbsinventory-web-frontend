@@ -22,19 +22,19 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   const [searchTyreSize, setSearchTyreSize] = useState(tyreSizes[0]);
   const router = useRouter();
   const handleSearch = () => {
-    if (searchBrand?.name) {
-      router.push(`/search/&brand=${searchBrand?.name}`);
-      setSearchBrand(brands[0]);
-    }
-    if (searchTyreSize?.name) {
-      const trim = searchTyreSize?.name?.substring(0, 3);
-      setSearchTyreSize(tyreSizes[0]);
-      router.push(`/search/&size=${trim}`);
-    }
-    if (searchTerm.length > 1) {
-      router.push(`/search/=${searchTerm}`);
-      setSearchTerm("");
-    }
+    // if (searchBrand?.name) {
+    //   router.push(`/search/&brand=${searchBrand?.name}`);
+    //   setSearchBrand(brands[0]);
+    // }
+    // if (searchTyreSize?.name) {
+    //   const trim = searchTyreSize?.name?.substring(0, 3);
+    //   setSearchTyreSize(tyreSizes[0]);
+    //   router.push(`/search/&size=${trim}`);
+    // }
+    // if (searchTerm.length > 1) {
+    //   router.push(`/search/=${searchTerm}`);
+    //   setSearchTerm("");
+    // }
     // if (!searchTerm && !searchBrand[0] && !searchBrand[0]) {
     router.push("/stocks");
     // }

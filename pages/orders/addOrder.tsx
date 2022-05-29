@@ -38,14 +38,13 @@ const AddOrder = ({
       customer_name: data.customer_name,
       sold_price: data.sold_price,
     });
+
     if (response.success) {
-      if (response.success && response.data) {
-        toast.success(`Successfully recorded sale in the system.`);
-        getOrders({ id });
-      }
-      if (!response.success) {
-        toast.error(`Failed to record sale in the system. ${response.message}`);
-      }
+      toast.success(`Successfully recorded sale in the system.`);
+      getOrders({ id });
+    }
+    if (!response.success) {
+      toast.error(`Failed to record sale in the system. ${response.message}`);
     }
   };
   useEffect(() => {

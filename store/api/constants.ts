@@ -22,6 +22,7 @@ const API_END_POINTS = {
   ORDERS: "/orders",
   USER: "/user",
   INFO: "/info",
+  EXPORT: "/export",
 };
 
 enum API_METHODS {

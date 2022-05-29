@@ -78,7 +78,7 @@ export default function AutoComplete({
                 afterLeave={() => setQuery("")}
               >
                 <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {filtereddata.length === 0 && query !== "" ? (
+                  {filtereddata?.length === 0 && query !== "" ? (
                     <div className="relative flex items-center cursor-default select-none py-2 px-4 text-gray-700">
                       <div>{query}. Not found.</div>
                       <PlusIcon
@@ -88,7 +88,7 @@ export default function AutoComplete({
                       />
                     </div>
                   ) : (
-                    filtereddata.map((item, i) => (
+                    filtereddata?.map((item, i) => (
                       <Combobox.Option
                         key={i}
                         className={({ active }) =>
