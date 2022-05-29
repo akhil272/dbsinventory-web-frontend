@@ -7,12 +7,14 @@ import {
   FileAddOutlined,
   LogoutOutlined,
   UserAddOutlined,
+  ControlOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import storage from "@Utils/storage";
 
 const adminLink = [
+  { name: "Overview", to: "/admin", id: 1, iconName: <ControlOutlined /> },
   { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
   { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
   {
