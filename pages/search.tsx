@@ -47,7 +47,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   console.log(searchTerm, "search Term");
   return (
     <div className="pt-4 h-max flex justify-center">
-      <div className="max-w-xl">
+      <div className="md:max-w-sm w-full">
         <div>
           <div className="mt-12 items-center justify-center flex ">
             <img

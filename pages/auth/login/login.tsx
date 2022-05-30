@@ -50,8 +50,8 @@ const Login = ({ login, sendOtp }: LoginProps) => {
     }
   };
   return (
-    <div className="min-h-screen flex justify-center ">
-      <div className="flex flex-col max-w-3xl">
+    <div className="flex min-h-screen items-center w-full justify-center">
+      <div className="md:max-w-sm w-full">
         <div className="h-1/2 mt-12 items-center justify-center flex ">
           <img
             className="object-contain h-96 mt-2  rounded-xl"
