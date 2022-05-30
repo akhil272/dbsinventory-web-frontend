@@ -16,6 +16,7 @@ export type Order = {
   quantity: number;
   employee_name: string;
   customer_name: string;
+  customer_phone_number: string;
   profit: number;
   stock: Stock;
 };
@@ -30,6 +31,7 @@ export type addOrderToStockPayload = {
   id: number;
   sold_price: number;
   quantity: number;
+  customer_phone_number: string;
 };
 
 export type getOrdersByStockId = {

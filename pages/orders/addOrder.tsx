@@ -37,6 +37,7 @@ const AddOrder = ({
       quantity: data.quantity,
       customer_name: data.customer_name,
       sold_price: data.sold_price,
+      customer_phone_number: data.customer_phone_number,
     });
 
     if (response.success) {
@@ -89,6 +90,12 @@ const AddOrder = ({
                   control={control}
                   name={"customer_name"}
                   error={errors.customer_name?.message}
+                />
+                <InputField
+                  placeholder="Enter customer phone number"
+                  control={control}
+                  name={"customer_phone_number"}
+                  error={errors.customer_phone_number?.message}
                 />
                 <button
                   className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
