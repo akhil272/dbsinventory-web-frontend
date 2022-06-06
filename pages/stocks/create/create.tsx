@@ -10,7 +10,12 @@ import { CreateStockSchema } from "@Utils/schemas/StockSchema";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-const product_line = [{ name: "PC" }, { name: "TB" }, { name: "2R" }];
+const product_line = [
+  { id: 1, name: "PC" },
+  { id: 2, name: "TB" },
+  { id: 3, name: "2R" },
+  { id: 4, name: "OTR" },
+];
 
 const CreateStock = ({
   brands,
@@ -51,6 +56,8 @@ const CreateStock = ({
       quantity: data.quantity,
       cost: data.cost,
       tyre_detail_id: data.tyre_detail_id.id,
+      load_index: Number(data.load_index),
+      speed_rating: data.speed_rating,
     });
     if (response.success && response.data) {
       toast.success(`Successfully added new stock to system.`);
@@ -181,6 +188,20 @@ const CreateStock = ({
                     id,
                   }))}
               />
+              <InputField
+                control={control}
+                name="load_index"
+                placeholder="Enter load index (optional)"
+                type="number"
+                error={errors.load_index?.message}
+              />
+              <InputField
+                control={control}
+                name="speed_rating"
+                placeholder="Enter speed rating (optional)"
+                type="text"
+                error={errors.speed_rating?.message}
+              />
               <DatePicker
                 control={control}
                 name="purchase_date"
@@ -218,14 +239,14 @@ const CreateStock = ({
                 control={control}
                 name="quantity"
                 placeholder="Enter quantity"
-                type="text"
+                type="number"
                 error={errors.quantity?.message}
               />
               <InputField
                 control={control}
                 name="cost"
                 placeholder="Enter cost"
-                type="text"
+                type="number"
                 error={errors.cost?.message}
               />
               <button

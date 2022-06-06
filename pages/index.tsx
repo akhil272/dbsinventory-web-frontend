@@ -12,14 +12,6 @@ const mapStateToProps = ({ users }: typeof initialState) => ({
   loading: users.loading,
 });
 
-// const mapStateToProps = ({ auth }: typeof initialState) => ({
-//   user: auth.user,
-// });
-
-// const mapDispatchToProps = () => ({
-//   getUserById,
-// });
-
 const Homepage = ({ user, loading }) => {
   if (loading) {
     return <LoadingAnimation message="Please wait..." />;

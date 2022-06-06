@@ -21,6 +21,8 @@ export type AddStockFormData = {
   location: { id: number; name: string };
   transport: { id: number; mode: string };
   tyre_detail_id: { id: number };
+  load_index?: number;
+  speed_rating?: string;
 };
 
 // tyreSizes.map(({ size, ...rest }) => ({

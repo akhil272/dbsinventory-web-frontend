@@ -21,8 +21,8 @@ const AdminPanel = () => {
     const { data } = await dbsServer.post(
       "/stocks/export",
       {
-        start_date: "05/29/2022",
-        end_date: "05/29/2022",
+        start_date: `${String(moment(state[0]?.startDate).format("L"))}`,
+        end_date: `${String(moment(state[0]?.endDate).format("L"))}`,
       },
       { responseType: "blob" }
     );

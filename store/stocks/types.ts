@@ -53,6 +53,8 @@ export type createStockPayload = {
   location_id: number;
   quantity: number;
   cost: number;
+  speed_rating?: string;
+  load_index?: number;
 };
 
 export type Pattern = {
