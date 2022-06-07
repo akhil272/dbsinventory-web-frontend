@@ -88,18 +88,17 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
                     control={control}
                     name="email"
                     placeholder="Enter your email (optional)"
-                    type="text"
+                    type="email"
                     error={errors.email?.message}
                   />
                   <InputField
                     control={control}
                     name="phone_number"
                     placeholder="Enter your phone number"
-                    type="text"
+                    type="tel"
                     error={errors.phone_number?.message}
                   />
                 </div>
-
                 <button
                   className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
                   type="button"

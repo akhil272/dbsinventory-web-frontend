@@ -2,7 +2,16 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-const QuotationCard = ({ name, price, notes, date, count, status, id }) => {
+const QuotationCard = ({
+  name,
+  price,
+  notes,
+  date,
+  count,
+  status,
+  id,
+  validity,
+}) => {
   const color =
     status === "PENDING"
       ? "bg-pending text-white "
@@ -34,7 +43,13 @@ const QuotationCard = ({ name, price, notes, date, count, status, id }) => {
         </div>
         <div className="w-1/2 flex-col flex">
           <label className="text-xs text-gray-400">Total Price</label>
-          <label>{price}</label>
+          <label className="text-primary font-semibold">Rs. {price}</label>
+        </div>
+      </div>
+      <div className="flex px-2">
+        <div className="w-1/2 flex-col flex">
+          <label className="text-xs text-gray-400">Validity</label>
+          <label>{validity}</label>
         </div>
       </div>
       <div className="flex px-2 py-2 flex-col">

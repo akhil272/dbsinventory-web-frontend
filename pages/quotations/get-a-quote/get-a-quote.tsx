@@ -3,11 +3,11 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import QuoteListCard from "@Components/QuoteListCard";
 import SearchBox from "@Components/SearchBox";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { getBrands } from "@Store/tyre/actions";
+import { GetQuoteProps } from "@Store/quotations/types";
 import UserQuoteSchema from "@Utils/schemas/UserQuoteSchema";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { number } from "yup/lib/locale";
+import { toast } from "react-toastify";
 type userQueryFormData = {
   brand: {
     id: number;
@@ -28,7 +28,14 @@ type userQueryFormData = {
   load_index?: number;
 };
 
-const GetQuote = ({ brands, tyreSizes, getBrands, getTyreSizes, patterns }) => {
+const GetQuote = ({
+  brands,
+  tyreSizes,
+  getBrands,
+  getTyreSizes,
+  patterns,
+  createQuotation,
+}: GetQuoteProps) => {
   const [userQuery, setUserQuery] = useState<userQueryFormData[]>([]);
   const {
     handleSubmit,
@@ -39,6 +46,28 @@ const GetQuote = ({ brands, tyreSizes, getBrands, getTyreSizes, patterns }) => {
   const onSubmit = handleSubmit((data) => {
     setUserQuery([...userQuery, data]), reset();
   });
+
+  const submitAllQuotes = async () => {
+    const userQuotesPayload = {
+      userQuotes: userQuery.map(
+        ({ brand, pattern, tyre_size, load_index, ...query }) => ({
+          brand: brand.name,
+          pattern: pattern?.name,
+          tyre_size: tyre_size.name,
+          load_index: Number(load_index),
+          ...query,
+        })
+      ),
+    };
+
+    const response = await createQuotation(userQuotesPayload);
+    if (response.success) {
+      toast.success("Quotation submitted successfully");
+      setUserQuery([]);
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
 
   useEffect(() => {
     getBrands({ search: "" });
@@ -119,25 +148,36 @@ const GetQuote = ({ brands, tyreSizes, getBrands, getTyreSizes, patterns }) => {
                 Add More
               </button>
             </form>
-            <div className="my-2">
-              <h2 className="font-semibold text-lg ">User Quotation List</h2>
-              {userQuery.map((query, index) => (
-                <QuoteListCard
-                  key={index}
-                  id={index + 1}
-                  brand={query?.brand?.name ?? "Error please refresh"}
-                  pattern={query?.pattern?.name ?? "-"}
-                  tyreSize={query?.tyre_size?.name ?? "Error please refresh"}
-                  load_index={query?.load_index ?? "-"}
-                  speed_rating={query?.speed_rating ?? "-"}
-                  notes={query.notes}
-                  quantity={query.quantity}
-                />
-              ))}
-            </div>
-            <button className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2">
-              Submit Quotations
-            </button>
+            {userQuery.length > 0 && (
+              <>
+                <div className="my-2">
+                  <h2 className="font-semibold text-lg ">
+                    User Quotation List
+                  </h2>
+                  {userQuery.map((query, index) => (
+                    <QuoteListCard
+                      key={index}
+                      id={index + 1}
+                      brand={query?.brand?.name ?? "Error please refresh"}
+                      pattern={query?.pattern?.name ?? "-"}
+                      tyre_size={
+                        query?.tyre_size?.name ?? "Error please refresh"
+                      }
+                      load_index={query?.load_index ?? "-"}
+                      speed_rating={query?.speed_rating ?? "-"}
+                      notes={query.notes}
+                      quantity={query.quantity}
+                    />
+                  ))}
+                </div>
+                <button
+                  onClick={submitAllQuotes}
+                  className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+                >
+                  Submit Quotations
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -13,6 +13,12 @@ import {
   QUOTATION_UPDATE_FAIL,
   QUOTATION_UPDATE_INIT,
   QUOTATION_UPDATE_SUCCESS,
+  USER_QUOTE_BY_ID_FETCH_FAIL,
+  USER_QUOTE_BY_ID_FETCH_INIT,
+  USER_QUOTE_BY_ID_FETCH_SUCCESS,
+  USER_QUOTE_BY_ID_UPDATE_FAIL,
+  USER_QUOTE_BY_ID_UPDATE_INIT,
+  USER_QUOTE_BY_ID_UPDATE_SUCCESS,
 } from "./types";
 
 export const initialState: Quotations = {
@@ -22,10 +28,26 @@ export const initialState: Quotations = {
   total: 1,
   page: 1,
   last_page: 1,
+  userQuoteDetails: null,
 };
 
 const reducer = (state = initialState, action: QuotationActionTypes) => {
   switch (action.type) {
+    case USER_QUOTE_BY_ID_UPDATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case USER_QUOTE_BY_ID_UPDATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case USER_QUOTE_BY_ID_UPDATE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case USER_QUOTE_BY_ID_FETCH_INIT:
+      return Object.assign({}, state, { loading: true });
+    case USER_QUOTE_BY_ID_FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        userQuoteDetails: action.payload.data,
+      });
+    case USER_QUOTE_BY_ID_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
     case QUOTATION_BY_ID_FETCH_INIT:
       return Object.assign({}, state, { loading: true });
     case QUOTATION_BY_ID_FETCH_SUCCESS:

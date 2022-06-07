@@ -12,8 +12,51 @@ import {
   QUOTATION_BY_ID_FETCH_FAIL,
   QUOTATION_BY_ID_FETCH_INIT,
   QUOTATION_BY_ID_FETCH_SUCCESS,
+  getUserQuoteByIdPayload,
+  USER_QUOTE_BY_ID_FETCH_FAIL,
+  USER_QUOTE_BY_ID_FETCH_INIT,
+  USER_QUOTE_BY_ID_FETCH_SUCCESS,
+  updateUserQuoteData,
+  USER_QUOTE_BY_ID_UPDATE_FAIL,
+  USER_QUOTE_BY_ID_UPDATE_INIT,
+  USER_QUOTE_BY_ID_UPDATE_SUCCESS,
 } from "./types";
 
+export const updateUserQuoteById = async (data: updateUserQuoteData) => {
+  const { USER_QUOTE } = API_END_POINTS;
+  const { id } = data;
+  const pathname = USER_QUOTE;
+  const url = `${pathname}/${id}`;
+  delete data.id;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: USER_QUOTE_BY_ID_UPDATE_INIT,
+      successType: USER_QUOTE_BY_ID_UPDATE_SUCCESS,
+      failureType: USER_QUOTE_BY_ID_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const getUserQuoteById = async (payload: getUserQuoteByIdPayload) => {
+  const { USER_QUOTE } = API_END_POINTS;
+  const { id = "" } = payload;
+  const pathname = `${USER_QUOTE}`;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.GET,
+    url,
+    TYPES: {
+      requestType: USER_QUOTE_BY_ID_FETCH_INIT,
+      successType: USER_QUOTE_BY_ID_FETCH_SUCCESS,
+      failureType: USER_QUOTE_BY_ID_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 export const getQuotationById = async (payload: getQuotationByIdPayload) => {
   const { QUOTATIONS } = API_END_POINTS;
   const { id = "" } = payload;

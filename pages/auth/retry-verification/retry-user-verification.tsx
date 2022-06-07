@@ -70,7 +70,7 @@ const RetryUserVerification = ({
                   control={control}
                   name="phone_number"
                   placeholder="Enter phone number"
-                  type="text"
+                  type="tel"
                   error={errors.phone_number?.message}
                 />
                 {userOtp && (
@@ -78,7 +78,7 @@ const RetryUserVerification = ({
                     control={control}
                     name="verification_code"
                     placeholder="Enter verification code"
-                    type="text"
+                    type="number"
                     error={errors.verification_code?.message}
                   />
                 )}

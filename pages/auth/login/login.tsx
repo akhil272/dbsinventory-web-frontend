@@ -77,7 +77,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                     control={control}
                     name="phone_number"
                     placeholder="Enter phone number"
-                    type="text"
+                    type="tel"
                     error={errors.phone_number?.message}
                   />
                   {userOtp && (
@@ -85,7 +85,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                       control={control}
                       name="otp"
                       placeholder="Enter otp"
-                      type="text"
+                      type="number"
                       error={errors.otp?.message}
                     />
                   )}

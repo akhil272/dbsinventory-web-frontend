@@ -46,7 +46,7 @@ export type updateStockPayload = {
 export type createStockPayload = {
   product_line: string;
   tyre_detail_id: number;
-  dom: string;
+  dom: number;
   purchase_date: Date;
   transport_id: number;
   vendor_id: number;

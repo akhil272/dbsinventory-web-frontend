@@ -16,7 +16,7 @@ interface InputFieldProps {
 const InputField = ({
   placeholder,
   error,
-  type,
+  type = "text",
   autoComplete,
   name,
   control,
@@ -61,7 +61,7 @@ const InputField = ({
               placeholder={placeholder}
               value={value}
               onChange={onChange}
-              type="text"
+              type={type}
               onBlur={onBlur}
               autoComplete={autoComplete}
             />

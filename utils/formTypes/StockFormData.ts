@@ -1,5 +1,5 @@
-export type AddStockFormData = {
-  dom: string;
+export type CreateStockFormData = {
+  dom: number;
   brand: {
     id: number;
     name: string;

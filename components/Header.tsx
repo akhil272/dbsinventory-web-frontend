@@ -8,7 +8,7 @@ const Header = ({ userRole, userName }) => {
     <header className="bg-inherit">
       <nav className="flex bg-inherit fixed w-full  px-5 py-3 justify-between items-center">
         <Link href={"/"}>
-          <h2 className="font-bold text-lg">DBS Automotive</h2>
+          <h2 className="font-bold text-lg">DBS Tyres</h2>
         </Link>
         {!open && (
           <button onClick={() => setOpen(!open)}>

@@ -47,7 +47,7 @@ const VerifyUser = ({ validateVerification }: RegisterDispatchProps) => {
                   control={control}
                   name="verification_code"
                   placeholder="Enter verification code"
-                  type="text"
+                  type="number"
                   error={errors.verification_code?.message}
                 />
               </div>

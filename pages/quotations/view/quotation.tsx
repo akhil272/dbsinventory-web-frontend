@@ -21,17 +21,21 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
   if (loading) {
     return <LoadingAnimation message="Loading orders. Please wait.." />;
   }
-  console.log(quotation, "hello");
+  const totalPrice = quotation?.userQuotes
+    ?.reduce((acc, curr) => [...acc, curr.price], [])
+    .reduce((acc, curr) => acc + curr, 0);
+
   return (
-    <div className="pt-20">
+    <div className="pt-10">
       <QuotationCard
         id={quotation?.id}
         count={quotation?.count}
         date={quotation?.date}
         notes={quotation?.notes}
-        price={quotation?.price}
+        price={totalPrice}
         status={quotation?.status}
-        name="anand"
+        validity={quotation?.validity}
+        name={`${quotation?.user.first_name} ${quotation?.user.last_name}`}
       />
 
       {quotation?.userQuotes.map((quote) => (
@@ -47,12 +51,15 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
                 key={quote?.id}
                 brand={quote?.brand ?? "Error please refresh"}
                 pattern={quote?.pattern ?? "-"}
-                tyreSize={quote?.tyre_size ?? "Error please refresh"}
+                tyre_size={quote?.tyre_size ?? "Error please refresh"}
                 load_index={quote?.load_index ?? "-"}
                 speed_rating={quote?.speed_rating ?? "-"}
                 notes={quote.notes}
                 quantity={quote.quantity}
                 id={quote?.id}
+                admin_comments={quote?.admin_comments}
+                price={quote?.price}
+                type="advanced"
               />
             </a>
           </Link>

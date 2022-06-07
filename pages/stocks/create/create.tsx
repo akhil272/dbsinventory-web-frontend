@@ -5,7 +5,7 @@ import ListBox from "@Components/ListBox";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateStockProps } from "@Store/stocks/types";
 
-import { AddStockFormData } from "@Utils/formTypes/StockFormData";
+import { CreateStockFormData } from "@Utils/formTypes/StockFormData";
 import { CreateStockSchema } from "@Utils/schemas/StockSchema";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -42,13 +42,15 @@ const CreateStock = ({
     formState: { errors },
     watch,
     setValue,
-  } = useForm<AddStockFormData>({ resolver: yupResolver(CreateStockSchema) });
+  } = useForm<CreateStockFormData>({
+    resolver: yupResolver(CreateStockSchema),
+  });
   const onSubmit = handleSubmit((data) => addStock(data));
 
-  const addStock = async (data: AddStockFormData) => {
+  const addStock = async (data: CreateStockFormData) => {
     const response = await createStock({
       product_line: data.product_line.name,
-      dom: data.dom,
+      dom: Number(data.dom),
       purchase_date: data.purchase_date,
       transport_id: data.transport.id,
       vendor_id: data.vendor.id,
@@ -141,14 +143,16 @@ const CreateStock = ({
           <div className="">
             <form className="space-y-3" onSubmit={onSubmit}>
               <ListBox
+                error={errors.product_line?.message}
                 control={control}
                 name={"product_line"}
                 data={product_line}
               />
               <InputField
-                placeholder={"Enter DOM"}
-                name={"dom"}
                 control={control}
+                name="dom"
+                placeholder="Enter DOM"
+                type="number"
                 error={errors.dom?.message}
               />
               <AutoComplete
@@ -158,6 +162,7 @@ const CreateStock = ({
                 control={control}
                 name={"brand"}
                 data={brands}
+                error={errors.brand?.message}
               />
               <AutoComplete
                 placeholder="Enter pattern name"
@@ -168,6 +173,7 @@ const CreateStock = ({
                 control={control}
                 name={"pattern"}
                 data={selectedBrand?.patterns ?? []}
+                error={errors.pattern?.message}
               />
               <AutoComplete
                 placeholder="Enter tyre size eg. 265/65R17"
@@ -187,6 +193,7 @@ const CreateStock = ({
                     name: tyreSize.size,
                     id,
                   }))}
+                error={errors.tyre_detail_id?.message}
               />
               <InputField
                 control={control}
@@ -215,6 +222,7 @@ const CreateStock = ({
                 control={control}
                 name={"vendor"}
                 data={vendors}
+                error={errors.vendor?.message}
               />
               <AutoComplete
                 placeholder="Enter transport name"
@@ -226,6 +234,7 @@ const CreateStock = ({
                   ...rest,
                   name: mode,
                 }))}
+                error={errors.transport?.message}
               />
               <AutoComplete
                 placeholder="Enter location name"
@@ -234,6 +243,7 @@ const CreateStock = ({
                 control={control}
                 name={"location"}
                 data={locations}
+                error={errors.location?.message}
               />
               <InputField
                 control={control}

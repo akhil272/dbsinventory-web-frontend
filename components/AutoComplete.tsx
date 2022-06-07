@@ -15,6 +15,7 @@ type AutoCompleteProps = {
   create: any;
   onSuccess?: () => void;
   placeholder: string;
+  error?: string;
 };
 
 export default function AutoComplete({
@@ -24,10 +25,11 @@ export default function AutoComplete({
   data,
   create,
   onSuccess,
+  error,
 }: AutoCompleteProps) {
   const [query, setQuery] = useState("");
 
-  const filtereddata =
+  const filteredData =
     query === ""
       ? data
       : data.filter((item) =>
@@ -78,7 +80,7 @@ export default function AutoComplete({
                 afterLeave={() => setQuery("")}
               >
                 <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {filtereddata?.length === 0 && query !== "" ? (
+                  {filteredData?.length === 0 && query !== "" ? (
                     <div className="relative flex items-center cursor-default select-none py-2 px-4 text-gray-700">
                       <div>{query}. Not found.</div>
                       <PlusIcon
@@ -88,7 +90,7 @@ export default function AutoComplete({
                       />
                     </div>
                   ) : (
-                    filtereddata?.map((item, i) => (
+                    filteredData?.map((item, i) => (
                       <Combobox.Option
                         key={i}
                         className={({ active }) =>
@@ -130,6 +132,7 @@ export default function AutoComplete({
           </Combobox>
         )}
       />
+      <p className="text-sm text-red-600">{error}</p>
     </div>
   );
 }

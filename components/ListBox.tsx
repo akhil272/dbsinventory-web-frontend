@@ -8,7 +8,7 @@ interface DataProps {
   name: string;
 }
 
-export default function ListBox({ control, name, data }) {
+export default function ListBox({ control, name, data, error }) {
   return (
     <div>
       <Controller
@@ -22,6 +22,7 @@ export default function ListBox({ control, name, data }) {
                 <span className="block truncate py-2 ">
                   {value.name ? value.name : "Select a product line"}
                 </span>
+
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <SelectorIcon
                     className="h-5 w-5 text-gray-400 "
@@ -76,6 +77,7 @@ export default function ListBox({ control, name, data }) {
           </Listbox>
         )}
       />
+      <p className="text-sm text-red-600">{error}</p>
     </div>
   );
 }
