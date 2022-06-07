@@ -1,3 +1,17 @@
+import { getQuotations } from "@Store/quotations/actions";
+import { initialState } from "@Store/rootReducer";
+import { connect } from "react-redux";
 import Quotations from "./quotations";
+const mapStateToProps = ({ quotations }: typeof initialState) => ({
+  quotations: quotations.quotations,
+  total: quotations.total,
+  page: quotations.page,
+  last_page: quotations.last_page,
+  loading: quotations.loading,
+});
 
-export default Quotations;
+const mapDispatchToProps = () => ({
+  getQuotations,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quotations);

@@ -8,6 +8,9 @@ import adminPanelReducer, {
 import ordersReducer, {
   initialState as ordersState,
 } from "@Store/orders/reducer";
+import quotationsReducer, {
+  initialState as quotationsState,
+} from "@Store/quotations/reducer";
 import { combineReducers } from "redux";
 
 export const initialState = {
@@ -17,6 +20,7 @@ export const initialState = {
   stocks: stocksState,
   adminPanel: adminPanelState,
   orders: ordersState,
+  quotations: quotationsState,
 };
 
 export default combineReducers({
@@ -26,4 +30,5 @@ export default combineReducers({
   stocks: stocksReducer,
   adminPanel: adminPanelReducer,
   orders: ordersReducer,
+  quotations: quotationsReducer,
 });

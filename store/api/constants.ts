@@ -23,6 +23,7 @@ const API_END_POINTS = {
   USER: "/user",
   INFO: "/info",
   EXPORT: "/export",
+  QUOTATIONS: "/quotations",
 };
 
 enum API_METHODS {
