@@ -23,9 +23,9 @@ import {
 } from "./types";
 
 export const updateUserQuoteById = async (data: updateUserQuoteData) => {
-  const { USER_QUOTE } = API_END_POINTS;
+  const { MANAGE_QUOTATIONS } = API_END_POINTS;
   const { id } = data;
-  const pathname = USER_QUOTE;
+  const pathname = MANAGE_QUOTATIONS;
   const url = `${pathname}/${id}`;
   delete data.id;
   const apiArgs = {

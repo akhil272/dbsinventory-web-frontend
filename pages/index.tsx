@@ -1,11 +1,8 @@
-import { getUserById, getUserInfo } from "@Store/users/actions";
-import { useEffect } from "react";
 import { connect } from "react-redux";
 import Login from "./auth/login";
-import Search from "./search";
 import { initialState } from "@Store/rootReducer";
-import storage from "@Utils/storage";
 import LoadingAnimation from "@Components/LoadingAnimation";
+import GetAQuote from "./quotations/get-a-quote";
 
 const mapStateToProps = ({ users }: typeof initialState) => ({
   user: users.user,
@@ -19,7 +16,7 @@ const Homepage = ({ user, loading }) => {
   if (!user) {
     return <Login />;
   }
-  return <Search />;
+  return <GetAQuote />;
 };
 
 export default connect(mapStateToProps)(Homepage);

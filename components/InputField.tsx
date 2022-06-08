@@ -24,7 +24,7 @@ const InputField = ({
 }: InputFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <>
+    <div className="space-y-1">
       {type === "password" ? (
         <Controller
           defaultValue={defaultValue}
@@ -68,8 +68,8 @@ const InputField = ({
           )}
         />
       )}
-      <p className="text-sm text-red-600">{error}</p>
-    </>
+      <p className="text-sm text-red-600 px-2">{error}</p>
+    </div>
   );
 };
 

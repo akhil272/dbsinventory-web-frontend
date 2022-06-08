@@ -43,17 +43,18 @@ const Quotations = ({
         >
           Waiting
         </button>
-        <button
-          className="p-4 rounded-md bg-accepted"
-          onClick={() => setQuotationStatus("ACCEPTED")}
-        >
-          Accepted
-        </button>
+
         <button
           className="p-4 rounded-md bg-followup"
           onClick={() => setQuotationStatus("FOLLOWUP")}
         >
           Follow Up
+        </button>
+        <button
+          className="p-4 rounded-md bg-accepted"
+          onClick={() => setQuotationStatus("ACCEPTED")}
+        >
+          Accepted
         </button>
       </div>
       <div>
@@ -69,6 +70,7 @@ const Quotations = ({
               notes={quotation.notes ? `${quotation.notes}` : "N/A"}
               date={quotation.created_at}
               count={quotation.count}
+              validity={quotation.validity ? `${quotation.validity}` : "N/A"}
             />
           ))}
       </div>

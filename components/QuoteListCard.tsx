@@ -81,7 +81,7 @@ const QuoteListCard = ({
           <div className="flex w-full">
             <div className="flex flex-col -space-y-1">
               <label className="text-xs text-gray-400">Notes</label>
-              <label>{notes ? `${notes}` : "-"}</label>
+              <label className="text-sm">{notes ? `${notes}` : "-"}</label>
             </div>
           </div>
         </div>
@@ -90,7 +90,9 @@ const QuoteListCard = ({
             <div className="flex flex-col space-y-2 w-full">
               <div className="flex flex-col -space-y-1">
                 <label className="text-xs text-gray-400">Comments</label>
-                <label>{admin_comments ? `${admin_comments}` : "-"}</label>
+                <label className="text-sm">
+                  {admin_comments ? `${admin_comments}` : "-"}
+                </label>
               </div>
               <div className="flex flex-col -space-y-1">
                 <label className="text-xs text-gray-400">Price</label>

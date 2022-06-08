@@ -50,7 +50,7 @@ export default function AutoComplete({
     }
   };
   return (
-    <div>
+    <div className="space-y-1">
       <Controller
         defaultValue=""
         control={control}
@@ -60,7 +60,7 @@ export default function AutoComplete({
             <div className="relative">
               <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                 <Combobox.Input
-                  className="w-full border-none py-2 pl-3 pr-10 text-md leading-5 text-gray-900 focus:ring-0"
+                  className="w-full border-none py-2 pl-2 pr-10 text-md leading-5 text-gray-900 focus:ring-0"
                   displayValue={(item: dataType) => item?.name}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={placeholder}
@@ -132,7 +132,7 @@ export default function AutoComplete({
           </Combobox>
         )}
       />
-      <p className="text-sm text-red-600">{error}</p>
+      <p className="text-sm text-red-600 px-2">{error}</p>
     </div>
   );
 }

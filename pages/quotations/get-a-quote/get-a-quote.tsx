@@ -47,6 +47,15 @@ const GetQuote = ({
     setUserQuery([...userQuery, data]), reset();
   });
 
+  const handleSingleQuote = handleSubmit((data) => {
+    setUserQuery([...userQuery, data]), reset();
+    window.scrollTo({
+      left: 0,
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  });
+
   const submitAllQuotes = async () => {
     const userQuotesPayload = {
       userQuotes: userQuery.map(
@@ -59,7 +68,6 @@ const GetQuote = ({
         })
       ),
     };
-
     const response = await createQuotation(userQuotesPayload);
     if (response.success) {
       toast.success("Quotation submitted successfully");
@@ -78,7 +86,7 @@ const GetQuote = ({
   if (!brands.length) return <LoadingAnimation message="Please wait.." />;
   if (!tyreSizes.length) return <LoadingAnimation message="Please wait.." />;
   return (
-    <div className="pt-4 flex justify-center">
+    <div className=" flex justify-center">
       <div className="max-w-xl">
         <div>
           <div className="mt-12 items-center justify-center flex ">
@@ -87,11 +95,11 @@ const GetQuote = ({
               src="/images/Get_Quote.png"
             />
           </div>
-          <div className="pt-10 ">
+          <div className="pt-2 ">
             <h1 className="font-bold text-2xl capitalize pb-2">Get a quote</h1>
           </div>
           <div>
-            <form className="space-y-2" onSubmit={onSubmit}>
+            <form className="space-y-2 " onSubmit={onSubmit}>
               <SearchBox
                 placeholder="Enter brand name"
                 control={control}
@@ -141,15 +149,23 @@ const GetQuote = ({
                 type="text"
                 error={errors.notes?.message}
               />
-              <button
-                className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-                onClick={onSubmit}
-              >
-                Add More
-              </button>
+              <div className="flex space-x-1 py-2">
+                <button
+                  className="bg-pastel_green w-1/2 text-lg rounded-md font-medium text-center text-white p-2"
+                  onClick={onSubmit}
+                >
+                  Add More
+                </button>
+                <button
+                  className="bg-primary w-1/2  text-lg rounded-md font-medium text-center text-white p-2"
+                  onClick={handleSingleQuote}
+                >
+                  Submit
+                </button>
+              </div>
             </form>
             {userQuery.length > 0 && (
-              <>
+              <div className="pb-4">
                 <div className="my-2">
                   <h2 className="font-semibold text-lg ">
                     User Quotation List
@@ -172,11 +188,11 @@ const GetQuote = ({
                 </div>
                 <button
                   onClick={submitAllQuotes}
-                  className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+                  className="bg-primary  w-full rounded-md text-lg font-medium text-center text-white p-2"
                 >
                   Submit Quotations
                 </button>
-              </>
+              </div>
             )}
           </div>
         </div>

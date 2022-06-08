@@ -1,3 +1,4 @@
+import ContactCard from "@Components/ContactCard";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuotationCard from "@Components/QuotationCard";
 import QuoteListCard from "@Components/QuoteListCard";
@@ -21,9 +22,6 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
   if (loading) {
     return <LoadingAnimation message="Loading orders. Please wait.." />;
   }
-  const totalPrice = quotation?.userQuotes
-    ?.reduce((acc, curr) => [...acc, curr.price], [])
-    .reduce((acc, curr) => acc + curr, 0);
 
   return (
     <div className="pt-10">
@@ -32,12 +30,12 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
         count={quotation?.count}
         date={quotation?.date}
         notes={quotation?.notes}
-        price={totalPrice}
+        price={quotation?.price}
         status={quotation?.status}
         validity={quotation?.validity}
         name={`${quotation?.user.first_name} ${quotation?.user.last_name}`}
       />
-
+      <ContactCard />
       {quotation?.userQuotes.map((quote) => (
         <div key={quote.id}>
           <Link
