@@ -85,6 +85,7 @@ const GetQuote = ({
   }, [getTyreSizes]);
   if (!brands.length) return <LoadingAnimation message="Please wait.." />;
   if (!tyreSizes.length) return <LoadingAnimation message="Please wait.." />;
+
   return (
     <div className=" flex justify-center">
       <div className="max-w-xl">

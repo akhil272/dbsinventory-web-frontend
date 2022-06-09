@@ -1,4 +1,3 @@
-import ContactCard from "@Components/ContactCard";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuotationCard from "@Components/QuotationCard";
 import QuoteListCard from "@Components/QuoteListCard";
@@ -24,7 +23,7 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
   }
 
   return (
-    <div className="pt-10">
+    <div className="pt-10 pb-4">
       <QuotationCard
         id={quotation?.id}
         count={quotation?.count}
@@ -35,7 +34,17 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
         validity={quotation?.validity}
         name={`${quotation?.user.first_name} ${quotation?.user.last_name}`}
       />
-      <ContactCard />
+      <div className="w-full bg-primary rounded-md text-white font-semibold p-2 text-center mb-4">
+        <Link
+          href={{
+            pathname: "/quotations/update",
+            query: { quotationId: quotation?.id },
+          }}
+        >
+          <a>Finalize Quotation</a>
+        </Link>
+      </div>
+
       {quotation?.userQuotes.map((quote) => (
         <div key={quote.id}>
           <Link

@@ -125,6 +125,11 @@ export type UserQuoteStateProps = {
   userQuoteDetails: userQuotePayload;
   loading: boolean;
 };
+export type updateQuotation = {
+  validity: number;
+  notes?: string;
+  id: number;
+};
 export type updateUserQuoteData = {
   price: number;
   id: number;

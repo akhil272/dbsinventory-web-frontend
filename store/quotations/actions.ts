@@ -20,8 +20,30 @@ import {
   USER_QUOTE_BY_ID_UPDATE_FAIL,
   USER_QUOTE_BY_ID_UPDATE_INIT,
   USER_QUOTE_BY_ID_UPDATE_SUCCESS,
+  QUOTATION_UPDATE_FAIL,
+  QUOTATION_UPDATE_INIT,
+  QUOTATION_UPDATE_SUCCESS,
+  updateQuotation,
 } from "./types";
 
+export const updateQuotationById = async (data: updateQuotation) => {
+  const { QUOTATIONS } = API_END_POINTS;
+  const { id } = data;
+  const pathname = QUOTATIONS;
+  const url = `${pathname}/${id}`;
+  delete data.id;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: QUOTATION_UPDATE_INIT,
+      successType: QUOTATION_UPDATE_SUCCESS,
+      failureType: QUOTATION_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 export const updateUserQuoteById = async (data: updateUserQuoteData) => {
   const { MANAGE_QUOTATIONS } = API_END_POINTS;
   const { id } = data;
