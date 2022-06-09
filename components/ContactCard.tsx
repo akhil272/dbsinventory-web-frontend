@@ -35,7 +35,7 @@ const ContactCard = ({ getContactOptions }) => {
           </div>
         </form>
         <div className="flex w-full justify-center p-2 bg-primary text-white rounded-md text-sm">
-          <button onClick={onSubmit}>Confirm</button>
+          <button onClick={onSubmit}>Send Quotation</button>
         </div>
       </div>
     </div>
