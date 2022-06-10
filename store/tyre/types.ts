@@ -1,5 +1,19 @@
 import { ApiReturnType } from "@Store/api";
 
+export const LOAD_INDEX_CREATE_INIT = "LOAD_INDEX:CREATE:INIT";
+export const LOAD_INDEX_CREATE_SUCCESS = "LOAD_INDEX:CREATE:SUCCESS";
+export const LOAD_INDEX_CREATE_FAIL = "LOAD_INDEX:CREATE:FAIL";
+export const LOAD_INDEXES_FETCH_INIT = "LOAD_INDEXES:FETCH:INIT";
+export const LOAD_INDEXES_FETCH_SUCCESS = "LOAD_INDEXES:FETCH:SUCCESS";
+export const LOAD_INDEXES_FETCH_FAIL = "LOAD_INDEXES:FETCH:FAIL";
+
+export const SPEED_RATING_CREATE_INIT = "SPEED_RATING:CREATE:INIT";
+export const SPEED_RATING_CREATE_SUCCESS = "SPEED_RATING:CREATE:SUCCESS";
+export const SPEED_RATING_CREATE_FAIL = "SPEED_RATING:CREATE:FAIL";
+export const SPEED_RATINGS_FETCH_INIT = "SPEED_RATINGS:FETCH:INIT";
+export const SPEED_RATINGS_FETCH_SUCCESS = "SPEED_RATINGS:FETCH:SUCCESS";
+export const SPEED_RATINGS_FETCH_FAIL = "SPEED_RATINGS:FETCH:FAIL";
+
 export const TYRE_DETAIL_SIZE_CREATE_INIT = "TYRE_DETAIL_SIZE:CREATE:INIT";
 export const TYRE_DETAIL_SIZE_CREATE_SUCCESS =
   "TYRE_DETAIL_SIZE:CREATE:SUCCESS";
@@ -116,6 +130,12 @@ export type createPatternResponse = {
   name: string;
 };
 
+export type getLoadIndexesPayload = {
+  search?: string;
+};
+export type getSpeedRatingPayload = {
+  search?: string;
+};
 export type getBrandsPayload = {
   search?: string;
 };
@@ -128,14 +148,33 @@ export type BrandsPayload = {
   name: string;
   patterns: Pattern[];
 };
+export type LoadIndexPayload = {
+  id: number;
+  load_index: number;
+};
+export type SpeedRatingPayload = {
+  id: number;
+  speed_rating: string;
+};
 export type TyreDetail = TyreDetailPayload;
 export type Brand = BrandsPayload;
 export type TyreSize = TyreSizePayload;
+export type SpeedRating = SpeedRatingPayload;
+export type LoadIndexes = LoadIndexPayload;
 export type TyreData = {
   loading: boolean;
   brands: Brand[];
   tyreSizes: TyreSize[];
   tyreDetails: TyreDetail[];
+  speedRatings: SpeedRating[];
+  loadIndexes: LoadIndexes[];
+};
+
+export type createLoadIndexPayload = {
+  load_index: number;
+};
+export type createSpeedRatingPayload = {
+  speed_rating: string;
 };
 
 export type createBrandPayload = {
@@ -145,6 +184,18 @@ export type createBrandPayload = {
 export type createBrandResponse = {};
 
 export type TyresDispatchProps = {
+  getLoadIndexes: (
+    payload: getLoadIndexesPayload
+  ) => Promise<ApiReturnType<LoadIndexPayload[]>>;
+  createLoadIndex: (
+    data: createLoadIndexPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
+  getSpeedRatings: (
+    payload: getSpeedRatingPayload
+  ) => Promise<ApiReturnType<SpeedRatingPayload[]>>;
+  createSpeedRating: (
+    data: createSpeedRatingPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
   createTyreDetailSize: (
     data: createTyreDetailSizePayload
   ) => Promise<ApiReturnType<createTyreDetailResponse>>;
@@ -178,9 +229,52 @@ export type TyresStateProps = {
   brands: Brand[];
   tyreSizes: TyreSize[];
   tyreDetails: TyreDetail[];
+  speedRatings: SpeedRating[];
+  loadIndexes: LoadIndexes[];
 };
 
 export type TyreDataProps = TyresStateProps & TyresDispatchProps;
+
+type loadIndexCreateInit = {
+  type: typeof LOAD_INDEX_CREATE_INIT;
+};
+type loadIndexCreateSuccess = {
+  type: typeof LOAD_INDEX_CREATE_SUCCESS;
+  payload: ApiReturnType<createBrandResponse>;
+};
+type loadIndexCreateFail = {
+  type: typeof LOAD_INDEX_CREATE_FAIL;
+};
+type loadIndexesFetchInit = {
+  type: typeof LOAD_INDEXES_FETCH_INIT;
+};
+type loadIndexesFetchSuccess = {
+  type: typeof LOAD_INDEXES_FETCH_SUCCESS;
+  payload: ApiReturnType<LoadIndexPayload[]>;
+};
+type loadIndexesFetchFail = {
+  type: typeof LOAD_INDEXES_FETCH_FAIL;
+};
+type speedRatingCreateInit = {
+  type: typeof SPEED_RATING_CREATE_INIT;
+};
+type speedRatingCreateSuccess = {
+  type: typeof SPEED_RATING_CREATE_SUCCESS;
+  payload: ApiReturnType<createBrandResponse>;
+};
+type speedRatingCreateFail = {
+  type: typeof SPEED_RATING_CREATE_FAIL;
+};
+type speedRatingsFetchInit = {
+  type: typeof SPEED_RATINGS_FETCH_INIT;
+};
+type speedRatingsFetchSuccess = {
+  type: typeof SPEED_RATINGS_FETCH_SUCCESS;
+  payload: ApiReturnType<SpeedRatingPayload[]>;
+};
+type speedRatingsFetchFail = {
+  type: typeof SPEED_RATINGS_FETCH_FAIL;
+};
 
 type tyreDetailSizeCreateInit = {
   type: typeof TYRE_DETAIL_SIZE_CREATE_INIT;
@@ -280,6 +374,18 @@ type brandsFetchFail = {
 };
 
 export type TyreDataActionTypes =
+  | loadIndexCreateInit
+  | loadIndexCreateSuccess
+  | loadIndexCreateFail
+  | loadIndexesFetchInit
+  | loadIndexesFetchSuccess
+  | loadIndexesFetchFail
+  | speedRatingCreateInit
+  | speedRatingCreateSuccess
+  | speedRatingCreateFail
+  | speedRatingsFetchInit
+  | speedRatingsFetchSuccess
+  | speedRatingsFetchFail
   | tyreDetailSizeCreateInit
   | tyreDetailSizeCreateSuccess
   | tyreDetailSizeCreateFail

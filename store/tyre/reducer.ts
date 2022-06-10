@@ -28,6 +28,18 @@ import {
   TYRE_DETAIL_SIZE_CREATE_FAIL,
   TYRE_DETAIL_SIZE_CREATE_INIT,
   TYRE_DETAIL_SIZE_CREATE_SUCCESS,
+  LOAD_INDEXES_FETCH_FAIL,
+  LOAD_INDEXES_FETCH_INIT,
+  LOAD_INDEXES_FETCH_SUCCESS,
+  LOAD_INDEX_CREATE_FAIL,
+  LOAD_INDEX_CREATE_INIT,
+  LOAD_INDEX_CREATE_SUCCESS,
+  SPEED_RATINGS_FETCH_FAIL,
+  SPEED_RATINGS_FETCH_INIT,
+  SPEED_RATINGS_FETCH_SUCCESS,
+  SPEED_RATING_CREATE_FAIL,
+  SPEED_RATING_CREATE_INIT,
+  SPEED_RATING_CREATE_SUCCESS,
 } from "./types";
 
 export const initialState: TyreData = {
@@ -35,10 +47,42 @@ export const initialState: TyreData = {
   brands: [],
   tyreSizes: [],
   tyreDetails: [],
+  speedRatings: [],
+  loadIndexes: [],
 };
 
 const reducer = (state = initialState, action: TyreDataActionTypes) => {
   switch (action.type) {
+    case LOAD_INDEX_CREATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case LOAD_INDEX_CREATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case LOAD_INDEX_CREATE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case LOAD_INDEXES_FETCH_INIT:
+      return Object.assign({}, state, { loading: true });
+    case LOAD_INDEXES_FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        loadIndexes: action.payload.data,
+      });
+    case LOAD_INDEXES_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case SPEED_RATING_CREATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case SPEED_RATING_CREATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case SPEED_RATING_CREATE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case SPEED_RATINGS_FETCH_INIT:
+      return Object.assign({}, state, { loading: true });
+    case SPEED_RATINGS_FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        speedRatings: action.payload.data,
+      });
+    case SPEED_RATINGS_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
     case TYRE_DETAIL_SIZE_CREATE_INIT:
       return Object.assign({}, state, { loading: true });
     case TYRE_DETAIL_SIZE_CREATE_SUCCESS:

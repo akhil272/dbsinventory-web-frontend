@@ -71,6 +71,8 @@ const Stocks = ({
             cost={stock.cost}
             stockId={stock.id}
             role={user.roles}
+            load_index={stock.load_index?.load_index}
+            speed_rating={stock.speed_rating?.speed_rating}
           />
         ))}
       </div>

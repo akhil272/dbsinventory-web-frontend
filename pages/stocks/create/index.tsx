@@ -10,10 +10,14 @@ import { initialState } from "@Store/rootReducer";
 import { createStock } from "@Store/stocks/actions";
 import {
   createBrand,
+  createLoadIndex,
   createPattern,
+  createSpeedRating,
   createTyreDetailSize,
   createTyreSize,
   getBrands,
+  getLoadIndexes,
+  getSpeedRatings,
   getTyreDetails,
   getTyreSizes,
 } from "@Store/tyre/actions";
@@ -23,6 +27,8 @@ const mapStateToProps = ({ tyres, adminPanel }: typeof initialState) => ({
   brands: tyres.brands,
   tyreSizes: tyres.tyreSizes,
   tyreDetails: tyres.tyreDetails,
+  speedRatings: tyres.speedRatings,
+  loadIndexes: tyres.loadIndexes,
   locations: adminPanel.locations,
   vendors: adminPanel.vendors,
   transports: adminPanel.transports,
@@ -43,6 +49,10 @@ const mapDispatchToProps = () => ({
   getLocations,
   createLocation,
   createStock,
+  createSpeedRating,
+  createLoadIndex,
+  getSpeedRatings,
+  getLoadIndexes,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateStock);

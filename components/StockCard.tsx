@@ -16,6 +16,8 @@ interface StockItemProps {
   cost: number | string;
   stockId?: number;
   role: string;
+  load_index?: number;
+  speed_rating?: string;
 }
 
 const StockCard = ({
@@ -32,16 +34,9 @@ const StockCard = ({
   cost,
   stockId,
   role,
+  load_index,
+  speed_rating,
 }: StockItemProps) => {
-  const handleContactUs = () => {
-    let url = `https://web.whatsapp.com/send?phone=${process.env.PHONE_NUMBER}`;
-    const message = `I would like to know the price of ${stringify({
-      stockId,
-    })}`;
-    // Appending the message to the URL by encoding it
-    url += `&text=${encodeURI(message)}&app_absent=0`;
-    window.open(url);
-  };
   return (
     <div className="lg:px-96">
       <div className="flex mt-4">
@@ -56,7 +51,7 @@ const StockCard = ({
             <div className="text-md font-semibold">{pattern_name}</div>
           </div>
           <div className="px-2 pt-2">
-            <div onClick={handleContactUs} className="text-md font-semibold">
+            <div className="text-md font-semibold">
               {role === "user" || role == undefined
                 ? "Contact Us"
                 : `Rs. ${cost}`}
@@ -74,6 +69,10 @@ const StockCard = ({
               <div className="text-md font-semibold">{transport_mode}</div>
               <div className=" pt-2 text-sm">DOM</div>
               <div className="text-md font-semibold">{dom}</div>
+              <div className=" pt-2 text-sm">Speed Rating</div>
+              <div className="text-md font-semibold">
+                {speed_rating ? `${speed_rating}` : "N/A"}
+              </div>
             </div>
             <div className="px-2 w-1/2 -space-y-1 ">
               <div className=" pt-2 text-sm">Product Line</div>
@@ -82,6 +81,10 @@ const StockCard = ({
               <div className="text-md font-semibold">{location}</div>
               <div className=" pt-2 text-sm">Quantity</div>
               <div className="text-md font-semibold">{quantity}</div>
+              <div className=" pt-2 text-sm">Load Index</div>
+              <div className="text-md font-semibold">
+                {load_index ? `${load_index}` : "N/A"}
+              </div>
             </div>
           </div>
 

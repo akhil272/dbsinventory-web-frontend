@@ -23,6 +23,8 @@ const CreateStock = ({
   transports,
   locations,
   tyreDetails,
+  loadIndexes,
+  speedRatings,
   getBrands,
   createBrand,
   createPattern,
@@ -35,6 +37,10 @@ const CreateStock = ({
   getLocations,
   createLocation,
   createStock,
+  createSpeedRating,
+  createLoadIndex,
+  getSpeedRatings,
+  getLoadIndexes,
 }: CreateStockProps) => {
   const {
     handleSubmit,
@@ -58,8 +64,8 @@ const CreateStock = ({
       quantity: data.quantity,
       cost: data.cost,
       tyre_detail_id: data.tyre_detail_id.id,
-      load_index: Number(data.load_index),
-      speed_rating: data.speed_rating,
+      load_index_id: data?.load_index?.id,
+      speed_rating_id: data?.speed_rating?.id,
     });
     if (response.success && response.data) {
       toast.success(`Successfully added new stock to system.`);
@@ -71,6 +77,14 @@ const CreateStock = ({
 
   const selectedBrand = watch("brand");
   const selectedPattern = watch("pattern");
+  const createLoadIndexAction = async ({ name }) => {
+    const response = await createLoadIndex({ load_index: Number(name) });
+    return response;
+  };
+  const createSpeedRatingAction = async ({ name }) => {
+    const response = await createSpeedRating({ speed_rating: name });
+    return response;
+  };
   const createPatternAction = async ({ name }) => {
     const response = await createPattern({ name, brand_id: selectedBrand.id });
     if (response.success) {
@@ -126,6 +140,12 @@ const CreateStock = ({
   useEffect(() => {
     getLocations({ search: "" });
   }, [getLocations]);
+  useEffect(() => {
+    getSpeedRatings({ search: "" });
+  }, [getSpeedRatings]);
+  useEffect(() => {
+    getLoadIndexes({ search: "" });
+  }, [getLoadIndexes]);
 
   return (
     <div className="py-10 flex justify-center ">
@@ -195,19 +215,29 @@ const CreateStock = ({
                   }))}
                 error={(errors.tyre_detail_id as any)?.message}
               />
-              <InputField
+              <AutoComplete
+                placeholder="[Optional]Speed rating [Y | 100 km/h]"
+                onSuccess={() => getSpeedRatings({ search: "" })}
+                create={createSpeedRatingAction}
                 control={control}
-                name="load_index"
-                placeholder="Enter load index (optional)"
-                type="number"
-                error={errors.load_index?.message}
+                name={"speed_rating"}
+                data={speedRatings?.map(({ speed_rating, id }) => ({
+                  name: speed_rating,
+                  id,
+                }))}
+                error={(errors.speed_rating as any)?.message}
               />
-              <InputField
+              <AutoComplete
+                placeholder="[Optional]Load Index [80]"
+                onSuccess={() => getLoadIndexes({ search: "" })}
+                create={createLoadIndexAction}
                 control={control}
-                name="speed_rating"
-                placeholder="Enter speed rating (optional)"
-                type="text"
-                error={errors.speed_rating?.message}
+                name={"load_index"}
+                data={loadIndexes?.map(({ load_index, id }) => ({
+                  name: String(load_index),
+                  id,
+                }))}
+                error={(errors.load_index as any)?.message}
               />
               <DatePicker
                 control={control}

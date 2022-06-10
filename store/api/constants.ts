@@ -31,6 +31,8 @@ const API_END_POINTS = {
   TAKE: "take",
   PAGE: "page",
   SORT_BY: "sortBy",
+  SPEED_RATING: "/speed-rating",
+  LOAD_INDEX: "/load-index",
 };
 
 enum API_METHODS {

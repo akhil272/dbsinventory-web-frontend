@@ -8,16 +8,32 @@ import {
   BRAND_CREATE_INIT,
   BRAND_CREATE_SUCCESS,
   createBrandPayload,
+  createLoadIndexPayload,
   createPatternPayload,
+  createSpeedRatingPayload,
   createTyreDetailPayload,
   createTyreDetailSizePayload,
   createTyreSizePayload,
   getBrandsPayload,
+  getLoadIndexesPayload,
+  getSpeedRatingPayload,
   getTyreDetailsPayload,
   getTyreSizesPayload,
+  LOAD_INDEXES_FETCH_FAIL,
+  LOAD_INDEXES_FETCH_INIT,
+  LOAD_INDEXES_FETCH_SUCCESS,
+  LOAD_INDEX_CREATE_FAIL,
+  LOAD_INDEX_CREATE_INIT,
+  LOAD_INDEX_CREATE_SUCCESS,
   PATTERN_CREATE_FAIL,
   PATTERN_CREATE_INIT,
   PATTERN_CREATE_SUCCESS,
+  SPEED_RATINGS_FETCH_FAIL,
+  SPEED_RATINGS_FETCH_INIT,
+  SPEED_RATINGS_FETCH_SUCCESS,
+  SPEED_RATING_CREATE_FAIL,
+  SPEED_RATING_CREATE_INIT,
+  SPEED_RATING_CREATE_SUCCESS,
   TYRE_DETAILS_FETCH_FAIL,
   TYRE_DETAILS_FETCH_INIT,
   TYRE_DETAILS_FETCH_SUCCESS,
@@ -31,6 +47,82 @@ import {
   TYRE_SIZES_FETCH_INIT,
   TYRE_SIZES_FETCH_SUCCESS,
 } from "./types";
+
+export const createLoadIndex = async (data: createLoadIndexPayload) => {
+  const { LOAD_INDEX } = API_END_POINTS;
+  const pathname = LOAD_INDEX;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: LOAD_INDEX_CREATE_INIT,
+      successType: LOAD_INDEX_CREATE_SUCCESS,
+      failureType: LOAD_INDEX_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const getLoadIndexes = async (payload: getLoadIndexesPayload) => {
+  const { LOAD_INDEX, SEARCH } = API_END_POINTS;
+  const { search = "" } = payload;
+  const pathname = `${LOAD_INDEX}`;
+  const urlParams = new URLSearchParams();
+  if (search) {
+    urlParams.append(SEARCH, search);
+  }
+  const url = `${pathname}?${urlParams}`;
+  const apiArgs = {
+    method: API_METHODS.GET,
+    url,
+    TYPES: {
+      requestType: LOAD_INDEXES_FETCH_INIT,
+      successType: LOAD_INDEXES_FETCH_SUCCESS,
+      failureType: LOAD_INDEXES_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const createSpeedRating = async (data: createSpeedRatingPayload) => {
+  const { SPEED_RATING } = API_END_POINTS;
+  const pathname = SPEED_RATING;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: SPEED_RATING_CREATE_INIT,
+      successType: SPEED_RATING_CREATE_SUCCESS,
+      failureType: SPEED_RATING_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const getSpeedRatings = async (payload: getSpeedRatingPayload) => {
+  const { SPEED_RATING, SEARCH } = API_END_POINTS;
+  const { search = "" } = payload;
+  const pathname = `${SPEED_RATING}`;
+  const urlParams = new URLSearchParams();
+  if (search) {
+    urlParams.append(SEARCH, search);
+  }
+  const url = `${pathname}?${urlParams}`;
+  const apiArgs = {
+    method: API_METHODS.GET,
+    url,
+    TYPES: {
+      requestType: SPEED_RATINGS_FETCH_INIT,
+      successType: SPEED_RATINGS_FETCH_SUCCESS,
+      failureType: SPEED_RATINGS_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const createTyreDetailSize = async (
   data: createTyreDetailSizePayload

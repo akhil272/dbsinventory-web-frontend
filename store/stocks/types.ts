@@ -3,6 +3,8 @@ import { ApiReturnType } from "@Store/api";
 import { Order } from "@Store/orders/types";
 import {
   Brand,
+  LoadIndexes,
+  SpeedRating,
   TyreDataProps,
   TyresDispatchProps,
   TyresStateProps,
@@ -55,8 +57,8 @@ export type createStockPayload = {
   location_id: number;
   quantity: number;
   cost: number;
-  speed_rating?: string;
-  load_index?: number;
+  speed_rating_id?: number;
+  load_index_id?: number;
 };
 
 export type Pattern = {
@@ -105,6 +107,8 @@ export type Stock = {
   transport: Transport;
   vendor: Vendor;
   location: Location;
+  load_index: LoadIndexes;
+  speed_rating: SpeedRating;
   user: User;
   orders: Order[];
 };

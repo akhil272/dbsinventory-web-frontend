@@ -41,11 +41,18 @@ export const CreateStockSchema = Yup.object().shape({
     .required()
     .typeError("DOM is required."),
   purchase_date: Yup.date().required(),
-  speed_rating: Yup.string()
-    .typeError("You must enter a valid load index")
-    .nullable()
-    .notRequired(),
-  load_index: Yup.string().max(2, "Load index must be in format XX").nullable(),
+  speed_rating: Yup.object()
+    .shape({
+      name: Yup.string(),
+    })
+    .notRequired()
+    .nullable(),
+  load_index: Yup.object()
+    .shape({
+      name: Yup.string(),
+    })
+    .notRequired()
+    .nullable(),
   quantity: Yup.number()
     .typeError("You must enter a number")
     .required("Required"),
