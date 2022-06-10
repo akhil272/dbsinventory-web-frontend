@@ -1,19 +1,11 @@
 import { initialState } from "@Store/rootReducer";
-import { getUserInfo } from "@Store/users/actions";
-import storage from "@Utils/storage";
-import { useEffect } from "react";
 import { connect } from "react-redux";
 import Header from "./Header";
 
 const mapStateToProps = ({ users }: typeof initialState) => ({
   user: users.user,
-  loading: users.loading,
 });
-const Layout = ({ children, user, loading }) => {
-  useEffect(() => {
-    storage().getAccessToken();
-    getUserInfo();
-  }, []);
+const Layout = ({ children, user }) => {
   const userName = user?.first_name;
   return (
     <div className="bg-neutral-100 min-h-screen ">

@@ -2,6 +2,7 @@ import ContactCard from "@Components/ContactCard";
 import InputField from "@Components/InputField";
 import QuotationCard from "@Components/QuotationCard";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { UpdateQuotationProps } from "@Store/quotations/types";
 import { UpdateQuotationForm } from "@Utils/formTypes/QuotationFormData";
 import { UpdateQuotationFrom } from "@Utils/schemas/QuotationSchema";
 import { useRouter } from "next/router";
@@ -14,7 +15,8 @@ const UpdateQuotation = ({
   quotation,
   loading,
   updateQuotationById,
-}) => {
+  sendQuotationToUser,
+}: UpdateQuotationProps) => {
   const router = useRouter();
   const {
     query: { quotationId },
@@ -34,8 +36,20 @@ const UpdateQuotation = ({
   } = useForm<UpdateQuotationForm>({
     resolver: yupResolver(UpdateQuotationFrom),
   });
-  const getContactOptions = (data) => {
-    console.log(data);
+  const getContactOptions = async (data) => {
+    console.log(data, "data");
+    const response = await sendQuotationToUser({
+      quotationId: id,
+      whatsApp: data.whatsApp,
+      email: data.email,
+      sms: data.sms,
+      callback: data.callback,
+    });
+    if (response.success) {
+      toast.success("Quotation sent successfully");
+    } else {
+      toast.error("Something went wrong");
+    }
   };
 
   const onSubmit = handleSubmit((data) => updateQuotation(data));
@@ -57,7 +71,7 @@ const UpdateQuotation = ({
       <QuotationCard
         id={quotation?.id}
         count={quotation?.count}
-        date={quotation?.date}
+        date={quotation?.created_at}
         notes={quotation?.notes}
         price={quotation?.price}
         status={quotation?.status}

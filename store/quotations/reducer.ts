@@ -10,6 +10,9 @@ import {
   QUOTATION_CREATE_FAIL,
   QUOTATION_CREATE_INIT,
   QUOTATION_CREATE_SUCCESS,
+  QUOTATION_SEND_FAIL,
+  QUOTATION_SEND_INIT,
+  QUOTATION_SEND_SUCCESS,
   QUOTATION_UPDATE_FAIL,
   QUOTATION_UPDATE_INIT,
   QUOTATION_UPDATE_SUCCESS,
@@ -33,6 +36,12 @@ export const initialState: Quotations = {
 
 const reducer = (state = initialState, action: QuotationActionTypes) => {
   switch (action.type) {
+    case QUOTATION_SEND_INIT:
+      return Object.assign({}, state, { loading: true });
+    case QUOTATION_SEND_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case QUOTATION_SEND_FAIL:
+      return Object.assign({}, state, { loading: false });
     case USER_QUOTE_BY_ID_UPDATE_INIT:
       return Object.assign({}, state, { loading: true });
     case USER_QUOTE_BY_ID_UPDATE_SUCCESS:

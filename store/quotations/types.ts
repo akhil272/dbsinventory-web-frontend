@@ -9,6 +9,10 @@ import {
   TyreSizePayload,
 } from "@Store/tyre/types";
 
+export const QUOTATION_SEND_INIT = "QUOTATION:SEND:INIT";
+export const QUOTATION_SEND_SUCCESS = "QUOTATION:SEND:SUCCESS";
+export const QUOTATION_SEND_FAIL = "QUOTATION:SEND:FAIL";
+
 export const USER_QUOTE_BY_ID_UPDATE_INIT = "USER_QUOTE_BY_ID:UPDATE:INIT";
 export const USER_QUOTE_BY_ID_UPDATE_SUCCESS =
   "USER_QUOTE_BY_ID:UPDATE:SUCCESS";
@@ -29,6 +33,22 @@ export const QUOTATION_CREATE_FAIL = "QUOTATION:CREATE:FAIL";
 export const QUOTATIONS_FETCH_INIT = "QUOTATIONS:FETCH:INIT";
 export const QUOTATIONS_FETCH_SUCCESS = "QUOTATIONS:FETCH:SUCCESS";
 export const QUOTATIONS_FETCH_FAIL = "QUOTATIONS:FETCH:FAIL";
+
+export type sendQuotationToUserPayload = {
+  quotationId: number;
+  whatsApp: boolean;
+  email: boolean;
+  sms: boolean;
+  callback: boolean;
+};
+
+export type getQuotationsPayload = {
+  search?: string;
+  status?: string;
+  take?: string;
+  page?: string;
+  sortBy?: string;
+};
 
 export type getUserQuoteByIdPayload = {
   id: number;
@@ -63,7 +83,7 @@ export type Quotation = {
   };
 };
 
-export type QuotationsPayload = {
+export type QuotationsFetchResponse = {
   quotations: Quotation[];
   meta: {
     total: number;
@@ -99,7 +119,7 @@ export type QuotationPayload = {
   count: number;
   userQuotes: userQuote[];
   user: {
-    fist_name: string;
+    first_name: string;
     last_name: string;
   };
 };
@@ -108,7 +128,7 @@ export type createQuotationResponse = {};
 
 export type Quotations = {
   loading: boolean;
-  quotations: QuotationsPayload[];
+  quotations: QuotationPayload[];
   total: number;
   page: number;
   last_page: number;
@@ -135,6 +155,27 @@ export type updateUserQuoteData = {
   id: number;
   admin_comments?: string;
 };
+
+export type UpdateQuotationStateProps = {
+  loading: boolean;
+  quotation: QuotationPayload;
+};
+
+export type UpdateQuotationDispatchProps = {
+  getQuotationById: (
+    payload: getQuotationByIdPayload
+  ) => Promise<ApiReturnType<QuotationPayload>>;
+  updateQuotationById: (
+    payload: updateQuotation
+  ) => Promise<ApiReturnType<QuotationPayload>>;
+  sendQuotationToUser: (
+    data: sendQuotationToUserPayload
+  ) => Promise<ApiReturnType<createQuotationResponse>>;
+};
+
+export type UpdateQuotationProps = UpdateQuotationDispatchProps &
+  UpdateQuotationStateProps;
+
 export type UserQuoteDispatchProps = {
   getUserQuoteById: (
     payload: getUserQuoteByIdPayload
@@ -145,7 +186,6 @@ export type UserQuoteDispatchProps = {
 };
 
 export type UserQuoteProps = UserQuoteStateProps & UserQuoteDispatchProps;
-
 export type GetQuoteDispatchProps = {
   getBrands: (
     payload: getBrandsPayload
@@ -158,6 +198,31 @@ export type GetQuoteDispatchProps = {
   ) => Promise<ApiReturnType<createQuotationResponse>>;
 };
 export type GetQuoteProps = GetQuoteStateProps & GetQuoteDispatchProps;
+
+export type QuotationsStateProps = {
+  quotations: QuotationPayload[];
+  loading: boolean;
+  total: number;
+  page: number;
+  last_page: number;
+};
+export type QuotationsDispatchProps = {
+  getQuotations: (
+    payload: getQuotationsPayload
+  ) => Promise<ApiReturnType<QuotationPayload[]>>;
+};
+export type QuotationProps = QuotationsStateProps & QuotationsDispatchProps;
+
+type quotationSendInit = {
+  type: typeof QUOTATION_SEND_INIT;
+};
+type quotationSendSuccess = {
+  type: typeof QUOTATION_SEND_SUCCESS;
+  payload: ApiReturnType<createQuotationResponse>;
+};
+type quotationSendFail = {
+  type: typeof QUOTATION_SEND_FAIL;
+};
 
 type userQuoteByIdUpdateInit = {
   type: typeof USER_QUOTE_BY_ID_UPDATE_INIT;
@@ -216,13 +281,16 @@ type quotationsFetchFail = {
 };
 type quotationsFetchSuccess = {
   type: typeof QUOTATIONS_FETCH_SUCCESS;
-  payload: ApiReturnType<QuotationsPayload>;
+  payload: ApiReturnType<QuotationsFetchResponse>;
 };
 type quotationsFetchInit = {
   type: typeof QUOTATIONS_FETCH_FAIL;
 };
 
 export type QuotationActionTypes =
+  | quotationSendInit
+  | quotationSendSuccess
+  | quotationSendFail
   | userQuoteByIdUpdateInit
   | userQuoteByIdUpdateSuccess
   | userQuoteByIdUpdateFail

@@ -36,3 +36,19 @@ export type UpdateStockFormData = {
   cost: number;
   purchase_date: Date;
 };
+
+export type SearchStocksFormData = {
+  brand: {
+    id: number;
+    name: string;
+    patterns: {
+      id: number;
+      name: string;
+    }[];
+  };
+  pattern: {
+    id: number;
+    name: string;
+  };
+  tyre_size: { id: number; size: string };
+};

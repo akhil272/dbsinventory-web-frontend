@@ -143,7 +143,7 @@ const CreateStock = ({
           <div className="">
             <form className="space-y-3" onSubmit={onSubmit}>
               <ListBox
-                error={errors.product_line?.message}
+                error={(errors.product_line as any)?.message}
                 control={control}
                 name={"product_line"}
                 data={product_line}
@@ -162,7 +162,7 @@ const CreateStock = ({
                 control={control}
                 name={"brand"}
                 data={brands}
-                error={errors.brand?.message}
+                error={(errors.brand as any)?.message}
               />
               <AutoComplete
                 placeholder="Enter pattern name"
@@ -173,7 +173,7 @@ const CreateStock = ({
                 control={control}
                 name={"pattern"}
                 data={selectedBrand?.patterns ?? []}
-                error={errors.pattern?.message}
+                error={(errors.pattern as any)?.message}
               />
               <AutoComplete
                 placeholder="Enter tyre size eg. 265/65R17"
@@ -193,7 +193,7 @@ const CreateStock = ({
                     name: tyreSize.size,
                     id,
                   }))}
-                error={errors.tyre_detail_id?.message}
+                error={(errors.tyre_detail_id as any)?.message}
               />
               <InputField
                 control={control}
@@ -222,7 +222,7 @@ const CreateStock = ({
                 control={control}
                 name={"vendor"}
                 data={vendors}
-                error={errors.vendor?.message}
+                error={(errors.vendor as any)?.message}
               />
               <AutoComplete
                 placeholder="Enter transport name"
@@ -234,7 +234,7 @@ const CreateStock = ({
                   ...rest,
                   name: mode,
                 }))}
-                error={errors.transport?.message}
+                error={(errors.transport as any)?.message}
               />
               <AutoComplete
                 placeholder="Enter location name"
@@ -243,7 +243,7 @@ const CreateStock = ({
                 control={control}
                 name={"location"}
                 data={locations}
-                error={errors.location?.message}
+                error={(errors.location as any)?.message}
               />
               <InputField
                 control={control}

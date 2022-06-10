@@ -1,5 +1,7 @@
+import FilterCard from "@Components/FilterCard";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuotationCard from "@Components/QuotationCard";
+import { QuotationProps } from "@Store/quotations/types";
 import React, { useEffect, useState } from "react";
 
 const Quotations = ({
@@ -9,11 +11,11 @@ const Quotations = ({
   total,
   last_page,
   page: metaPage,
-}) => {
+}: QuotationProps) => {
   const [page, setPage] = useState<number>(1);
   const [quotationStatus, setQuotationStatus] = useState<string>("PENDING");
-
-  const take = 10;
+  const [sortBy, setSortBy] = useState("ASC");
+  const [take, setTake] = useState<number>(25);
   const nextPage = () => {
     setPage(page + 1);
   };
@@ -22,12 +24,16 @@ const Quotations = ({
     setPage(page - 1);
   };
   useEffect(() => {
-    getQuotations({ search: `&take=${take}&page=${page}` });
-  }, [getQuotations, page]);
+    getQuotations({
+      status: quotationStatus,
+      take: String(take),
+      page: String(page),
+      sortBy,
+    });
+  }, [getQuotations, page, quotationStatus, sortBy]);
   if (loading) {
     return <LoadingAnimation message="Loading stocks. Please wait.." />;
   }
-  console.log(quotations, "what do we have here");
   return (
     <div>
       <div className="pt-16 grid grid-cols-2  font-bold text-white text-md gap-1">
@@ -57,22 +63,21 @@ const Quotations = ({
           Accepted
         </button>
       </div>
+      <FilterCard sortBy={sortBy} setSortBy={setSortBy} />
       <div>
-        {quotations
-          ?.filter(({ status }) => status === `${quotationStatus}`)
-          .map((quotation) => (
-            <QuotationCard
-              id={quotation.id}
-              status={quotation.status}
-              key={quotation.id}
-              name={`${quotation.user.first_name} ${quotation.user.last_name}`}
-              price={quotation.price ? `${quotation.price}` : "N/A"}
-              notes={quotation.notes ? `${quotation.notes}` : "N/A"}
-              date={quotation.created_at}
-              count={quotation.count}
-              validity={quotation.validity ? `${quotation.validity}` : "N/A"}
-            />
-          ))}
+        {quotations?.map((quotation) => (
+          <QuotationCard
+            id={quotation.id}
+            status={quotation.status}
+            key={quotation.id}
+            name={`${quotation.user.first_name} ${quotation.user.last_name}`}
+            price={quotation.price}
+            notes={quotation.notes}
+            date={quotation.created_at}
+            count={quotation.count}
+            validity={quotation.validity}
+          />
+        ))}
       </div>
       <div className="flex place-items-center w-full pt-4 text-md justify-between">
         <button

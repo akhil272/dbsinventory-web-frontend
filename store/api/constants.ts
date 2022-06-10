@@ -26,6 +26,11 @@ const API_END_POINTS = {
   QUOTATIONS: "/quotations",
   USER_QUOTE: "/user-quote",
   MANAGE_QUOTATIONS: "/manage-quotations",
+  SEND: "/send",
+  STATUS: "status",
+  TAKE: "take",
+  PAGE: "page",
+  SORT_BY: "sortBy",
 };
 
 enum API_METHODS {

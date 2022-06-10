@@ -24,7 +24,29 @@ import {
   QUOTATION_UPDATE_INIT,
   QUOTATION_UPDATE_SUCCESS,
   updateQuotation,
+  sendQuotationToUserPayload,
+  QUOTATION_SEND_FAIL,
+  QUOTATION_SEND_INIT,
+  QUOTATION_SEND_SUCCESS,
+  getQuotationsPayload,
 } from "./types";
+
+export const sendQuotationToUser = async (data: sendQuotationToUserPayload) => {
+  const { MANAGE_QUOTATIONS, SEND } = API_END_POINTS;
+  const pathname = `${MANAGE_QUOTATIONS}${SEND}`;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: QUOTATION_SEND_INIT,
+      successType: QUOTATION_SEND_SUCCESS,
+      failureType: QUOTATION_SEND_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const updateQuotationById = async (data: updateQuotation) => {
   const { QUOTATIONS } = API_END_POINTS;
@@ -44,6 +66,7 @@ export const updateQuotationById = async (data: updateQuotation) => {
   };
   return fetchAsync(apiArgs);
 };
+
 export const updateUserQuoteById = async (data: updateUserQuoteData) => {
   const { MANAGE_QUOTATIONS } = API_END_POINTS;
   const { id } = data;
@@ -113,12 +136,33 @@ export const createQuotation = async (data: createQuotationPayload) => {
   return fetchAsync(apiArgs);
 };
 
-export const getQuotations = async () => {
-  const { QUOTATIONS } = API_END_POINTS;
-
+export const getQuotations = async (payload: getQuotationsPayload) => {
+  const { QUOTATIONS, SEARCH, STATUS, TAKE, PAGE, SORT_BY } = API_END_POINTS;
+  const {
+    search = "",
+    status = "",
+    take = "",
+    page = "",
+    sortBy = "",
+  } = payload;
   const pathname = `${QUOTATIONS}`;
-
-  const url = `${pathname}`;
+  const urlParams = new URLSearchParams();
+  if (search) {
+    urlParams.append(SEARCH, search);
+  }
+  if (status) {
+    urlParams.append(STATUS, status);
+  }
+  if (take) {
+    urlParams.append(TAKE, take);
+  }
+  if (page) {
+    urlParams.append(PAGE, page);
+  }
+  if (sortBy) {
+    urlParams.append(SORT_BY, sortBy);
+  }
+  const url = `${pathname}?${urlParams.toString()}`;
   const apiArgs = {
     method: API_METHODS.GET,
     url,

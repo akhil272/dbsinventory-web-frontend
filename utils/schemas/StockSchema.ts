@@ -62,3 +62,14 @@ export const UpdateStockSchema = Yup.object().shape({
   cost: Yup.number().typeError("You must enter a number").required(),
   purchase_date: Yup.date().required(),
 });
+
+export const StocksSearchSchema = Yup.object().shape({
+  brand: Yup.object()
+    .shape({
+      name: Yup.string().required(),
+    })
+    .typeError("Please select a brand from drop down."),
+  pattern: Yup.object().shape({
+    name: Yup.string().required(),
+  }),
+});

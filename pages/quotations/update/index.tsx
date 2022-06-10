@@ -1,5 +1,6 @@
 import {
   getQuotationById,
+  sendQuotationToUser,
   updateQuotationById,
 } from "@Store/quotations/actions";
 import { initialState } from "@Store/rootReducer";
@@ -13,5 +14,6 @@ const mapStateToProps = ({ quotations }: typeof initialState) => ({
 const mapDispatchToProps = () => ({
   getQuotationById,
   updateQuotationById,
+  sendQuotationToUser,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateQuotation);

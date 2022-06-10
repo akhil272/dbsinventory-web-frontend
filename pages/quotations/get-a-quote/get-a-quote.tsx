@@ -60,9 +60,9 @@ const GetQuote = ({
     const userQuotesPayload = {
       userQuotes: userQuery.map(
         ({ brand, pattern, tyre_size, load_index, ...query }) => ({
-          brand: brand.name,
+          brand: brand?.name,
           pattern: pattern?.name,
-          tyre_size: tyre_size.name,
+          tyre_size: tyre_size?.name,
           load_index: Number(load_index),
           ...query,
         })
@@ -83,8 +83,8 @@ const GetQuote = ({
   useEffect(() => {
     getTyreSizes({ search: "" });
   }, [getTyreSizes]);
-  if (!brands.length) return <LoadingAnimation message="Please wait.." />;
-  if (!tyreSizes.length) return <LoadingAnimation message="Please wait.." />;
+  if (!brands?.length) return <LoadingAnimation message="Please wait.." />;
+  if (!tyreSizes?.length) return <LoadingAnimation message="Please wait.." />;
 
   return (
     <div className=" flex justify-center">
@@ -117,7 +117,7 @@ const GetQuote = ({
                 placeholder="Enter tyre size name"
                 control={control}
                 name={"tyre_size"}
-                data={tyreSizes.map(({ size, id }) => ({
+                data={tyreSizes?.map(({ size, id }) => ({
                   name: size,
                   id,
                 }))}
@@ -182,8 +182,8 @@ const GetQuote = ({
                       }
                       load_index={query?.load_index ?? "-"}
                       speed_rating={query?.speed_rating ?? "-"}
-                      notes={query.notes}
-                      quantity={query.quantity}
+                      notes={query?.notes}
+                      quantity={query?.quantity}
                     />
                   ))}
                 </div>
