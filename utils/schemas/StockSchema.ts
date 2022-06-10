@@ -66,10 +66,16 @@ export const UpdateStockSchema = Yup.object().shape({
 export const StocksSearchSchema = Yup.object().shape({
   brand: Yup.object()
     .shape({
-      name: Yup.string().required(),
+      name: Yup.string(),
     })
-    .typeError("Please select a brand from drop down."),
-  pattern: Yup.object().shape({
-    name: Yup.string().required(),
-  }),
+    .nullable()
+    .notRequired(),
+
+  tyre_size: Yup.object()
+    .shape({
+      name: Yup.string(),
+    })
+    .nullable()
+    .notRequired(),
+  search_term: Yup.string().notRequired().nullable(),
 });

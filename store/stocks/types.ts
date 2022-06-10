@@ -30,6 +30,8 @@ export type getStockByIdPayload = {
 };
 export type getStocksPayload = {
   search?: string;
+  brandId?: number;
+  tyre_size?: string;
 };
 export type deleteStockPayload = {
   id: number;

@@ -8,6 +8,7 @@ import {
   LogoutOutlined,
   UserAddOutlined,
   ControlOutlined,
+  DatabaseOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,18 +16,24 @@ import storage from "@Utils/storage";
 
 const adminLink = [
   { name: "Overview", to: "/admin", id: 1, iconName: <ControlOutlined /> },
-  { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
-  { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
+  { name: "Profile", to: "/user/profile", id: 2, iconName: <HomeOutlined /> },
+  {
+    name: "Quotations",
+    to: "/quotations",
+    id: 3,
+    iconName: <DatabaseOutlined />,
+  },
+  { name: "Search", to: "/search", id: 4, iconName: <SearchOutlined /> },
   {
     name: "Add Stock",
     to: "/stocks/create",
-    id: 3,
+    id: 5,
     iconName: <FileAddOutlined />,
   },
   {
     name: "Manage Users",
     to: "/admin/users",
-    id: 4,
+    id: 6,
     iconName: <UserAddOutlined />,
   },
 ];

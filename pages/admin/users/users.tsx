@@ -1,5 +1,4 @@
 import LoadingAnimation from "@Components/LoadingAnimation";
-import SearchField from "@Components/SearchField";
 import UserCard from "@Components/UserCard";
 import { UsersProps } from "@Store/users/types";
 import { useRouter } from "next/router";

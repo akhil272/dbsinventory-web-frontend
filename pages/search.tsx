@@ -1,4 +1,3 @@
-import InputField from "@Components/InputField";
 import SearchField from "@Components/SearchField";
 import { initialState } from "@Store/rootReducer";
 import { getBrands, getTyreSizes } from "@Store/tyre/actions";
@@ -9,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
-import AutoComplete from "@Components/AutoComplete";
+import InputField from "@Components/InputField";
 
 const mapStateToProps = ({ tyres }: typeof initialState) => ({
   brands: tyres.brands,
@@ -22,9 +21,6 @@ const mapDispatchToProps = () => ({
 });
 
 const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchBrand, setSearchBrand] = useState(brands[0]);
-  const [searchTyreSize, setSearchTyreSize] = useState(tyreSizes[0]);
   const router = useRouter();
   const {
     handleSubmit,
@@ -33,14 +29,36 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   } = useForm<SearchStocksFormData>({
     resolver: yupResolver(StocksSearchSchema),
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
-
+  const onSubmit = handleSubmit((data) => searchStocks(data));
+  const searchStocks = (data: SearchStocksFormData) => {
+    console.log(data);
+    if (
+      data.tyre_size === null &&
+      data.brand === null &&
+      data.search_term === ""
+    ) {
+      router.push("/stocks");
+    }
+    if (data.brand != null) {
+      router.push({ pathname: "/stocks", query: { brand: data.brand.name } });
+    }
+    if (data.tyre_size != null) {
+      router.push({
+        pathname: "/stocks",
+        query: { tyreSize: data.tyre_size.name },
+      });
+    }
+    if (data.search_term.length > 1) {
+      router.push({
+        pathname: "/stocks",
+        query: { searchTerm: data.search_term },
+      });
+    }
+  };
   useEffect(() => {
     getBrands({ search: "" });
     getTyreSizes({ search: "" });
   }, []);
-
-  console.log(searchTerm, "search Term");
   return (
     <div className="pt-4 h-max flex justify-center">
       <div className="md:max-w-sm w-full">
@@ -56,26 +74,29 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
           </div>
           <form onSubmit={onSubmit} className="space-y-4">
             <SearchField
-              selected={searchBrand}
-              setSelected={setSearchBrand}
+              placeholder="Enter brand name"
+              control={control}
+              name={"brand"}
               data={brands}
-              placeholder="Brand name"
+              error={(errors.brand as any)?.message}
             />
+
             <SearchField
-              selected={searchTyreSize}
-              setSelected={setSearchTyreSize}
               data={tyreSizes?.map(({ size, id }) => ({
                 name: size,
                 id,
               }))}
               placeholder="Tyre size"
+              control={control}
+              name={"tyre_size"}
             />
-            <input
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+            <InputField
               placeholder="Search in brand / tyre size / pattern"
-              className=" w-full cursor-default p-2 rounded-lg bg-white text-left    sm:text-sm"
+              error={errors.search_term?.message}
+              name="search_term"
+              control={control}
             />
+
             <button
               onClick={onSubmit}
               className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"

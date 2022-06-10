@@ -1,6 +1,8 @@
 import LoadingAnimation from "@Components/LoadingAnimation";
+import NotFound from "@Components/NotFound";
 import StockCard from "@Components/StockCard";
 import { StocksProps } from "@Store/stocks/types";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const Stocks = ({
@@ -13,7 +15,11 @@ const Stocks = ({
   user,
 }: StocksProps) => {
   const [page, setPage] = useState<number>(1);
-
+  const router = useRouter();
+  const {
+    query: { brand, tyreSize, searchTerm },
+  } = router;
+  console.log(brand, tyreSize, searchTerm, "all data");
   const take = 10;
   const nextPage = () => {
     setPage(page + 1);
@@ -23,10 +29,27 @@ const Stocks = ({
     setPage(page - 1);
   };
   useEffect(() => {
-    getStocks({ search: `&take=${take}&page=${page}` });
-  }, [getStocks, page]);
+    if (router.isReady) {
+      let url = `&take=${take}&page=${page}`;
+      if (brand) {
+        url = url + `&brand=${brand}`;
+      }
+      if (tyreSize) {
+        url = url + `&size=${tyreSize}`;
+      }
+      if (searchTerm?.length > 1) {
+        url = `=${searchTerm}` + url;
+      }
+      getStocks({
+        search: url,
+      });
+    }
+  }, [getStocks, page, router.isReady]);
   if (loading) {
     return <LoadingAnimation message="Loading stocks. Please wait.." />;
+  }
+  if (stocks?.length === 0) {
+    return <NotFound message="No stocks found" />;
   }
 
   return (
@@ -36,18 +59,18 @@ const Stocks = ({
           <StockCard
             key={stock.id}
             brand={stock.tyreDetail.pattern.brand.name}
-            vendor={stock.vendor?.name}
-            tyre_size={stock.tyreDetail?.tyreSize.size}
-            pattern_name={stock.tyreDetail?.pattern.name}
+            vendor={stock.vendor.name}
+            tyre_size={stock.tyreDetail.tyreSize.size}
+            pattern_name={stock.tyreDetail.pattern.name}
             dom={stock.dom}
             product_line={stock.product_line}
             transport_mode={stock.transport.mode}
             purchase_date={stock.purchase_date}
-            location={stock.location?.name}
+            location={stock.location.name}
             quantity={stock.quantity}
             cost={stock.cost}
             stockId={stock.id}
-            role={user?.roles}
+            role={user.roles}
           />
         ))}
       </div>
