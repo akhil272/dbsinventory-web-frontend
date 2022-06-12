@@ -53,17 +53,17 @@ const UserQuote = ({
     <div className="pt-14">
       <QuoteListCard
         type="advanced"
-        brand={userQuoteDetails?.userQuote?.brand ?? "Error please refresh"}
-        pattern={userQuoteDetails?.userQuote?.pattern ?? "-"}
+        brand={userQuoteDetails?.userQuote?.brandName ?? "Error please refresh"}
+        pattern={userQuoteDetails?.userQuote?.patternName ?? "-"}
         tyreSize={
-          userQuoteDetails?.userQuote?.tyreSize ?? "Error please refresh"
+          userQuoteDetails?.userQuote?.tyreSizeValue ?? "Error please refresh"
         }
-        loadIndex={userQuoteDetails?.userQuote?.loadIndex ?? "-"}
-        speedRating={userQuoteDetails?.userQuote?.speedRating ?? "-"}
-        notes={userQuoteDetails?.userQuote?.notes}
+        loadIndex={userQuoteDetails?.userQuote?.tyreLoadIndex ?? "-"}
+        speedRating={userQuoteDetails?.userQuote?.tyreSpeedRating ?? "-"}
+        notes={userQuoteDetails?.userQuote?.userNotes}
         quantity={userQuoteDetails?.userQuote?.quantity}
         id={userQuoteDetails?.userQuote?.id}
-        price={userQuoteDetails?.userQuote?.price}
+        price={userQuoteDetails?.userQuote?.quotePrice}
         adminComments={userQuoteDetails?.userQuote?.adminComments}
       />
       <div className="pt-4">
@@ -75,8 +75,8 @@ const UserQuote = ({
             <InputField
               type="number"
               placeholder="Enter price"
-              error={errors.price?.message}
-              name="price"
+              error={errors.quotePrice?.message}
+              name="quotePrice"
               control={control}
             />
             <InputField
@@ -105,19 +105,19 @@ const UserQuote = ({
             <StockCard
               key={userQuoteDetails?.exactStock.id}
               brand={userQuoteDetails?.exactStock.tyreDetail.pattern.brand.name}
-              vendor={userQuoteDetails?.exactStock.vendor?.name}
-              tyreSize={userQuoteDetails?.exactStock.tyreDetail?.tyreSize.value}
-              patternName={
-                userQuoteDetails?.exactStock.tyreDetail?.pattern.name
-              }
+              vendor={userQuoteDetails?.exactStock.vendor.name}
+              tyreSize={userQuoteDetails?.exactStock.tyreDetail.tyreSize.value}
+              patternName={userQuoteDetails?.exactStock.tyreDetail.pattern.name}
               dom={userQuoteDetails?.exactStock.dom}
               productLine={userQuoteDetails?.exactStock.productLine.name}
               transportMode={userQuoteDetails?.exactStock.transport.mode}
               purchaseDate={userQuoteDetails?.exactStock.purchaseDate}
-              location={userQuoteDetails?.exactStock.location?.name}
+              location={userQuoteDetails?.exactStock.location.name}
               quantity={userQuoteDetails?.exactStock.quantity}
               cost={userQuoteDetails?.exactStock.cost}
               stockId={userQuoteDetails?.exactStock.id}
+              speedRating={userQuoteDetails?.exactStock.speedRating?.value}
+              loadIndex={userQuoteDetails?.exactStock.loadIndex?.value}
               role="admin"
             />
           </>
@@ -140,13 +140,15 @@ const UserQuote = ({
                 tyreSize={stock.tyreDetail?.tyreSize.value}
                 patternName={stock.tyreDetail?.pattern.name}
                 dom={stock.dom}
-                productLine={stock.productLine.name}
+                productLine={stock.productLine?.name}
                 transportMode={stock.transport.mode}
                 purchaseDate={stock.purchaseDate}
                 location={stock.location?.name}
                 quantity={stock.quantity}
                 cost={stock.cost}
                 stockId={stock.id}
+                speedRating={stock.speedRating?.value}
+                loadIndex={stock.loadIndex?.value}
                 role="admin"
               />
             ))}

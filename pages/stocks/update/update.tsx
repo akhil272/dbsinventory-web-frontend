@@ -30,7 +30,7 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
     const response = await updateStock({
       id: +stockId,
       dom: data.dom,
-      purchase_date: data.purchase_date,
+      purchaseDate: data.purchaseDate,
       quantity: data.quantity,
       cost: data.cost,
     });
@@ -54,7 +54,7 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
       setValue("dom", stock.dom);
       setValue("cost", stock.cost);
       setValue("quantity", stock.quantity);
-      setValue("purchase_date", new Date(stock.purchase_date));
+      setValue("purchaseDate", new Date(stock.purchaseDate));
     }
   }, [stock]);
 
@@ -92,9 +92,9 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
                 <DatePicker
                   defaultValue={new Date()}
                   control={control}
-                  name="purchase_date"
+                  name="purchaseDate"
                   placeholder="Pick a date"
-                  error={errors.purchase_date?.message}
+                  error={errors.purchaseDate?.message}
                 />
               </div>
               <div>

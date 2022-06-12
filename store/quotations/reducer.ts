@@ -30,7 +30,7 @@ export const initialState: Quotations = {
   quotation: null,
   total: 1,
   page: 1,
-  last_page: 1,
+  lastPage: 1,
   userQuoteDetails: null,
 };
 
@@ -83,14 +83,14 @@ const reducer = (state = initialState, action: QuotationActionTypes) => {
     case QUOTATIONS_FETCH_SUCCESS: {
       const {
         quotations,
-        meta: { total, page, last_page },
+        meta: { total, page, lastPage },
       } = action.payload.data;
       return Object.assign({}, state, {
         loading: false,
         quotations,
         total,
         page,
-        last_page,
+        lastPage,
       });
     }
     case QUOTATIONS_FETCH_FAIL:

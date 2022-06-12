@@ -43,5 +43,5 @@ export type SearchStocksFormData = {
     name: string;
   };
   searchTerm: string;
-  tyreSize: { id: number; value: string };
+  tyreSize: { id: number; name: string };
 };

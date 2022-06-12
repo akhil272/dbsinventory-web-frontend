@@ -11,7 +11,7 @@ const mapStateToProps = ({ stocks, users }: typeof initialState) => ({
   stocks: stocks.stocks,
   total: stocks.total,
   page: stocks.page,
-  last_page: stocks.last_page,
+  lastPage: stocks.lastPage,
   loading: stocks.loading,
   user: users.user,
 });
@@ -26,7 +26,7 @@ const SearchResult = ({
   stocks,
   total,
   page: metaPage,
-  last_page,
+  lastPage,
 }) => {
   const router = useRouter();
   const { searchTerm } = router.query;
@@ -93,9 +93,9 @@ const SearchResult = ({
         <div className="text-md py-1 font-bold px-3 text-white rounded-md bg-secondary">
           {page}
         </div>
-        {page <= last_page && (
+        {page <= lastPage && (
           <button
-            disabled={metaPage >= last_page ? true : false}
+            disabled={metaPage >= lastPage ? true : false}
             onClick={nextPage}
             className="text-sm text-gray-400"
           >
@@ -104,8 +104,8 @@ const SearchResult = ({
         )}
 
         <button
-          disabled={metaPage >= last_page ? true : false}
-          className={metaPage >= last_page ? " text-stone-400  py-2" : "  py-2"}
+          disabled={metaPage >= lastPage ? true : false}
+          className={metaPage >= lastPage ? " text-stone-400  py-2" : "  py-2"}
           onClick={nextPage}
         >
           Next
@@ -113,7 +113,7 @@ const SearchResult = ({
       </div>
       <div className="flex justify-between text-sm pb-2 text-gray-400">
         <div>Total Results : {total}</div>
-        Page : {metaPage} of {last_page} pages
+        Page : {metaPage} of {lastPage} pages
       </div>
     </div>
   );

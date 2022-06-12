@@ -1,5 +1,5 @@
 export type AddUserQuoteForm = {
-  price: number;
+  quotePrice: number;
   adminComments: string;
 };
 

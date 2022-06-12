@@ -94,14 +94,14 @@ export type QuotationsFetchResponse = {
 
 export type userQuote = {
   id: number;
-  brand: string;
-  pattern: string;
-  tyreSize: string;
-  speedRating: string;
-  loadIndex: number;
+  brandName: string;
+  patternName: string;
+  tyreSizeValue: string;
+  tyreSpeedRating: string;
+  tyreLoadIndex: number;
   quantity: number;
-  price: number;
-  notes: string;
+  quotePrice: number;
+  userNotes: string;
   adminComments: string;
 };
 export type userQuotePayload = {
@@ -151,7 +151,7 @@ export type updateQuotation = {
   id: number;
 };
 export type updateUserQuoteData = {
-  price: number;
+  quotePrice: number;
   id: number;
   adminComments?: string;
 };
@@ -160,7 +160,17 @@ export type UpdateQuotationStateProps = {
   loading: boolean;
   quotation: QuotationPayload;
 };
-
+export type ViewQuotationDispatchProps = {
+  getQuotationById: (
+    data: getQuotationByIdPayload
+  ) => Promise<ApiReturnType<QuotationPayload>>;
+};
+export type ViewQuotationStateProps = {
+  loading: boolean;
+  quotation: QuotationPayload;
+};
+export type ViewQuotationProps = ViewQuotationDispatchProps &
+  ViewQuotationStateProps;
 export type UpdateQuotationDispatchProps = {
   getQuotationById: (
     payload: getQuotationByIdPayload

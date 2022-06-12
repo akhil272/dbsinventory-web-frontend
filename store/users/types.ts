@@ -42,7 +42,7 @@ export type updateUserPayload = {
   id: number;
   firstName?: string;
   lastName?: string;
-  roles?: string;
+  role?: string;
   phoneNumber?: string;
   email?: string;
 };

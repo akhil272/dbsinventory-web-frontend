@@ -1,5 +1,6 @@
 import FilterCard from "@Components/FilterCard";
 import LoadingAnimation from "@Components/LoadingAnimation";
+import NotFound from "@Components/NotFound";
 import QuotationCard from "@Components/QuotationCard";
 import { QuotationProps } from "@Store/quotations/types";
 import React, { useEffect, useState } from "react";
@@ -34,6 +35,7 @@ const Quotations = ({
   if (loading) {
     return <LoadingAnimation message="Loading stocks. Please wait.." />;
   }
+
   return (
     <div>
       <div className="pt-16 grid grid-cols-2  font-bold text-white text-md gap-1">

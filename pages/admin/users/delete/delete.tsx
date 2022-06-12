@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const DeleteAUser = ({ deleteUser }: DeleteUserProps) => {
   const router = useRouter();
   const {
-    query: { id, role, first_name, last_name },
+    query: { id, role, firstName, lastName },
   } = router;
   const cancel = () => {
     router.push("/admin/users");
@@ -42,8 +42,8 @@ const DeleteAUser = ({ deleteUser }: DeleteUserProps) => {
                 <div>Role</div>
               </div>
               <div className="w-1/2">
-                <div>{first_name}</div>
-                <div>{last_name}</div>
+                <div>{firstName}</div>
+                <div>{lastName}</div>
                 <div>{role}</div>
               </div>
             </div>

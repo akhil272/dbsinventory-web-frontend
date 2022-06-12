@@ -45,7 +45,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
     if (data.tyreSize != null) {
       router.push({
         pathname: "/stocks",
-        query: { tyreSize: data.tyreSize.value },
+        query: { tyreSize: data.tyreSize.name },
       });
     }
     if (data.searchTerm.length > 1) {
@@ -82,8 +82,8 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
             />
 
             <SearchField
-              data={tyreSizes?.map(({ size, id }) => ({
-                name: size,
+              data={tyreSizes?.map(({ value, id }) => ({
+                name: value,
                 id,
               }))}
               placeholder="Tyre size"

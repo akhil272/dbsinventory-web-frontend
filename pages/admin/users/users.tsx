@@ -48,20 +48,18 @@ const Users = ({ users, getUsers, createUser, loading }: UsersProps) => {
             {users
               ?.filter(
                 (user) =>
-                  user.first_name
+                  user.firstName
                     .toLowerCase()
                     .includes(searchUser.toLowerCase()) ||
-                  user.last_name
-                    .toLowerCase()
-                    .includes(searchUser.toLowerCase())
+                  user.lastName.toLowerCase().includes(searchUser.toLowerCase())
               )
               .map((user) => (
                 <UserCard
                   key={user.id}
                   id={user.id}
-                  first_name={user.first_name}
-                  last_name={user.last_name}
-                  role={user.roles}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
+                  role={user.role}
                 />
               ))}
           </div>

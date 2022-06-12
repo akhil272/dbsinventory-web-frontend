@@ -21,8 +21,8 @@ const AdminPanel = () => {
     const { data } = await dbsServer.post(
       "/stocks/export",
       {
-        start_date: `${String(moment(state[0]?.startDate).format("L"))}`,
-        end_date: `${String(moment(state[0]?.endDate).format("L"))}`,
+        startDate: `${String(moment(state[0]?.startDate).format("L"))}`,
+        endDate: `${String(moment(state[0]?.endDate).format("L"))}`,
       },
       { responseType: "blob" }
     );
@@ -37,8 +37,8 @@ const AdminPanel = () => {
     const { data } = await dbsServer.post(
       "/orders/export",
       {
-        start_date: `${String(moment(state[0]?.startDate).format("L"))}`,
-        end_date: `${String(moment(state[0]?.endDate).format("L"))}`,
+        startDate: `${String(moment(state[0]?.startDate).format("L"))}`,
+        endDate: `${String(moment(state[0]?.endDate).format("L"))}`,
       },
       { responseType: "blob" }
     );

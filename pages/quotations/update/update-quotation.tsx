@@ -71,12 +71,12 @@ const UpdateQuotation = ({
       <QuotationCard
         id={quotation?.id}
         count={quotation?.count}
-        date={quotation?.created_at}
+        date={quotation?.createdAt}
         notes={quotation?.notes}
         price={quotation?.price}
         status={quotation?.status}
         validity={quotation?.validity}
-        name={`${quotation?.user.first_name} ${quotation?.user.last_name}`}
+        name={`${quotation?.user.firstName} ${quotation?.user.lastName}`}
       />
       <form className="space-y-2 pb-2" onSubmit={onSubmit}>
         <p className="text-sm px-2 text-gray-500">

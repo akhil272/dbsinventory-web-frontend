@@ -1,11 +1,16 @@
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuotationCard from "@Components/QuotationCard";
 import QuoteListCard from "@Components/QuoteListCard";
+import { ViewQuotationProps } from "@Store/quotations/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
-const Quotation = ({ loading, getQuotationById, quotation }) => {
+const Quotation = ({
+  loading,
+  getQuotationById,
+  quotation,
+}: ViewQuotationProps) => {
   const router = useRouter();
   const {
     query: { quotationId },
@@ -27,7 +32,7 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
       <QuotationCard
         id={quotation?.id}
         count={quotation?.count}
-        date={quotation?.date}
+        date={quotation?.createdAt}
         notes={quotation?.notes}
         price={quotation?.price}
         status={quotation?.status}
@@ -56,16 +61,16 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
             <a>
               <QuoteListCard
                 key={quote?.id}
-                brand={quote?.brand ?? "Error please refresh"}
-                pattern={quote?.pattern ?? "-"}
-                tyreSize={quote?.tyreSize ?? "Error please refresh"}
-                loadIndex={quote?.loadIndex ?? "-"}
-                speedRating={quote?.speedRating ?? "-"}
-                notes={quote.notes}
+                brand={quote?.brandName ?? "Error please refresh"}
+                pattern={quote?.patternName ?? "-"}
+                tyreSize={quote?.tyreSizeValue ?? "Error please refresh"}
+                loadIndex={quote?.tyreLoadIndex ?? "-"}
+                speedRating={quote?.tyreSpeedRating ?? "-"}
+                notes={quote.userNotes}
                 quantity={quote.quantity}
                 id={quote?.id}
                 adminComments={quote?.adminComments}
-                price={quote?.price}
+                price={quote?.quotePrice}
                 type="advanced"
               />
             </a>

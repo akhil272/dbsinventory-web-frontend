@@ -31,11 +31,11 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
   const updateUserData = async (data: UpdateUserFormData) => {
     const response = await updateUser({
       id: +id,
-      first_name: data.first_name,
-      last_name: data.last_name,
+      firstName: data.firstName,
+      lastName: data.lastName,
       email: data.email,
-      phone_number: data.phone_number,
-      roles: data.roles,
+      phoneNumber: data.phoneNumber,
+      role: data.role,
     });
     if (response.success) {
       toast.success(`Successfully updated user detail in the system.`);
@@ -55,11 +55,11 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
 
   useEffect(() => {
     if (user) {
-      setValue("first_name", user.first_name);
-      setValue("last_name", user.last_name);
+      setValue("firstName", user.firstName);
+      setValue("lastName", user.lastName);
       setValue("email", user.email);
-      setValue("phone_number", user.phone_number);
-      setValue("roles", user.roles);
+      setValue("phoneNumber", user.phoneNumber);
+      setValue("role", user.role);
     }
   }, [user]);
 
@@ -86,20 +86,20 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 <p className="text-sm text-gray-500">First Name</p>
                 <InputField
                   placeholder={"Enter First Name"}
-                  name={"first_name"}
+                  name={"firstName"}
                   control={control}
-                  error={errors.first_name?.message}
-                  defaultValue={user?.first_name ?? ""}
+                  error={errors.firstName?.message}
+                  defaultValue={user?.firstName ?? ""}
                 />
               </div>
               <div>
                 <p className="text-sm text-gray-500">Last Name</p>
                 <InputField
                   placeholder={"Enter Last Name"}
-                  name={"last_name"}
+                  name={"lastName"}
                   control={control}
-                  error={errors.last_name?.message}
-                  defaultValue={user?.last_name ?? ""}
+                  error={errors.lastName?.message}
+                  defaultValue={user?.lastName ?? ""}
                 />
               </div>
 
@@ -107,10 +107,10 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 <p className="text-sm text-gray-500">Phone Number</p>
                 <InputField
                   placeholder={"Enter phone number"}
-                  name={"phone_number"}
+                  name={"phoneNumber"}
                   control={control}
-                  error={errors.phone_number?.message}
-                  defaultValue={user?.phone_number ?? ""}
+                  error={errors.phoneNumber?.message}
+                  defaultValue={user?.phoneNumber ?? ""}
                 />
               </div>
               <div>
@@ -127,13 +127,13 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 <p className="text-sm text-gray-500">Role</p>
                 <select
                   className="p-2 capitalize  w-full rounded-lg "
-                  {...register("roles")}
+                  {...register("role")}
                 >
                   <option
                     className="capitalize"
-                    defaultValue={user?.roles ?? ""}
+                    defaultValue={user?.role ?? ""}
                   >
-                    Current Role {user?.roles ?? ""}
+                    Current Role {user?.role ?? ""}
                   </option>
                   <option value="user">User</option>
                   <option value="employee">Employee</option>
