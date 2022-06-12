@@ -149,158 +149,154 @@ const CreateStock = ({
   }, [getProductLines]);
 
   return (
-    <div className="pb-4 flex justify-center ">
-      <div className="max-w-2xl">
-        <div className="items-center justify-center flex ">
-          <img
-            className="object-contain rounded-xl"
-            src="/images/Create_Stock.png"
-          />
-        </div>
-        <div className="mt-2">
-          <h1 className="font-bold text-2xl pb-4">Add stock</h1>
-        </div>
-        <div>
-          <div className="">
-            <form className="space-y-3" onSubmit={onSubmit}>
-              <AutoComplete
-                placeholder="Enter product line"
-                onSuccess={() => getProductLines({ search: "" })}
-                create={createProductLine}
-                control={control}
-                name={"productLine"}
-                data={productLines}
-                error={(errors.productLine as any)?.message}
-              />
-              <InputField
-                control={control}
-                name="dom"
-                placeholder="Enter DOM"
-                type="number"
-                error={errors.dom?.message}
-              />
-              <AutoComplete
-                placeholder="Enter brand name"
-                onSuccess={() => getBrands({ search: "" })}
-                create={createBrand}
-                control={control}
-                name={"brand"}
-                data={brands}
-                error={(errors.brand as any)?.message}
-              />
-              <AutoComplete
-                placeholder="Enter pattern name"
-                onSuccess={() => {
-                  getBrands({ search: "" });
-                }}
-                create={createPatternAction}
-                control={control}
-                name={"pattern"}
-                data={selectedBrand?.patterns ?? []}
-                error={(errors.pattern as any)?.message}
-              />
-              <AutoComplete
-                placeholder="Enter tyre size eg. 265/65R17"
-                onSuccess={() => getTyreDetails({ search: "" })}
-                create={createTyreSizeAction}
-                control={control}
-                name={"tyreDetailId"}
-                data={tyreDetails
-                  ?.filter(
-                    (pattern) => pattern.patternId === selectedPattern?.id
-                  )
-                  .map(({ tyreSize, id }) => ({
-                    tyreSize,
-                    id,
-                  }))
-                  .map(({ tyreSize, id }) => ({
-                    name: tyreSize.value,
-                    id,
-                  }))}
-                error={(errors.tyreDetailId as any)?.message}
-              />
-              <AutoComplete
-                placeholder="[Optional]Speed rating [Y | 100 km/h]"
-                onSuccess={() => getSpeedRatings({ search: "" })}
-                create={createSpeedRatingAction}
-                control={control}
-                name={"speedRating"}
-                data={speedRatings?.map(({ value, id }) => ({
-                  name: value,
+    <div className="pb-4">
+      <div className="items-center justify-center flex ">
+        <img
+          className="object-contain rounded-xl"
+          src="/images/Create_Stock.png"
+        />
+      </div>
+      <div className="mt-2">
+        <h1 className="font-bold text-2xl pb-4">Add stock</h1>
+      </div>
+      <div>
+        <div className="">
+          <form className="space-y-3" onSubmit={onSubmit}>
+            <AutoComplete
+              placeholder="Enter product line"
+              onSuccess={() => getProductLines({ search: "" })}
+              create={createProductLine}
+              control={control}
+              name={"productLine"}
+              data={productLines}
+              error={(errors.productLine as any)?.message}
+            />
+            <InputField
+              control={control}
+              name="dom"
+              placeholder="Enter DOM"
+              type="number"
+              error={errors.dom?.message}
+            />
+            <AutoComplete
+              placeholder="Enter brand name"
+              onSuccess={() => getBrands({ search: "" })}
+              create={createBrand}
+              control={control}
+              name={"brand"}
+              data={brands}
+              error={(errors.brand as any)?.message}
+            />
+            <AutoComplete
+              placeholder="Enter pattern name"
+              onSuccess={() => {
+                getBrands({ search: "" });
+              }}
+              create={createPatternAction}
+              control={control}
+              name={"pattern"}
+              data={selectedBrand?.patterns ?? []}
+              error={(errors.pattern as any)?.message}
+            />
+            <AutoComplete
+              placeholder="Enter tyre size eg. 265/65R17"
+              onSuccess={() => getTyreDetails({ search: "" })}
+              create={createTyreSizeAction}
+              control={control}
+              name={"tyreDetailId"}
+              data={tyreDetails
+                ?.filter((pattern) => pattern.patternId === selectedPattern?.id)
+                .map(({ tyreSize, id }) => ({
+                  tyreSize,
+                  id,
+                }))
+                .map(({ tyreSize, id }) => ({
+                  name: tyreSize.value,
                   id,
                 }))}
-                error={(errors.speedRating as any)?.message}
-              />
-              <AutoComplete
-                placeholder="[Optional]Load Index [80]"
-                onSuccess={() => getLoadIndexes({ search: "" })}
-                create={createLoadIndexAction}
-                control={control}
-                name={"loadIndex"}
-                data={loadIndexes?.map(({ value, id }) => ({
-                  name: String(value),
-                  id,
-                }))}
-                error={(errors.loadIndex as any)?.message}
-              />
-              <DatePicker
-                control={control}
-                name="purchaseDate"
-                placeholder="Pick a date"
-                error={errors.purchaseDate?.message}
-              />
-              <AutoComplete
-                placeholder="Enter vendor name"
-                onSuccess={() => getVendors({ search: "" })}
-                create={createVendor}
-                control={control}
-                name={"vendor"}
-                data={vendors}
-                error={(errors.vendor as any)?.message}
-              />
-              <AutoComplete
-                placeholder="Enter transport name"
-                onSuccess={() => getTransports({ search: "" })}
-                create={({ name }) => createTransport({ mode: name })}
-                control={control}
-                name={"transport"}
-                data={transports?.map(({ mode, ...rest }) => ({
-                  ...rest,
-                  name: mode,
-                }))}
-                error={(errors.transport as any)?.message}
-              />
-              <AutoComplete
-                placeholder="Enter location name"
-                onSuccess={() => getLocations({ search: "" })}
-                create={createLocation}
-                control={control}
-                name={"location"}
-                data={locations}
-                error={(errors.location as any)?.message}
-              />
-              <InputField
-                control={control}
-                name="quantity"
-                placeholder="Enter quantity"
-                type="number"
-                error={errors.quantity?.message}
-              />
-              <InputField
-                control={control}
-                name="cost"
-                placeholder="Enter cost"
-                type="number"
-                error={errors.cost?.message}
-              />
-              <button
-                className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-                onClick={onSubmit}
-              >
-                Submit
-              </button>
-            </form>
-          </div>
+              error={(errors.tyreDetailId as any)?.message}
+            />
+            <AutoComplete
+              placeholder="[Optional]Speed rating [Y | 100 km/h]"
+              onSuccess={() => getSpeedRatings({ search: "" })}
+              create={createSpeedRatingAction}
+              control={control}
+              name={"speedRating"}
+              data={speedRatings?.map(({ value, id }) => ({
+                name: value,
+                id,
+              }))}
+              error={(errors.speedRating as any)?.message}
+            />
+            <AutoComplete
+              placeholder="[Optional]Load Index [80]"
+              onSuccess={() => getLoadIndexes({ search: "" })}
+              create={createLoadIndexAction}
+              control={control}
+              name={"loadIndex"}
+              data={loadIndexes?.map(({ value, id }) => ({
+                name: String(value),
+                id,
+              }))}
+              error={(errors.loadIndex as any)?.message}
+            />
+            <DatePicker
+              control={control}
+              name="purchaseDate"
+              placeholder="Pick a date"
+              error={errors.purchaseDate?.message}
+            />
+            <AutoComplete
+              placeholder="Enter vendor name"
+              onSuccess={() => getVendors({ search: "" })}
+              create={createVendor}
+              control={control}
+              name={"vendor"}
+              data={vendors}
+              error={(errors.vendor as any)?.message}
+            />
+            <AutoComplete
+              placeholder="Enter transport name"
+              onSuccess={() => getTransports({ search: "" })}
+              create={({ name }) => createTransport({ mode: name })}
+              control={control}
+              name={"transport"}
+              data={transports?.map(({ mode, ...rest }) => ({
+                ...rest,
+                name: mode,
+              }))}
+              error={(errors.transport as any)?.message}
+            />
+            <AutoComplete
+              placeholder="Enter location name"
+              onSuccess={() => getLocations({ search: "" })}
+              create={createLocation}
+              control={control}
+              name={"location"}
+              data={locations}
+              error={(errors.location as any)?.message}
+            />
+            <InputField
+              control={control}
+              name="quantity"
+              placeholder="Enter quantity"
+              type="number"
+              error={errors.quantity?.message}
+            />
+            <InputField
+              control={control}
+              name="cost"
+              placeholder="Enter cost"
+              type="number"
+              error={errors.cost?.message}
+            />
+            <button
+              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+              onClick={onSubmit}
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>

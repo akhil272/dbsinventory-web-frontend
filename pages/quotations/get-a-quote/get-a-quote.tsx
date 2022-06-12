@@ -88,114 +88,108 @@ const GetQuote = ({
   if (!tyreSizes?.length) return <LoadingAnimation message="Please wait.." />;
 
   return (
-    <div className=" flex justify-center">
-      <div className="max-w-xl">
-        <div>
-          <div className="mt-12 items-center justify-center flex ">
-            <img
-              className="object-contain max-h-[600px]  mt-2 rounded-xl"
-              src="/images/Get_Quote.png"
-            />
+    <div>
+      <div className="items-center justify-center flex ">
+        <img
+          className="object-contain  rounded-xl"
+          src="/images/Get_Quote.png"
+        />
+      </div>
+      <div className="pt-2 ">
+        <h1 className="font-bold text-2xl capitalize pb-2">Get a quote</h1>
+      </div>
+      <div>
+        <form className="space-y-2 " onSubmit={onSubmit}>
+          <SearchBox
+            placeholder="Enter brand name"
+            control={control}
+            name={"brand"}
+            data={brands}
+          />
+          <SearchBox
+            placeholder="Enter patterns name"
+            control={control}
+            name={"pattern"}
+            data={patterns}
+          />
+          <SearchBox
+            placeholder="Enter tyre size name"
+            control={control}
+            name={"tyreSize"}
+            data={tyreSizes?.map(({ value, id }) => ({
+              name: value,
+              id,
+            }))}
+          />
+          <InputField
+            control={control}
+            name="speedRating"
+            placeholder="Enter speed rating (optional)"
+            type="text"
+            error={errors.speedRating?.message}
+          />
+          <InputField
+            control={control}
+            name="loadIndex"
+            placeholder="Enter load index (optional)"
+            type="text"
+            error={errors.loadIndex?.message}
+          />
+          <InputField
+            control={control}
+            name="quantity"
+            placeholder="Enter quantity"
+            type="text"
+            error={errors.quantity?.message}
+          />
+          <InputField
+            control={control}
+            name="notes"
+            placeholder="Enter notes"
+            type="text"
+            error={errors.notes?.message}
+          />
+          <div className="flex space-x-1 py-2">
+            <button
+              className="bg-pastel_green w-1/2 text-lg rounded-md font-medium text-center text-white p-2"
+              onClick={onSubmit}
+            >
+              Add More
+            </button>
+            <button
+              className="bg-primary w-1/2  text-lg rounded-md font-medium text-center text-white p-2"
+              onClick={handleSingleQuote}
+            >
+              Submit
+            </button>
           </div>
-          <div className="pt-2 ">
-            <h1 className="font-bold text-2xl capitalize pb-2">Get a quote</h1>
+        </form>
+        {userQuery.length > 0 && (
+          <div className="pb-4">
+            <div className="my-2">
+              <h2 className="font-semibold text-lg ">User Quotation List</h2>
+              {userQuery.map((query, index) => (
+                <QuoteListCard
+                  key={index}
+                  id={index + 1}
+                  brand={query?.brand?.name ?? "Error please refresh"}
+                  pattern={query?.pattern?.name ?? "-"}
+                  tyreSize={query?.tyreSize?.name ?? "Error please refresh"}
+                  loadIndex={query?.loadIndex ?? "-"}
+                  speedRating={query?.speedRating ?? "-"}
+                  notes={query?.notes}
+                  quantity={query?.quantity}
+                />
+              ))}
+            </div>
+            <button
+              onClick={submitAllQuotes}
+              className="bg-primary  w-full rounded-md text-lg font-medium text-center text-white p-2"
+            >
+              Submit Quotations
+            </button>
           </div>
-          <div>
-            <form className="space-y-2 " onSubmit={onSubmit}>
-              <SearchBox
-                placeholder="Enter brand name"
-                control={control}
-                name={"brand"}
-                data={brands}
-              />
-              <SearchBox
-                placeholder="Enter patterns name"
-                control={control}
-                name={"pattern"}
-                data={patterns}
-              />
-              <SearchBox
-                placeholder="Enter tyre size name"
-                control={control}
-                name={"tyreSize"}
-                data={tyreSizes?.map(({ value, id }) => ({
-                  name: value,
-                  id,
-                }))}
-              />
-              <InputField
-                control={control}
-                name="speedRating"
-                placeholder="Enter speed rating (optional)"
-                type="text"
-                error={errors.speedRating?.message}
-              />
-              <InputField
-                control={control}
-                name="loadIndex"
-                placeholder="Enter load index (optional)"
-                type="text"
-                error={errors.loadIndex?.message}
-              />
-              <InputField
-                control={control}
-                name="quantity"
-                placeholder="Enter quantity"
-                type="text"
-                error={errors.quantity?.message}
-              />
-              <InputField
-                control={control}
-                name="notes"
-                placeholder="Enter notes"
-                type="text"
-                error={errors.notes?.message}
-              />
-              <div className="flex space-x-1 py-2">
-                <button
-                  className="bg-pastel_green w-1/2 text-lg rounded-md font-medium text-center text-white p-2"
-                  onClick={onSubmit}
-                >
-                  Add More
-                </button>
-                <button
-                  className="bg-primary w-1/2  text-lg rounded-md font-medium text-center text-white p-2"
-                  onClick={handleSingleQuote}
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-            {userQuery.length > 0 && (
-              <div className="pb-4">
-                <div className="my-2">
-                  <h2 className="font-semibold text-lg ">
-                    User Quotation List
-                  </h2>
-                  {userQuery.map((query, index) => (
-                    <QuoteListCard
-                      key={index}
-                      id={index + 1}
-                      brand={query?.brand?.name ?? "Error please refresh"}
-                      pattern={query?.pattern?.name ?? "-"}
-                      tyreSize={query?.tyreSize?.name ?? "Error please refresh"}
-                      loadIndex={query?.loadIndex ?? "-"}
-                      speedRating={query?.speedRating ?? "-"}
-                      notes={query?.notes}
-                      quantity={query?.quantity}
-                    />
-                  ))}
-                </div>
-                <button
-                  onClick={submitAllQuotes}
-                  className="bg-primary  w-full rounded-md text-lg font-medium text-center text-white p-2"
-                >
-                  Submit Quotations
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

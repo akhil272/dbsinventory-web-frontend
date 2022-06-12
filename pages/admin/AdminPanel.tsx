@@ -50,50 +50,49 @@ const AdminPanel = () => {
     link.click();
   };
   return (
-    <div className="py-10 flex justify-center ">
-      <div className="w-full">
-        <div className="flex justify-center items-center">
-          <img
-            className="object-contain my-4 rounded-xl"
-            src="/images/Admin_Panel.png"
-          />
-        </div>
-        <div className="mt-2">
-          <h1 className="font-bold text-2xl pb-4">Admin Panel</h1>
-        </div>
-        <div className="space-y-4">
-          <div className="w-full ">
-            <div className="bg-white p-2 rounded-md relative ">
-              <div className="absolute top-0 right-0">
-                <button
-                  onClick={handleExportStocks}
-                  className="p-2 bg-primary rounded-tr-md rounded-bl-md text-white font-normal"
-                >
-                  Download
-                </button>
-              </div>
-              <div className="font-medium text-xl my-2">Stocks</div>
-              <label className="text-sm text-gray-400">Select Date Range</label>
-              <div>
-                <DateRangePicker state={state} setState={setState} />
-              </div>
+    <div className="pb-4">
+      <div className="flex items-center justify-center">
+        <img
+          className="object-contain  rounded-xl"
+          src="/images/Admin_Panel.png"
+        />
+      </div>
+
+      <div className="mt-2">
+        <h1 className="font-bold text-2xl pb-4">Admin Panel</h1>
+      </div>
+      <div className="space-y-4">
+        <div className="w-full ">
+          <div className="bg-white p-2 rounded-md relative ">
+            <div className="absolute top-0 right-0">
+              <button
+                onClick={handleExportStocks}
+                className="p-2 bg-primary rounded-tr-md rounded-bl-md text-white font-normal"
+              >
+                Download
+              </button>
+            </div>
+            <div className="font-medium text-xl my-2">Stocks</div>
+            <label className="text-sm text-gray-400">Select Date Range</label>
+            <div>
+              <DateRangePicker state={state} setState={setState} />
             </div>
           </div>
-          <div className="w-full ">
-            <div className="bg-white p-2 rounded-md relative ">
-              <div className="absolute top-0 right-0">
-                <button
-                  onClick={handleExportOrders}
-                  className="p-2 bg-primary rounded-tr-md rounded-bl-md text-white font-normal"
-                >
-                  Download
-                </button>
-              </div>
-              <div className="font-medium text-xl my-2">Orders</div>
-              <label className="text-sm text-gray-400">Select Date Range</label>
-              <div>
-                <DateRangePicker state={state} setState={setState} />
-              </div>
+        </div>
+        <div className="w-full ">
+          <div className="bg-white p-2 rounded-md relative ">
+            <div className="absolute top-0 right-0">
+              <button
+                onClick={handleExportOrders}
+                className="p-2 bg-primary rounded-tr-md rounded-bl-md text-white font-normal"
+              >
+                Download
+              </button>
+            </div>
+            <div className="font-medium text-xl my-2">Orders</div>
+            <label className="text-sm text-gray-400">Select Date Range</label>
+            <div>
+              <DateRangePicker state={state} setState={setState} />
             </div>
           </div>
         </div>

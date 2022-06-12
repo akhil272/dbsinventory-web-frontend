@@ -27,7 +27,11 @@ const Homepage = ({ user, loading, getUserInfo }) => {
   if (!user) {
     return <Login />;
   }
-  if (user) {
+  if (
+    user?.role === "admin" ||
+    user?.role === "manager" ||
+    user?.role === "employee"
+  ) {
     router.push("/search");
   }
   return <GetAQuote />;
