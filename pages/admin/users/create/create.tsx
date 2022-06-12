@@ -30,10 +30,10 @@ const Create = ({ createUser }) => {
     }
   };
   return (
-    <div className="pt-4 h-max flex justify-center">
+    <div className="h-max flex justify-center">
       <div className="max-w-xl">
         <div>
-          <div className="mt-12 items-center justify-center flex ">
+          <div className="items-center justify-center flex ">
             <img
               className="object-contain h-96 w-96 mt-2 rounded-xl"
               src="/images/Create_User.png"

@@ -58,68 +58,65 @@ const AddOrder = ({
     return <LoadingAnimation message="Loading orders. Please wait.." />;
   }
   return (
-    <div className="pt-4 flex justify-center">
-      <div className="max-w-xl">
+    <div className="pb-4 ">
+      <div>
+        <img
+          className="object-contain h-96  rounded-xl"
+          src="/images/Record_Sale.png"
+        />
+
+        <div className="pt-10 ">
+          <h1 className="font-bold text-2xl capitalize pb-2">Record sale</h1>
+        </div>
         <div>
-          <div className="mt-12 items-center justify-center flex ">
-            <img
-              className="object-contain max-h-[600px]  mt-2 rounded-xl"
-              src="/images/Record_Sale.png"
-            />
-          </div>
-          <div className="pt-10 ">
-            <h1 className="font-bold text-2xl capitalize pb-2">Record sale</h1>
-          </div>
-          <div>
-            <form className="space-y-5 " onSubmit={onSubmit}>
-              <div className="flex-col space-y-2 justify-center">
-                <InputField
-                  placeholder="Enter quantity"
-                  control={control}
-                  name={"quantity"}
-                  error={errors.quantity?.message}
-                />
-                <InputField
-                  placeholder="Enter selling price"
-                  control={control}
-                  name={"salePrice"}
-                  error={errors.salePrice?.message}
-                />
-                <InputField
-                  placeholder="Enter customer name"
-                  control={control}
-                  name={"customerName"}
-                  error={errors.customerName?.message}
-                />
-                <InputField
-                  placeholder="Enter customer phone number"
-                  control={control}
-                  name={"customerPhoneNumber"}
-                  error={errors.customerPhoneNumber?.message}
-                />
-                <button
-                  className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-                  onClick={onSubmit}
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-          </div>
-          <div>
-            {user?.role === "admin" &&
-              orders?.map((order) => (
-                <StockSaleCard
-                  key={order.id}
-                  employee_name={order.employeeName}
-                  salePrice={order.salePrice}
-                  customerName={order.customerName}
-                  saleDate={order.saleDate}
-                  quantity={order.quantity}
-                  profit={order.profit}
-                />
-              ))}
-          </div>
+          <form className="space-y-5 " onSubmit={onSubmit}>
+            <div className="flex-col space-y-2 justify-center">
+              <InputField
+                placeholder="Enter quantity"
+                control={control}
+                name={"quantity"}
+                error={errors.quantity?.message}
+              />
+              <InputField
+                placeholder="Enter selling price"
+                control={control}
+                name={"salePrice"}
+                error={errors.salePrice?.message}
+              />
+              <InputField
+                placeholder="Enter customer name"
+                control={control}
+                name={"customerName"}
+                error={errors.customerName?.message}
+              />
+              <InputField
+                placeholder="Enter customer phone number"
+                control={control}
+                name={"customerPhoneNumber"}
+                error={errors.customerPhoneNumber?.message}
+              />
+              <button
+                className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
+                onClick={onSubmit}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+        <div>
+          {user?.role === "admin" &&
+            orders?.map((order) => (
+              <StockSaleCard
+                key={order.id}
+                employee_name={order.employeeName}
+                salePrice={order.salePrice}
+                customerName={order.customerName}
+                saleDate={order.saleDate}
+                quantity={order.quantity}
+                profit={order.profit}
+              />
+            ))}
         </div>
       </div>
     </div>

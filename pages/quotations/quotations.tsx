@@ -38,7 +38,7 @@ const Quotations = ({
 
   return (
     <div>
-      <div className="pt-16 grid grid-cols-2  font-bold text-white text-md gap-1">
+      <div className="grid grid-cols-2  font-bold text-white text-md gap-1">
         <button
           className="p-4 rounded-md bg-pending "
           onClick={() => setQuotationStatus("PENDING")}

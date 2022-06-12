@@ -22,16 +22,16 @@ const DeleteAUser = ({ deleteUser }: DeleteUserProps) => {
     }
   };
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center">
+    <div className="flex flex-col min-h-screen ">
       <div className="max-w-2xl lg:min-w-[600px]">
-        <div className=" mt-12  items-center justify-center flex ">
+        <div className=" items-center justify-center flex ">
           <img
-            className="object-contain h-96 mt-2  rounded-xl"
+            className="object-contain h-96 rounded-xl"
             src="/images/Delete_User.png"
           />
         </div>
         <div className="w-full rounded-2xl">
-          <div className="p-4 space-y-4">
+          <div className="py-4 space-y-4">
             <div className="flex ">
               <h1 className="font-semibold text-3xl ">Delete User</h1>
             </div>

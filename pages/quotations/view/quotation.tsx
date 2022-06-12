@@ -28,7 +28,7 @@ const Quotation = ({
   }
 
   return (
-    <div className="pt-10 pb-4">
+    <div className=" pb-4">
       <QuotationCard
         id={quotation?.id}
         count={quotation?.count}

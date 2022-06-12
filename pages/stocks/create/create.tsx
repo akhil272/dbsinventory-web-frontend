@@ -149,11 +149,11 @@ const CreateStock = ({
   }, [getProductLines]);
 
   return (
-    <div className="py-10 flex justify-center ">
+    <div className="pb-4 flex justify-center ">
       <div className="max-w-2xl">
         <div className="items-center justify-center flex ">
           <img
-            className="object-contain my-4 rounded-xl"
+            className="object-contain rounded-xl"
             src="/images/Create_Stock.png"
           />
         </div>

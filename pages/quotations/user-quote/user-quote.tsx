@@ -50,7 +50,7 @@ const UserQuote = ({
   }
 
   return (
-    <div className="pt-14">
+    <div>
       <QuoteListCard
         type="advanced"
         brand={userQuoteDetails?.userQuote?.brandName ?? "Error please refresh"}

@@ -68,87 +68,80 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
   }
 
   return (
-    <div className="py-10  flex justify-center ">
-      <div className="max-w-2xl">
-        <div className=" items-center justify-center flex ">
-          <img
-            className="object-contain mt-4 rounded-xl"
-            src="/images/Update_User.png"
-          />
-        </div>
-        <div>
-          <h1 className="font-bold text-2xl pb-4">Update User</h1>
-        </div>
-        <div>
-          <div className="">
-            <form className="space-y-3" onSubmit={onSubmit}>
-              <div>
-                <p className="text-sm text-gray-500">First Name</p>
-                <InputField
-                  placeholder={"Enter First Name"}
-                  name={"firstName"}
-                  control={control}
-                  error={errors.firstName?.message}
-                  defaultValue={user?.firstName ?? ""}
-                />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Last Name</p>
-                <InputField
-                  placeholder={"Enter Last Name"}
-                  name={"lastName"}
-                  control={control}
-                  error={errors.lastName?.message}
-                  defaultValue={user?.lastName ?? ""}
-                />
-              </div>
+    <div className="pb-4 ">
+      <img
+        className="object-contain max-w-sm rounded-xl h-96"
+        src="/images/Update_User.png"
+      />
+      <div>
+        <h1 className="font-bold text-2xl pb-4">Update User</h1>
+      </div>
+      <div>
+        <div className="">
+          <form className="space-y-3" onSubmit={onSubmit}>
+            <div>
+              <p className="text-sm text-gray-500">First Name</p>
+              <InputField
+                placeholder={"Enter First Name"}
+                name={"firstName"}
+                control={control}
+                error={errors.firstName?.message}
+                defaultValue={user?.firstName ?? ""}
+              />
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Last Name</p>
+              <InputField
+                placeholder={"Enter Last Name"}
+                name={"lastName"}
+                control={control}
+                error={errors.lastName?.message}
+                defaultValue={user?.lastName ?? ""}
+              />
+            </div>
 
-              <div>
-                <p className="text-sm text-gray-500">Phone Number</p>
-                <InputField
-                  placeholder={"Enter phone number"}
-                  name={"phoneNumber"}
-                  control={control}
-                  error={errors.phoneNumber?.message}
-                  defaultValue={user?.phoneNumber ?? ""}
-                />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Email</p>
-                <InputField
-                  placeholder={"Enter email"}
-                  name={"email"}
-                  control={control}
-                  error={errors.email?.message}
-                  defaultValue={user?.email ?? ""}
-                />
-              </div>
-              <div>
-                <p className="text-sm text-gray-500">Role</p>
-                <select
-                  className="p-2 capitalize  w-full rounded-lg "
-                  {...register("role")}
-                >
-                  <option
-                    className="capitalize"
-                    defaultValue={user?.role ?? ""}
-                  >
-                    Current Role {user?.role ?? ""}
-                  </option>
-                  <option value="user">User</option>
-                  <option value="employee">Employee</option>
-                  <option value="manager">Manager</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
-              <button
-                className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-                onClick={onSubmit}
+            <div>
+              <p className="text-sm text-gray-500">Phone Number</p>
+              <InputField
+                placeholder={"Enter phone number"}
+                name={"phoneNumber"}
+                control={control}
+                error={errors.phoneNumber?.message}
+                defaultValue={user?.phoneNumber ?? ""}
+              />
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Email</p>
+              <InputField
+                placeholder={"Enter email"}
+                name={"email"}
+                control={control}
+                error={errors.email?.message}
+                defaultValue={user?.email ?? ""}
+              />
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Role</p>
+              <select
+                className="p-2 capitalize  w-full rounded-lg "
+                {...register("role")}
               >
-                Submit
-              </button>
-            </form>
-          </div>
+                <option className="capitalize" defaultValue={user?.role ?? ""}>
+                  Current Role {user?.role ?? ""}
+                </option>
+                <option value="user">User</option>
+                <option value="employee">Employee</option>
+                <option value="manager">Manager</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <button
+              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+              onClick={onSubmit}
+            >
+              Submit
+            </button>
+          </form>
         </div>
       </div>
     </div>

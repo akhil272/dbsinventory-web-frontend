@@ -18,7 +18,9 @@ const Layout = ({ children, user }) => {
       <div className="bg-inherit">
         {user?.role && <Header userRole={user?.role} userName={userName} />}
       </div>
-      <div className="px-4">{children}</div>
+      <div className="grid justify-items-center pt-14 ">
+        <div className="max-w-3xl w-screen px-4 ">{children}</div>
+      </div>
     </div>
   );
 };

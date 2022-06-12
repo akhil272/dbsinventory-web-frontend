@@ -60,51 +60,47 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
     getTyreSizes({ search: "" });
   }, []);
   return (
-    <div className="pt-4 h-max flex justify-center">
-      <div className="md:max-w-sm w-full">
-        <div>
-          <div className="mt-12 items-center justify-center flex ">
-            <img
-              className="object-contain mt-2 rounded-xl"
-              src="/images/Search_Art.png"
-            />
-          </div>
-          <div className="mt-10">
-            <h1 className="font-bold text-2xl pb-4">Search for stocks</h1>
-          </div>
-          <form onSubmit={onSubmit} className="space-y-4">
-            <SearchField
-              placeholder="Enter brand name"
-              control={control}
-              name={"brand"}
-              data={brands}
-              error={(errors.brand as any)?.message}
-            />
-
-            <SearchField
-              data={tyreSizes?.map(({ value, id }) => ({
-                name: value,
-                id,
-              }))}
-              placeholder="Tyre size"
-              control={control}
-              name={"tyreSize"}
-            />
-            <InputField
-              placeholder="Search in brand / tyre size / pattern"
-              error={errors.searchTerm?.message}
-              name="searchTerm"
-              control={control}
-            />
-
-            <button
-              onClick={onSubmit}
-              className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-            >
-              Search
-            </button>
-          </form>
+    <div>
+      <div>
+        <img
+          className="object-contain lg:max-w-xl rounded-xl"
+          src="/images/Search_Art.png"
+        />
+        <div className="mt-10">
+          <h1 className="font-bold text-2xl pb-4">Search for stocks</h1>
         </div>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <SearchField
+            placeholder="Enter brand name"
+            control={control}
+            name={"brand"}
+            data={brands}
+            error={(errors.brand as any)?.message}
+          />
+
+          <SearchField
+            data={tyreSizes?.map(({ value, id }) => ({
+              name: value,
+              id,
+            }))}
+            placeholder="Tyre size"
+            control={control}
+            name={"tyreSize"}
+          />
+          <InputField
+            placeholder="Search in brand / tyre size / pattern"
+            error={errors.searchTerm?.message}
+            name="searchTerm"
+            control={control}
+          />
+
+          <button
+            onClick={onSubmit}
+            className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
+          >
+            Search
+          </button>
+        </form>
       </div>
     </div>
   );

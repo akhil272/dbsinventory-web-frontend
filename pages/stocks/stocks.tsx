@@ -53,28 +53,26 @@ const Stocks = ({
 
   return (
     <div>
-      <div className="pt-10">
-        {stocks?.map((stock) => (
-          <StockCard
-            key={stock.id}
-            brand={stock.tyreDetail.pattern.brand.name}
-            vendor={stock.vendor.name}
-            tyreSize={stock.tyreDetail.tyreSize.value}
-            patternName={stock.tyreDetail.pattern.name}
-            dom={stock.dom}
-            productLine={stock.productLine.name}
-            transportMode={stock.transport.mode}
-            purchaseDate={stock.purchaseDate}
-            location={stock.location.name}
-            quantity={stock.quantity}
-            cost={stock.cost}
-            stockId={stock.id}
-            role={user?.role}
-            loadIndex={stock.loadIndex?.value}
-            speedRating={stock.speedRating?.value}
-          />
-        ))}
-      </div>
+      {stocks?.map((stock) => (
+        <StockCard
+          key={stock.id}
+          brand={stock.tyreDetail.pattern.brand.name}
+          vendor={stock.vendor.name}
+          tyreSize={stock.tyreDetail.tyreSize.value}
+          patternName={stock.tyreDetail.pattern.name}
+          dom={stock.dom}
+          productLine={stock.productLine.name}
+          transportMode={stock.transport.mode}
+          purchaseDate={stock.purchaseDate}
+          location={stock.location.name}
+          quantity={stock.quantity}
+          cost={stock.cost}
+          stockId={stock.id}
+          role={user?.role}
+          loadIndex={stock.loadIndex?.value}
+          speedRating={stock.speedRating?.value}
+        />
+      ))}
       <div className="flex place-items-center w-full pt-4 text-md justify-between">
         <button
           disabled={metaPage <= 1 ? true : false}

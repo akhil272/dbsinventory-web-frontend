@@ -25,7 +25,7 @@ const UserCard = ({ firstName, lastName, role, id }) => {
       </div>
       <div className="flex absolute bottom-0 right-0  text-white">
         <Link href={{ pathname: "/admin/users/update", query: { id } }}>
-          <a className="p-2 bg-pastel_green rounded-tl-lg ">Update</a>
+          <a className="px-4 py-1 bg-pastel_green rounded-tl-lg ">Update</a>
         </Link>
         <Link
           href={{
@@ -33,7 +33,7 @@ const UserCard = ({ firstName, lastName, role, id }) => {
             query: { id, firstName, lastName, role },
           }}
         >
-          <a className="p-2 bg-primary rounded-br-lg">Delete</a>
+          <a className="px-4 py-1 bg-primary rounded-br-lg">Delete</a>
         </Link>
       </div>
     </div>

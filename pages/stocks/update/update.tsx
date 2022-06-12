@@ -63,11 +63,11 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
   }
 
   return (
-    <div className="py-10  flex justify-center ">
+    <div className="pb-10  flex justify-center ">
       <div className="max-w-2xl">
         <div className=" items-center justify-center flex ">
           <img
-            className="object-contain mt-4 rounded-xl"
+            className="object-contain rounded-xl"
             src="/images/Update_Stock.png"
           />
         </div>
