@@ -9,7 +9,7 @@ const Quotations = ({
   getQuotations,
   loading,
   total,
-  last_page,
+  lastPage,
   page: metaPage,
 }: QuotationProps) => {
   const [page, setPage] = useState<number>(1);
@@ -70,10 +70,10 @@ const Quotations = ({
             id={quotation.id}
             status={quotation.status}
             key={quotation.id}
-            name={`${quotation.user.first_name} ${quotation.user.last_name}`}
+            name={`${quotation.user.firstName} ${quotation.user.lastName}`}
             price={quotation.price}
             notes={quotation.notes}
-            date={quotation.created_at}
+            date={quotation.createdAt}
             count={quotation.count}
             validity={quotation.validity}
           />
@@ -99,9 +99,9 @@ const Quotations = ({
         <div className="text-md py-1 font-bold px-3 text-white rounded-md bg-secondary">
           {page}
         </div>
-        {page <= last_page && (
+        {page <= lastPage && (
           <button
-            disabled={metaPage >= last_page ? true : false}
+            disabled={metaPage >= lastPage ? true : false}
             onClick={nextPage}
             className="text-sm text-gray-400"
           >
@@ -110,8 +110,8 @@ const Quotations = ({
         )}
 
         <button
-          disabled={metaPage >= last_page ? true : false}
-          className={metaPage >= last_page ? " text-stone-400  py-2" : "  py-2"}
+          disabled={metaPage >= lastPage ? true : false}
+          className={metaPage >= lastPage ? " text-stone-400  py-2" : "  py-2"}
           onClick={nextPage}
         >
           Next
@@ -119,7 +119,7 @@ const Quotations = ({
       </div>
       <div className="flex justify-between text-sm pb-2 text-gray-400">
         <div>Total Results : {total}</div>
-        Page : {metaPage} of {last_page} pages
+        Page : {metaPage} of {lastPage} pages
       </div>
     </div>
   );

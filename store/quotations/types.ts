@@ -59,11 +59,11 @@ export type getQuotationByIdPayload = {
 
 export type createQuotationPayload = {
   userQuotes: {
-    brand: string;
-    pattern?: string;
-    tyre_size: string;
-    speed_rating?: string;
-    load_index?: number;
+    brandName: string;
+    patternName?: string;
+    tyreSizeValue: string;
+    speedRating?: string;
+    loadIndex?: number;
     notes?: string;
     quantity: number;
   }[];
@@ -74,12 +74,12 @@ export type Quotation = {
   status: string;
   price: number;
   notes: string;
-  created_at: Date;
+  createdAt: Date;
   count: number;
   validity: number;
   user: {
-    fist_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
   };
 };
 
@@ -88,7 +88,7 @@ export type QuotationsFetchResponse = {
   meta: {
     total: number;
     page: number;
-    last_page: number;
+    lastPage: number;
   };
 };
 
@@ -96,13 +96,13 @@ export type userQuote = {
   id: number;
   brand: string;
   pattern: string;
-  tyre_size: string;
-  speed_rating: string;
-  load_index: number;
+  tyreSize: string;
+  speedRating: string;
+  loadIndex: number;
   quantity: number;
   price: number;
   notes: string;
-  admin_comments: string;
+  adminComments: string;
 };
 export type userQuotePayload = {
   userQuote: userQuote;
@@ -114,13 +114,13 @@ export type QuotationPayload = {
   status: string;
   price: number;
   notes: string;
-  created_at: Date;
+  createdAt: Date;
   validity: number;
   count: number;
   userQuotes: userQuote[];
   user: {
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
   };
 };
 
@@ -131,7 +131,7 @@ export type Quotations = {
   quotations: QuotationPayload[];
   total: number;
   page: number;
-  last_page: number;
+  lastPage: number;
   quotation: QuotationPayload;
   userQuoteDetails: userQuotePayload;
 };
@@ -153,7 +153,7 @@ export type updateQuotation = {
 export type updateUserQuoteData = {
   price: number;
   id: number;
-  admin_comments?: string;
+  adminComments?: string;
 };
 
 export type UpdateQuotationStateProps = {
@@ -204,7 +204,7 @@ export type QuotationsStateProps = {
   loading: boolean;
   total: number;
   page: number;
-  last_page: number;
+  lastPage: number;
 };
 export type QuotationsDispatchProps = {
   getQuotations: (

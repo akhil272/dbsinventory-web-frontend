@@ -14,15 +14,15 @@ export type CreateStockFormData = {
   };
   quantity: number;
   cost: number;
-  tyre_size: { id: number; size: string };
-  purchase_date: Date;
-  product_line: { name: string };
+  tyreSize: { id: number; value: string };
+  purchaseDate: Date;
+  productLine: { id: number; name: string };
   vendor: { id: number; name: string };
   location: { id: number; name: string };
   transport: { id: number; mode: string };
-  tyre_detail_id: { id: number };
-  load_index?: { id: number; name: string };
-  speed_rating?: { id: number; name: string };
+  tyreDetailId: { id: number };
+  loadIndex: { id: number; value: string };
+  speedRating: { id: number; value: string };
 };
 
 // tyreSizes.map(({ size, ...rest }) => ({
@@ -34,7 +34,7 @@ export type UpdateStockFormData = {
   dom: string;
   quantity: number;
   cost: number;
-  purchase_date: Date;
+  purchaseDate: Date;
 };
 
 export type SearchStocksFormData = {
@@ -42,6 +42,6 @@ export type SearchStocksFormData = {
     id: number;
     name: string;
   };
-  search_term: string;
-  tyre_size: { id: number; name: string };
+  searchTerm: string;
+  tyreSize: { id: number; value: string };
 };

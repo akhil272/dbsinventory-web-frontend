@@ -59,17 +59,17 @@ const SearchResult = ({
             key={stock.id}
             brand={stock.tyreDetail.pattern.brand.name}
             vendor={stock.vendor?.name}
-            tyre_size={stock.tyreDetail?.tyreSize.size}
-            pattern_name={stock.tyreDetail?.pattern.name}
+            tyreSize={stock.tyreDetail?.tyreSize.size}
+            patternName={stock.tyreDetail?.pattern.name}
             dom={stock.dom}
-            product_line={stock.product_line}
-            transport_mode={stock.transport.mode}
-            purchase_date={stock.purchase_date}
+            productLine={stock.product_line.name}
+            transportMode={stock.transport.mode}
+            purchaseDate={stock.purchaseDate}
             location={stock.location?.name}
             quantity={stock.quantity}
             cost={stock.cost}
             stockId={stock.id}
-            role={user?.roles}
+            role={user?.role}
           />
         ))}
       </div>

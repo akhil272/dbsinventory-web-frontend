@@ -21,11 +21,11 @@ type userQueryFormData = {
     id: number;
     name: string;
   };
-  tyre_size: { id: number; name: string };
-  speed_rating?: string;
+  tyreSize: { id: number; name: string };
+  speedRating?: string;
   quantity: number;
   notes?: string;
-  load_index?: number;
+  loadIndex?: number;
 };
 
 const GetQuote = ({
@@ -59,15 +59,16 @@ const GetQuote = ({
   const submitAllQuotes = async () => {
     const userQuotesPayload = {
       userQuotes: userQuery.map(
-        ({ brand, pattern, tyre_size, load_index, ...query }) => ({
-          brand: brand?.name,
-          pattern: pattern?.name,
-          tyre_size: tyre_size?.name,
-          load_index: Number(load_index),
+        ({ brand, pattern, tyreSize, loadIndex, ...query }) => ({
+          brandName: brand?.name,
+          patternName: pattern?.name,
+          tyreSizeValue: tyreSize?.name,
+          loadIndex: Number(loadIndex),
           ...query,
         })
       ),
     };
+    console.log(userQuotesPayload);
     const response = await createQuotation(userQuotesPayload);
     if (response.success) {
       toast.success("Quotation submitted successfully");
@@ -116,25 +117,25 @@ const GetQuote = ({
               <SearchBox
                 placeholder="Enter tyre size name"
                 control={control}
-                name={"tyre_size"}
-                data={tyreSizes?.map(({ size, id }) => ({
-                  name: size,
+                name={"tyreSize"}
+                data={tyreSizes?.map(({ value, id }) => ({
+                  name: value,
                   id,
                 }))}
               />
               <InputField
                 control={control}
-                name="speed_rating"
+                name="speedRating"
                 placeholder="Enter speed rating (optional)"
                 type="text"
-                error={errors.speed_rating?.message}
+                error={errors.speedRating?.message}
               />
               <InputField
                 control={control}
-                name="load_index"
+                name="loadIndex"
                 placeholder="Enter load index (optional)"
                 type="text"
-                error={errors.load_index?.message}
+                error={errors.loadIndex?.message}
               />
               <InputField
                 control={control}
@@ -177,11 +178,9 @@ const GetQuote = ({
                       id={index + 1}
                       brand={query?.brand?.name ?? "Error please refresh"}
                       pattern={query?.pattern?.name ?? "-"}
-                      tyre_size={
-                        query?.tyre_size?.name ?? "Error please refresh"
-                      }
-                      load_index={query?.load_index ?? "-"}
-                      speed_rating={query?.speed_rating ?? "-"}
+                      tyreSize={query?.tyreSize?.name ?? "Error please refresh"}
+                      loadIndex={query?.loadIndex ?? "-"}
+                      speedRating={query?.speedRating ?? "-"}
                       notes={query?.notes}
                       quantity={query?.quantity}
                     />

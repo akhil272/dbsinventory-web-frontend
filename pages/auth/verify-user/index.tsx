@@ -1,9 +1,9 @@
-import { validateVerification } from "@Store/auth/actions";
+import { validateOtpAndVerifyPhoneNumber } from "@Store/auth/actions";
 import { connect } from "react-redux";
 import VerifyUser from "./verify-user";
 
 const mapDispatchToProps = () => ({
-  validateVerification,
+  validateOtpAndVerifyPhoneNumber,
 });
 
 export default connect(null, mapDispatchToProps)(VerifyUser);

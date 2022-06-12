@@ -33,25 +33,25 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   const searchStocks = (data: SearchStocksFormData) => {
     console.log(data);
     if (
-      data.tyre_size === null &&
+      data.tyreSize === null &&
       data.brand === null &&
-      data.search_term === ""
+      data.searchTerm === ""
     ) {
       router.push("/stocks");
     }
     if (data.brand != null) {
       router.push({ pathname: "/stocks", query: { brand: data.brand.name } });
     }
-    if (data.tyre_size != null) {
+    if (data.tyreSize != null) {
       router.push({
         pathname: "/stocks",
-        query: { tyreSize: data.tyre_size.name },
+        query: { tyreSize: data.tyreSize.value },
       });
     }
-    if (data.search_term.length > 1) {
+    if (data.searchTerm.length > 1) {
       router.push({
         pathname: "/stocks",
-        query: { searchTerm: data.search_term },
+        query: { searchTerm: data.searchTerm },
       });
     }
   };
@@ -88,12 +88,12 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
               }))}
               placeholder="Tyre size"
               control={control}
-              name={"tyre_size"}
+              name={"tyreSize"}
             />
             <InputField
               placeholder="Search in brand / tyre size / pattern"
-              error={errors.search_term?.message}
-              name="search_term"
+              error={errors.searchTerm?.message}
+              name="searchTerm"
               control={control}
             />
 

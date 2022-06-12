@@ -1,7 +1,8 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterProps } from "@Store/auth/types";
-import { RegisterAuthSchema } from "@Utils/schemas/RegisterAuthSchema";
+import { RegisterUserFormData } from "@Utils/formTypes/AuthFormData";
+import { RegisterAuthSchema } from "@Utils/schemas/AuthSchema";
 import storage from "@Utils/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,40 +10,29 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-type formData = {
-  first_name: string;
-  last_name: string;
-  email?: string;
-  phone_number: string;
-};
-
-const Register = ({ register, initiateVerification }: RegisterProps) => {
+const Register = ({ register }: RegisterProps) => {
   const router = useRouter();
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<formData>({ resolver: yupResolver(RegisterAuthSchema) });
-  const onSubmit = handleSubmit((data) => handleLogin(data));
-  const handleLogin = async (data: formData) => {
+  } = useForm<RegisterUserFormData>({
+    resolver: yupResolver(RegisterAuthSchema),
+  });
+  const onSubmit = handleSubmit((data) => registerUser(data));
+  const registerUser = async (data: RegisterUserFormData) => {
     const response = await register({
-      first_name: data.first_name,
-      last_name: data.last_name,
-      phone_number: data.phone_number,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phoneNumber: data.phoneNumber,
       email: data.email,
     });
-
     if (response.success && response.data) {
       storage().setAccessToken(response.data?.accessToken);
-      const initiate = await initiateVerification();
-      if (initiate.success) {
-        router.push("/auth/verify-user");
-      }
-      if (!initiate.success) {
-        toast.error(
-          `Failed to initiate user verification. ${initiate.message} `
-        );
-      }
+      router.push({
+        pathname: "/auth/verify-user",
+        query: { phoneNumber: data.phoneNumber },
+      });
     }
     if (!response.success) {
       toast.error(`Error. ${response.message} `);
@@ -72,17 +62,17 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
                 <div className="flex-col space-y-2 justify-center">
                   <InputField
                     control={control}
-                    name="first_name"
+                    name="firstName"
                     placeholder="Enter first name"
                     type="text"
-                    error={errors.first_name?.message}
+                    error={errors.firstName?.message}
                   />
                   <InputField
                     control={control}
-                    name="last_name"
+                    name="lastName"
                     placeholder="Enter last name"
                     type="text"
-                    error={errors.last_name?.message}
+                    error={errors.lastName?.message}
                   />
                   <InputField
                     control={control}
@@ -93,10 +83,10 @@ const Register = ({ register, initiateVerification }: RegisterProps) => {
                   />
                   <InputField
                     control={control}
-                    name="phone_number"
+                    name="phoneNumber"
                     placeholder="Enter your phone number"
                     type="tel"
-                    error={errors.phone_number?.message}
+                    error={errors.phoneNumber?.message}
                   />
                 </div>
                 <button

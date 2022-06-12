@@ -40,6 +40,12 @@ import {
   SPEED_RATING_CREATE_FAIL,
   SPEED_RATING_CREATE_INIT,
   SPEED_RATING_CREATE_SUCCESS,
+  PRODUCT_LINES_FETCH_FAIL,
+  PRODUCT_LINES_FETCH_INIT,
+  PRODUCT_LINES_FETCH_SUCCESS,
+  PRODUCT_LINE_CREATE_FAIL,
+  PRODUCT_LINE_CREATE_INIT,
+  PRODUCT_LINE_CREATE_SUCCESS,
 } from "./types";
 
 export const initialState: TyreData = {
@@ -49,10 +55,26 @@ export const initialState: TyreData = {
   tyreDetails: [],
   speedRatings: [],
   loadIndexes: [],
+  productLines: [],
 };
 
 const reducer = (state = initialState, action: TyreDataActionTypes) => {
   switch (action.type) {
+    case PRODUCT_LINE_CREATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case PRODUCT_LINE_CREATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case PRODUCT_LINE_CREATE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case PRODUCT_LINES_FETCH_INIT:
+      return Object.assign({}, state, { loading: true });
+    case PRODUCT_LINES_FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        productLines: action.payload.data,
+      });
+    case PRODUCT_LINES_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
     case LOAD_INDEX_CREATE_INIT:
       return Object.assign({}, state, { loading: true });
     case LOAD_INDEX_CREATE_SUCCESS:

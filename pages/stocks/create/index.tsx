@@ -12,11 +12,13 @@ import {
   createBrand,
   createLoadIndex,
   createPattern,
+  createProductLine,
   createSpeedRating,
   createTyreDetailSize,
   createTyreSize,
   getBrands,
   getLoadIndexes,
+  getProductLines,
   getSpeedRatings,
   getTyreDetails,
   getTyreSizes,
@@ -32,6 +34,7 @@ const mapStateToProps = ({ tyres, adminPanel }: typeof initialState) => ({
   locations: adminPanel.locations,
   vendors: adminPanel.vendors,
   transports: adminPanel.transports,
+  productLines: tyres.productLines,
 });
 
 const mapDispatchToProps = () => ({
@@ -51,8 +54,10 @@ const mapDispatchToProps = () => ({
   createStock,
   createSpeedRating,
   createLoadIndex,
+  createProductLine,
   getSpeedRatings,
   getLoadIndexes,
+  getProductLines,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateStock);

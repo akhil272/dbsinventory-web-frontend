@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const DeleteAStock = ({ deleteStock }) => {
   const router = useRouter();
   const {
-    query: { stockId, brand, tyre_size, quantity, cost },
+    query: { stockId, brand, tyreSize, quantity, cost },
   } = router;
   const cancel = () => {
     router.push("/stocks");
@@ -43,7 +43,7 @@ const DeleteAStock = ({ deleteStock }) => {
               </div>
               <div className="w-1/2">
                 <div>{brand}</div>
-                <div>{tyre_size}</div>
+                <div>{tyreSize}</div>
                 <div>{quantity}</div>
                 <div>{cost}</div>
               </div>

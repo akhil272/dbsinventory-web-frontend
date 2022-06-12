@@ -1,11 +1,14 @@
 const API_END_POINTS = {
-  REGISTER: "/auth/register",
-  AUTH: "/auth/log-in",
-  INITIATE_VERIFICATION: "/sms/initiate-verification",
-  RETRY_VERIFICATION: "/sms/retry-verification",
-  RETRY_INITIATE_VERIFICATION: "/sms/retry-initiate",
+  REGISTER: "/register",
+  AUTH: "/auth",
+  LOGIN: "/login",
+  OTP: "/otp",
+  VALIDATE: "/validate",
+  SMS: "/sms",
+  RETRY_VERIFICATION: "/retry-verification",
+  RETRY_INITIATE: "/retry-initiate",
   VALIDATE_VERIFICATION_CODE: "/sms/check-verification-code",
-  GENERATE_OTP: "/auth/otp/generate",
+  GENERATE: "/generate",
   VALIDATE_OTP: "/auth/otp/validate",
   USERS: "/users",
   REFRESH: "/refresh",
@@ -33,6 +36,7 @@ const API_END_POINTS = {
   SORT_BY: "sortBy",
   SPEED_RATING: "/speed-rating",
   LOAD_INDEX: "/load-index",
+  PRODUCT_LINE: "/product-line",
 };
 
 enum API_METHODS {

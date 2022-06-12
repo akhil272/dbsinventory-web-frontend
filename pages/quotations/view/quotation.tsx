@@ -32,7 +32,7 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
         price={quotation?.price}
         status={quotation?.status}
         validity={quotation?.validity}
-        name={`${quotation?.user.first_name} ${quotation?.user.last_name}`}
+        name={`${quotation?.user.firstName} ${quotation?.user.lastName}`}
       />
       <div className="w-full bg-primary rounded-md text-white font-semibold p-2 text-center mb-4">
         <Link
@@ -58,13 +58,13 @@ const Quotation = ({ loading, getQuotationById, quotation }) => {
                 key={quote?.id}
                 brand={quote?.brand ?? "Error please refresh"}
                 pattern={quote?.pattern ?? "-"}
-                tyre_size={quote?.tyre_size ?? "Error please refresh"}
-                load_index={quote?.load_index ?? "-"}
-                speed_rating={quote?.speed_rating ?? "-"}
+                tyreSize={quote?.tyreSize ?? "Error please refresh"}
+                loadIndex={quote?.loadIndex ?? "-"}
+                speedRating={quote?.speedRating ?? "-"}
                 notes={quote.notes}
                 quantity={quote.quantity}
                 id={quote?.id}
-                admin_comments={quote?.admin_comments}
+                adminComments={quote?.adminComments}
                 price={quote?.price}
                 type="advanced"
               />

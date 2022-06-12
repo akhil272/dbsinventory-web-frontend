@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 
 export const CreateStockSchema = Yup.object().shape({
-  product_line: Yup.object()
+  productLine: Yup.object()
     .shape({
       name: Yup.string().required(),
     })
-    .typeError("Please select from drop down."),
+    .typeError("Please select a product line from drop down."),
   brand: Yup.object()
     .shape({
       name: Yup.string().required(),
@@ -16,7 +16,7 @@ export const CreateStockSchema = Yup.object().shape({
       name: Yup.string().required(),
     })
     .typeError("Please select a pattern from drop down."),
-  tyre_detail_id: Yup.object()
+  tyreDetailId: Yup.object()
     .shape({
       name: Yup.string().required(),
     })
@@ -40,14 +40,14 @@ export const CreateStockSchema = Yup.object().shape({
     .max(4, "DOM must be in format 1920 WWYY")
     .required()
     .typeError("DOM is required."),
-  purchase_date: Yup.date().required(),
-  speed_rating: Yup.object()
+  purchaseDate: Yup.date().required(),
+  speedRating: Yup.object()
     .shape({
       name: Yup.string(),
     })
     .notRequired()
     .nullable(),
-  load_index: Yup.object()
+  loadIndex: Yup.object()
     .shape({
       name: Yup.string(),
     })
@@ -67,7 +67,7 @@ export const UpdateStockSchema = Yup.object().shape({
     .typeError("You must enter a number")
     .required("Required"),
   cost: Yup.number().typeError("You must enter a number").required(),
-  purchase_date: Yup.date().required(),
+  purchaseDate: Yup.date().required(),
 });
 
 export const StocksSearchSchema = Yup.object().shape({
@@ -78,11 +78,11 @@ export const StocksSearchSchema = Yup.object().shape({
     .nullable()
     .notRequired(),
 
-  tyre_size: Yup.object()
+  tyreSize: Yup.object()
     .shape({
       name: Yup.string(),
     })
     .nullable()
     .notRequired(),
-  search_term: Yup.string().notRequired().nullable(),
+  searchTerm: Yup.string().notRequired().nullable(),
 });

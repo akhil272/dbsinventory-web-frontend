@@ -29,29 +29,29 @@ export type deleteUserPayload = {
 
 type UserPayload = {
   id: number;
-  first_name: string;
-  last_name: string;
-  roles: string;
-  phone_number: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  phoneNumber: string;
   email: string;
   avatarId: string;
-  is_verified: boolean;
+  isPhoneNumberVerified: boolean;
 };
 
 export type updateUserPayload = {
   id: number;
-  first_name?: string;
-  last_name?: string;
+  firstName?: string;
+  lastName?: string;
   roles?: string;
-  phone_number?: string;
+  phoneNumber?: string;
   email?: string;
 };
 
 export type createUserPayload = {
-  first_name: string;
-  last_name: string;
-  roles: string;
-  phone_number: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  phoneNumber: string;
   email?: string;
 };
 

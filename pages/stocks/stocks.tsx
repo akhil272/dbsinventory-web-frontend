@@ -9,7 +9,7 @@ const Stocks = ({
   stocks,
   getStocks,
   total,
-  last_page,
+  lastPage,
   page: metaPage,
   loading,
   user,
@@ -19,7 +19,6 @@ const Stocks = ({
   const {
     query: { brand, tyreSize, searchTerm },
   } = router;
-  console.log(brand, tyreSize, searchTerm, "all data");
   const take = 10;
   const nextPage = () => {
     setPage(page + 1);
@@ -60,19 +59,19 @@ const Stocks = ({
             key={stock.id}
             brand={stock.tyreDetail.pattern.brand.name}
             vendor={stock.vendor.name}
-            tyre_size={stock.tyreDetail.tyreSize.size}
-            pattern_name={stock.tyreDetail.pattern.name}
+            tyreSize={stock.tyreDetail.tyreSize.value}
+            patternName={stock.tyreDetail.pattern.name}
             dom={stock.dom}
-            product_line={stock.product_line}
-            transport_mode={stock.transport.mode}
-            purchase_date={stock.purchase_date}
+            productLine={stock.productLine.name}
+            transportMode={stock.transport.mode}
+            purchaseDate={stock.purchaseDate}
             location={stock.location.name}
             quantity={stock.quantity}
             cost={stock.cost}
             stockId={stock.id}
-            role={user.roles}
-            load_index={stock.load_index?.load_index}
-            speed_rating={stock.speed_rating?.speed_rating}
+            role={user?.role}
+            loadIndex={stock.loadIndex?.value}
+            speedRating={stock.speedRating?.value}
           />
         ))}
       </div>
@@ -96,9 +95,9 @@ const Stocks = ({
         <div className="text-md py-1 font-bold px-3 text-white rounded-md bg-secondary">
           {page}
         </div>
-        {page <= last_page && (
+        {page <= lastPage && (
           <button
-            disabled={metaPage >= last_page ? true : false}
+            disabled={metaPage >= lastPage ? true : false}
             onClick={nextPage}
             className="text-sm text-gray-400"
           >
@@ -107,8 +106,8 @@ const Stocks = ({
         )}
 
         <button
-          disabled={metaPage >= last_page ? true : false}
-          className={metaPage >= last_page ? " text-stone-400  py-2" : "  py-2"}
+          disabled={metaPage >= lastPage ? true : false}
+          className={metaPage >= lastPage ? " text-stone-400  py-2" : "  py-2"}
           onClick={nextPage}
         >
           Next
@@ -116,7 +115,7 @@ const Stocks = ({
       </div>
       <div className="flex justify-between text-sm pb-2 text-gray-400">
         <div>Total Results : {total}</div>
-        Page : {metaPage} of {last_page} pages
+        Page : {metaPage} of {lastPage} pages
       </div>
     </div>
   );

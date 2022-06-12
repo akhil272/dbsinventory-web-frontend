@@ -35,9 +35,9 @@ const AddOrder = ({
     const response = await addOrderToStock({
       id,
       quantity: data.quantity,
-      customer_name: data.customer_name,
-      sold_price: data.sold_price,
-      customer_phone_number: data.customer_phone_number,
+      customerName: data.customerName,
+      salePrice: data.salePrice,
+      customerPhoneNumber: data.customerPhoneNumber,
     });
 
     if (response.success) {
@@ -82,20 +82,20 @@ const AddOrder = ({
                 <InputField
                   placeholder="Enter selling price"
                   control={control}
-                  name={"sold_price"}
-                  error={errors.sold_price?.message}
+                  name={"salePrice"}
+                  error={errors.salePrice?.message}
                 />
                 <InputField
                   placeholder="Enter customer name"
                   control={control}
-                  name={"customer_name"}
-                  error={errors.customer_name?.message}
+                  name={"customerName"}
+                  error={errors.customerName?.message}
                 />
                 <InputField
                   placeholder="Enter customer phone number"
                   control={control}
-                  name={"customer_phone_number"}
-                  error={errors.customer_phone_number?.message}
+                  name={"customerPhoneNumber"}
+                  error={errors.customerPhoneNumber?.message}
                 />
                 <button
                   className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
@@ -107,14 +107,14 @@ const AddOrder = ({
             </form>
           </div>
           <div>
-            {user?.roles === "admin" &&
+            {user?.role === "admin" &&
               orders?.map((order) => (
                 <StockSaleCard
                   key={order.id}
-                  employee_name={order.employee_name}
-                  sold_price={order.sold_price}
-                  customer_name={order.customer_name}
-                  sale_date={order.sale_date}
+                  employee_name={order.employeeName}
+                  salePrice={order.salePrice}
+                  customerName={order.customerName}
+                  saleDate={order.saleDate}
                   quantity={order.quantity}
                   profit={order.profit}
                 />

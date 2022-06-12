@@ -11,12 +11,12 @@ export const ORDERS_FETCH_FAIL = "ORDERS:FETCH:FAIL";
 
 export type Order = {
   id: string;
-  sale_date: Date;
-  sold_price: number;
+  saleDate: Date;
+  salePrice: number;
   quantity: number;
-  employee_name: string;
-  customer_name: string;
-  customer_phone_number: string;
+  employeeName: string;
+  customerName: string;
+  customerPhoneNumber: string;
   profit: number;
   stock: Stock;
 };
@@ -27,11 +27,11 @@ export type Orders = {
 };
 
 export type addOrderToStockPayload = {
-  customer_name: string;
+  customerName: string;
   id: number;
-  sold_price: number;
+  salePrice: number;
   quantity: number;
-  customer_phone_number: string;
+  customerPhoneNumber: string;
 };
 
 export type getOrdersByStockId = {

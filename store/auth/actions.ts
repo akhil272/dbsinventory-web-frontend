@@ -31,13 +31,13 @@ import {
 } from "./types";
 
 export const retryVerification = async (data: retryVerificationPayload) => {
-  const { RETRY_VERIFICATION } = API_END_POINTS;
-  const url = `${RETRY_VERIFICATION}`;
+  const { SMS, RETRY_VERIFICATION } = API_END_POINTS;
+  const url = `${SMS}${RETRY_VERIFICATION}`;
   const apiArgs = {
     method: API_METHODS.POST,
     url,
     data,
-    authRequired: false,
+    authRequired: true,
     TYPES: {
       requestType: RETRY_VERIFICATION_INIT,
       successType: RETRY_VERIFICATION_SUCCESS,
@@ -49,13 +49,13 @@ export const retryVerification = async (data: retryVerificationPayload) => {
 export const retryInitiateVerification = async (
   data: retryVerificationPayload
 ) => {
-  const { RETRY_INITIATE_VERIFICATION } = API_END_POINTS;
-  const url = `${RETRY_INITIATE_VERIFICATION}`;
+  const { SMS, RETRY_INITIATE } = API_END_POINTS;
+  const url = `${SMS}${RETRY_INITIATE}`;
   const apiArgs = {
     method: API_METHODS.POST,
     url,
     data,
-    authRequired: false,
+    authRequired: true,
     TYPES: {
       requestType: RETRY_INITIATE_VERIFICATION_INIT,
       successType: RETRY_INITIATE_VERIFICATION_SUCCESS,
@@ -66,13 +66,13 @@ export const retryInitiateVerification = async (
 };
 
 export const login = async (data: loginPayload) => {
-  const { VALIDATE_OTP } = API_END_POINTS;
-  const url = `${VALIDATE_OTP}`;
+  const { AUTH, OTP, LOGIN } = API_END_POINTS;
+  const url = `${AUTH}${OTP}${LOGIN}`;
   const apiArgs = {
     method: API_METHODS.POST,
     data,
     url,
-    authRequired: false,
+    authRequired: true,
     TYPES: {
       requestType: LOGIN_INIT,
       successType: LOGIN_SUCCESS,
@@ -83,8 +83,8 @@ export const login = async (data: loginPayload) => {
 };
 
 export const sendOtp = async (data: sendOtpPayload) => {
-  const { GENERATE_OTP } = API_END_POINTS;
-  const url = `${GENERATE_OTP}`;
+  const { AUTH, OTP, GENERATE } = API_END_POINTS;
+  const url = `${AUTH}${OTP}${GENERATE}`;
   const apiArgs = {
     method: API_METHODS.POST,
     data,
@@ -99,44 +99,26 @@ export const sendOtp = async (data: sendOtpPayload) => {
   return fetchAsync(apiArgs);
 };
 
-export const validateVerification = async (
-  data: validateVerificationPayload
-) => {
-  const { VALIDATE_VERIFICATION_CODE } = API_END_POINTS;
-  const url = `${VALIDATE_VERIFICATION_CODE}`;
+export const validateOtpAndVerifyPhoneNumber = async (data: loginPayload) => {
+  const { AUTH, OTP, VALIDATE } = API_END_POINTS;
+  const url = `${AUTH}${OTP}${VALIDATE}`;
   const apiArgs = {
     method: API_METHODS.POST,
-    url,
     data,
-    authRequired: true,
-    TYPES: {
-      requestType: VALIDATE_VERIFICATION_INIT,
-      successType: VALIDATE_VERIFICATION_SUCCESS,
-      failureType: VALIDATE_VERIFICATION_FAIL,
-    },
-  };
-  return fetchAsync(apiArgs);
-};
-
-export const initiateVerification = async () => {
-  const { INITIATE_VERIFICATION } = API_END_POINTS;
-  const url = `${INITIATE_VERIFICATION}`;
-  const apiArgs = {
-    method: API_METHODS.POST,
     url,
     authRequired: true,
     TYPES: {
-      requestType: INITIATE_VERIFICATION_INIT,
-      successType: INITIATE_VERIFICATION_SUCCESS,
-      failureType: INITIATE_VERIFICATION_FAIL,
+      requestType: LOGIN_INIT,
+      successType: LOGIN_SUCCESS,
+      failureType: LOGIN_FAIL,
     },
   };
   return fetchAsync(apiArgs);
 };
 
 export const register = async (data: registerPayload) => {
-  const { REGISTER } = API_END_POINTS;
-  const url = `${REGISTER}`;
+  const { AUTH, REGISTER } = API_END_POINTS;
+  const url = `${AUTH}${REGISTER}`;
   const apiArgs = {
     method: API_METHODS.POST,
     data,

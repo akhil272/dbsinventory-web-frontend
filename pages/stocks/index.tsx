@@ -8,7 +8,7 @@ const mapStateToProps = ({ stocks, users }: typeof initialState) => ({
   stocks: stocks.stocks,
   total: stocks.total,
   page: stocks.page,
-  last_page: stocks.last_page,
+  lastPage: stocks.lastPage,
   loading: stocks.loading,
   user: users.user,
 });

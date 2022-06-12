@@ -1,6 +1,6 @@
 export type AddOrderToStockData = {
-  sold_price: number;
+  salePrice: number;
   quantity: number;
-  customer_name: string;
-  customer_phone_number: string;
+  customerName: string;
+  customerPhoneNumber: string;
 };

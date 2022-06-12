@@ -6,7 +6,7 @@ const mapStateToProps = ({ quotations }: typeof initialState) => ({
   quotations: quotations.quotations,
   total: quotations.total,
   page: quotations.page,
-  last_page: quotations.last_page,
+  lastPage: quotations.lastPage,
   loading: quotations.loading,
 });
 

@@ -25,26 +25,26 @@ export const LOGIN_FAIL = "LOGIN:FAIL";
 
 export type User = {
   id: number;
-  phone_number: string;
+  phoneNumber: string;
   email: string;
-  first_name: string;
-  last_name: string | undefined;
-  roles: string;
+  firstName: string;
+  lastName: string | undefined;
+  role: string;
 };
 
 export type registerPayload = {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email?: string;
-  phone_number: string;
+  phoneNumber: string;
 };
 
 export type retryVerificationPayload = {
-  phone_number?: string;
+  phoneNumber?: string;
   otp?: string;
 };
 export type retryInitiateVerificationPayload = {
-  phone_number: string;
+  phoneNumber: string;
 };
 
 export type retryVerificationResponse = {
@@ -60,12 +60,12 @@ export type Login = {
 };
 
 export type loginPayload = {
-  phone_number: string;
+  phoneNumber: string;
   otp: string;
 };
 
 export type sendOtpPayload = {
-  phone_number: string;
+  phoneNumber: string;
 };
 
 export type loginResponseApi = {
@@ -75,23 +75,33 @@ export type loginResponseApi = {
 };
 
 export type validateVerificationPayload = {
-  verification_code: string;
+  verificationCode: string;
 };
 
 export type RegisterDispatchProps = {
+  register: (
+    payload: registerPayload
+  ) => Promise<ApiReturnType<registerApiResponse>>;
+  // initiateVerification: () => Promise<ApiReturnType<void>>;
+  // validateVerification: (
+  //   payload: validateVerificationPayload
+  // ) => Promise<ApiReturnType<void>>;
+  // sendOtp: (payload: sendOtpPayload) => Promise<ApiReturnType<{}>>;
+};
+
+export type RetryVerificationProps = {
   retryInitiateVerification: (
     payload: retryInitiateVerificationPayload
   ) => Promise<ApiReturnType<retryVerificationResponse>>;
   retryVerification: (
     payload: retryVerificationPayload
   ) => Promise<ApiReturnType<retryVerificationResponse>>;
-  register: (
-    payload: registerPayload
-  ) => Promise<ApiReturnType<registerApiResponse>>;
-  initiateVerification: () => Promise<ApiReturnType<void>>;
-  validateVerification: (
-    payload: validateVerificationPayload
-  ) => Promise<ApiReturnType<void>>;
+};
+
+export type VerifyUserProps = {
+  validateOtpAndVerifyPhoneNumber: (
+    payload: loginPayload
+  ) => Promise<ApiReturnType<loginResponseApi>>;
 };
 
 export type LoginDispatchProps = {

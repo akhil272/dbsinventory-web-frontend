@@ -42,11 +42,11 @@ export default function AutoComplete({
   const addItem = async () => {
     const response = await create({ name: query });
     if (response.success) {
-      toast.success(`Successfully added ${name} to system.`);
+      toast.success(`Successfully added ${query} to system.`);
       onSuccess();
     }
     if (!response.success) {
-      toast.error(`Failed to add ${name} to system. ${response.message}`);
+      toast.error(`Failed to add ${query} to system. ${response.message}`);
     }
   };
   return (
@@ -86,7 +86,7 @@ export default function AutoComplete({
                       <PlusIcon
                         className="h-5 w-5 absolute right-2 text-gray-400"
                         aria-hidden="true"
-                        onClick={() => addItem()}
+                        onClick={addItem}
                       />
                     </div>
                   ) : (

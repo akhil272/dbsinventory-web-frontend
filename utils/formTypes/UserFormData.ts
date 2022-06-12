@@ -1,15 +1,20 @@
 export type CreateUserFormData = {
-  first_name: string;
-  last_name: string;
-  email?: string;
-  phone_number: string;
-  roles: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
 };
 
 export type UpdateUserFormData = {
-  first_name?: string;
-  last_name?: string;
-  email?: string;
-  phone_number?: string;
-  roles?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+};
+
+export type RetryPhoneVerificationFormData = {
+  phoneNumber: string;
+  otp: string;
 };

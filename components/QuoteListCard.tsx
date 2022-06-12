@@ -2,28 +2,28 @@ import React from "react";
 interface QuoteListCardProps {
   brand: string;
   pattern?: string;
-  tyre_size: string;
-  load_index?: number | string;
-  speed_rating?: string;
+  tyreSize: string;
+  loadIndex?: number | string;
+  speedRating?: string;
   notes: string;
   id: number;
   quantity: number;
-  admin_comments?: string;
+  adminComments?: string;
   type?: string;
   price?: number;
 }
 const QuoteListCard = ({
   brand,
   pattern,
-  tyre_size,
-  load_index,
-  speed_rating,
+  tyreSize,
+  loadIndex,
+  speedRating,
   notes,
   quantity,
   id,
   type = "basic",
   price,
-  admin_comments,
+  adminComments,
 }: QuoteListCardProps) => {
   return (
     <div className="bg-white p-2 rounded-md mb-4">
@@ -53,7 +53,7 @@ const QuoteListCard = ({
           <div className="flex w-1/2">
             <div className="flex flex-col -space-y-1">
               <label className="text-xs text-gray-400">Tyre Size</label>
-              <label>{tyre_size}</label>
+              <label>{tyreSize}</label>
             </div>
           </div>
           <div className="flex w-1/2">
@@ -67,13 +67,13 @@ const QuoteListCard = ({
           <div className="flex w-1/2">
             <div className="flex flex-col -space-y-1">
               <label className="text-xs text-gray-400">Load Index</label>
-              <label>{load_index ? `${load_index}` : "-"}</label>
+              <label>{loadIndex ? `${loadIndex}` : "-"}</label>
             </div>
           </div>
           <div className="flex w-1/2">
             <div className="flex flex-col -space-y-1">
               <label className="text-xs text-gray-400">Speed Rating</label>
-              <label>{speed_rating ? `${speed_rating}` : "-"}</label>
+              <label>{speedRating ? `${speedRating}` : "-"}</label>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@ const QuoteListCard = ({
               <div className="flex flex-col -space-y-1">
                 <label className="text-xs text-gray-400">Comments</label>
                 <label className="text-sm">
-                  {admin_comments ? `${admin_comments}` : "-"}
+                  {adminComments ? `${adminComments}` : "-"}
                 </label>
               </div>
               <div className="flex flex-col -space-y-1">

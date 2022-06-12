@@ -1,5 +1,12 @@
 import { ApiReturnType } from "@Store/api";
 
+export const PRODUCT_LINE_CREATE_INIT = "PRODUCT_LINE:CREATE:INIT";
+export const PRODUCT_LINE_CREATE_SUCCESS = "PRODUCT_LINE:CREATE:SUCCESS";
+export const PRODUCT_LINE_CREATE_FAIL = "PRODUCT_LINE:CREATE:FAIL";
+export const PRODUCT_LINES_FETCH_INIT = "PRODUCT_LINES:FETCH:INIT";
+export const PRODUCT_LINES_FETCH_SUCCESS = "PRODUCT_LINES:FETCH:SUCCESS";
+export const PRODUCT_LINES_FETCH_FAIL = "PRODUCT_LINES:FETCH:FAIL";
+
 export const LOAD_INDEX_CREATE_INIT = "LOAD_INDEX:CREATE:INIT";
 export const LOAD_INDEX_CREATE_SUCCESS = "LOAD_INDEX:CREATE:SUCCESS";
 export const LOAD_INDEX_CREATE_FAIL = "LOAD_INDEX:CREATE:FAIL";
@@ -58,17 +65,21 @@ export type createTyreDetailResponse = {
   };
   tyreSize: {
     id: number;
-    size: string;
+    value: string;
   };
 };
 
+export type createProductLinePayload = {
+  name: string;
+};
+
 export type createTyreDetailSizePayload = {
-  size: string;
-  pattern_id: number;
+  tyreSizeValue: string;
+  patternId: number;
 };
 export type createTyreDetailPayload = {
-  tyre_size_id: number;
-  pattern_id: number;
+  tyreSizeId: number;
+  patternId: number;
 };
 
 export type TyreDetailSizePayload = {
@@ -96,6 +107,9 @@ export type TyreDetailPayload = {
   };
 };
 
+export type getProductLinePayload = {
+  search?: string;
+};
 export type getTyreDetailSizesPayload = {
   search?: string;
 };
@@ -108,12 +122,12 @@ export type getTyreSizePayload = {
 
 export type createTyreSizeResponse = {};
 export type createTyreSizePayload = {
-  size: string;
+  tyreSizeValue: string;
 };
 
 export type TyreSizePayload = {
   id: number;
-  size: string;
+  value: string;
 };
 
 export type getTyreSizesPayload = {
@@ -122,7 +136,7 @@ export type getTyreSizesPayload = {
 
 export type createPatternPayload = {
   name: string;
-  brand_id: number;
+  brandId: number;
 };
 
 export type createPatternResponse = {
@@ -150,17 +164,25 @@ export type BrandsPayload = {
 };
 export type LoadIndexPayload = {
   id: number;
-  load_index: number;
+  value: number;
 };
 export type SpeedRatingPayload = {
   id: number;
-  speed_rating: string;
+  value: string;
+};
+export type ProductLinePayload = {
+  id: number;
+  name: string;
 };
 export type TyreDetail = TyreDetailPayload;
 export type Brand = BrandsPayload;
 export type TyreSize = TyreSizePayload;
 export type SpeedRating = SpeedRatingPayload;
 export type LoadIndexes = LoadIndexPayload;
+export type ProductLine = {
+  id: number;
+  name: string;
+};
 export type TyreData = {
   loading: boolean;
   brands: Brand[];
@@ -168,13 +190,14 @@ export type TyreData = {
   tyreDetails: TyreDetail[];
   speedRatings: SpeedRating[];
   loadIndexes: LoadIndexes[];
+  productLines: ProductLine[];
 };
 
 export type createLoadIndexPayload = {
-  load_index: number;
+  value: number;
 };
 export type createSpeedRatingPayload = {
-  speed_rating: string;
+  value: string;
 };
 
 export type createBrandPayload = {
@@ -184,6 +207,12 @@ export type createBrandPayload = {
 export type createBrandResponse = {};
 
 export type TyresDispatchProps = {
+  getProductLines: (
+    payload: getProductLinePayload
+  ) => Promise<ApiReturnType<ProductLinePayload[]>>;
+  createProductLine: (
+    data: createProductLinePayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
   getLoadIndexes: (
     payload: getLoadIndexesPayload
   ) => Promise<ApiReturnType<LoadIndexPayload[]>>;
@@ -231,9 +260,31 @@ export type TyresStateProps = {
   tyreDetails: TyreDetail[];
   speedRatings: SpeedRating[];
   loadIndexes: LoadIndexes[];
+  productLines: ProductLine[];
 };
 
 export type TyreDataProps = TyresStateProps & TyresDispatchProps;
+
+type productLineCreateInit = {
+  type: typeof PRODUCT_LINE_CREATE_INIT;
+};
+type productLineCreateSuccess = {
+  type: typeof PRODUCT_LINE_CREATE_SUCCESS;
+  payload: ApiReturnType<createBrandResponse>;
+};
+type productLineCreateFail = {
+  type: typeof PRODUCT_LINE_CREATE_FAIL;
+};
+type productLinesFetchInit = {
+  type: typeof PRODUCT_LINES_FETCH_INIT;
+};
+type productLinesFetchSuccess = {
+  type: typeof PRODUCT_LINES_FETCH_SUCCESS;
+  payload: ApiReturnType<ProductLinePayload[]>;
+};
+type productLinesFetchFail = {
+  type: typeof PRODUCT_LINES_FETCH_FAIL;
+};
 
 type loadIndexCreateInit = {
   type: typeof LOAD_INDEX_CREATE_INIT;
@@ -374,6 +425,12 @@ type brandsFetchFail = {
 };
 
 export type TyreDataActionTypes =
+  | productLineCreateInit
+  | productLineCreateSuccess
+  | productLineCreateFail
+  | productLinesFetchInit
+  | productLinesFetchSuccess
+  | productLinesFetchFail
   | loadIndexCreateInit
   | loadIndexCreateSuccess
   | loadIndexCreateFail

@@ -10,12 +10,14 @@ import {
   createBrandPayload,
   createLoadIndexPayload,
   createPatternPayload,
+  createProductLinePayload,
   createSpeedRatingPayload,
   createTyreDetailPayload,
   createTyreDetailSizePayload,
   createTyreSizePayload,
   getBrandsPayload,
   getLoadIndexesPayload,
+  getProductLinePayload,
   getSpeedRatingPayload,
   getTyreDetailsPayload,
   getTyreSizesPayload,
@@ -28,6 +30,12 @@ import {
   PATTERN_CREATE_FAIL,
   PATTERN_CREATE_INIT,
   PATTERN_CREATE_SUCCESS,
+  PRODUCT_LINES_FETCH_FAIL,
+  PRODUCT_LINES_FETCH_INIT,
+  PRODUCT_LINES_FETCH_SUCCESS,
+  PRODUCT_LINE_CREATE_FAIL,
+  PRODUCT_LINE_CREATE_INIT,
+  PRODUCT_LINE_CREATE_SUCCESS,
   SPEED_RATINGS_FETCH_FAIL,
   SPEED_RATINGS_FETCH_INIT,
   SPEED_RATINGS_FETCH_SUCCESS,
@@ -47,6 +55,44 @@ import {
   TYRE_SIZES_FETCH_INIT,
   TYRE_SIZES_FETCH_SUCCESS,
 } from "./types";
+
+export const createProductLine = async (data: createProductLinePayload) => {
+  const { PRODUCT_LINE } = API_END_POINTS;
+  const pathname = PRODUCT_LINE;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: PRODUCT_LINE_CREATE_INIT,
+      successType: PRODUCT_LINE_CREATE_SUCCESS,
+      failureType: PRODUCT_LINE_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const getProductLines = async (payload: getProductLinePayload) => {
+  const { PRODUCT_LINE, SEARCH } = API_END_POINTS;
+  const { search = "" } = payload;
+  const pathname = `${PRODUCT_LINE}`;
+  const urlParams = new URLSearchParams();
+  if (search) {
+    urlParams.append(SEARCH, search);
+  }
+  const url = `${pathname}?${urlParams}`;
+  const apiArgs = {
+    method: API_METHODS.GET,
+    url,
+    TYPES: {
+      requestType: PRODUCT_LINES_FETCH_INIT,
+      successType: PRODUCT_LINES_FETCH_SUCCESS,
+      failureType: PRODUCT_LINES_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const createLoadIndex = async (data: createLoadIndexPayload) => {
   const { LOAD_INDEX } = API_END_POINTS;

@@ -1,41 +1,40 @@
 import moment from "moment";
 import Link from "next/link";
-import { stringify } from "querystring";
 
 interface StockItemProps {
   brand?: string;
   vendor?: string;
-  tyre_size?: string;
-  pattern_name?: string;
+  tyreSize?: string;
+  patternName?: string;
   dom: string;
-  product_line: string;
-  transport_mode?: string;
-  purchase_date?: string | Date;
+  productLine: string;
+  transportMode?: string;
+  purchaseDate?: string | Date;
   location: string;
   quantity: number | string;
   cost: number | string;
   stockId?: number;
   role: string;
-  load_index?: number;
-  speed_rating?: string;
+  loadIndex?: number;
+  speedRating?: string;
 }
 
 const StockCard = ({
   brand,
   vendor,
-  tyre_size,
-  pattern_name,
+  tyreSize,
+  patternName,
   dom,
-  product_line,
-  transport_mode,
-  purchase_date,
+  productLine,
+  transportMode,
+  purchaseDate,
   location,
   quantity,
   cost,
   stockId,
   role,
-  load_index,
-  speed_rating,
+  loadIndex,
+  speedRating,
 }: StockItemProps) => {
   return (
     <div className="lg:px-96">
@@ -44,11 +43,11 @@ const StockCard = ({
           <div className="px-2 pt-4 -space-y-1 ">
             <div className="text-sm">Brand</div>
             <div className="text-md font-semibold">{brand}</div>
-            <div className="text-lg font-semibold">{tyre_size}</div>
+            <div className="text-lg font-semibold">{tyreSize}</div>
           </div>
           <div className="px-2 pt-2 -space-y-1 ">
             <div className="text-sm">Pattern</div>
-            <div className="text-md font-semibold">{pattern_name}</div>
+            <div className="text-md font-semibold">{patternName}</div>
           </div>
           <div className="px-2 pt-2">
             <div className="text-md font-semibold">
@@ -63,27 +62,27 @@ const StockCard = ({
             <div className="flex-col -space-y-1 w-1/2 px-2">
               <div className=" pt-2 text-sm">Purchase Date</div>
               <div className="text-md font-semibold">
-                {moment(purchase_date).format("DD/MM/YYYY")}
+                {moment(purchaseDate).format("DD/MM/YYYY")}
               </div>
               <div className="pt-2 text-sm">Transport</div>
-              <div className="text-md font-semibold">{transport_mode}</div>
+              <div className="text-md font-semibold">{transportMode}</div>
               <div className=" pt-2 text-sm">DOM</div>
               <div className="text-md font-semibold">{dom}</div>
               <div className=" pt-2 text-sm">Speed Rating</div>
               <div className="text-md font-semibold">
-                {speed_rating ? `${speed_rating}` : "N/A"}
+                {speedRating ? `${speedRating}` : "N/A"}
               </div>
             </div>
             <div className="px-2 w-1/2 -space-y-1 ">
               <div className=" pt-2 text-sm">Product Line</div>
-              <div className="text-md font-semibold">{product_line}</div>
+              <div className="text-md font-semibold">{productLine}</div>
               <div className=" pt-2 text-sm">Location</div>
               <div className="text-md font-semibold">{location}</div>
               <div className=" pt-2 text-sm">Quantity</div>
               <div className="text-md font-semibold">{quantity}</div>
               <div className=" pt-2 text-sm">Load Index</div>
               <div className="text-md font-semibold">
-                {load_index ? `${load_index}` : "N/A"}
+                {loadIndex ? `${loadIndex}` : "N/A"}
               </div>
             </div>
           </div>
@@ -103,7 +102,7 @@ const StockCard = ({
               <Link
                 href={{
                   pathname: "/stocks/delete",
-                  query: { stockId, brand, tyre_size, quantity, cost },
+                  query: { stockId, brand, tyreSize, quantity, cost },
                 }}
               >
                 <a className="p-2 rounded-lg  bg-secondary">Delete</a>

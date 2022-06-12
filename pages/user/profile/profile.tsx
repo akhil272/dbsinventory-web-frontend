@@ -11,20 +11,20 @@ const Profile = ({ user }) => {
           />
         </div>
         <div className="flex flex-col capitalize place-items-center">
-          <h2 className="text-3xl font-bold">{user?.first_name}</h2>
-          <h4 className="text-md ">{user?.roles}</h4>
+          <h2 className="text-3xl font-bold">{user?.firstName}</h2>
+          <h4 className="text-md ">{user?.role}</h4>
         </div>
       </div>
       <div className="rounded-lg p-10 bg-white mt-10 flex flex-col space-y-4">
         <div className="flex flex-col  place-items-center">
           <div className="text-md">Name</div>
           <div className="text-xl">
-            {user?.first_name} {user?.last_name}
+            {user?.firstName} {user?.lastName}
           </div>
         </div>
         <div className="flex flex-col  place-items-center">
           <div className="text-md">Phone</div>
-          <div className="text-xl">{user?.phone_number} </div>
+          <div className="text-xl">{user?.phoneNumber} </div>
         </div>
         <div className="flex flex-col  place-items-center">
           <div className="text-md">Email</div>

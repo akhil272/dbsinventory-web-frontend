@@ -1,35 +1,30 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RegisterDispatchProps } from "@Store/auth/types";
-import { ValidateVerificationSchema } from "@Utils/schemas/RegisterAuthSchema";
+import { RetryVerificationProps } from "@Store/auth/types";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-type formData = {
-  phone_number?: string;
-  verification_code?: string;
-};
-
+import { RetryPhoneVerificationSchema } from "@Utils/schemas/UserSchema";
+import { RetryPhoneVerificationFormData } from "@Utils/formTypes/UserFormData";
 const RetryUserVerification = ({
   retryVerification,
-  initiateVerification,
   retryInitiateVerification,
-}: RegisterDispatchProps) => {
+}: RetryVerificationProps) => {
   const [userOtp, setUserOtp] = useState(false);
-
   const router = useRouter();
-
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<formData>({ resolver: yupResolver(ValidateVerificationSchema) });
-  const onSubmit = handleSubmit((data) => handleVerification(data));
-  const handleVerification = async (data: formData) => {
-    if (!data.verification_code) {
+  } = useForm<RetryPhoneVerificationFormData>({
+    resolver: yupResolver(RetryPhoneVerificationSchema),
+  });
+  const onSubmit = handleSubmit((data) => handleRetry(data));
+  const handleRetry = async (data: RetryPhoneVerificationFormData) => {
+    if (!data.otp) {
       const response = await retryInitiateVerification({
-        phone_number: data.phone_number,
+        phoneNumber: data.phoneNumber,
       });
       if (response.success) {
         toast.info("Verification OTP successfully send.");
@@ -39,14 +34,14 @@ const RetryUserVerification = ({
         toast.error(`${response.message}`);
       }
     }
-    if (data.verification_code) {
+    if (data.otp) {
       const response = await retryVerification({
-        phone_number: data.phone_number,
-        otp: data.verification_code,
+        phoneNumber: data.phoneNumber,
+        otp: data.otp,
       });
       if (response.success) {
         toast.success("Phone number successfully verified.");
-        router.push("/auth/login");
+        router.push("/");
       }
       if (!response.success) {
         toast.error(`Error. ${response.message} `);
@@ -68,18 +63,18 @@ const RetryUserVerification = ({
               <div className="flex-col space-y-2 justify-center">
                 <InputField
                   control={control}
-                  name="phone_number"
+                  name="phoneNumber"
                   placeholder="Enter phone number"
                   type="tel"
-                  error={errors.phone_number?.message}
+                  error={errors.phoneNumber?.message}
                 />
                 {userOtp && (
                   <InputField
                     control={control}
-                    name="verification_code"
+                    name="otp"
                     placeholder="Enter verification code"
                     type="number"
-                    error={errors.verification_code?.message}
+                    error={errors.otp?.message}
                   />
                 )}
               </div>

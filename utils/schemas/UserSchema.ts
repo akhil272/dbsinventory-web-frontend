@@ -17,3 +17,10 @@ export const UpdateUserSchema = Yup.object().shape({
   phone_number: Yup.string().matches(/^\+[1-9]\d{1,14}$/),
   roles: Yup.string(),
 });
+
+export const RetryPhoneVerificationSchema = Yup.object().shape({
+  phone_number: Yup.string().matches(/^\+[1-9]\d{1,14}$/, {
+    message: "Please enter phone number in the format +91XXXXXXXXXX",
+  }),
+  verification_code: Yup.string(),
+});

@@ -10,12 +10,6 @@ import { CreateStockSchema } from "@Utils/schemas/StockSchema";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-const product_line = [
-  { id: 1, name: "PC" },
-  { id: 2, name: "TB" },
-  { id: 3, name: "2R" },
-  { id: 4, name: "OTR" },
-];
 
 const CreateStock = ({
   brands,
@@ -25,6 +19,7 @@ const CreateStock = ({
   tyreDetails,
   loadIndexes,
   speedRatings,
+  productLines,
   getBrands,
   createBrand,
   createPattern,
@@ -39,8 +34,10 @@ const CreateStock = ({
   createStock,
   createSpeedRating,
   createLoadIndex,
+  createProductLine,
   getSpeedRatings,
   getLoadIndexes,
+  getProductLines,
 }: CreateStockProps) => {
   const {
     handleSubmit,
@@ -54,18 +51,19 @@ const CreateStock = ({
   const onSubmit = handleSubmit((data) => addStock(data));
 
   const addStock = async (data: CreateStockFormData) => {
+    console.log(data);
     const response = await createStock({
-      product_line: data.product_line.name,
+      productLineId: data.productLine.id,
       dom: Number(data.dom),
-      purchase_date: data.purchase_date,
-      transport_id: data.transport.id,
-      vendor_id: data.vendor.id,
-      location_id: data.location.id,
+      purchaseDate: data.purchaseDate,
+      transportId: data.transport.id,
+      vendorId: data.vendor.id,
+      locationId: data.location.id,
       quantity: data.quantity,
       cost: data.cost,
-      tyre_detail_id: data.tyre_detail_id.id,
-      load_index_id: data?.load_index?.id,
-      speed_rating_id: data?.speed_rating?.id,
+      tyreDetailId: data.tyreDetailId.id,
+      loadIndexId: data?.loadIndex?.id,
+      speedRatingId: data?.speedRating?.id,
     });
     if (response.success && response.data) {
       toast.success(`Successfully added new stock to system.`);
@@ -78,15 +76,15 @@ const CreateStock = ({
   const selectedBrand = watch("brand");
   const selectedPattern = watch("pattern");
   const createLoadIndexAction = async ({ name }) => {
-    const response = await createLoadIndex({ load_index: Number(name) });
+    const response = await createLoadIndex({ value: Number(name) });
     return response;
   };
   const createSpeedRatingAction = async ({ name }) => {
-    const response = await createSpeedRating({ speed_rating: name });
+    const response = await createSpeedRating({ value: name });
     return response;
   };
   const createPatternAction = async ({ name }) => {
-    const response = await createPattern({ name, brand_id: selectedBrand.id });
+    const response = await createPattern({ name, brandId: selectedBrand.id });
     if (response.success) {
       const { id, name, patterns } = selectedBrand;
       setValue("brand", {
@@ -102,8 +100,8 @@ const CreateStock = ({
   };
   const createTyreSizeAction = async ({ name }) => {
     const response = await createTyreDetailSize({
-      size: name,
-      pattern_id: selectedPattern?.id,
+      tyreSizeValue: name,
+      patternId: selectedPattern?.id,
     });
     if (response.success) {
       const { id, name } = selectedPattern;
@@ -111,9 +109,9 @@ const CreateStock = ({
         id,
         name,
       });
-      setValue("tyre_size", {
+      setValue("tyreSize", {
         id: response.data.tyreSize.id,
-        size: response.data.tyreSize.size,
+        value: response.data.tyreSize.value,
       });
     }
     return response;
@@ -123,7 +121,7 @@ const CreateStock = ({
     setValue("pattern", null);
   }, [selectedBrand]);
   useEffect(() => {
-    setValue("tyre_detail_id", null);
+    setValue("tyreDetailId", null);
   }, [selectedPattern]);
   useEffect(() => {
     getBrands({ search: "" });
@@ -146,6 +144,9 @@ const CreateStock = ({
   useEffect(() => {
     getLoadIndexes({ search: "" });
   }, [getLoadIndexes]);
+  useEffect(() => {
+    getProductLines({ search: "" });
+  }, [getProductLines]);
 
   return (
     <div className="py-10 flex justify-center ">
@@ -162,11 +163,14 @@ const CreateStock = ({
         <div>
           <div className="">
             <form className="space-y-3" onSubmit={onSubmit}>
-              <ListBox
-                error={(errors.product_line as any)?.message}
+              <AutoComplete
+                placeholder="Enter product line"
+                onSuccess={() => getProductLines({ search: "" })}
+                create={createProductLine}
                 control={control}
-                name={"product_line"}
-                data={product_line}
+                name={"productLine"}
+                data={productLines}
+                error={(errors.productLine as any)?.message}
               />
               <InputField
                 control={control}
@@ -200,7 +204,7 @@ const CreateStock = ({
                 onSuccess={() => getTyreDetails({ search: "" })}
                 create={createTyreSizeAction}
                 control={control}
-                name={"tyre_detail_id"}
+                name={"tyreDetailId"}
                 data={tyreDetails
                   ?.filter(
                     (pattern) => pattern.patternId === selectedPattern?.id
@@ -210,40 +214,40 @@ const CreateStock = ({
                     id,
                   }))
                   .map(({ tyreSize, id }) => ({
-                    name: tyreSize.size,
+                    name: tyreSize.value,
                     id,
                   }))}
-                error={(errors.tyre_detail_id as any)?.message}
+                error={(errors.tyreDetailId as any)?.message}
               />
               <AutoComplete
                 placeholder="[Optional]Speed rating [Y | 100 km/h]"
                 onSuccess={() => getSpeedRatings({ search: "" })}
                 create={createSpeedRatingAction}
                 control={control}
-                name={"speed_rating"}
-                data={speedRatings?.map(({ speed_rating, id }) => ({
-                  name: speed_rating,
+                name={"speedRating"}
+                data={speedRatings?.map(({ value, id }) => ({
+                  name: value,
                   id,
                 }))}
-                error={(errors.speed_rating as any)?.message}
+                error={(errors.speedRating as any)?.message}
               />
               <AutoComplete
                 placeholder="[Optional]Load Index [80]"
                 onSuccess={() => getLoadIndexes({ search: "" })}
                 create={createLoadIndexAction}
                 control={control}
-                name={"load_index"}
-                data={loadIndexes?.map(({ load_index, id }) => ({
-                  name: String(load_index),
+                name={"loadIndex"}
+                data={loadIndexes?.map(({ value, id }) => ({
+                  name: String(value),
                   id,
                 }))}
-                error={(errors.load_index as any)?.message}
+                error={(errors.loadIndex as any)?.message}
               />
               <DatePicker
                 control={control}
-                name="purchase_date"
+                name="purchaseDate"
                 placeholder="Pick a date"
-                error={errors.purchase_date?.message}
+                error={errors.purchaseDate?.message}
               />
               <AutoComplete
                 placeholder="Enter vendor name"
