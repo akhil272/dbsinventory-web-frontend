@@ -34,7 +34,7 @@ const Homepage = ({ user, loading, getUserInfo }) => {
   ) {
     router.push("/search");
   }
-  return <GetAQuote />;
+  router.push("/user");
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

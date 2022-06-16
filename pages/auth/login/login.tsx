@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 
 const Login = ({ login, sendOtp }: LoginProps) => {
   const [userOtp, setUserOtp] = useState(false);
+  const [showVerificationLink, setShowVerificationLink] = useState(false);
   const router = useRouter();
   const {
     handleSubmit,
@@ -29,6 +30,9 @@ const Login = ({ login, sendOtp }: LoginProps) => {
       }
       if (!response.success) {
         toast.error(`${response.message}`);
+        if (response.status === 403) {
+          setShowVerificationLink(true);
+        }
       }
     }
     if (data.otp) {
@@ -57,13 +61,13 @@ const Login = ({ login, sendOtp }: LoginProps) => {
         </div>
         <div className="flex flex-col py-2 mt-2 font-bold text-3xl text-center">
           <h3 className="text-lg">Welcome to </h3>
-          <h2>DBS Automotive</h2>
+          <h2>DBS Tyres</h2>
         </div>
         <div className="w-full ">
           <div className="p-4 mt-4">
-            <div className="flex flex-col space-y-3 items-center justify-center">
-              <h1 className="font-semibold text-3xl ">Login Now</h1>
-              <p className="text-md ">
+            <div className="flex flex-col space-y-2 items-center justify-center">
+              <h1 className="font-semibold text-2xl ">Login Now</h1>
+              <p className="text-sm ">
                 Please enter your registered phone number
               </p>
             </div>
@@ -100,6 +104,14 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                     <Link href="/auth/register">Register</Link>
                   </div>
                 </div>
+                {showVerificationLink && (
+                  <div className="flex">
+                    <div className="text-primary font-bold px-1">
+                      <Link href="auth/retry-verification">Click Here</Link>
+                    </div>
+                    to verify your account
+                  </div>
+                )}
               </form>
             </div>
           </div>

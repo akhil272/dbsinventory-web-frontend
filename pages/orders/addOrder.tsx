@@ -3,8 +3,8 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import StockSaleCard from "@Components/StockSaleCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AddOrderProps } from "@Store/orders/types";
-import { AddOrderToStockData } from "@Utils/formTypes/AddOrderToStockData";
-import OrderToStockSchema from "@Utils/schemas/OrderToStockSchema";
+import { OrderStockFormData } from "@Utils/formTypes/OrderFormData";
+import OrderStockSchema from "@Utils/schemas/OrderSchema";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -26,18 +26,19 @@ const AddOrder = ({
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<AddOrderToStockData>({
-    resolver: yupResolver(OrderToStockSchema),
+  } = useForm<OrderStockFormData>({
+    resolver: yupResolver(OrderStockSchema),
   });
 
   const onSubmit = handleSubmit((data) => addOrderStock(data));
-  const addOrderStock = async (data: AddOrderToStockData) => {
+  const addOrderStock = async (data: OrderStockFormData) => {
     const response = await addOrderToStock({
       id,
       quantity: data.quantity,
-      customerName: data.customerName,
       salePrice: data.salePrice,
-      customerPhoneNumber: data.customerPhoneNumber,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phoneNumber: data.phoneNumber,
     });
 
     if (response.success) {
@@ -84,16 +85,22 @@ const AddOrder = ({
                 error={errors.salePrice?.message}
               />
               <InputField
-                placeholder="Enter customer name"
+                placeholder="Enter customer first name"
                 control={control}
-                name={"customerName"}
-                error={errors.customerName?.message}
+                name={"firstName"}
+                error={errors.firstName?.message}
+              />
+              <InputField
+                placeholder="Enter customer last name"
+                control={control}
+                name={"lastName"}
+                error={errors.lastName?.message}
               />
               <InputField
                 placeholder="Enter customer phone number"
                 control={control}
-                name={"customerPhoneNumber"}
-                error={errors.customerPhoneNumber?.message}
+                name={"phoneNumber"}
+                error={errors.phoneNumber?.message}
               />
               <button
                 className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"

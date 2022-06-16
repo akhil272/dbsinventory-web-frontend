@@ -27,11 +27,12 @@ export type Orders = {
 };
 
 export type addOrderToStockPayload = {
-  customerName: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
   id: number;
   salePrice: number;
   quantity: number;
-  customerPhoneNumber: string;
 };
 
 export type getOrdersByStockId = {

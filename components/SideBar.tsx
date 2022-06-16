@@ -9,6 +9,7 @@ import {
   UserAddOutlined,
   ControlOutlined,
   DatabaseOutlined,
+  WindowsOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -39,7 +40,7 @@ const adminLink = [
 ];
 const userLink = [
   { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
-  { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
+  { name: "Dashboard", to: "/user", id: 2, iconName: <WindowsOutlined /> },
 ];
 const managerLink = [
   { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
