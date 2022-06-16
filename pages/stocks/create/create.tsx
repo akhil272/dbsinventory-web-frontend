@@ -51,7 +51,6 @@ const CreateStock = ({
   const onSubmit = handleSubmit((data) => addStock(data));
 
   const addStock = async (data: CreateStockFormData) => {
-    console.log(data);
     const response = await createStock({
       productLineId: data.productLine.id,
       dom: Number(data.dom),

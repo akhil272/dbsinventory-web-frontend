@@ -31,7 +31,6 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
   });
   const onSubmit = handleSubmit((data) => searchStocks(data));
   const searchStocks = (data: SearchStocksFormData) => {
-    console.log(data);
     if (
       data.tyreSize === null &&
       data.brand === null &&
@@ -39,20 +38,30 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
     ) {
       router.push("/stocks");
     }
+    if (data.brand != null && data.tyreSize != null) {
+      router.push({
+        pathname: "/stocks",
+        query: { brand: data.brand.name, tyreSize: data.tyreSize.name },
+      });
+      return null;
+    }
     if (data.brand != null) {
       router.push({ pathname: "/stocks", query: { brand: data.brand.name } });
+      return null;
     }
     if (data.tyreSize != null) {
       router.push({
         pathname: "/stocks",
         query: { tyreSize: data.tyreSize.name },
       });
+      return null;
     }
     if (data.searchTerm.length > 1) {
       router.push({
         pathname: "/stocks",
         query: { searchTerm: data.searchTerm },
       });
+      return null;
     }
   };
   useEffect(() => {

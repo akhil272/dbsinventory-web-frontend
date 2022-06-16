@@ -37,6 +37,8 @@ const API_END_POINTS = {
   SPEED_RATING: "/speed-rating",
   LOAD_INDEX: "/load-index",
   PRODUCT_LINE: "/product-line",
+  CUSTOMER_CATEGORY: "/customer-category",
+  CUSTOMERS: "/customerS",
 };
 
 enum API_METHODS {

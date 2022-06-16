@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 type QuotationCardProps = {
@@ -10,6 +11,11 @@ type QuotationCardProps = {
   status: string;
   id: number;
   validity: number;
+  phoneNumber?: string;
+  quotationsCount?: number;
+  customerCategory?: string;
+  mode?: "view" | "update";
+  customerId?: number;
 };
 
 const QuotationCard = ({
@@ -21,6 +27,11 @@ const QuotationCard = ({
   status,
   id,
   validity,
+  phoneNumber,
+  quotationsCount,
+  customerCategory,
+  mode = "view",
+  customerId,
 }: QuotationCardProps) => {
   const color =
     status === "PENDING"
@@ -32,8 +43,14 @@ const QuotationCard = ({
       : "bg-followup text-white";
   const router = useRouter();
   const handleClick = () => {
-    router.push({ pathname: "/quotations/view", query: { quotationId: id } });
+    if (mode === "view") {
+      router.push({
+        pathname: "/quotations/view",
+        query: { quotationId: id, status },
+      });
+    }
   };
+
   return (
     <div onClick={handleClick} className=" space-y-2 my-4 bg-white rounded-md">
       <div className={`flex p-2 rounded-t-md ${color} `}>
@@ -52,21 +69,49 @@ const QuotationCard = ({
           <label>{count}</label>
         </div>
         <div className="w-1/2 flex-col flex">
+          <label className="text-xs text-gray-400">Validity</label>
+          <label>{validity ? `${validity}` : "N/A"}</label>
+        </div>
+        <div className="w-1/2 flex-col flex">
           <label className="text-xs text-gray-400">Total Price</label>
           <label className="text-primary font-semibold">
             {price ? `Rs. ${price}` : "N/A"}
           </label>
         </div>
       </div>
-      <div className="flex px-2">
+      <div className="flex px-2 text-sm">
         <div className="w-1/2 flex-col flex">
-          <label className="text-xs text-gray-400">Validity</label>
-          <label>{validity ? `${validity}` : "N/A"}</label>
+          <label className="text-xs text-gray-400">Customer Category</label>
+          <Link
+            href={{
+              pathname: "/quotations/update/customer-category",
+              query: {
+                quotationId: id,
+                customerId: customerId,
+                customerName: name,
+                customerPhoneNumber: phoneNumber,
+                category: customerCategory,
+                quotationsCount: quotationsCount,
+              },
+            }}
+          >
+            <a>
+              <label className="capitalize ">{customerCategory}</label>
+            </a>
+          </Link>
+        </div>
+        <div className="w-1/2 flex-col flex">
+          <label className="text-xs text-gray-400">Transaction Count</label>
+          <label>{quotationsCount}</label>
+        </div>
+        <div className="w-1/2 flex-col flex">
+          <label className="text-xs text-gray-400">Phone Number</label>
+          <label>{phoneNumber}</label>
         </div>
       </div>
       <div className="flex px-2 py-2 flex-col">
         <label className="text-xs text-gray-400">Notes</label>
-        <label>{notes ? `${notes}` : "N/A"}</label>
+        <label className="text-sm">{notes ? `${notes}` : "N/A"}</label>
       </div>
     </div>
   );

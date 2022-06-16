@@ -20,7 +20,7 @@ export default function ListBox({ control, name, data, error }) {
             <div className="relative">
               <Listbox.Button className="relative w-full cursor-default rounded-lg  bg-white pl-3 pr-10 text-left  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-md">
                 <span className="block truncate py-2 ">
-                  {value.name ? value.name : "Select a product line"}
+                  {value.name ? value.name : "Update quotation status"}
                 </span>
 
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">

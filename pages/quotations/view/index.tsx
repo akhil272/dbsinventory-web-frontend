@@ -1,3 +1,4 @@
+import { getCustomerCategories } from "@Store/customers/action";
 import { getQuotationById } from "@Store/quotations/actions";
 import { initialState } from "@Store/rootReducer";
 import { connect } from "react-redux";
@@ -9,5 +10,6 @@ const mapStateToProps = ({ quotations }: typeof initialState) => ({
 
 const mapDispatchToProps = () => ({
   getQuotationById,
+  getCustomerCategories,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Quotation);

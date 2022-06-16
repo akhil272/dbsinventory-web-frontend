@@ -95,66 +95,63 @@ const UserQuote = ({
           </div>
         </form>
       </div>
-      <div className="py-6">
-        {!userQuoteDetails?.exactStock && <p>No exact stock match found.</p>}
-        {userQuoteDetails?.exactStock && (
-          <>
-            <h4 className="font-semibold text-md border-b-2 border-primary">
-              Exact Match
-            </h4>
+      {!userQuoteDetails?.exactStock && <p>No exact stock match found.</p>}
+      {userQuoteDetails?.exactStock && (
+        <div className="py-6">
+          <h4 className="font-semibold text-md border-b-2 border-primary">
+            Exact Match
+          </h4>
+          <StockCard
+            key={userQuoteDetails?.exactStock.id}
+            brand={userQuoteDetails?.exactStock.tyreDetail.pattern.brand.name}
+            vendor={userQuoteDetails?.exactStock.vendor.name}
+            tyreSize={userQuoteDetails?.exactStock.tyreDetail.tyreSize.value}
+            patternName={userQuoteDetails?.exactStock.tyreDetail.pattern.name}
+            dom={userQuoteDetails?.exactStock.dom}
+            productLine={userQuoteDetails?.exactStock.productLine.name}
+            transportMode={userQuoteDetails?.exactStock.transport.mode}
+            purchaseDate={userQuoteDetails?.exactStock.purchaseDate}
+            location={userQuoteDetails?.exactStock.location.name}
+            quantity={userQuoteDetails?.exactStock.quantity}
+            cost={userQuoteDetails?.exactStock.cost}
+            stockId={userQuoteDetails?.exactStock.id}
+            speedRating={userQuoteDetails?.exactStock.speedRating?.value}
+            loadIndex={userQuoteDetails?.exactStock.loadIndex?.value}
+            role="admin"
+          />
+        </div>
+      )}
+
+      {!userQuoteDetails?.stocks.length && (
+        <p>No stocks found by brand and tyre size.</p>
+      )}
+      {userQuoteDetails?.stocks.length > 0 && (
+        <div className="py-6">
+          <h4 className="font-semibold text-md border-b-2 border-primary">
+            Match by brand and tyre size
+          </h4>
+          {userQuoteDetails?.stocks?.map((stock) => (
             <StockCard
-              key={userQuoteDetails?.exactStock.id}
-              brand={userQuoteDetails?.exactStock.tyreDetail.pattern.brand.name}
-              vendor={userQuoteDetails?.exactStock.vendor.name}
-              tyreSize={userQuoteDetails?.exactStock.tyreDetail.tyreSize.value}
-              patternName={userQuoteDetails?.exactStock.tyreDetail.pattern.name}
-              dom={userQuoteDetails?.exactStock.dom}
-              productLine={userQuoteDetails?.exactStock.productLine.name}
-              transportMode={userQuoteDetails?.exactStock.transport.mode}
-              purchaseDate={userQuoteDetails?.exactStock.purchaseDate}
-              location={userQuoteDetails?.exactStock.location.name}
-              quantity={userQuoteDetails?.exactStock.quantity}
-              cost={userQuoteDetails?.exactStock.cost}
-              stockId={userQuoteDetails?.exactStock.id}
-              speedRating={userQuoteDetails?.exactStock.speedRating?.value}
-              loadIndex={userQuoteDetails?.exactStock.loadIndex?.value}
+              key={stock.id}
+              brand={stock.tyreDetail.pattern.brand.name}
+              vendor={stock.vendor?.name}
+              tyreSize={stock.tyreDetail?.tyreSize.value}
+              patternName={stock.tyreDetail?.pattern.name}
+              dom={stock.dom}
+              productLine={stock.productLine?.name}
+              transportMode={stock.transport.mode}
+              purchaseDate={stock.purchaseDate}
+              location={stock.location?.name}
+              quantity={stock.quantity}
+              cost={stock.cost}
+              stockId={stock.id}
+              speedRating={stock.speedRating?.value}
+              loadIndex={stock.loadIndex?.value}
               role="admin"
             />
-          </>
-        )}
-      </div>
-      <div className="py-6">
-        {!userQuoteDetails?.stocks.length && (
-          <p>No stocks found by brand and tyre size.</p>
-        )}
-        {userQuoteDetails?.stocks.length > 0 && (
-          <>
-            <h4 className="font-semibold text-md border-b-2 border-primary">
-              Match by brand and tyre size
-            </h4>
-            {userQuoteDetails?.stocks?.map((stock) => (
-              <StockCard
-                key={stock.id}
-                brand={stock.tyreDetail.pattern.brand.name}
-                vendor={stock.vendor?.name}
-                tyreSize={stock.tyreDetail?.tyreSize.value}
-                patternName={stock.tyreDetail?.pattern.name}
-                dom={stock.dom}
-                productLine={stock.productLine?.name}
-                transportMode={stock.transport.mode}
-                purchaseDate={stock.purchaseDate}
-                location={stock.location?.name}
-                quantity={stock.quantity}
-                cost={stock.cost}
-                stockId={stock.id}
-                speedRating={stock.speedRating?.value}
-                loadIndex={stock.loadIndex?.value}
-                role="admin"
-              />
-            ))}
-          </>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

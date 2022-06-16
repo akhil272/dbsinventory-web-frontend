@@ -1,10 +1,11 @@
 type NotFounDProps = {
   message?: string;
 };
+type Props = { children?: React.ReactNode; message?: string };
 
-const NotFound = ({ message = "Not Found" }: NotFounDProps) => {
+const NotFound: React.FC<Props> = ({ message = "Not Found", children }) => {
   return (
-    <div className=" flex justify-center">
+    <div className=" flex flex-col justify-center">
       <div className="max-w-xl">
         <div>
           <div className="mt-12 items-center justify-center flex ">
@@ -18,6 +19,7 @@ const NotFound = ({ message = "Not Found" }: NotFounDProps) => {
           </div>
         </div>
       </div>
+      {children}
     </div>
   );
 };

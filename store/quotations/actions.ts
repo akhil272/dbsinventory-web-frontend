@@ -48,12 +48,10 @@ export const sendQuotationToUser = async (data: sendQuotationToUserPayload) => {
   return fetchAsync(apiArgs);
 };
 
-export const updateQuotationById = async (data: updateQuotation) => {
+export const updateQuotationById = async ({ id, ...data }: updateQuotation) => {
   const { QUOTATIONS } = API_END_POINTS;
-  const { id } = data;
   const pathname = QUOTATIONS;
   const url = `${pathname}/${id}`;
-  delete data.id;
   const apiArgs = {
     method: API_METHODS.PATCH,
     url,
@@ -67,12 +65,13 @@ export const updateQuotationById = async (data: updateQuotation) => {
   return fetchAsync(apiArgs);
 };
 
-export const updateUserQuoteById = async (data: updateUserQuoteData) => {
+export const updateUserQuoteById = async ({
+  id,
+  ...data
+}: updateUserQuoteData) => {
   const { MANAGE_QUOTATIONS } = API_END_POINTS;
-  const { id } = data;
   const pathname = MANAGE_QUOTATIONS;
   const url = `${pathname}/${id}`;
-  delete data.id;
   const apiArgs = {
     method: API_METHODS.PATCH,
     url,
@@ -144,6 +143,7 @@ export const getQuotations = async (payload: getQuotationsPayload) => {
     take = "",
     page = "",
     sortBy = "",
+    customerCategory = "",
   } = payload;
   const pathname = `${QUOTATIONS}`;
   const urlParams = new URLSearchParams();
@@ -161,6 +161,9 @@ export const getQuotations = async (payload: getQuotationsPayload) => {
   }
   if (sortBy) {
     urlParams.append(SORT_BY, sortBy);
+  }
+  if (customerCategory) {
+    urlParams.append("customerCategory", customerCategory);
   }
   const url = `${pathname}?${urlParams.toString()}`;
   const apiArgs = {

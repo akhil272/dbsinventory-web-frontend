@@ -32,12 +32,12 @@ const UpdateQuotation = ({
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<UpdateQuotationForm>({
     resolver: yupResolver(UpdateQuotationFrom),
   });
   const getContactOptions = async (data) => {
-    console.log(data, "data");
     const response = await sendQuotationToUser({
       quotationId: id,
       whatsApp: data.whatsApp,
@@ -47,6 +47,7 @@ const UpdateQuotation = ({
     });
     if (response.success) {
       toast.success("Quotation sent successfully");
+      getQuotationById({ id });
     } else {
       toast.error("Something went wrong");
     }
@@ -54,6 +55,7 @@ const UpdateQuotation = ({
 
   const onSubmit = handleSubmit((data) => updateQuotation(data));
   const updateQuotation = async (data: UpdateQuotationForm) => {
+    reset();
     const response = await updateQuotationById({
       id,
       validity: data.validity,
@@ -66,8 +68,9 @@ const UpdateQuotation = ({
       toast.error(`Error updating quotation: ${response.message}`);
     }
   };
+
   return (
-    <div className="pt-10 py-4 space-y-2">
+    <div className="pb-4 space-y-2">
       <QuotationCard
         id={quotation?.id}
         count={quotation?.count}
@@ -76,7 +79,10 @@ const UpdateQuotation = ({
         price={quotation?.price}
         status={quotation?.status}
         validity={quotation?.validity}
-        name={`${quotation?.user.firstName} ${quotation?.user.lastName}`}
+        name={`${quotation?.customer.user.firstName} ${quotation?.customer.user.lastName}`}
+        customerCategory={quotation?.customer.customerCategory.name}
+        quotationsCount={quotation?.customer.quotationsCount}
+        phoneNumber={quotation?.customer.user.phoneNumber}
       />
       <form className="space-y-2 pb-2" onSubmit={onSubmit}>
         <p className="text-sm px-2 text-gray-500">

@@ -4,6 +4,7 @@ import StockCard from "@Components/StockCard";
 import { StocksProps } from "@Store/stocks/types";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Stocks = ({
   stocks,
@@ -15,6 +16,8 @@ const Stocks = ({
   user,
 }: StocksProps) => {
   const [page, setPage] = useState<number>(1);
+  const [found, setFound] = useState<boolean>(true);
+
   const router = useRouter();
   const {
     query: { brand, tyreSize, searchTerm },
@@ -39,18 +42,36 @@ const Stocks = ({
       if (searchTerm?.length > 1) {
         url = `=${searchTerm}` + url;
       }
-      getStocks({
-        search: url,
-      });
+      const fetchStocks = async () => {
+        const response = await getStocks({
+          search: url,
+        });
+        if (!response.success) {
+          toast.error(`${response.message}`);
+          setFound(false);
+        }
+      };
+      fetchStocks();
     }
   }, [getStocks, page, router.isReady]);
   if (loading) {
     return <LoadingAnimation message="Loading stocks. Please wait.." />;
   }
-  if (stocks?.length === 0) {
-    return <NotFound message="No stocks found" />;
+  const handleReset = () => {
+    setFound(true);
+    router.push("/search");
+  };
+  if (!found) {
+    return (
+      <div onClick={handleReset}>
+        <NotFound message="No stocks found.">
+          <button className="bg-primary text-center hover:bg-red-500 text-white  py-2 px-4 rounded">
+            Go back
+          </button>
+        </NotFound>
+      </div>
+    );
   }
-
   return (
     <div>
       {stocks?.map((stock) => (

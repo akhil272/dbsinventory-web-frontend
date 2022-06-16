@@ -43,12 +43,10 @@ export const deleteUser = async (data: deleteUserPayload) => {
   return fetchAsync(apiArgs);
 };
 
-export const updateUser = async (data: updateUserPayload) => {
+export const updateUser = async ({ id, ...data }: updateUserPayload) => {
   const { USERS } = API_END_POINTS;
-  const { id } = data;
   const pathname = `${USERS}/${id}`;
   const url = `${pathname}`;
-  delete data.id;
   const apiArgs = {
     method: API_METHODS.PATCH,
     url,

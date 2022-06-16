@@ -1,4 +1,10 @@
 import { ApiReturnType } from "@Store/api";
+import {
+  createCustomerCategoryPayload,
+  createCustomerCategoryResponse,
+  CustomerCategoryPayload,
+  getCustomersCategories,
+} from "@Store/customers/types";
 import { Stock } from "@Store/stocks/types";
 import {
   Brand,
@@ -48,6 +54,7 @@ export type getQuotationsPayload = {
   take?: string;
   page?: string;
   sortBy?: string;
+  customerCategory?: string;
 };
 
 export type getUserQuoteByIdPayload = {
@@ -118,9 +125,17 @@ export type QuotationPayload = {
   validity: number;
   count: number;
   userQuotes: userQuote[];
-  user: {
-    firstName: string;
-    lastName: string;
+  customer: {
+    id: number;
+    customerCategory: {
+      name: string;
+    };
+    user: {
+      firstName: string;
+      lastName: string;
+      phoneNumber: string;
+    };
+    quotationsCount: number;
   };
 };
 
@@ -146,9 +161,10 @@ export type UserQuoteStateProps = {
   loading: boolean;
 };
 export type updateQuotation = {
-  validity: number;
+  validity?: number;
   notes?: string;
   id: number;
+  status?: string;
 };
 export type updateUserQuoteData = {
   quotePrice: number;
@@ -215,11 +231,15 @@ export type QuotationsStateProps = {
   total: number;
   page: number;
   lastPage: number;
+  customerCategories: CustomerCategoryPayload[];
 };
 export type QuotationsDispatchProps = {
   getQuotations: (
     payload: getQuotationsPayload
   ) => Promise<ApiReturnType<QuotationPayload[]>>;
+  getCustomerCategories: (
+    data: getCustomersCategories
+  ) => Promise<ApiReturnType<CustomerCategoryPayload[]>>;
 };
 export type QuotationProps = QuotationsStateProps & QuotationsDispatchProps;
 

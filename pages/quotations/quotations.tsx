@@ -4,6 +4,7 @@ import NotFound from "@Components/NotFound";
 import QuotationCard from "@Components/QuotationCard";
 import { QuotationProps } from "@Store/quotations/types";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Quotations = ({
   quotations,
@@ -12,30 +13,78 @@ const Quotations = ({
   total,
   lastPage,
   page: metaPage,
+  customerCategories,
+  getCustomerCategories,
 }: QuotationProps) => {
   const [page, setPage] = useState<number>(1);
+  const [searchByPhoneNumber, setSearchByPhoneNumber] = useState<string>("");
+  const [customerCategory, setCustomerCategory] = useState(null);
   const [quotationStatus, setQuotationStatus] = useState<string>("PENDING");
   const [sortBy, setSortBy] = useState("ASC");
-  const [take, setTake] = useState<number>(25);
+  const [take, setTake] = useState<number>(10);
+  const [found, setFound] = useState<boolean>(true);
   const nextPage = () => {
     setPage(page + 1);
+    1;
   };
 
   const previousPage = () => {
     setPage(page - 1);
   };
+  const onCustomerCategoryChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setCustomerCategory(e.target.value);
+  };
   useEffect(() => {
-    getQuotations({
-      status: quotationStatus,
-      take: String(take),
-      page: String(page),
-      sortBy,
-    });
-  }, [getQuotations, page, quotationStatus, sortBy]);
+    getCustomerCategories({ search: "" });
+  }, [getCustomerCategories]);
+
+  useEffect(() => {
+    const fetchQuotations = async () => {
+      const response = await getQuotations({
+        status: quotationStatus,
+        take: String(take),
+        page: String(page),
+        sortBy,
+        search: searchByPhoneNumber,
+        customerCategory: customerCategory,
+      });
+      if (!response.success) {
+        toast.error(`${response.message}`);
+        setFound(false);
+      }
+    };
+    fetchQuotations();
+  }, [
+    getQuotations,
+    page,
+    quotationStatus,
+    sortBy,
+    searchByPhoneNumber,
+    customerCategory,
+  ]);
   if (loading) {
     return <LoadingAnimation message="Loading stocks. Please wait.." />;
   }
-
+  const handleReset = () => {
+    setSearchByPhoneNumber("");
+    setCustomerCategory(null);
+    setQuotationStatus("PENDING");
+    setSortBy("ASC");
+    setFound(true);
+  };
+  if (!found) {
+    return (
+      <div onClick={handleReset}>
+        <NotFound message="No quotations to show on selected filters.">
+          <button className="bg-primary text-center hover:bg-red-500 text-white  py-2 px-4 rounded">
+            Go back
+          </button>
+        </NotFound>
+      </div>
+    );
+  }
   return (
     <div>
       <div className="grid grid-cols-2  font-bold text-white text-md gap-1">
@@ -65,19 +114,29 @@ const Quotations = ({
           Accepted
         </button>
       </div>
-      <FilterCard sortBy={sortBy} setSortBy={setSortBy} />
+      <FilterCard
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        setSearchByPhoneNumber={setSearchByPhoneNumber}
+        customerCategories={customerCategories}
+        onChange={onCustomerCategoryChange}
+      />
+
       <div>
         {quotations?.map((quotation) => (
           <QuotationCard
             id={quotation.id}
             status={quotation.status}
             key={quotation.id}
-            name={`${quotation.user.firstName} ${quotation.user.lastName}`}
+            name={`${quotation.customer.user.firstName} ${quotation.customer.user.lastName}`}
             price={quotation.price}
             notes={quotation.notes}
             date={quotation.createdAt}
             count={quotation.count}
             validity={quotation.validity}
+            phoneNumber={quotation.customer.user.phoneNumber}
+            quotationsCount={quotation.customer.quotationsCount}
+            customerCategory={quotation.customer.customerCategory.name}
           />
         ))}
       </div>
