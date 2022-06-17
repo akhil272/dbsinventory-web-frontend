@@ -16,6 +16,12 @@ import {
   QUOTATION_UPDATE_FAIL,
   QUOTATION_UPDATE_INIT,
   QUOTATION_UPDATE_SUCCESS,
+  SERVICES_FETCH_FAIL,
+  SERVICES_FETCH_INIT,
+  SERVICES_FETCH_SUCCESS,
+  SERVICE_CREATE_FAIL,
+  SERVICE_CREATE_INIT,
+  SERVICE_CREATE_SUCCESS,
   USER_QUOTE_BY_ID_FETCH_FAIL,
   USER_QUOTE_BY_ID_FETCH_INIT,
   USER_QUOTE_BY_ID_FETCH_SUCCESS,
@@ -32,10 +38,26 @@ export const initialState: Quotations = {
   page: 1,
   lastPage: 1,
   userQuoteDetails: null,
+  services: [],
 };
 
 const reducer = (state = initialState, action: QuotationActionTypes) => {
   switch (action.type) {
+    case SERVICE_CREATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case SERVICE_CREATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case SERVICE_CREATE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case SERVICES_FETCH_INIT:
+      return Object.assign({}, state, { loading: true });
+    case SERVICES_FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        services: action.payload.data,
+      });
+    case SERVICES_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
     case QUOTATION_SEND_INIT:
       return Object.assign({}, state, { loading: true });
     case QUOTATION_SEND_SUCCESS:

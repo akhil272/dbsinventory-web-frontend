@@ -39,6 +39,7 @@ const API_END_POINTS = {
   PRODUCT_LINE: "/product-line",
   CUSTOMER_CATEGORY: "/customer-category",
   CUSTOMERS: "/customerS",
+  SERVICES: "/services",
 };
 
 enum API_METHODS {

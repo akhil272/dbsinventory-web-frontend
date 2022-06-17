@@ -1,7 +1,5 @@
 import { ApiReturnType } from "@Store/api";
 import {
-  createCustomerCategoryPayload,
-  createCustomerCategoryResponse,
   CustomerCategoryPayload,
   getCustomersCategories,
 } from "@Store/customers/types";
@@ -14,6 +12,13 @@ import {
   TyreSize,
   TyreSizePayload,
 } from "@Store/tyre/types";
+
+export const SERVICE_CREATE_INIT = "SERVICE:CREATE:INIT";
+export const SERVICE_CREATE_SUCCESS = "SERVICE:CREATE:SUCCESS";
+export const SERVICE_CREATE_FAIL = "SERVICE:CREATE:FAIL";
+export const SERVICES_FETCH_INIT = "SERVICES:FETCH:INIT";
+export const SERVICES_FETCH_SUCCESS = "SERVICES:FETCH:SUCCESS";
+export const SERVICES_FETCH_FAIL = "SERVICES:FETCH:FAIL";
 
 export const QUOTATION_SEND_INIT = "QUOTATION:SEND:INIT";
 export const QUOTATION_SEND_SUCCESS = "QUOTATION:SEND:SUCCESS";
@@ -39,6 +44,19 @@ export const QUOTATION_CREATE_FAIL = "QUOTATION:CREATE:FAIL";
 export const QUOTATIONS_FETCH_INIT = "QUOTATIONS:FETCH:INIT";
 export const QUOTATIONS_FETCH_SUCCESS = "QUOTATIONS:FETCH:SUCCESS";
 export const QUOTATIONS_FETCH_FAIL = "QUOTATIONS:FETCH:FAIL";
+
+export type ServicePayload = {
+  id: number;
+  name: string;
+};
+
+export type createServicePayload = {
+  name: string;
+};
+
+export type getServicesPayload = {
+  search?: string;
+};
 
 export type sendQuotationToUserPayload = {
   quotationId: number;
@@ -161,6 +179,7 @@ export type Quotations = {
   lastPage: number;
   quotation: QuotationPayload;
   userQuoteDetails: userQuotePayload;
+  services: ServicePayload[];
 };
 export type GetQuoteStateProps = {
   brands: Brand[];
@@ -255,6 +274,28 @@ export type QuotationsDispatchProps = {
 };
 export type QuotationProps = QuotationsStateProps & QuotationsDispatchProps;
 
+type serviceCreateInit = {
+  type: typeof SERVICE_CREATE_INIT;
+};
+type serviceCreateSuccess = {
+  type: typeof SERVICE_CREATE_SUCCESS;
+  payload: ApiReturnType<createQuotationResponse>;
+};
+type serviceCreateFail = {
+  type: typeof SERVICE_CREATE_FAIL;
+};
+
+type servicesFetchFail = {
+  type: typeof SERVICES_FETCH_INIT;
+};
+type servicesFetchSuccess = {
+  type: typeof SERVICES_FETCH_SUCCESS;
+  payload: ApiReturnType<ServicePayload[]>;
+};
+type servicesFetchInit = {
+  type: typeof SERVICES_FETCH_FAIL;
+};
+
 type quotationSendInit = {
   type: typeof QUOTATION_SEND_INIT;
 };
@@ -330,6 +371,12 @@ type quotationsFetchInit = {
 };
 
 export type QuotationActionTypes =
+  | serviceCreateInit
+  | serviceCreateSuccess
+  | serviceCreateFail
+  | servicesFetchInit
+  | servicesFetchSuccess
+  | servicesFetchFail
   | quotationSendInit
   | quotationSendSuccess
   | quotationSendFail

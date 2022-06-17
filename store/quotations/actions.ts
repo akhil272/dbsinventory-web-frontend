@@ -29,7 +29,53 @@ import {
   QUOTATION_SEND_INIT,
   QUOTATION_SEND_SUCCESS,
   getQuotationsPayload,
+  createServicePayload,
+  getServicesPayload,
+  SERVICES_FETCH_FAIL,
+  SERVICES_FETCH_INIT,
+  SERVICES_FETCH_SUCCESS,
+  SERVICE_CREATE_FAIL,
+  SERVICE_CREATE_INIT,
+  SERVICE_CREATE_SUCCESS,
 } from "./types";
+
+export const createService = async (data: createServicePayload) => {
+  const { SERVICES } = API_END_POINTS;
+  const pathname = SERVICES;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: SERVICE_CREATE_INIT,
+      successType: SERVICE_CREATE_SUCCESS,
+      failureType: SERVICE_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const getServices = async (payload: getServicesPayload) => {
+  const { SERVICES, SEARCH } = API_END_POINTS;
+  const { search = "" } = payload;
+  const pathname = `${SERVICES}`;
+  const urlParams = new URLSearchParams();
+  if (search) {
+    urlParams.append(SEARCH, search);
+  }
+  const url = `${pathname}?${urlParams}`;
+  const apiArgs = {
+    method: API_METHODS.GET,
+    url,
+    TYPES: {
+      requestType: SERVICES_FETCH_INIT,
+      successType: SERVICES_FETCH_SUCCESS,
+      failureType: SERVICES_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const sendQuotationToUser = async (data: sendQuotationToUserPayload) => {
   const { MANAGE_QUOTATIONS, SEND } = API_END_POINTS;
