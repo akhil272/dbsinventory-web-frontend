@@ -1,6 +1,8 @@
+import { QuotationService } from "@Store/quotations/types";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import ServiceTags from "./ServiceTags";
 
 type QuotationCardProps = {
   name: string;
@@ -16,6 +18,7 @@ type QuotationCardProps = {
   customerCategory?: string;
   mode?: "view" | "update";
   customerId?: number;
+  services?: QuotationService[];
 };
 
 const QuotationCard = ({
@@ -32,7 +35,9 @@ const QuotationCard = ({
   customerCategory,
   mode = "view",
   customerId,
+  services,
 }: QuotationCardProps) => {
+  console.log(services, "what");
   const color =
     status === "PENDING"
       ? "bg-pending text-white "
@@ -113,6 +118,7 @@ const QuotationCard = ({
         <label className="text-xs text-gray-400">Notes</label>
         <label className="text-sm">{notes ? `${notes}` : "N/A"}</label>
       </div>
+      {services?.length > 0 && <ServiceTags services={services} />}
     </div>
   );
 };

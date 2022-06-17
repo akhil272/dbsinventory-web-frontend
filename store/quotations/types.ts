@@ -116,6 +116,17 @@ export type userQuotePayload = {
   stocks: Stock[];
   exactStock: Stock;
 };
+export type QuotationService = {
+  id: number;
+  serviceId: number;
+  quotationId: number;
+  price: number;
+  serviceNote: string;
+  service: {
+    id: number;
+    name: string;
+  };
+};
 export type QuotationPayload = {
   id: number;
   status: string;
@@ -137,6 +148,7 @@ export type QuotationPayload = {
     };
     quotationsCount: number;
   };
+  quotationServices: QuotationService[];
 };
 
 export type createQuotationResponse = {};

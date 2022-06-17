@@ -6,6 +6,7 @@ import GetAQuote from "./quotations/get-a-quote";
 import { getUserInfo } from "@Store/users/actions";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import Search from "./search";
 
 const mapStateToProps = ({ users }: typeof initialState) => ({
   user: users.user,
@@ -27,14 +28,10 @@ const Homepage = ({ user, loading, getUserInfo }) => {
   if (!user) {
     return <Login />;
   }
-  if (
-    user?.role === "admin" ||
-    user?.role === "manager" ||
-    user?.role === "employee"
-  ) {
-    router.push("/search");
+  if (user?.role === "user") {
+    return <GetAQuote />;
   }
-  router.push("/user");
+  return <Search />;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

@@ -137,6 +137,7 @@ const Quotations = ({
             phoneNumber={quotation.customer.user.phoneNumber}
             quotationsCount={quotation.customer.quotationsCount}
             customerCategory={quotation.customer.customerCategory.name}
+            services={quotation?.quotationServices}
           />
         ))}
       </div>

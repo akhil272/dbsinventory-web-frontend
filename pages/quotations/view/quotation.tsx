@@ -44,6 +44,7 @@ const Quotation = ({
         customerCategory={quotation?.customer.customerCategory.name}
         mode="update"
         customerId={quotation?.customer.id}
+        services={quotation?.quotationServices}
       />
       {status === "PENDING" && (
         <div className="w-full bg-primary rounded-md text-white font-semibold p-2 text-center mb-4">
