@@ -1,3 +1,4 @@
+import AddService from "@Components/AddService";
 import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuoteListCard from "@Components/QuoteListCard";
@@ -24,7 +25,7 @@ type userQueryFormData = {
   tyreSize: { id: number; name: string };
   speedRating?: string;
   quantity: number;
-  notes?: string;
+  userNotes?: string;
   loadIndex?: number;
 };
 
@@ -35,8 +36,12 @@ const GetQuote = ({
   getTyreSizes,
   patterns,
   createQuotation,
+  getServices,
+  services,
 }: GetQuoteProps) => {
   const [userQuery, setUserQuery] = useState<userQueryFormData[]>([]);
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [userService, setUserService] = useState(false);
   const {
     handleSubmit,
     control,
@@ -55,7 +60,14 @@ const GetQuote = ({
       behavior: "smooth",
     });
   });
-
+  const onAddService = () => {
+    window.scrollTo({
+      left: 0,
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+    setUserService(!userService);
+  };
   const submitAllQuotes = async () => {
     const userQuotesPayload = {
       userQuotes: userQuery.map(
@@ -67,12 +79,16 @@ const GetQuote = ({
           ...query,
         })
       ),
+      serviceIds: selectedServices?.map((service) => ({
+        id: service.service.id,
+      })),
     };
-    console.log(userQuotesPayload);
+
     const response = await createQuotation(userQuotesPayload);
     if (response.success) {
       toast.success("Quotation submitted successfully");
       setUserQuery([]);
+      setSelectedServices([]);
     } else {
       toast.error("Something went wrong");
     }
@@ -81,6 +97,9 @@ const GetQuote = ({
   useEffect(() => {
     getBrands({ search: "" });
   }, [getBrands]);
+  useEffect(() => {
+    getServices({ search: "" });
+  }, [getServices]);
   useEffect(() => {
     getTyreSizes({ search: "" });
   }, [getTyreSizes]);
@@ -144,10 +163,10 @@ const GetQuote = ({
           />
           <InputField
             control={control}
-            name="notes"
+            name="userNotes"
             placeholder="Enter notes"
             type="text"
-            error={errors.notes?.message}
+            error={errors.userNotes?.message}
           />
           <div className="flex space-x-1 py-2">
             <button
@@ -167,7 +186,7 @@ const GetQuote = ({
         {userQuery.length > 0 && (
           <div className="pb-4">
             <div className="my-2">
-              <h2 className="font-semibold text-lg ">User Quotation List</h2>
+              <h3 className="font-semibold text-lg ">User Quotation List</h3>
               {userQuery.map((query, index) => (
                 <QuoteListCard
                   key={index}
@@ -177,17 +196,41 @@ const GetQuote = ({
                   tyreSize={query?.tyreSize?.name ?? "Error please refresh"}
                   loadIndex={query?.loadIndex ?? "-"}
                   speedRating={query?.speedRating ?? "-"}
-                  notes={query?.notes}
+                  notes={query?.userNotes}
                   quantity={query?.quantity}
                 />
               ))}
             </div>
-            <button
-              onClick={submitAllQuotes}
-              className="bg-primary  w-full rounded-md text-lg font-medium text-center text-white p-2"
-            >
-              Submit Quotations
-            </button>
+            {userService && (
+              <AddService
+                services={services}
+                setSelectedServices={setSelectedServices}
+              />
+            )}
+
+            {userService ? (
+              <button
+                className="bg-primary w-full my-4 text-lg rounded-md font-medium text-center text-white p-2"
+                onClick={submitAllQuotes}
+              >
+                Submit Quotation
+              </button>
+            ) : (
+              <div className="flex space-x-1 py-2">
+                <button
+                  className="bg-pastel_green w-1/2 text-lg rounded-md font-medium text-center text-white p-2"
+                  onClick={onAddService}
+                >
+                  Add Service
+                </button>
+                <button
+                  className="bg-primary w-1/2  text-lg rounded-md font-medium text-center text-white p-2"
+                  onClick={submitAllQuotes}
+                >
+                  Submit Quotation
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

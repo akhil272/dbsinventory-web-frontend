@@ -89,8 +89,11 @@ export type createQuotationPayload = {
     tyreSizeValue: string;
     speedRating?: string;
     loadIndex?: number;
-    notes?: string;
+    userNotes?: string;
     quantity: number;
+  }[];
+  serviceIds: {
+    id: number;
   }[];
 };
 
@@ -185,6 +188,7 @@ export type GetQuoteStateProps = {
   brands: Brand[];
   tyreSizes: TyreSize[];
   patterns: { id: number; name: string }[];
+  services: ServicePayload[];
 };
 
 export type UserQuoteStateProps = {
@@ -247,6 +251,9 @@ export type GetQuoteDispatchProps = {
   getBrands: (
     payload: getBrandsPayload
   ) => Promise<ApiReturnType<BrandsPayload[]>>;
+  getServices: (
+    payload: getServicesPayload
+  ) => Promise<ApiReturnType<ServicePayload[]>>;
   getTyreSizes: (
     payload: getTyreSizesPayload
   ) => Promise<ApiReturnType<TyreSizePayload[]>>;

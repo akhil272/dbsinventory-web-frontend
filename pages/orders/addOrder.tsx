@@ -26,6 +26,7 @@ const AddOrder = ({
     handleSubmit,
     control,
     formState: { errors },
+    reset,
   } = useForm<OrderStockFormData>({
     resolver: yupResolver(OrderStockSchema),
   });
@@ -43,6 +44,7 @@ const AddOrder = ({
 
     if (response.success) {
       toast.success(`Successfully recorded sale in the system.`);
+      reset();
       getOrders({ id });
     }
     if (!response.success) {
@@ -118,7 +120,7 @@ const AddOrder = ({
                 key={order.id}
                 employee_name={order.employeeName}
                 salePrice={order.salePrice}
-                customerName={order.customerName}
+                customerName={`${order.customer.user.firstName} ${order.customer.user.lastName}`}
                 saleDate={order.saleDate}
                 quantity={order.quantity}
                 profit={order.profit}

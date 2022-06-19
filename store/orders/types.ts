@@ -15,8 +15,13 @@ export type Order = {
   salePrice: number;
   quantity: number;
   employeeName: string;
-  customerName: string;
-  customerPhoneNumber: string;
+  customer: {
+    id: number;
+    user: {
+      firstName: string;
+      lastName: string;
+    };
+  };
   profit: number;
   stock: Stock;
 };

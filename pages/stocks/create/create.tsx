@@ -1,7 +1,6 @@
 import AutoComplete from "@Components/AutoComplete";
 import DatePicker from "@Components/DatePicker";
 import InputField from "@Components/InputField";
-import ListBox from "@Components/ListBox";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateStockProps } from "@Store/stocks/types";
 
@@ -45,6 +44,7 @@ const CreateStock = ({
     formState: { errors },
     watch,
     setValue,
+    reset,
   } = useForm<CreateStockFormData>({
     resolver: yupResolver(CreateStockSchema),
   });
@@ -66,6 +66,7 @@ const CreateStock = ({
     });
     if (response.success && response.data) {
       toast.success(`Successfully added new stock to system.`);
+      reset();
     }
     if (!response.success) {
       toast.error(`Failed to new stock to system. ${response.message}`);
