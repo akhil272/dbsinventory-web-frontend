@@ -1,4 +1,5 @@
 import { ApiReturnType } from "@Store/api";
+import { registerPayload } from "@Store/auth/types";
 import {
   CustomerCategoryPayload,
   getCustomersCategories,
@@ -16,6 +17,11 @@ import {
   TyreSize,
   TyreSizePayload,
 } from "@Store/tyre/types";
+
+export const USER_AND_QUOTATION_CREATE_INIT = "USER:AND:QUOTATION:CREATE:INIT";
+export const USER_AND_QUOTATION_CREATE_SUCCESS =
+  "USER:AND:QUOTATION:CREATE:SUCCESS";
+export const USER_AND_QUOTATION_CREATE_FAIL = "USER:AND:QUOTATION:CREATE:FAIL";
 
 export const SERVICE_CREATE_INIT = "SERVICE:CREATE:INIT";
 export const SERVICE_CREATE_SUCCESS = "SERVICE:CREATE:SUCCESS";
@@ -48,6 +54,23 @@ export const QUOTATION_CREATE_FAIL = "QUOTATION:CREATE:FAIL";
 export const QUOTATIONS_FETCH_INIT = "QUOTATIONS:FETCH:INIT";
 export const QUOTATIONS_FETCH_SUCCESS = "QUOTATIONS:FETCH:SUCCESS";
 export const QUOTATIONS_FETCH_FAIL = "QUOTATIONS:FETCH:FAIL";
+
+export type createUserAndQuotationPayload = {
+  user?: registerPayload;
+  userQuotes: {
+    brandName: string;
+    patternName?: string;
+    tyreSizeValue: string;
+    tyreSpeedRating?: string;
+    tyreLoadIndex?: number;
+    userNotes?: string;
+    quantity: number;
+  }[];
+  serviceIds?: {
+    id: number;
+  }[];
+  userId?: number;
+};
 
 export type ServicePayload = {
   id: number;
@@ -293,6 +316,17 @@ export type QuotationsDispatchProps = {
 };
 export type QuotationProps = QuotationsStateProps & QuotationsDispatchProps;
 
+type userAndQuotationCreateInit = {
+  type: typeof USER_AND_QUOTATION_CREATE_INIT;
+};
+type userAndQuotationCreateSuccess = {
+  type: typeof USER_AND_QUOTATION_CREATE_SUCCESS;
+  payload: ApiReturnType<createQuotationResponse>;
+};
+type userAndQuotationCreateFail = {
+  type: typeof USER_AND_QUOTATION_CREATE_FAIL;
+};
+
 type serviceCreateInit = {
   type: typeof SERVICE_CREATE_INIT;
 };
@@ -390,6 +424,9 @@ type quotationsFetchInit = {
 };
 
 export type QuotationActionTypes =
+  | userAndQuotationCreateInit
+  | userAndQuotationCreateSuccess
+  | userAndQuotationCreateFail
   | serviceCreateInit
   | serviceCreateSuccess
   | serviceCreateFail

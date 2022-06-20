@@ -37,8 +37,30 @@ import {
   SERVICE_CREATE_FAIL,
   SERVICE_CREATE_INIT,
   SERVICE_CREATE_SUCCESS,
+  createUserAndQuotationPayload,
+  USER_AND_QUOTATION_CREATE_FAIL,
+  USER_AND_QUOTATION_CREATE_INIT,
+  USER_AND_QUOTATION_CREATE_SUCCESS,
 } from "./types";
 
+export const createUserAndQuotation = async (
+  data: createUserAndQuotationPayload
+) => {
+  const { QUOTATIONS, CREATE, USER } = API_END_POINTS;
+  const pathname = `${QUOTATIONS}${CREATE}${USER}`;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: USER_AND_QUOTATION_CREATE_INIT,
+      successType: USER_AND_QUOTATION_CREATE_SUCCESS,
+      failureType: USER_AND_QUOTATION_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 export const createService = async (data: createServicePayload) => {
   const { SERVICES } = API_END_POINTS;
   const pathname = SERVICES;

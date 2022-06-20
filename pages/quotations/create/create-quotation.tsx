@@ -1,5 +1,6 @@
 import AddService from "@Components/AddService";
 import InputField from "@Components/InputField";
+import LoadingAnimation from "@Components/LoadingAnimation";
 import QuoteListCard from "@Components/QuoteListCard";
 import SearchBox from "@Components/SearchBox";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,10 +10,12 @@ import { RegisterAuthSchema } from "@Utils/schemas/AuthSchema";
 import UserQuoteSchema from "@Utils/schemas/UserQuoteSchema";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const CreateQuotation = ({
   users,
-  loading,
+  loadingUsers,
+  loadingTyreData,
   getUsers,
   brands,
   tyreSizes,
@@ -21,18 +24,30 @@ const CreateQuotation = ({
   patterns,
   getServices,
   services,
+  loadIndexes,
+  speedRatings,
+  getLoadIndexes,
+  getSpeedRatings,
+  createUserAndQuotation,
 }) => {
+  const [userQuery, setUserQuery] = useState<UserQueryFormData[]>([]);
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [userService, setUserService] = useState(false);
+  const [userData, setUserData] = useState(null);
   const {
     handleSubmit: handleSubmitUser,
     control: controlUser,
+    reset: resetUser,
     formState: { errors: errorsUser },
   } = useForm<RegisterUserFormData>({
     resolver: yupResolver(RegisterAuthSchema),
   });
-  const onUserSubmit = handleSubmitUser((data) => console.log(data));
-  const [userQuery, setUserQuery] = useState<UserQueryFormData[]>([]);
-  const [selectedServices, setSelectedServices] = useState([]);
-  const [userService, setUserService] = useState(false);
+  const onUserSubmit = handleSubmitUser((data) => handleUserData(data));
+  const handleUserData = (data: RegisterUserFormData) => {
+    setUserData(data);
+    toast.success("User data recorded successfully");
+    resetUser();
+  };
   const {
     handleSubmit,
     control,
@@ -59,29 +74,39 @@ const CreateQuotation = ({
     setUserService(!userService);
   };
   const submitAllQuotes = async () => {
-    const userQuotesPayload = {
+    const userAndQuotationPayload = {
       userQuotes: userQuery.map(
-        ({ brand, pattern, tyreSize, loadIndex, ...query }) => ({
+        ({ brand, pattern, tyreSize, loadIndex, speedRating, ...query }) => ({
           brandName: brand?.name,
           patternName: pattern?.name,
           tyreSizeValue: tyreSize?.name,
-          loadIndex: Number(loadIndex),
+          tyreLoadIndex: Number(loadIndex.name),
+          tyreSpeedRating: speedRating?.name,
           ...query,
         })
       ),
       serviceIds: selectedServices?.map((service) => ({
         id: service.service.id,
       })),
+      user: {
+        firstName: userData?.firstName,
+        lastName: userData?.lastName,
+        email: userData?.email,
+        phoneNumber: userData?.phoneNumber,
+        addressLine1: userData?.addressLine1,
+        addressLine2: userData?.addressLine2,
+      },
+      userId: null,
     };
-
-    // const response = await createQuotation(userQuotesPayload);
-    // if (response.success) {
-    //   toast.success("Quotation submitted successfully");
-    //   setUserQuery([]);
-    //   setSelectedServices([]);
-    // } else {
-    //   toast.error("Something went wrong");
-    // }
+    const response = await createUserAndQuotation(userAndQuotationPayload);
+    if (response.success) {
+      toast.success("Quotation created successfully");
+      setUserQuery([]);
+      setSelectedServices([]);
+      setUserData(null);
+    } else {
+      toast.error("Something went wrong");
+    }
   };
   useEffect(() => {
     getUsers({ search: "" });
@@ -90,11 +115,19 @@ const CreateQuotation = ({
     getBrands({ search: "" });
   }, [getBrands]);
   useEffect(() => {
+    getLoadIndexes({ search: "" });
+  }, [getLoadIndexes]);
+  useEffect(() => {
+    getSpeedRatings({ search: "" });
+  }, [getSpeedRatings]);
+  useEffect(() => {
     getServices({ search: "" });
   }, [getServices]);
   useEffect(() => {
     getTyreSizes({ search: "" });
   }, [getTyreSizes]);
+  if (loadingUsers || loadingTyreData)
+    return <LoadingAnimation message="Please wait.." />;
   return (
     <div>
       <div className="pt-2 ">
@@ -130,13 +163,30 @@ const CreateQuotation = ({
             type="tel"
             error={errorsUser.phoneNumber?.message}
           />
+          <InputField
+            control={controlUser}
+            name="addressLine1"
+            placeholder="Enter your address line 1 [optional]"
+            type="text"
+            error={errorsUser.addressLine1?.message}
+          />
+          <InputField
+            control={controlUser}
+            name="addressLine2"
+            placeholder="Enter your address line 2 [optional]"
+            type="text"
+            error={errorsUser.addressLine2?.message}
+          />
         </div>
         <button
-          className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+          disabled={userData}
+          className={`${
+            userData ? "bg-gray-300" : "bg-primary"
+          } w-full rounded-lg text-lg font-medium text-center text-white p-2`}
           type="button"
           onClick={onUserSubmit}
         >
-          Submit
+          {userData ? "User data recorded" : "Submit"}
         </button>
       </form>
       <div className="pt-2 ">
@@ -149,6 +199,7 @@ const CreateQuotation = ({
             control={control}
             name={"brand"}
             data={brands}
+            error={(errors.brand as any)?.message}
           />
           <SearchBox
             placeholder="Enter patterns name"
@@ -164,20 +215,25 @@ const CreateQuotation = ({
               name: value,
               id,
             }))}
+            error={(errors.tyreSize as any)?.message}
           />
-          <InputField
+          <SearchBox
+            placeholder="Enter speed rating"
             control={control}
-            name="speedRating"
-            placeholder="Enter speed rating (optional)"
-            type="text"
-            error={errors.speedRating?.message}
+            name={"speedRating"}
+            data={speedRatings?.map(({ value, id }) => ({
+              name: value,
+              id,
+            }))}
           />
-          <InputField
+          <SearchBox
+            placeholder="Enter load index"
             control={control}
-            name="loadIndex"
-            placeholder="Enter load index (optional)"
-            type="text"
-            error={errors.loadIndex?.message}
+            name={"loadIndex"}
+            data={loadIndexes?.map(({ value, id }) => ({
+              name: String(value),
+              id,
+            }))}
           />
           <InputField
             control={control}
@@ -219,8 +275,8 @@ const CreateQuotation = ({
                   brand={query?.brand?.name ?? "Error please refresh"}
                   pattern={query?.pattern?.name ?? "-"}
                   tyreSize={query?.tyreSize?.name ?? "Error please refresh"}
-                  loadIndex={query?.loadIndex ?? "-"}
-                  speedRating={query?.speedRating ?? "-"}
+                  loadIndex={query?.loadIndex?.name ?? "-"}
+                  speedRating={query?.speedRating?.name ?? "-"}
                   notes={query?.userNotes}
                   quantity={query?.quantity}
                 />
