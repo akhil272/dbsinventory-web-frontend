@@ -5,29 +5,11 @@ import QuoteListCard from "@Components/QuoteListCard";
 import SearchBox from "@Components/SearchBox";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GetQuoteProps } from "@Store/quotations/types";
+import { UserQueryFormData } from "@Utils/formTypes/QuotationFormData";
 import UserQuoteSchema from "@Utils/schemas/UserQuoteSchema";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-type userQueryFormData = {
-  brand: {
-    id: number;
-    name: string;
-    patterns: {
-      id: number;
-      name: string;
-    }[];
-  };
-  pattern: {
-    id: number;
-    name: string;
-  };
-  tyreSize: { id: number; name: string };
-  speedRating?: string;
-  quantity: number;
-  userNotes?: string;
-  loadIndex?: number;
-};
 
 const GetQuote = ({
   brands,
@@ -38,8 +20,12 @@ const GetQuote = ({
   createQuotation,
   getServices,
   services,
+  loadIndexes,
+  speedRatings,
+  getLoadIndexes,
+  getSpeedRatings,
 }: GetQuoteProps) => {
-  const [userQuery, setUserQuery] = useState<userQueryFormData[]>([]);
+  const [userQuery, setUserQuery] = useState<UserQueryFormData[]>([]);
   const [selectedServices, setSelectedServices] = useState([]);
   const [userService, setUserService] = useState(false);
   const {
@@ -47,7 +33,7 @@ const GetQuote = ({
     control,
     formState: { errors },
     reset,
-  } = useForm<userQueryFormData>({ resolver: yupResolver(UserQuoteSchema) });
+  } = useForm<UserQueryFormData>({ resolver: yupResolver(UserQuoteSchema) });
   const onSubmit = handleSubmit((data) => {
     setUserQuery([...userQuery, data]), reset();
   });
@@ -71,11 +57,12 @@ const GetQuote = ({
   const submitAllQuotes = async () => {
     const userQuotesPayload = {
       userQuotes: userQuery.map(
-        ({ brand, pattern, tyreSize, loadIndex, ...query }) => ({
+        ({ brand, pattern, tyreSize, loadIndex, speedRating, ...query }) => ({
           brandName: brand?.name,
           patternName: pattern?.name,
           tyreSizeValue: tyreSize?.name,
-          loadIndex: Number(loadIndex),
+          tyreLoadIndex: Number(loadIndex.name),
+          tyreSpeedRating: speedRating?.name,
           ...query,
         })
       ),
@@ -98,13 +85,24 @@ const GetQuote = ({
     getBrands({ search: "" });
   }, [getBrands]);
   useEffect(() => {
+    getLoadIndexes({ search: "" });
+  }, [getLoadIndexes]);
+  useEffect(() => {
+    getSpeedRatings({ search: "" });
+  }, [getSpeedRatings]);
+  useEffect(() => {
     getServices({ search: "" });
   }, [getServices]);
   useEffect(() => {
     getTyreSizes({ search: "" });
   }, [getTyreSizes]);
-  if (!brands?.length) return <LoadingAnimation message="Please wait.." />;
-  if (!tyreSizes?.length) return <LoadingAnimation message="Please wait.." />;
+  if (!brands?.length) return <LoadingAnimation message="Loading brands..." />;
+  if (!tyreSizes?.length)
+    return <LoadingAnimation message="Loading tyre sizes..." />;
+  if (!speedRatings?.length)
+    return <LoadingAnimation message="Loading speed ratings..." />;
+  if (!loadIndexes?.length)
+    return <LoadingAnimation message="Loading load indexes..." />;
 
   return (
     <div>
@@ -124,6 +122,7 @@ const GetQuote = ({
             control={control}
             name={"brand"}
             data={brands}
+            error={(errors.brand as any)?.message}
           />
           <SearchBox
             placeholder="Enter patterns name"
@@ -139,20 +138,25 @@ const GetQuote = ({
               name: value,
               id,
             }))}
+            error={(errors.tyreSize as any)?.message}
           />
-          <InputField
+          <SearchBox
+            placeholder="Enter speed rating"
             control={control}
-            name="speedRating"
-            placeholder="Enter speed rating (optional)"
-            type="text"
-            error={errors.speedRating?.message}
+            name={"speedRating"}
+            data={speedRatings?.map(({ value, id }) => ({
+              name: value,
+              id,
+            }))}
           />
-          <InputField
+          <SearchBox
+            placeholder="Enter load index"
             control={control}
-            name="loadIndex"
-            placeholder="Enter load index (optional)"
-            type="text"
-            error={errors.loadIndex?.message}
+            name={"loadIndex"}
+            data={loadIndexes?.map(({ value, id }) => ({
+              name: String(value),
+              id,
+            }))}
           />
           <InputField
             control={control}
@@ -194,8 +198,8 @@ const GetQuote = ({
                   brand={query?.brand?.name ?? "Error please refresh"}
                   pattern={query?.pattern?.name ?? "-"}
                   tyreSize={query?.tyreSize?.name ?? "Error please refresh"}
-                  loadIndex={query?.loadIndex ?? "-"}
-                  speedRating={query?.speedRating ?? "-"}
+                  loadIndex={query?.loadIndex?.name ?? "-"}
+                  speedRating={query?.speedRating?.name ?? "-"}
                   notes={query?.userNotes}
                   quantity={query?.quantity}
                 />

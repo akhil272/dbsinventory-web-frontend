@@ -160,7 +160,7 @@ const CreateStock = ({
         <h1 className="font-bold text-2xl pb-4">Add stock</h1>
       </div>
       <div>
-        <div className="">
+        <div>
           <form className="space-y-3" onSubmit={onSubmit}>
             <AutoComplete
               placeholder="Enter product line"

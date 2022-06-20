@@ -26,6 +26,8 @@ const Register = ({ register }: RegisterProps) => {
       lastName: data.lastName,
       phoneNumber: data.phoneNumber,
       email: data.email,
+      addressLine1: data.addressLine1,
+      addressLine2: data.addressLine2,
     });
     if (response.success && response.data) {
       storage().setAccessToken(response.data?.accessToken);
@@ -87,6 +89,20 @@ const Register = ({ register }: RegisterProps) => {
                     placeholder="Enter your phone number"
                     type="tel"
                     error={errors.phoneNumber?.message}
+                  />
+                  <InputField
+                    control={control}
+                    name="addressLine1"
+                    placeholder="Enter your address line 1 [optional]"
+                    type="tel"
+                    error={errors.addressLine1?.message}
+                  />
+                  <InputField
+                    control={control}
+                    name="addressLine2"
+                    placeholder="Enter your address line 2 [optional]"
+                    type="tel"
+                    error={errors.addressLine2?.message}
                   />
                 </div>
                 <button

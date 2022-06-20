@@ -12,6 +12,7 @@ type AutoCompleteProps = {
   name: string;
   data: dataType[];
   placeholder: string;
+  error?: string;
 };
 
 export default function SearchBox({
@@ -19,6 +20,7 @@ export default function SearchBox({
   placeholder,
   name,
   data,
+  error,
 }: AutoCompleteProps) {
   const [query, setQuery] = useState("");
   const [dataState, setDataState] = useState(data);
@@ -117,6 +119,7 @@ export default function SearchBox({
           </Combobox>
         )}
       />
+      <p className="text-sm text-red-600 px-2">{error}</p>
     </div>
   );
 }

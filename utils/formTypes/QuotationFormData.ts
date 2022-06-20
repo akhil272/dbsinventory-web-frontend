@@ -21,3 +21,23 @@ export type UpdateQuotationStatusForm = {
     name: string;
   };
 };
+
+export type UserQueryFormData = {
+  brand: {
+    id: number;
+    name: string;
+    patterns: {
+      id: number;
+      name: string;
+    }[];
+  };
+  pattern: {
+    id: number;
+    name: string;
+  };
+  tyreSize: { id: number; name: string };
+  speedRating?: { id: number; name: string };
+  quantity: number;
+  userNotes?: string;
+  loadIndex?: { id: number; name: string };
+};

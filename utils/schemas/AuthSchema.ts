@@ -9,6 +9,8 @@ export const RegisterAuthSchema = Yup.object().shape({
     .matches(/^\+[1-9]\d{1,14}$/, {
       message: "Please enter phone number in the format +91XXXXXXXXXX",
     }),
+  addressLine1: Yup.string().optional(),
+  addressLine2: Yup.string().optional(),
 });
 
 export const VerifyUserOtpSchema = Yup.object().shape({

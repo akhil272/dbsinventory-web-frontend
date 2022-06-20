@@ -3,6 +3,7 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import NotFound from "@Components/NotFound";
 import QuotationCard from "@Components/QuotationCard";
 import { QuotationProps } from "@Store/quotations/types";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -87,6 +88,15 @@ const Quotations = ({
   }
   return (
     <div>
+      <div className="flex justify-between pb-2 border-b-2 border-gray-500 mb-2">
+        <h1 className="text-xl font-semibold w-full">Quotations</h1>
+        <Link href="/quotations/create">
+          <a className="px-6 py-1 bg-primary text-sm text-center flex items-center rounded-md text-white">
+            Create
+          </a>
+        </Link>
+      </div>
+
       <div className="grid grid-cols-2  font-bold text-white text-md gap-1">
         <button
           className="p-4 rounded-md bg-pending "
