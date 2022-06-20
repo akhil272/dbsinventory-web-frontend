@@ -4,9 +4,10 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import QuoteListCard from "@Components/QuoteListCard";
 import SearchBox from "@Components/SearchBox";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RegisterUserFormData } from "@Utils/formTypes/AuthFormData";
+import { CreateUserAndQuotationProps } from "@Store/quotations/types";
+import { CreateUserFormData } from "@Utils/formTypes/AuthFormData";
 import { UserQueryFormData } from "@Utils/formTypes/QuotationFormData";
-import { RegisterAuthSchema } from "@Utils/schemas/AuthSchema";
+import { CreateUserSchema } from "@Utils/schemas/QuotationSchema";
 import UserQuoteSchema from "@Utils/schemas/UserQuoteSchema";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -29,7 +30,7 @@ const CreateQuotation = ({
   getLoadIndexes,
   getSpeedRatings,
   createUserAndQuotation,
-}) => {
+}: CreateUserAndQuotationProps) => {
   const [userQuery, setUserQuery] = useState<UserQueryFormData[]>([]);
   const [selectedServices, setSelectedServices] = useState([]);
   const [userService, setUserService] = useState(false);
@@ -38,12 +39,17 @@ const CreateQuotation = ({
     handleSubmit: handleSubmitUser,
     control: controlUser,
     reset: resetUser,
+    watch,
+    setValue,
     formState: { errors: errorsUser },
-  } = useForm<RegisterUserFormData>({
-    resolver: yupResolver(RegisterAuthSchema),
+  } = useForm<CreateUserFormData>({
+    resolver: yupResolver(CreateUserSchema),
   });
+  const userPhoneNumber = watch("phoneNumber");
+
+  console.log(userPhoneNumber);
   const onUserSubmit = handleSubmitUser((data) => handleUserData(data));
-  const handleUserData = (data: RegisterUserFormData) => {
+  const handleUserData = (data: CreateUserFormData) => {
     setUserData(data);
     toast.success("User data recorded successfully");
     resetUser();
@@ -92,7 +98,7 @@ const CreateQuotation = ({
         firstName: userData?.firstName,
         lastName: userData?.lastName,
         email: userData?.email,
-        phoneNumber: userData?.phoneNumber,
+        phoneNumber: userData?.phoneNumber.name,
         addressLine1: userData?.addressLine1,
         addressLine2: userData?.addressLine2,
       },
@@ -126,6 +132,30 @@ const CreateQuotation = ({
   useEffect(() => {
     getTyreSizes({ search: "" });
   }, [getTyreSizes]);
+  useEffect(() => {
+    if (users.find((user) => user.id === userPhoneNumber.id)) {
+      setValue(
+        "firstName",
+        users.find((user) => user.id === userPhoneNumber.id).firstName
+      );
+      setValue(
+        "lastName",
+        users.find((user) => user.id === userPhoneNumber.id).lastName
+      );
+      setValue(
+        "email",
+        users.find((user) => user.id === userPhoneNumber.id).email
+      );
+      setValue(
+        "addressLine1",
+        users.find((user) => user.id === userPhoneNumber.id).addressLine1 || ""
+      );
+      setValue(
+        "addressLine2",
+        users.find((user) => user.id === userPhoneNumber.id).addressLine2 || ""
+      );
+    }
+  }, [userPhoneNumber]);
   if (loadingUsers || loadingTyreData)
     return <LoadingAnimation message="Please wait.." />;
   return (
@@ -133,8 +163,17 @@ const CreateQuotation = ({
       <div className="pt-2 ">
         <h1 className="font-bold text-2xl capitalize pb-2">Create user</h1>
       </div>
-      <form className="space-y-5" onSubmit={onUserSubmit}>
+      <form className="space-y-4" onSubmit={onUserSubmit}>
         <div className="flex-col space-y-2 justify-center">
+          <SearchBox
+            placeholder="Enter phone number [+91XXXXXXXXXX]"
+            control={controlUser}
+            name={"phoneNumber"}
+            data={users?.map(({ phoneNumber, id }) => ({
+              name: phoneNumber,
+              id,
+            }))}
+          />
           <InputField
             control={controlUser}
             name="firstName"
@@ -158,13 +197,6 @@ const CreateQuotation = ({
           />
           <InputField
             control={controlUser}
-            name="phoneNumber"
-            placeholder="Enter your phone number"
-            type="tel"
-            error={errorsUser.phoneNumber?.message}
-          />
-          <InputField
-            control={controlUser}
             name="addressLine1"
             placeholder="Enter your address line 1 [optional]"
             type="text"
@@ -178,19 +210,35 @@ const CreateQuotation = ({
             error={errorsUser.addressLine2?.message}
           />
         </div>
-        <button
-          disabled={userData}
-          className={`${
-            userData ? "bg-gray-300" : "bg-primary"
-          } w-full rounded-lg text-lg font-medium text-center text-white p-2`}
-          type="button"
-          onClick={onUserSubmit}
-        >
-          {userData ? "User data recorded" : "Submit"}
-        </button>
+        <div className="w-full flex space-x-1">
+          <button
+            placeholder="Reset"
+            className={`${
+              userData
+                ? "bg-pastel_green w-1/2 rounded-lg text-lg font-medium text-center text-white p-1"
+                : "display-none"
+            } `}
+            type="button"
+            onClick={() => setUserData(null)}
+          >
+            {userData ? "Reset" : null}
+          </button>
+          <button
+            disabled={userData}
+            className={`${
+              userData ? "bg-gray-300 w-1/2" : "bg-primary w-full"
+            }  rounded-lg text-lg font-medium text-center text-white p-1`}
+            type="button"
+            onClick={onUserSubmit}
+          >
+            {userData ? "User Selected" : "Submit"}
+          </button>
+        </div>
       </form>
-      <div className="pt-2 ">
-        <h1 className="font-bold text-2xl capitalize pb-2">Get a quote</h1>
+      <div className="pt-4 ">
+        <h1 className="font-bold text-2xl capitalize pb-2">
+          Create Quotations
+        </h1>
       </div>
       <div>
         <form className="space-y-2 " onSubmit={onSubmit}>

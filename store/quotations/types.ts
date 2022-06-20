@@ -17,6 +17,7 @@ import {
   TyreSize,
   TyreSizePayload,
 } from "@Store/tyre/types";
+import { getUsersPayload } from "@Store/users/types";
 
 export const USER_AND_QUOTATION_CREATE_INIT = "USER:AND:QUOTATION:CREATE:INIT";
 export const USER_AND_QUOTATION_CREATE_SUCCESS =
@@ -274,6 +275,51 @@ export type UserQuoteDispatchProps = {
     data: updateUserQuoteData
   ) => Promise<ApiReturnType<userQuote>>;
 };
+
+export type UserPayload = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  addressLine1: string;
+  addressLine2: string;
+};
+
+export type CreateUserAndQuotationDispatchProps = {
+  getUsers: (payload: getUsersPayload) => Promise<ApiReturnType<UserPayload[]>>;
+  getBrands: (
+    payload: getBrandsPayload
+  ) => Promise<ApiReturnType<BrandsPayload[]>>;
+  getTyreSizes: (
+    payload: getTyreSizesPayload
+  ) => Promise<ApiReturnType<TyreSizePayload[]>>;
+  getServices: (
+    payload: getServicesPayload
+  ) => Promise<ApiReturnType<ServicePayload[]>>;
+  getLoadIndexes: (
+    payload: getLoadIndexesPayload
+  ) => Promise<ApiReturnType<LoadIndexPayload[]>>;
+  getSpeedRatings: (
+    payload: getSpeedRatingPayload
+  ) => Promise<ApiReturnType<SpeedRatingPayload[]>>;
+  createUserAndQuotation: (
+    data: createUserAndQuotationPayload
+  ) => Promise<ApiReturnType<createQuotationResponse>>;
+};
+export type CreateUserAndQuotationStateProps = {
+  users: UserPayload[];
+  loadingUsers: boolean;
+  loadingTyreData: boolean;
+  brands: Brand[];
+  tyreSizes: TyreSize[];
+  patterns: { id: number; name: string }[];
+  services: ServicePayload[];
+  loadIndexes: LoadIndexPayload[];
+  speedRatings: SpeedRatingPayload[];
+};
+export type CreateUserAndQuotationProps = CreateUserAndQuotationDispatchProps &
+  CreateUserAndQuotationStateProps;
 
 export type UserQuoteProps = UserQuoteStateProps & UserQuoteDispatchProps;
 export type GetQuoteDispatchProps = {

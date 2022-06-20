@@ -25,3 +25,20 @@ export const UpdateQuotationStatusFrom = Yup.object().shape({
     })
     .typeError("Please enter a customer type or select from drop down."),
 });
+
+export const CreateUserSchema = Yup.object().shape({
+  firstName: Yup.string().required("Required"),
+  lastName: Yup.string().required("Required"),
+  email: Yup.string().email().optional().nullable(),
+  phoneNumber: Yup.object()
+    .shape({
+      name: Yup.string()
+        .required()
+        .matches(/^\+[1-9]\d{1,14}$/, {
+          message: "Please enter phone number in the format +91XXXXXXXXXX",
+        }),
+    })
+    .typeError("Please select a product line from drop down."),
+  addressLine1: Yup.string().optional().nullable(),
+  addressLine2: Yup.string().optional().nullable(),
+});

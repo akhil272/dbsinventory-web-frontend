@@ -27,7 +27,7 @@ export type deleteUserPayload = {
   id: number;
 };
 
-type UserPayload = {
+export type UserPayload = {
   id: number;
   firstName: string;
   lastName: string;
@@ -35,6 +35,8 @@ type UserPayload = {
   phoneNumber: string;
   email: string;
   avatarId: string;
+  addressLine1: string;
+  addressLine2: string;
   isPhoneNumberVerified: boolean;
 };
 
