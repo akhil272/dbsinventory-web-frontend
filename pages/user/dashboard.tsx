@@ -1,14 +1,29 @@
 import OrderCard from "@Components/Dashboard/User/OrderCard";
 import QuotationCard from "@Components/Dashboard/User/QuotationCard";
 import StatsCard from "@Components/StatsCard";
+import { UserDashboardProps } from "@Store/users/types";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
-const UserDashboard = ({ getUserOverview, overview, user }) => {
-  console.log(user);
+const UserDashboard = ({ getUserOverview, overview }: UserDashboardProps) => {
+  const router = useRouter();
+  const {
+    query: { userId },
+  } = router;
+
   useEffect(() => {
-    getUserOverview(user.id);
-  }, [getUserOverview, user.id]);
+    if (router.isReady) {
+      const fetchUserOverview = async () => {
+        const response = await getUserOverview(+userId);
+        if (!response.success) {
+          toast.error(`${response.message}`);
+        }
+      };
+      fetchUserOverview();
+    }
+  }, [userId, router.isReady]);
 
   return (
     <div>

@@ -47,7 +47,6 @@ const CreateQuotation = ({
   });
   const userPhoneNumber = watch("phoneNumber");
 
-  console.log(userPhoneNumber);
   const onUserSubmit = handleSubmitUser((data) => handleUserData(data));
   const handleUserData = (data: CreateUserFormData) => {
     setUserData(data);
@@ -299,13 +298,13 @@ const CreateQuotation = ({
           />
           <div className="flex space-x-1 py-2">
             <button
-              className="bg-pastel_green w-1/2 text-lg rounded-md font-medium text-center text-white p-2"
+              className="bg-pastel_green w-1/2 text-lg rounded-md font-medium text-center text-white p-1"
               onClick={onSubmit}
             >
               Add More
             </button>
             <button
-              className="bg-primary w-1/2  text-lg rounded-md font-medium text-center text-white p-2"
+              className="bg-primary w-1/2  text-lg rounded-md font-medium text-center text-white p-1"
               onClick={handleSingleQuote}
             >
               Submit
@@ -339,7 +338,7 @@ const CreateQuotation = ({
 
             {userService ? (
               <button
-                className="bg-primary w-full my-4 text-lg rounded-md font-medium text-center text-white p-2"
+                className="bg-primary w-full my-4 text-lg rounded-md font-medium text-center text-white p-1"
                 onClick={submitAllQuotes}
               >
                 Submit Quotation
@@ -347,13 +346,13 @@ const CreateQuotation = ({
             ) : (
               <div className="flex space-x-1 py-2">
                 <button
-                  className="bg-pastel_green w-1/2 text-lg rounded-md font-medium text-center text-white p-2"
+                  className="bg-pastel_green w-1/2 text-lg rounded-md font-medium text-center text-white p-1"
                   onClick={onAddService}
                 >
                   Add Service
                 </button>
                 <button
-                  className="bg-primary w-1/2  text-lg rounded-md font-medium text-center text-white p-2"
+                  className="bg-primary w-1/2  text-lg rounded-md font-medium text-center text-white p-1"
                   onClick={submitAllQuotes}
                 >
                   Submit Quotation

@@ -47,7 +47,6 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
       getStockById({ id: +stockId });
     }
   }, [router.isReady]);
-  console.log(stock, "stock data load");
 
   useEffect(() => {
     if (stock) {

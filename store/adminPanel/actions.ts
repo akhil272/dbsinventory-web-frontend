@@ -25,7 +25,28 @@ import {
   TRANSPORT_CREATE_FAIL,
   TRANSPORT_CREATE_INIT,
   TRANSPORT_CREATE_SUCCESS,
+  getOverviewPayload,
+  OVERVIEW_FETCH_FAIL,
+  OVERVIEW_FETCH_INIT,
+  OVERVIEW_FETCH_SUCCESS,
 } from "./types";
+
+export const getOverview = async (data: getOverviewPayload) => {
+  const { MANAGE_QUOTATIONS, ADMIN, OVERVIEW } = API_END_POINTS;
+  const pathname = `${MANAGE_QUOTATIONS}${ADMIN}${OVERVIEW}`;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: OVERVIEW_FETCH_INIT,
+      successType: OVERVIEW_FETCH_SUCCESS,
+      failureType: OVERVIEW_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const createTransport = async (data: createTransportPayload) => {
   const { TRANSPORT } = API_END_POINTS;

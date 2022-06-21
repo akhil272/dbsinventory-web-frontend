@@ -11,7 +11,6 @@ const Layout = ({ children, user }) => {
   const userName = user?.firstName;
   useEffect(() => {
     getUserInfo();
-    console.log("how times user get called");
   }, []);
   return (
     <div className="bg-neutral-100 min-h-screen ">

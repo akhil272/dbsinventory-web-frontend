@@ -7,6 +7,9 @@ import {
   LOCATION_CREATE_FAIL,
   LOCATION_CREATE_INIT,
   LOCATION_CREATE_SUCCESS,
+  OVERVIEW_FETCH_FAIL,
+  OVERVIEW_FETCH_INIT,
+  OVERVIEW_FETCH_SUCCESS,
   TRANSPORTS_FETCH_FAIL,
   TRANSPORTS_FETCH_INIT,
   TRANSPORTS_FETCH_SUCCESS,
@@ -26,10 +29,20 @@ export const initialState: AdminPanel = {
   vendors: [],
   locations: [],
   transports: [],
+  overview: null,
 };
 
 const reducer = (state = initialState, action: AdminPanelActionTypes) => {
   switch (action.type) {
+    case OVERVIEW_FETCH_INIT:
+      return Object.assign({}, state, { loading: true });
+    case OVERVIEW_FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        overview: action.payload.data,
+      });
+    case OVERVIEW_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
     case TRANSPORT_CREATE_INIT:
       return Object.assign({}, state, { loading: true });
     case TRANSPORT_CREATE_SUCCESS:

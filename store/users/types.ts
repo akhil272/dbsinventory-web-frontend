@@ -143,6 +143,11 @@ export type UsersProps = UsersStateProps & UsersDispatchProps;
 
 export type createUserResponse = {};
 
+export type UserDashboardProps = {
+  getUserOverview: (userId: number) => Promise<ApiReturnType<Overview>>;
+  overview: Overview;
+};
+
 type userOverviewFetchInit = {
   type: typeof USER_OVERVIEW_FETCH_INIT;
 };

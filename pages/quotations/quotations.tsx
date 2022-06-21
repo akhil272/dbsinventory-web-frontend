@@ -78,8 +78,8 @@ const Quotations = ({
   if (!found) {
     return (
       <div onClick={handleReset}>
-        <NotFound message="No quotations to show on selected filters.">
-          <button className="bg-primary text-center hover:bg-red-500 text-white  py-2 px-4 rounded">
+        <NotFound message="Oops no quotations to list on selected filters.">
+          <button className="bg-primary text-center hover:bg-red-500 text-white  py-1 w-full rounded">
             Go back
           </button>
         </NotFound>

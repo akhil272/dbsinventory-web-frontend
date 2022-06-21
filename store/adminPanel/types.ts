@@ -1,6 +1,10 @@
 import { ApiReturnType } from "@Store/api";
 import { Vendor, Transport, Location } from "@Store/stocks/types";
 
+export const OVERVIEW_FETCH_INIT = "OVERVIEW:FETCH:INIT";
+export const OVERVIEW_FETCH_SUCCESS = "OVERVIEW:FETCH:SUCCESS";
+export const OVERVIEW_FETCH_FAIL = "OVERVIEW:FETCH:FAIL";
+
 export const TRANSPORT_CREATE_INIT = "TRANSPORT:CREATE:INIT";
 export const TRANSPORT_CREATE_SUCCESS = "TRANSPORT:CREATE:SUCCESS";
 export const TRANSPORT_CREATE_FAIL = "TRANSPORT:CREATE:FAIL";
@@ -21,6 +25,11 @@ export const VENDOR_CREATE_FAIL = "VENDOR:CREATE:FAIL";
 export const VENDORS_FETCH_INIT = "VENDORS:FETCH:INIT";
 export const VENDORS_FETCH_SUCCESS = "VENDORS:FETCH:SUCCESS";
 export const VENDORS_FETCH_FAIL = "VENDORS:FETCH:FAIL";
+
+export type getOverviewPayload = {
+  startDate: string;
+  endDate: string;
+};
 
 export type createTransportPayload = {
   mode: string;
@@ -48,6 +57,7 @@ export type AdminPanel = {
   vendors: Vendor[];
   locations: Location[];
   transports: Transport[];
+  overview: OverviewPayload;
 };
 
 export type AdminPanelStateProps = {
@@ -85,6 +95,32 @@ export type createTransportResponse = {};
 export type VendorPayload = Vendor[];
 export type LocationPayload = Location[];
 export type TransportPayload = Location[];
+
+export type OverviewPayload = {
+  ordersCount: number;
+  profit: string;
+  receivedQuotations: number;
+  pendingQuotations: number;
+};
+
+export type AdminDashboardProps = {
+  loading: boolean;
+  overview: OverviewPayload;
+  getOverview: (
+    data: getOverviewPayload
+  ) => Promise<ApiReturnType<OverviewPayload>>;
+};
+
+type overviewFetchInit = {
+  type: typeof OVERVIEW_FETCH_INIT;
+};
+type overviewFetchSuccess = {
+  type: typeof OVERVIEW_FETCH_SUCCESS;
+  payload: ApiReturnType<OverviewPayload[]>;
+};
+type overviewFetchFail = {
+  type: typeof OVERVIEW_FETCH_FAIL;
+};
 
 type transportCreateInit = {
   type: typeof TRANSPORT_CREATE_INIT;
@@ -150,6 +186,9 @@ type vendorsFetchFail = {
 };
 
 export type AdminPanelActionTypes =
+  | overviewFetchInit
+  | overviewFetchSuccess
+  | overviewFetchFail
   | transportCreateInit
   | transportCreateSuccess
   | transportCreateFail

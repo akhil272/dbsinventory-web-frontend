@@ -69,7 +69,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
     getTyreSizes({ search: "" });
   }, []);
   return (
-    <div>
+    <div className="pb-4">
       <div>
         <img
           className="object-contain lg:max-w-xl rounded-xl"
@@ -105,7 +105,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
 
           <button
             onClick={onSubmit}
-            className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
+            className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-1"
           >
             Search
           </button>
