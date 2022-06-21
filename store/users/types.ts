@@ -1,5 +1,9 @@
 import { ApiReturnType } from "@Store/api";
 
+export const USER_OVERVIEW_FETCH_INIT = "USER_OVERVIEW:FETCH:INIT";
+export const USER_OVERVIEW_FETCH_SUCCESS = "USER_OVERVIEW:FETCH:SUCCESS";
+export const USER_OVERVIEW_FETCH_FAIL = "USER_OVERVIEW:FETCH:FAIL";
+
 export const USER_DELETE_INIT = "USER:DELETE:INIT";
 export const USER_DELETE_SUCCESS = "USER:DELETE:SUCCESS";
 export const USER_DELETE_FAIL = "USER:DELETE:FAIL";
@@ -60,12 +64,43 @@ export type createUserPayload = {
 export type getUsersPayload = {
   search?: string;
 };
+export type OrderPayload = {
+  id: number;
+  saleDate: Date;
+  salePrice: number;
+  quantity: number;
+};
+
+export type QuotationPayload = {
+  id: number;
+  status: string;
+  price: number;
+  notes: string;
+  validity: number;
+  count: number;
+  createdAt: Date;
+};
+
+export type Overview = {
+  quotationAndOrders: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    role: string;
+    customer: {
+      id: number;
+      orders: OrderPayload[];
+      quotations: QuotationPayload[];
+    };
+  };
+};
 
 export type User = UserPayload;
 export type Users = {
   loading: boolean;
   user: User | null;
   users: User[];
+  overview: Overview;
 };
 
 export type deleteUserResponse = {};
@@ -107,6 +142,17 @@ export type UpdateUserProps = UserUpdateStateProps & UserUpdateDispatchProps;
 export type UsersProps = UsersStateProps & UsersDispatchProps;
 
 export type createUserResponse = {};
+
+type userOverviewFetchInit = {
+  type: typeof USER_OVERVIEW_FETCH_INIT;
+};
+type userOverviewFetchSuccess = {
+  type: typeof USER_OVERVIEW_FETCH_SUCCESS;
+  payload: ApiReturnType<Overview>;
+};
+type userOverviewFetchFail = {
+  type: typeof USER_OVERVIEW_FETCH_FAIL;
+};
 
 type userDeleteInit = {
   type: typeof USER_DELETE_INIT;
@@ -177,6 +223,9 @@ type GetUserFailAction = {
 };
 
 export type UsersActionTypes =
+  | userOverviewFetchInit
+  | userOverviewFetchSuccess
+  | userOverviewFetchFail
   | userDeleteInit
   | userDeleteSuccess
   | userDeleteFail
