@@ -44,8 +44,10 @@ const Update = ({ updateBrand }: UpdateBrandProps) => {
           src="/images/Update_Art.png"
         />
       </div>
-      <div className="mt-2 border-b-2 border-slate-500  ">
-        <h1 className="font-bold capitalize text-3xl">Update brand</h1>
+      <div className="border-b-4 border-neutral-400  w-full">
+        <h1 className="text-2xl  font-medium  tracking-wide uppercase ">
+          Update brand
+        </h1>
       </div>
 
       <form className="space-y-2  pt-6" onSubmit={onSubmit}>

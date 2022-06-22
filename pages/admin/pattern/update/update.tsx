@@ -1,66 +1,73 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CreateBrandProps } from "@Store/tyre/types";
+import { UpdatePatternProps } from "@Store/tyre/types";
 import { GenericFormData } from "@Utils/formTypes/AdminFormData";
 import { GenericSchema } from "@Utils/schemas/AdminSchema";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const Create = ({ createBrand }: CreateBrandProps) => {
+const Update = ({ updatePattern }: UpdatePatternProps) => {
+  const router = useRouter();
+  const {
+    query: { patternId, patternName },
+  } = router;
   const {
     handleSubmit,
     control,
-    reset,
+
     formState: { errors },
   } = useForm<GenericFormData>({
     resolver: yupResolver(GenericSchema),
   });
-  const onSubmit = handleSubmit((data) => createNewBrand(data));
+  const onSubmit = handleSubmit((data) => updateExistingBrand(data));
 
-  const createNewBrand = async (data: GenericFormData) => {
-    const response = await createBrand({
+  const updateExistingBrand = async (data: GenericFormData) => {
+    const response = await updatePattern({
+      id: Number(patternId),
       name: data.name,
     });
     if (response.success && response.data) {
-      toast.success(`Successfully added ${data.name} to system.`);
-      reset();
+      toast.success(`Successfully updated pattern name to ${data.name}.`);
+      router.back();
     }
     if (!response.success) {
-      toast.error(`Failed to brand to system. ${response.message}`);
+      toast.error(`Failed to update ${data.name}. ${response.message}`);
     }
   };
 
   return (
-    <div className="pb-4 ">
+    <div className="pb-4">
       <div className="items-center justify-center flex ">
         <img
           className="object-contain rounded-xl"
-          src="/images/Create_Art.png"
+          src="/images/Update_Art.png"
         />
       </div>
       <div className="border-b-4 border-neutral-400  w-full">
         <h1 className="text-2xl  font-medium  tracking-wide uppercase ">
-          Create brand
+          Update pattern
         </h1>
       </div>
 
-      <form className="space-y-2 pt-6 " onSubmit={onSubmit}>
+      <form className="space-y-2  pt-6" onSubmit={onSubmit}>
         <InputField
           control={control}
           name="name"
           placeholder="Enter brand name"
           type="text"
           error={errors.name?.message}
+          defaultValue={String(patternName) ?? "N/A"}
         />
         <button
-          className="bg-primary w-full rounded-lg text-lg font-normal text-center text-white p-2"
+          className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
           onClick={onSubmit}
         >
-          Add
+          Update
         </button>
       </form>
     </div>
   );
 };
 
-export default Create;
+export default Update;

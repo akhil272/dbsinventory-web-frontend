@@ -22,10 +22,7 @@ const DeleteAStock = ({ deleteStock }) => {
   };
   return (
     <div className="flex flex-col min-h-screen items-center justify-center ">
-      <img
-        className="object-contain rounded-xl"
-        src="/images/Delete_Stock.png"
-      />
+      <img className="object-contain rounded-xl" src="/images/Delete_Art.png" />
 
       <div className="w-full rounded-2xl">
         <div className="py-4 space-y-4">

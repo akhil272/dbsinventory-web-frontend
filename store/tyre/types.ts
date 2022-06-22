@@ -44,9 +44,18 @@ export const TYRE_SIZES_FETCH_INIT = "TYRE_SIZES:FETCH:INIT";
 export const TYRE_SIZES_FETCH_SUCCESS = "TYRE_SIZES:FETCH:SUCCESS";
 export const TYRE_SIZES_FETCH_FAIL = "TYRE_SIZES:FETCH:FAIL";
 
+export const PATTERN_DELETE_INIT = "PATTERN:DELETE:INIT";
+export const PATTERN_DELETE_SUCCESS = "PATTERN:DELETE:SUCCESS";
+export const PATTERN_DELETE_FAIL = "PATTERN:DELETE:FAIL";
+export const PATTERN_UPDATE_INIT = "PATTERN:UPDATE:INIT";
+export const PATTERN_UPDATE_SUCCESS = "PATTERN:UPDATE:SUCCESS";
+export const PATTERN_UPDATE_FAIL = "PATTERN:UPDATE:FAIL";
 export const PATTERN_CREATE_INIT = "PATTERN:CREATE:INIT";
 export const PATTERN_CREATE_SUCCESS = "PATTERN:CREATE:SUCCESS";
 export const PATTERN_CREATE_FAIL = "PATTERN:CREATE:FAIL";
+export const PATTERNS_FETCH_INIT = "PATTERNS:FETCH:INIT";
+export const PATTERNS_FETCH_SUCCESS = "PATTERNS:FETCH:SUCCESS";
+export const PATTERNS_FETCH_FAIL = "PATTERNS:FETCH:FAIL";
 
 export const BRAND_DELETE_INIT = "BRAND:DELETE:INIT";
 export const BRAND_DELETE_SUCCESS = "BRAND:DELETE:SUCCESS";
@@ -61,10 +70,47 @@ export const BRANDS_FETCH_INIT = "BRANDS:FETCH:INIT";
 export const BRANDS_FETCH_SUCCESS = "BRANDS:FETCH:SUCCESS";
 export const BRANDS_FETCH_FAIL = "BRANDS:FETCH:FAIL";
 
+export type deletePatternPayload = {
+  id: number;
+};
+export type updatePatternPayload = {
+  id: number;
+  name: string;
+};
+
+export type CreatePatternProps = {
+  brands: Brand[];
+  createPattern: (
+    data: createPatternPayload
+  ) => Promise<ApiReturnType<createPatternResponse>>;
+  createBrand: (
+    data: createBrandPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
+  getBrands: (
+    payload: getBrandsPayload
+  ) => Promise<ApiReturnType<BrandsPayload[]>>;
+};
+
+export type PatternProps = {
+  patterns: PatternPayload[];
+  getPatterns: (
+    payload: getPatternsPayload
+  ) => Promise<ApiReturnType<PatternPayload[]>>;
+};
+
+export type getPatternsPayload = {
+  search?: string;
+};
+
 export type deleteBrandPayload = {
   id: number;
 };
 
+export type DeletePatternProps = {
+  deletePattern: (
+    data: deletePatternPayload
+  ) => Promise<ApiReturnType<createPatternResponse>>;
+};
 export type DeleteBrandProps = {
   deleteBrand: (
     data: deleteBrandPayload
@@ -80,6 +126,13 @@ export type CreateBrandProps = {
   createBrand: (
     data: createBrandPayload
   ) => Promise<ApiReturnType<createBrandResponse>>;
+};
+
+export type BrandProps = {
+  brands: BrandsPayload[];
+  getBrands: (
+    payload: getBrandsPayload
+  ) => Promise<ApiReturnType<BrandsPayload[]>>;
 };
 
 export type createTyreDetailResponse = {
@@ -210,9 +263,18 @@ export type ProductLine = {
   id: number;
   name: string;
 };
+export type PatternPayload = {
+  id: number;
+  name: string;
+  brand: {
+    id: number;
+    name: string;
+  };
+};
 export type TyreData = {
   loading: boolean;
   brands: Brand[];
+  patterns: PatternPayload[];
   tyreSizes: TyreSize[];
   tyreDetails: TyreDetail[];
   speedRatings: SpeedRating[];
@@ -231,6 +293,11 @@ export type createBrandPayload = {
   name: string;
 };
 
+export type UpdatePatternProps = {
+  updatePattern: (
+    payload: updatePatternPayload
+  ) => Promise<ApiReturnType<createPatternResponse>>;
+};
 export type UpdateBrandProps = {
   updateBrand: (
     payload: updateBrandPayload
@@ -425,6 +492,26 @@ type tyreSizeCreateFail = {
   type: typeof TYRE_SIZE_CREATE_FAIL;
 };
 
+type patternDeleteInit = {
+  type: typeof PATTERN_DELETE_INIT;
+};
+type patternDeleteSuccess = {
+  type: typeof PATTERN_DELETE_SUCCESS;
+  payload: ApiReturnType<createPatternResponse>;
+};
+type patternDeleteFail = {
+  type: typeof PATTERN_DELETE_FAIL;
+};
+type patternUpdateInit = {
+  type: typeof PATTERN_UPDATE_INIT;
+};
+type patternUpdateSuccess = {
+  type: typeof PATTERN_UPDATE_SUCCESS;
+  payload: ApiReturnType<createPatternResponse>;
+};
+type patternUpdateFail = {
+  type: typeof PATTERN_UPDATE_FAIL;
+};
 type patternCreateInit = {
   type: typeof PATTERN_CREATE_INIT;
 };
@@ -434,6 +521,16 @@ type patternCreateSuccess = {
 };
 type patternCreateFail = {
   type: typeof PATTERN_CREATE_FAIL;
+};
+type patternsFetchInit = {
+  type: typeof PATTERNS_FETCH_INIT;
+};
+type patternsFetchSuccess = {
+  type: typeof PATTERNS_FETCH_SUCCESS;
+  payload: ApiReturnType<PatternPayload[]>;
+};
+type patternsFetchFail = {
+  type: typeof PATTERNS_FETCH_FAIL;
 };
 
 type brandDeleteInit = {
@@ -514,9 +611,18 @@ export type TyreDataActionTypes =
   | tyreSizesFetchInit
   | tyreSizesFetchSuccess
   | tyreSizesFetchFail
+  | patternDeleteInit
+  | patternDeleteSuccess
+  | patternDeleteFail
+  | patternUpdateInit
+  | patternUpdateSuccess
+  | patternUpdateFail
   | patternCreateInit
   | patternCreateSuccess
   | patternCreateFail
+  | patternsFetchInit
+  | patternsFetchSuccess
+  | patternsFetchFail
   | brandDeleteInit
   | brandDeleteSuccess
   | brandDeleteFail

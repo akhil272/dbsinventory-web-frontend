@@ -33,8 +33,8 @@ const AdminPanel = ({
 
   return (
     <div className="pb-4">
-      <div className="border-b-4 border-neutral-400 pb-2 w-full">
-        <h1 className="text-xl text-center  tracking-widest uppercase ">
+      <div className="border-b-4 border-neutral-400  w-full">
+        <h1 className="text-2xl text-center  tracking-widest uppercase ">
           DashBoard
         </h1>
       </div>
@@ -75,7 +75,7 @@ const AdminPanel = ({
         <DashboardMenuItem
           title="Patterns"
           color="bg-sky-400"
-          address="/admin/brand"
+          address="/admin/pattern"
         />
         <DashboardMenuItem title="Tyre Size" color="bg-teal-400" />
         <DashboardMenuItem title="Speed Rating" color="bg-sky-400" />

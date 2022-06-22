@@ -1,32 +1,32 @@
-import { BrandProps } from "@Store/tyre/types";
+import { PatternProps } from "@Store/tyre/types";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Brand = ({ brands, getBrands }: BrandProps) => {
-  const [brandSearch, setBrandSearch] = useState("");
+const Pattern = ({ patterns, getPatterns }: PatternProps) => {
+  const [userQuery, setUserQuery] = useState("");
   useEffect(() => {
-    getBrands({ search: "" });
+    getPatterns({ search: "" });
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setBrandSearch(e.target.value);
+    setUserQuery(e.target.value);
   };
-  const brandsFiltered = brands?.filter((brand) =>
+  const patternsFiltered = patterns?.filter((brand) =>
     brand.name
       .toLowerCase()
       .replace(/\s+/g, "")
-      .includes(brandSearch.toLowerCase().replace(/\s+/g, ""))
+      .includes(userQuery.toLowerCase().replace(/\s+/g, ""))
   );
   return (
     <div>
       <div className="border-b-4 border-neutral-400  w-full">
         <h1 className="text-2xl  font-medium  tracking-widest uppercase ">
-          Brand
+          Pattern
         </h1>
       </div>
       <div className="w-full flex pt-1 justify-end">
-        <Link href="/admin/brand/create">
+        <Link href="/admin/pattern/create">
           <a className="py-2  bg-primary rounded-md  px-4 text-white ">
             Create new
           </a>
@@ -55,7 +55,7 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
             <input
               type="text"
               id="table-search"
-              value={brandSearch}
+              value={userQuery}
               onChange={handleSearch}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search for items"
@@ -71,6 +71,9 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
               <th scope="col" className="px-6 py-3">
                 Name
               </th>
+              <th scope="col" className="px-6 py-3">
+                Brand
+              </th>
 
               <th scope="col" className="px-6 py-3">
                 <span className="sr-only">Edit</span>
@@ -81,9 +84,9 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
             </tr>
           </thead>
           <tbody>
-            {brandsFiltered?.map((brand, index) => (
+            {patternsFiltered?.map((pattern, index) => (
               <tr
-                key={brand.id}
+                key={pattern.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <th
@@ -92,13 +95,17 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
                 >
                   {index + 1}
                 </th>
-                <td className="px-6 py-4">{brand.name}</td>
+                <td className="px-6 py-4">{pattern.name}</td>
+                <td className="px-6 py-4">{pattern.brand.name}</td>
 
                 <td className="px-6 py-4 text-right">
                   <Link
                     href={{
-                      pathname: "/admin/brand/update",
-                      query: { brandId: brand.id, brandName: brand.name },
+                      pathname: "/admin/pattern/update",
+                      query: {
+                        patternId: pattern.id,
+                        patternName: pattern.name,
+                      },
                     }}
                   >
                     <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
@@ -109,8 +116,11 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
                 <td className="px-6 py-4 text-right">
                   <Link
                     href={{
-                      pathname: "/admin/brand/delete",
-                      query: { brandId: brand.id, brandName: brand.name },
+                      pathname: "/admin/pattern/delete",
+                      query: {
+                        patternId: pattern.id,
+                        patternName: pattern.name,
+                      },
                     }}
                   >
                     <a className="font-medium text-primary dark:text-blue-500 hover:underline">
@@ -127,4 +137,4 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
   );
 };
 
-export default Brand;
+export default Pattern;

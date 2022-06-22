@@ -16,7 +16,7 @@ import { useRouter } from "next/router";
 import storage from "@Utils/storage";
 
 const adminLink = [
-  { name: "Overview", to: "/admin", id: 1, iconName: <ControlOutlined /> },
+  { name: "Dashboard", to: "/admin", id: 1, iconName: <ControlOutlined /> },
   { name: "Profile", to: "/user/profile", id: 2, iconName: <HomeOutlined /> },
   {
     name: "Quotations",

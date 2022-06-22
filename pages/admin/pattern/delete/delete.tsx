@@ -1,23 +1,23 @@
-import { DeleteBrandProps } from "@Store/tyre/types";
+import { DeletePatternProps } from "@Store/tyre/types";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
-const Delete = ({ deleteBrand }: DeleteBrandProps) => {
+const Delete = ({ deletePattern }: DeletePatternProps) => {
   const router = useRouter();
   const {
-    query: { brandId, brandName },
+    query: { patternId, patternName },
   } = router;
   const cancel = () => {
     router.back();
   };
   const confirmDelete = async () => {
-    const response = await deleteBrand({ id: Number(brandId) });
+    const response = await deletePattern({ id: Number(patternId) });
     if (response.success) {
-      toast.success(`${brandName} deleted successfully.`);
+      toast.success(`${patternName} deleted successfully.`);
       router.back();
     }
     if (!response.success) {
-      toast.error(`Failed to delete ${brandName}. ${response.message}`);
+      toast.error(`Failed to delete ${patternName}. ${response.message}`);
     }
   };
 
@@ -31,16 +31,16 @@ const Delete = ({ deleteBrand }: DeleteBrandProps) => {
       </div>
       <div className="border-b-4 border-neutral-400  w-full">
         <h1 className="text-2xl  font-medium  tracking-wide uppercase ">
-          Delete brand
+          Delete pattern
         </h1>
       </div>
       <div className="space-y-2 pt-6 ">
         <div className="bg-white p-2 flex rounded-md space-x-2 ">
           <div className="w-1/2 text-neutral-400">
-            <div>Brand</div>
+            <div>Pattern</div>
           </div>
           <div className="w-1/2 ">
-            <div>{brandName}</div>
+            <div>{patternName}</div>
           </div>
         </div>
         <div className="flex  space-x-2 items-center justify-center">

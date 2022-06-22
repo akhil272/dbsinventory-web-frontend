@@ -22,8 +22,10 @@ import {
   createTyreDetailSizePayload,
   createTyreSizePayload,
   deleteBrandPayload,
+  deletePatternPayload,
   getBrandsPayload,
   getLoadIndexesPayload,
+  getPatternsPayload,
   getProductLinePayload,
   getSpeedRatingPayload,
   getTyreDetailsPayload,
@@ -34,9 +36,18 @@ import {
   LOAD_INDEX_CREATE_FAIL,
   LOAD_INDEX_CREATE_INIT,
   LOAD_INDEX_CREATE_SUCCESS,
+  PATTERNS_FETCH_FAIL,
+  PATTERNS_FETCH_INIT,
+  PATTERNS_FETCH_SUCCESS,
   PATTERN_CREATE_FAIL,
   PATTERN_CREATE_INIT,
   PATTERN_CREATE_SUCCESS,
+  PATTERN_DELETE_FAIL,
+  PATTERN_DELETE_INIT,
+  PATTERN_DELETE_SUCCESS,
+  PATTERN_UPDATE_FAIL,
+  PATTERN_UPDATE_INIT,
+  PATTERN_UPDATE_SUCCESS,
   PRODUCT_LINES_FETCH_FAIL,
   PRODUCT_LINES_FETCH_INIT,
   PRODUCT_LINES_FETCH_SUCCESS,
@@ -62,6 +73,7 @@ import {
   TYRE_SIZES_FETCH_INIT,
   TYRE_SIZES_FETCH_SUCCESS,
   updateBrandPayload,
+  updatePatternPayload,
 } from "./types";
 
 export const createProductLine = async (data: createProductLinePayload) => {
@@ -272,6 +284,40 @@ export const getTyreSizes = async (payload: getTyreSizesPayload) => {
   return fetchAsync(apiArgs);
 };
 
+export const deletePattern = async (data: deletePatternPayload) => {
+  const { PATTERN } = API_END_POINTS;
+  const { id } = data;
+  const pathname = PATTERN;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: PATTERN_DELETE_INIT,
+      successType: PATTERN_DELETE_SUCCESS,
+      failureType: PATTERN_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updatePattern = async ({ id, ...data }: updatePatternPayload) => {
+  const { PATTERN } = API_END_POINTS;
+  const pathname = PATTERN;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: PATTERN_UPDATE_INIT,
+      successType: PATTERN_UPDATE_SUCCESS,
+      failureType: PATTERN_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
 export const createPattern = async (data: createPatternPayload) => {
   const { PATTERN } = API_END_POINTS;
   const pathname = PATTERN;
@@ -284,6 +330,27 @@ export const createPattern = async (data: createPatternPayload) => {
       requestType: PATTERN_CREATE_INIT,
       successType: PATTERN_CREATE_SUCCESS,
       failureType: PATTERN_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const getPatterns = async (payload: getPatternsPayload) => {
+  const { PATTERN, SEARCH } = API_END_POINTS;
+  const { search = "" } = payload;
+  const pathname = `${PATTERN}`;
+  const urlParams = new URLSearchParams();
+  if (search) {
+    urlParams.append(SEARCH, search);
+  }
+  const url = `${pathname}?${urlParams}`;
+  const apiArgs = {
+    method: API_METHODS.GET,
+    url,
+    TYPES: {
+      requestType: PATTERNS_FETCH_INIT,
+      successType: PATTERNS_FETCH_SUCCESS,
+      failureType: PATTERNS_FETCH_FAIL,
     },
   };
   return fetchAsync(apiArgs);

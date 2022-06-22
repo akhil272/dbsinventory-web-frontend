@@ -1,13 +1,13 @@
 import { initialState } from "@Store/rootReducer";
-import { createBrand, getBrands } from "@Store/tyre/actions";
+import { getPatterns } from "@Store/tyre/actions";
 import { connect } from "react-redux";
-import Brand from "./brand";
+import Pattern from "./pattern";
 const mapStateToProps = ({ tyres }: typeof initialState) => ({
-  brands: tyres.brands,
+  patterns: tyres.patterns,
 });
 
 const mapDispatchToProps = () => ({
-  getBrands,
+  getPatterns,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Brand);
+export default connect(mapStateToProps, mapDispatchToProps)(Pattern);
