@@ -1,5 +1,3 @@
-import { DesktopOutlined } from "@ant-design/icons";
-
 type DashboardMenuItemProps = {
   title: string;
   artCover?: string;
@@ -9,15 +7,14 @@ type DashboardMenuItemProps = {
 const DashboardMenuItem = ({
   title,
   artCover,
-  color = "white",
+  color,
 }: DashboardMenuItemProps) => {
   return (
-    <div className={`bg-${color}`}>
+    <div
+      className={`${color} p-2 rounded-md hover:opacity-100 opacity-90  text-neutral-700  active:text-white `}
+    >
       <div className="flex w-full items-center ">
-        <img className="h-20 w-20 pr-2 bg-white rounded-md" src={artCover} />
-        <div className="text-md font-semibold tracking-wider w-1/2 ">
-          {title}
-        </div>
+        <div className="text-md tracking-wider ">{title}</div>
       </div>
     </div>
   );

@@ -1,21 +1,25 @@
+import {
+  ArrowUpOutlined,
+  ClockCircleOutlined,
+  EditOutlined,
+  RightOutlined,
+  RiseOutlined,
+  SwapOutlined,
+} from "@ant-design/icons";
 import DashboardItemCard from "@Components/Dashboard/Admin/DashboardItemCard";
 import DashboardMenuItem from "@Components/Dashboard/Admin/DashboardMenuItem";
 import { AdminDashboardProps } from "@Store/adminPanel/types";
 import Link from "next/link";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-{
-  /* <Link href="/admin/downloads">
-        <a>Click here</a>
-      </Link> */
-}
+
 const AdminPanel = ({
   loading,
   getOverview,
   overview,
 }: AdminDashboardProps) => {
-  const startDate = "06/21/2022";
-  const endDate = "06/21/2022";
+  const startDate = String(new Date());
+  const endDate = String(new Date());
 
   useEffect(() => {
     const fetchUserOverview = async () => {
@@ -29,32 +33,55 @@ const AdminPanel = ({
 
   return (
     <div className="pb-4">
-      <div className="border-b-4 border-neutral-400 pb-1 w-full">
+      <div className="border-b-4 border-neutral-400 pb-2 w-full">
         <h1 className="text-xl text-center  tracking-widest uppercase ">
           DashBoard
         </h1>
       </div>
-      <div className="flex flex-col md:flex-row">
-        <DashboardItemCard title="Total Sales" value={overview?.ordersCount} />
-        <DashboardItemCard title="Profits" value={overview?.profit} />
+      <div className="flex flex-col md:flex-row md:space-x-4 pt-4 ">
+        <DashboardItemCard
+          title="Today's Sales"
+          value={overview?.totalSales}
+          icon={<SwapOutlined />}
+          increasePercentage={overview?.increaseInSale}
+        />
+        <DashboardItemCard
+          title="Today's Profits"
+          value={overview?.profit}
+          icon={<RiseOutlined />}
+          increasePercentage={overview?.increaseInProfits}
+        />
         <DashboardItemCard
           title="Pending Quotations"
           value={overview?.pendingQuotations}
+          icon={<ClockCircleOutlined />}
+          increasePercentage={overview?.increaseInPendingQuotations}
         />
         <DashboardItemCard
           title="Received Quotations"
           value={overview?.receivedQuotations}
+          icon={<EditOutlined />}
+          increasePercentage={overview?.increaseInQuotationReceived}
         />
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <DashboardMenuItem
-          title="Brand"
-          artCover="/images/Brand_Menu_Card_Art.png"
-          color="red-100"
-        />
-        <DashboardMenuItem title="Patterns" color="pink-100" />
-        <DashboardMenuItem title="Tyre Size" />
-        <DashboardMenuItem title="Product Line" />
+
+      <div className="grid grid-cols-2 gap-2 my-8">
+        <DashboardMenuItem title="Brand" color="bg-teal-400" />
+        <DashboardMenuItem title="Patterns" color="bg-sky-400" />
+        <DashboardMenuItem title="Tyre Size" color="bg-teal-400" />
+        <DashboardMenuItem title="Speed Rating" color="bg-sky-400" />
+        <DashboardMenuItem title="Load Index" color="bg-teal-400" />
+        <DashboardMenuItem title="Product Line" color="bg-sky-400" />
+        <DashboardMenuItem title="Vendor" color="bg-teal-400" />
+        <DashboardMenuItem title="Location" color="bg-sky-400" />
+        <DashboardMenuItem title="Transport" color="bg-teal-400" />
+      </div>
+      <div className="py-4">
+        <Link href="/admin/downloads">
+          <a className="text-md p-2 bg-primary text-white rounded-md ">
+            Visit Download Center
+          </a>
+        </Link>
       </div>
     </div>
   );

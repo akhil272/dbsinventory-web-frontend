@@ -97,10 +97,14 @@ export type LocationPayload = Location[];
 export type TransportPayload = Location[];
 
 export type OverviewPayload = {
-  ordersCount: number;
+  totalSales: string;
   profit: string;
   receivedQuotations: number;
   pendingQuotations: number;
+  increaseInSale: number;
+  increaseInProfits: number;
+  increaseInQuotationReceived: number;
+  increaseInPendingQuotations: number;
 };
 
 export type AdminDashboardProps = {

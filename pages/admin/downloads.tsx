@@ -60,7 +60,7 @@ const Downloads = () => {
       </div>
 
       <div className="mt-2">
-        <h1 className="font-bold text-2xl pb-4">Admin Panel</h1>
+        <h1 className="font-bold text-2xl pb-4">Download Center</h1>
       </div>
       <div className="space-y-4">
         <div className="w-full ">
