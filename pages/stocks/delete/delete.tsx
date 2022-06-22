@@ -8,7 +8,7 @@ const DeleteAStock = ({ deleteStock }) => {
     query: { stockId, brand, tyreSize, quantity, cost },
   } = router;
   const cancel = () => {
-    router.push("/stocks");
+    router.back();
   };
   const confirmDelete = async () => {
     const response = await deleteStock({ id: stockId });

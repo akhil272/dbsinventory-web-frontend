@@ -66,8 +66,17 @@ const AdminPanel = ({
       </div>
 
       <div className="grid grid-cols-2 gap-2 my-8">
-        <DashboardMenuItem title="Brand" color="bg-teal-400" />
-        <DashboardMenuItem title="Patterns" color="bg-sky-400" />
+        <DashboardMenuItem
+          title="Brand"
+          color="bg-teal-400"
+          address="/admin/brand"
+        />
+
+        <DashboardMenuItem
+          title="Patterns"
+          color="bg-sky-400"
+          address="/admin/brand"
+        />
         <DashboardMenuItem title="Tyre Size" color="bg-teal-400" />
         <DashboardMenuItem title="Speed Rating" color="bg-sky-400" />
         <DashboardMenuItem title="Load Index" color="bg-teal-400" />

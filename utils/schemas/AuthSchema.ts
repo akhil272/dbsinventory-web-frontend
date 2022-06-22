@@ -23,5 +23,5 @@ export const LoginSchema = Yup.object().shape({
     .matches(/^\+[1-9]\d{1,14}$/, {
       message: "Please enter phone number in the format +91XXXXXXXXXX",
     }),
-  otp: Yup.string().min(4, "Invalid OTP").max(4, "Invalid OTP"),
+  otp: Yup.string().min(4, "Invalid OTP").max(6, "Invalid OTP"),
 });

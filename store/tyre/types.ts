@@ -48,12 +48,27 @@ export const PATTERN_CREATE_INIT = "PATTERN:CREATE:INIT";
 export const PATTERN_CREATE_SUCCESS = "PATTERN:CREATE:SUCCESS";
 export const PATTERN_CREATE_FAIL = "PATTERN:CREATE:FAIL";
 
+export const BRAND_DELETE_INIT = "BRAND:DELETE:INIT";
+export const BRAND_DELETE_SUCCESS = "BRAND:DELETE:SUCCESS";
+export const BRAND_DELETE_FAIL = "BRAND:DELETE:FAIL";
+export const BRAND_UPDATE_INIT = "BRAND:UPDATE:INIT";
+export const BRAND_UPDATE_SUCCESS = "BRAND:UPDATE:SUCCESS";
+export const BRAND_UPDATE_FAIL = "BRAND:UPDATE:FAIL";
 export const BRAND_CREATE_INIT = "BRAND:CREATE:INIT";
 export const BRAND_CREATE_SUCCESS = "BRAND:CREATE:SUCCESS";
 export const BRAND_CREATE_FAIL = "BRAND:CREATE:FAIL";
 export const BRANDS_FETCH_INIT = "BRANDS:FETCH:INIT";
 export const BRANDS_FETCH_SUCCESS = "BRANDS:FETCH:SUCCESS";
 export const BRANDS_FETCH_FAIL = "BRANDS:FETCH:FAIL";
+
+export type deleteBrandPayload = {
+  id: number;
+};
+
+export type updateBrandPayload = {
+  id: number;
+  name: string;
+};
 
 export type createTyreDetailResponse = {
   id: number;
@@ -202,6 +217,12 @@ export type createSpeedRatingPayload = {
 
 export type createBrandPayload = {
   name: string;
+};
+
+export type UpdateBrandProps = {
+  updateBrand: (
+    payload: updateBrandPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
 };
 
 export type createBrandResponse = {};
@@ -403,6 +424,26 @@ type patternCreateFail = {
   type: typeof PATTERN_CREATE_FAIL;
 };
 
+type brandDeleteInit = {
+  type: typeof BRAND_DELETE_INIT;
+};
+type brandDeleteSuccess = {
+  type: typeof BRAND_DELETE_SUCCESS;
+  payload: ApiReturnType<createBrandResponse>;
+};
+type brandDeleteFail = {
+  type: typeof BRAND_DELETE_FAIL;
+};
+type brandUpdateInit = {
+  type: typeof BRAND_UPDATE_INIT;
+};
+type brandUpdateSuccess = {
+  type: typeof BRAND_UPDATE_SUCCESS;
+  payload: ApiReturnType<createBrandResponse>;
+};
+type brandUpdateFail = {
+  type: typeof BRAND_UPDATE_FAIL;
+};
 type brandCreateInit = {
   type: typeof BRAND_CREATE_INIT;
 };
@@ -464,6 +505,12 @@ export type TyreDataActionTypes =
   | patternCreateInit
   | patternCreateSuccess
   | patternCreateFail
+  | brandDeleteInit
+  | brandDeleteSuccess
+  | brandDeleteFail
+  | brandUpdateInit
+  | brandUpdateSuccess
+  | brandUpdateFail
   | brandCreateInit
   | brandCreateSuccess
   | brandCreateFail

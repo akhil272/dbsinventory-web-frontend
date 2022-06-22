@@ -46,6 +46,12 @@ import {
   PRODUCT_LINE_CREATE_FAIL,
   PRODUCT_LINE_CREATE_INIT,
   PRODUCT_LINE_CREATE_SUCCESS,
+  BRAND_DELETE_FAIL,
+  BRAND_DELETE_INIT,
+  BRAND_DELETE_SUCCESS,
+  BRAND_UPDATE_FAIL,
+  BRAND_UPDATE_INIT,
+  BRAND_UPDATE_SUCCESS,
 } from "./types";
 
 export const initialState: TyreData = {
@@ -155,6 +161,18 @@ const reducer = (state = initialState, action: TyreDataActionTypes) => {
     case PATTERN_CREATE_SUCCESS:
       return Object.assign({}, state, { loading: false });
     case PATTERN_CREATE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case BRAND_DELETE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case BRAND_DELETE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case BRAND_DELETE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case BRAND_UPDATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case BRAND_UPDATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case BRAND_UPDATE_FAIL:
       return Object.assign({}, state, { loading: false });
     case BRAND_CREATE_INIT:
       return Object.assign({}, state, { loading: true });

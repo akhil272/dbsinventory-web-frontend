@@ -7,6 +7,12 @@ import {
   BRAND_CREATE_FAIL,
   BRAND_CREATE_INIT,
   BRAND_CREATE_SUCCESS,
+  BRAND_DELETE_FAIL,
+  BRAND_DELETE_INIT,
+  BRAND_DELETE_SUCCESS,
+  BRAND_UPDATE_FAIL,
+  BRAND_UPDATE_INIT,
+  BRAND_UPDATE_SUCCESS,
   createBrandPayload,
   createLoadIndexPayload,
   createPatternPayload,
@@ -15,6 +21,7 @@ import {
   createTyreDetailPayload,
   createTyreDetailSizePayload,
   createTyreSizePayload,
+  deleteBrandPayload,
   getBrandsPayload,
   getLoadIndexesPayload,
   getProductLinePayload,
@@ -54,6 +61,7 @@ import {
   TYRE_SIZES_FETCH_FAIL,
   TYRE_SIZES_FETCH_INIT,
   TYRE_SIZES_FETCH_SUCCESS,
+  updateBrandPayload,
 } from "./types";
 
 export const createProductLine = async (data: createProductLinePayload) => {
@@ -276,6 +284,40 @@ export const createPattern = async (data: createPatternPayload) => {
       requestType: PATTERN_CREATE_INIT,
       successType: PATTERN_CREATE_SUCCESS,
       failureType: PATTERN_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const deleteBrand = async (data: deleteBrandPayload) => {
+  const { BRAND } = API_END_POINTS;
+  const { id } = data;
+  const pathname = BRAND;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: BRAND_DELETE_INIT,
+      successType: BRAND_DELETE_SUCCESS,
+      failureType: BRAND_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateBrand = async ({ id, ...data }: updateBrandPayload) => {
+  const { BRAND } = API_END_POINTS;
+  const pathname = BRAND;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: BRAND_UPDATE_INIT,
+      successType: BRAND_UPDATE_SUCCESS,
+      failureType: BRAND_UPDATE_FAIL,
     },
   };
   return fetchAsync(apiArgs);

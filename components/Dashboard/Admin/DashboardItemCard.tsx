@@ -1,6 +1,16 @@
-import React from "react";
+type DashboardItemCardProps = {
+  title: string;
+  value: number | string;
+  icon: any;
+  increasePercentage: number | null;
+};
 
-const DashboardItemCard = ({ title, value, icon, increasePercentage }) => {
+const DashboardItemCard = ({
+  title,
+  value,
+  icon,
+  increasePercentage,
+}: DashboardItemCardProps) => {
   return (
     <div className="bg-white rounded-md p-4  w-full my-2">
       <div className="relative flex justify-between items-center">
