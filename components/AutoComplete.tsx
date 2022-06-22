@@ -58,9 +58,9 @@ export default function AutoComplete({
         render={({ field: { onChange, value } }) => (
           <Combobox value={value} onChange={onChange}>
             <div className="relative">
-              <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+              <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 ">
                 <Combobox.Input
-                  className="w-full border-none py-2 pl-2 pr-10 text-md leading-5 text-gray-900 focus:ring-0"
+                  className=" p-2 placeholder-slate-400 text-md  focus:outline-none  focus:ring-slate-400 block w-full rounded-md  focus:ring-1"
                   displayValue={(item: dataType) => item?.name}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={placeholder}
@@ -79,7 +79,7 @@ export default function AutoComplete({
                 leaveTo="opacity-0"
                 afterLeave={() => setQuery("")}
               >
-                <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white  text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {filteredData?.length === 0 && query !== "" ? (
                     <div className="relative flex items-center cursor-default select-none py-2 px-4 text-gray-700">
                       <div>{query}. Not found.</div>

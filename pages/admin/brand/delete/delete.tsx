@@ -1,13 +1,8 @@
-import InputField from "@Components/InputField";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { UpdateBrandProps } from "@Store/tyre/types";
-import { GenericFormData } from "@Utils/formTypes/AdminFormData";
-import { GenericSchema } from "@Utils/schemas/AdminSchema";
+import { DeleteBrandProps } from "@Store/tyre/types";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const Delete = ({ deleteBrand }) => {
+const Delete = ({ deleteBrand }: DeleteBrandProps) => {
   const router = useRouter();
   const {
     query: { brandId, brandName },
@@ -16,13 +11,13 @@ const Delete = ({ deleteBrand }) => {
     router.back();
   };
   const confirmDelete = async () => {
-    const response = await deleteBrand({ id: brandId });
+    const response = await deleteBrand({ id: Number(brandId) });
     if (response.success) {
-      toast.success("Brand deleted successfully.");
+      toast.success(`${brandName} deleted successfully.`);
       router.back();
     }
     if (!response.success) {
-      toast.error(`Failed to delete brand. ${response.message}`);
+      toast.error(`Failed to delete ${brandName}. ${response.message}`);
     }
   };
 
@@ -31,15 +26,15 @@ const Delete = ({ deleteBrand }) => {
       <div className="items-center justify-center flex ">
         <img
           className="object-contain rounded-xl"
-          src="/images/Create_Stock.png"
+          src="/images/Delete_Stock.png"
         />
       </div>
-      <div className="mt-2">
-        <h1 className="font-bold text-2xl pb-4">Delete brand</h1>
+      <div className="mt-2 border-b-2 border-slate-500  ">
+        <h1 className="font-bold capitalize text-3xl">Delete brand</h1>
       </div>
 
-      <div>
-        <div className="bg-white p-4 flex rounded-md mb-6 ">
+      <div className="space-y-2 pt-6 ">
+        <div className="bg-white p-4 flex rounded-md ">
           <div className="w-1/2 text-gray-400">
             <div>Brand</div>
           </div>

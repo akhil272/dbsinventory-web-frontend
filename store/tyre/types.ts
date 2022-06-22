@@ -65,9 +65,21 @@ export type deleteBrandPayload = {
   id: number;
 };
 
+export type DeleteBrandProps = {
+  deleteBrand: (
+    data: deleteBrandPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
+};
+
 export type updateBrandPayload = {
   id: number;
   name: string;
+};
+
+export type CreateBrandProps = {
+  createBrand: (
+    data: createBrandPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
 };
 
 export type createTyreDetailResponse = {

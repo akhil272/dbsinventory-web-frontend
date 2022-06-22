@@ -28,11 +28,11 @@ const Update = ({ updateBrand }: UpdateBrandProps) => {
       name: data.name,
     });
     if (response.success && response.data) {
-      toast.success(`Successfully updated brand name in the system.`);
+      toast.success(`Successfully updated brand name to ${data.name}.`);
       router.back();
     }
     if (!response.success) {
-      toast.error(`Failed to update brand name. ${response.message}`);
+      toast.error(`Failed to update ${data.name}. ${response.message}`);
     }
   };
 
@@ -41,32 +41,29 @@ const Update = ({ updateBrand }: UpdateBrandProps) => {
       <div className="items-center justify-center flex ">
         <img
           className="object-contain rounded-xl"
-          src="/images/Create_Stock.png"
+          src="/images/Update_Art.png"
         />
       </div>
-      <div className="mt-2">
-        <h1 className="font-bold text-2xl pb-4">Update brand</h1>
+      <div className="mt-2 border-b-2 border-slate-500  ">
+        <h1 className="font-bold capitalize text-3xl">Update brand</h1>
       </div>
-      <div>
-        <div>
-          <form className="space-y-3" onSubmit={onSubmit}>
-            <InputField
-              control={control}
-              name="name"
-              placeholder="Enter brand name"
-              type="text"
-              error={errors.name?.message}
-              defaultValue={String(brandName) ?? "N/A"}
-            />
-            <button
-              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-              onClick={onSubmit}
-            >
-              Update
-            </button>
-          </form>
-        </div>
-      </div>
+
+      <form className="space-y-2  pt-6" onSubmit={onSubmit}>
+        <InputField
+          control={control}
+          name="name"
+          placeholder="Enter brand name"
+          type="text"
+          error={errors.name?.message}
+          defaultValue={String(brandName) ?? "N/A"}
+        />
+        <button
+          className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+          onClick={onSubmit}
+        >
+          Update
+        </button>
+      </form>
     </div>
   );
 };

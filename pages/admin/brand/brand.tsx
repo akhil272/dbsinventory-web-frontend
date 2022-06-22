@@ -19,7 +19,7 @@ const Brand = ({ brands, getBrands, createBrand }) => {
   );
   return (
     <div>
-      <p className="text-3xl dark:text-white tracking-wider font-bold border-b-2 border-neutral-400 pb-2">
+      <p className="text-3xl dark:text-white tracking-wider font-bold border-b-2 border-slate-500 ">
         Brand
       </p>
       <div className="w-full flex pt-2 justify-end">

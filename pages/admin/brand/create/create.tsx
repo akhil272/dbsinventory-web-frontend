@@ -1,12 +1,12 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { CreateBrandProps } from "@Store/tyre/types";
 import { GenericFormData } from "@Utils/formTypes/AdminFormData";
 import { GenericSchema } from "@Utils/schemas/AdminSchema";
-
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const Create = ({ createBrand }) => {
+const Create = ({ createBrand }: CreateBrandProps) => {
   const {
     handleSubmit,
     control,
@@ -31,35 +31,32 @@ const Create = ({ createBrand }) => {
   };
 
   return (
-    <div className="pb-4">
+    <div className="pb-4 ">
       <div className="items-center justify-center flex ">
         <img
           className="object-contain rounded-xl"
-          src="/images/Create_Stock.png"
+          src="/images/Create_Art.png"
         />
       </div>
-      <div className="mt-2">
-        <h1 className="font-bold text-2xl pb-4">Add Brand</h1>
+      <div className="mt-2 border-b-2 border-slate-500  ">
+        <h1 className="font-bold capitalize text-3xl">Create brand</h1>
       </div>
-      <div>
-        <div>
-          <form className="space-y-3" onSubmit={onSubmit}>
-            <InputField
-              control={control}
-              name="name"
-              placeholder="Enter brand name"
-              type="text"
-              error={errors.name?.message}
-            />
-            <button
-              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-              onClick={onSubmit}
-            >
-              Add
-            </button>
-          </form>
-        </div>
-      </div>
+
+      <form className="space-y-2 pt-6 " onSubmit={onSubmit}>
+        <InputField
+          control={control}
+          name="name"
+          placeholder="Enter brand name"
+          type="text"
+          error={errors.name?.message}
+        />
+        <button
+          className="bg-primary w-full rounded-lg text-lg font-normal text-center text-white p-2"
+          onClick={onSubmit}
+        >
+          Add
+        </button>
+      </form>
     </div>
   );
 };
