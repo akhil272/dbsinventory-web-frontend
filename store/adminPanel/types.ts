@@ -5,6 +5,12 @@ export const OVERVIEW_FETCH_INIT = "OVERVIEW:FETCH:INIT";
 export const OVERVIEW_FETCH_SUCCESS = "OVERVIEW:FETCH:SUCCESS";
 export const OVERVIEW_FETCH_FAIL = "OVERVIEW:FETCH:FAIL";
 
+export const TRANSPORT_DELETE_INIT = "TRANSPORT:DELETE:INIT";
+export const TRANSPORT_DELETE_SUCCESS = "TRANSPORT:DELETE:SUCCESS";
+export const TRANSPORT_DELETE_FAIL = "TRANSPORT:DELETE:FAIL";
+export const TRANSPORT_UPDATE_INIT = "TRANSPORT:UPDATE:INIT";
+export const TRANSPORT_UPDATE_SUCCESS = "TRANSPORT:UPDATE:SUCCESS";
+export const TRANSPORT_UPDATE_FAIL = "TRANSPORT:UPDATE:FAIL";
 export const TRANSPORT_CREATE_INIT = "TRANSPORT:CREATE:INIT";
 export const TRANSPORT_CREATE_SUCCESS = "TRANSPORT:CREATE:SUCCESS";
 export const TRANSPORT_CREATE_FAIL = "TRANSPORT:CREATE:FAIL";
@@ -12,6 +18,12 @@ export const TRANSPORTS_FETCH_INIT = "TRANSPORTS:FETCH:INIT";
 export const TRANSPORTS_FETCH_SUCCESS = "TRANSPORTS:FETCH:SUCCESS";
 export const TRANSPORTS_FETCH_FAIL = "TRANSPORTS:FETCH:FAIL";
 
+export const LOCATION_DELETE_INIT = "LOCATION:DELETE:INIT";
+export const LOCATION_DELETE_SUCCESS = "LOCATION:DELETE:SUCCESS";
+export const LOCATION_DELETE_FAIL = "LOCATION:DELETE:FAIL";
+export const LOCATION_UPDATE_INIT = "LOCATION:UPDATE:INIT";
+export const LOCATION_UPDATE_SUCCESS = "LOCATION:UPDATE:SUCCESS";
+export const LOCATION_UPDATE_FAIL = "LOCATION:UPDATE:FAIL";
 export const LOCATION_CREATE_INIT = "LOCATION:CREATE:INIT";
 export const LOCATION_CREATE_SUCCESS = "LOCATION:CREATE:SUCCESS";
 export const LOCATION_CREATE_FAIL = "LOCATION:CREATE:FAIL";
@@ -19,12 +31,93 @@ export const LOCATIONS_FETCH_INIT = "LOCATIONS:FETCH:INIT";
 export const LOCATIONS_FETCH_SUCCESS = "LOCATIONS:FETCH:SUCCESS";
 export const LOCATIONS_FETCH_FAIL = "LOCATIONS:FETCH:FAIL";
 
+export const VENDOR_DELETE_INIT = "VENDOR:DELETE:INIT";
+export const VENDOR_DELETE_SUCCESS = "VENDOR:DELETE:SUCCESS";
+export const VENDOR_DELETE_FAIL = "VENDOR:DELETE:FAIL";
+export const VENDOR_UPDATE_INIT = "VENDOR:UPDATE:INIT";
+export const VENDOR_UPDATE_SUCCESS = "VENDOR:UPDATE:SUCCESS";
+export const VENDOR_UPDATE_FAIL = "VENDOR:UPDATE:FAIL";
 export const VENDOR_CREATE_INIT = "VENDOR:CREATE:INIT";
 export const VENDOR_CREATE_SUCCESS = "VENDOR:CREATE:SUCCESS";
 export const VENDOR_CREATE_FAIL = "VENDOR:CREATE:FAIL";
 export const VENDORS_FETCH_INIT = "VENDORS:FETCH:INIT";
 export const VENDORS_FETCH_SUCCESS = "VENDORS:FETCH:SUCCESS";
 export const VENDORS_FETCH_FAIL = "VENDORS:FETCH:FAIL";
+
+export type deleteTransportPayload = {
+  id: number;
+};
+export type deleteLocationPayload = {
+  id: number;
+};
+export type deleteVendorPayload = {
+  id: number;
+};
+export type updateTransportPayload = {
+  id: number;
+  mode: string;
+};
+export type updateLocationPayload = {
+  id: number;
+  name: string;
+};
+export type updateVendorPayload = {
+  id: number;
+  name: string;
+};
+
+export type UpdateTransportProps = {
+  updateTransport: (
+    payload: updateTransportPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type UpdateLocationProps = {
+  updateLocation: (
+    payload: updateLocationPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type UpdateVendorProps = {
+  updateVendor: (payload: updateVendorPayload) => Promise<ApiReturnType<{}>>;
+};
+
+export type DeleteTransportProps = {
+  deleteTransport: (data: deleteTransportPayload) => Promise<ApiReturnType<{}>>;
+};
+export type DeleteLocationProps = {
+  deleteLocation: (data: deleteLocationPayload) => Promise<ApiReturnType<{}>>;
+};
+export type DeleteVendorProps = {
+  deleteVendor: (data: deleteVendorPayload) => Promise<ApiReturnType<{}>>;
+};
+
+export type CreateTransportProps = {
+  createTransport: (data: createTransportPayload) => Promise<ApiReturnType<{}>>;
+};
+export type CreateLocationProps = {
+  createLocation: (data: createLocationPayload) => Promise<ApiReturnType<{}>>;
+};
+export type CreateVendorProps = {
+  createVendor: (data: createVendorPayload) => Promise<ApiReturnType<{}>>;
+};
+
+export type TransportProps = {
+  transports: TransportPayload[];
+  getTransports: (
+    payload: getTransportsPayload
+  ) => Promise<ApiReturnType<TransportPayload[]>>;
+};
+export type LocationProps = {
+  locations: LocationPayload[];
+  getLocations: (
+    payload: getLocationsPayload
+  ) => Promise<ApiReturnType<LocationPayload[]>>;
+};
+export type VendorProps = {
+  vendors: VendorPayload[];
+  getVendors: (
+    payload: getVendorsPayload
+  ) => Promise<ApiReturnType<VendorPayload[]>>;
+};
 
 export type getOverviewPayload = {
   startDate: string;
@@ -92,9 +185,18 @@ export type AdminPanelProps = AdminPanelStateProps & AdminPanelDispatchProps;
 export type createVendorResponse = {};
 export type createLocationResponse = {};
 export type createTransportResponse = {};
-export type VendorPayload = Vendor[];
-export type LocationPayload = Location[];
-export type TransportPayload = Location[];
+export type VendorPayload = {
+  id: number;
+  name: string;
+};
+export type LocationPayload = {
+  id: number;
+  name: string;
+};
+export type TransportPayload = {
+  id: number;
+  mode: string;
+};
 
 export type OverviewPayload = {
   totalSales: string;
@@ -126,6 +228,26 @@ type overviewFetchFail = {
   type: typeof OVERVIEW_FETCH_FAIL;
 };
 
+type transportDeleteInit = {
+  type: typeof TRANSPORT_DELETE_INIT;
+};
+type transportDeleteSuccess = {
+  type: typeof TRANSPORT_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type transportDeleteFail = {
+  type: typeof TRANSPORT_DELETE_FAIL;
+};
+type transportUpdateInit = {
+  type: typeof TRANSPORT_UPDATE_INIT;
+};
+type transportUpdateSuccess = {
+  type: typeof TRANSPORT_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type transportUpdateFail = {
+  type: typeof TRANSPORT_UPDATE_FAIL;
+};
 type transportCreateInit = {
   type: typeof TRANSPORT_CREATE_INIT;
 };
@@ -147,6 +269,26 @@ type transportsFetchFail = {
   type: typeof TRANSPORTS_FETCH_FAIL;
 };
 
+type locationDeleteInit = {
+  type: typeof LOCATION_DELETE_INIT;
+};
+type locationDeleteSuccess = {
+  type: typeof LOCATION_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type locationDeleteFail = {
+  type: typeof LOCATION_DELETE_FAIL;
+};
+type locationUpdateInit = {
+  type: typeof LOCATION_UPDATE_INIT;
+};
+type locationUpdateSuccess = {
+  type: typeof LOCATION_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type locationUpdateFail = {
+  type: typeof LOCATION_UPDATE_FAIL;
+};
 type locationCreateInit = {
   type: typeof LOCATION_CREATE_INIT;
 };
@@ -168,6 +310,26 @@ type locationsFetchFail = {
   type: typeof LOCATIONS_FETCH_FAIL;
 };
 
+type vendorDeleteInit = {
+  type: typeof VENDOR_DELETE_INIT;
+};
+type vendorDeleteSuccess = {
+  type: typeof VENDOR_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type vendorDeleteFail = {
+  type: typeof VENDOR_DELETE_FAIL;
+};
+type vendorUpdateInit = {
+  type: typeof VENDOR_UPDATE_INIT;
+};
+type vendorUpdateSuccess = {
+  type: typeof VENDOR_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type vendorUpdateFail = {
+  type: typeof VENDOR_UPDATE_FAIL;
+};
 type vendorCreateInit = {
   type: typeof VENDOR_CREATE_INIT;
 };
@@ -193,18 +355,36 @@ export type AdminPanelActionTypes =
   | overviewFetchInit
   | overviewFetchSuccess
   | overviewFetchFail
+  | transportDeleteInit
+  | transportDeleteSuccess
+  | transportDeleteFail
+  | transportUpdateInit
+  | transportUpdateSuccess
+  | transportUpdateFail
   | transportCreateInit
   | transportCreateSuccess
   | transportCreateFail
   | transportsFetchInit
   | transportsFetchSuccess
   | transportsFetchFail
+  | locationDeleteInit
+  | locationDeleteSuccess
+  | locationDeleteFail
+  | locationUpdateInit
+  | locationUpdateSuccess
+  | locationUpdateFail
   | locationCreateInit
   | locationCreateSuccess
   | locationCreateFail
   | locationsFetchInit
   | locationsFetchSuccess
   | locationsFetchFail
+  | vendorDeleteInit
+  | vendorDeleteSuccess
+  | vendorDeleteFail
+  | vendorUpdateInit
+  | vendorUpdateSuccess
+  | vendorUpdateFail
   | vendorCreateInit
   | vendorCreateSuccess
   | vendorCreateFail

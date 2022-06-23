@@ -1,19 +1,19 @@
-import { BrandProps } from "@Store/tyre/types";
+import { LocationProps } from "@Store/adminPanel/types";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Brand = ({ brands, getBrands }: BrandProps) => {
+const Location = ({ getLocations, locations }: LocationProps) => {
   const [userQuery, setUserQuery] = useState("");
   useEffect(() => {
-    getBrands({ search: "" });
+    getLocations({ search: "" });
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
     setUserQuery(e.target.value);
   };
-  const filtered = brands?.filter((brand) =>
-    brand.name
+  const filtered = locations?.filter((location) =>
+    location.name
       .toLowerCase()
       .replace(/\s+/g, "")
       .includes(userQuery.toLowerCase().replace(/\s+/g, ""))
@@ -22,11 +22,11 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
     <div>
       <div className="border-b-4 border-neutral-400  w-full">
         <h1 className="text-2xl  font-medium  tracking-widest uppercase ">
-          Brand
+          location
         </h1>
       </div>
       <div className="w-full flex pt-1 justify-end">
-        <Link href="/admin/brand/create">
+        <Link href="/admin/location/create">
           <a className="py-2  bg-primary rounded-md  px-4 text-white ">
             Create new
           </a>
@@ -81,9 +81,9 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
             </tr>
           </thead>
           <tbody>
-            {filtered?.map((brand, index) => (
+            {filtered?.map((location, index) => (
               <tr
-                key={brand.id}
+                key={location.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <th
@@ -92,13 +92,16 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
                 >
                   {index + 1}
                 </th>
-                <td className="px-6 py-4">{brand.name}</td>
+                <td className="px-6 py-4">{location.name}</td>
 
                 <td className="px-6 py-4 text-right">
                   <Link
                     href={{
-                      pathname: "/admin/brand/update",
-                      query: { brandId: brand.id, brandName: brand.name },
+                      pathname: "/admin/location/update",
+                      query: {
+                        locationId: location.id,
+                        locationName: location.name,
+                      },
                     }}
                   >
                     <a className="font-medium text-blue-600 dark:text-blue-500 hover:underline">
@@ -109,8 +112,11 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
                 <td className="px-6 py-4 text-right">
                   <Link
                     href={{
-                      pathname: "/admin/brand/delete",
-                      query: { brandId: brand.id, brandName: brand.name },
+                      pathname: "/admin/location/delete",
+                      query: {
+                        locationId: location.id,
+                        locationName: location.name,
+                      },
                     }}
                   >
                     <a className="font-medium text-primary dark:text-blue-500 hover:underline">
@@ -127,4 +133,4 @@ const Brand = ({ brands, getBrands }: BrandProps) => {
   );
 };
 
-export default Brand;
+export default Location;
