@@ -1,16 +1,16 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UpdatePatternProps } from "@Store/tyre/types";
+import { UpdateTyreSizeProps } from "@Store/tyre/types";
 import { GenericFormData } from "@Utils/formTypes/AdminFormData";
 import { GenericSchema } from "@Utils/schemas/AdminSchema";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const Update = ({ updatePattern }: UpdatePatternProps) => {
+const Update = ({ updateTyreSize }: UpdateTyreSizeProps) => {
   const router = useRouter();
   const {
-    query: { patternId, patternName },
+    query: { tyreSizeId, tyreSizeValue },
   } = router;
   const {
     handleSubmit,
@@ -23,12 +23,12 @@ const Update = ({ updatePattern }: UpdatePatternProps) => {
   const onSubmit = handleSubmit((data) => updateExistingBrand(data));
 
   const updateExistingBrand = async (data: GenericFormData) => {
-    const response = await updatePattern({
-      id: Number(patternId),
-      name: data.name,
+    const response = await updateTyreSize({
+      id: Number(tyreSizeId),
+      tyreSizeValue: data.name,
     });
     if (response.success && response.data) {
-      toast.success(`Successfully updated pattern name to ${data.name}.`);
+      toast.success(`Successfully updated tyre size value to ${data.name}.`);
       router.back();
     }
     if (!response.success) {
@@ -46,7 +46,7 @@ const Update = ({ updatePattern }: UpdatePatternProps) => {
       </div>
       <div className="border-b-4 border-neutral-400  w-full">
         <h1 className="text-2xl  font-medium  tracking-wide uppercase ">
-          Update pattern
+          Update tyre size
         </h1>
       </div>
 
@@ -54,10 +54,10 @@ const Update = ({ updatePattern }: UpdatePatternProps) => {
         <InputField
           control={control}
           name="name"
-          placeholder="Enter brand name"
+          placeholder="Enter tyre size value"
           type="text"
           error={errors.name?.message}
-          defaultValue={String(patternName) ?? "N/A"}
+          defaultValue={String(tyreSizeValue) ?? "N/A"}
         />
         <button
           className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"

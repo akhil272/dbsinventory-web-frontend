@@ -48,6 +48,9 @@ export const TYRE_DETAIL_SIZES_FETCH_SUCCESS =
   "TYRE_DETAILS_SIZE:FETCH:SUCCESS";
 export const TYRE_DETAIL_SIZES_FETCH_FAIL = "TYRE_DETAILS_SIZES:FETCH:FAIL";
 
+export const TYRE_DETAIL_DELETE_INIT = "TYRE_DETAIL:DELETE:INIT";
+export const TYRE_DETAIL_DELETE_SUCCESS = "TYRE_DETAIL:DELETE:SUCCESS";
+export const TYRE_DETAIL_DELETE_FAIL = "TYRE_DETAIL:DELETE:FAIL";
 export const TYRE_DETAIL_CREATE_INIT = "TYRE_DETAIL:CREATE:INIT";
 export const TYRE_DETAIL_CREATE_SUCCESS = "TYRE_DETAIL:CREATE:SUCCESS";
 export const TYRE_DETAIL_CREATE_FAIL = "TYRE_DETAIL:CREATE:FAIL";
@@ -55,6 +58,9 @@ export const TYRE_DETAILS_FETCH_INIT = "TYRE_DETAILS:FETCH:INIT";
 export const TYRE_DETAILS_FETCH_SUCCESS = "TYRE_DETAILS:FETCH:SUCCESS";
 export const TYRE_DETAILS_FETCH_FAIL = "TYRE_DETAILS:FETCH:FAIL";
 
+export const TYRE_SIZE_UPDATE_INIT = "TYRE_SIZE:UPDATE:INIT";
+export const TYRE_SIZE_UPDATE_SUCCESS = "TYRE_SIZE:UPDATE:SUCCESS";
+export const TYRE_SIZE_UPDATE_FAIL = "TYRE_SIZE:UPDATE:FAIL";
 export const TYRE_SIZE_CREATE_INIT = "TYRE_SIZE:CREATE:INIT";
 export const TYRE_SIZE_CREATE_SUCCESS = "TYRE_SIZE:CREATE:SUCCESS";
 export const TYRE_SIZE_CREATE_FAIL = "TYRE_SIZE:CREATE:FAIL";
@@ -88,6 +94,10 @@ export const BRANDS_FETCH_INIT = "BRANDS:FETCH:INIT";
 export const BRANDS_FETCH_SUCCESS = "BRANDS:FETCH:SUCCESS";
 export const BRANDS_FETCH_FAIL = "BRANDS:FETCH:FAIL";
 
+export type updateTyreSizePayload = {
+  id: number;
+  tyreSizeValue: string;
+};
 export type updateProductLinePayload = {
   id: number;
   name: string;
@@ -113,6 +123,9 @@ export type getPatternsPayload = {
   search?: string;
 };
 
+export type deleteTyreDetailPayload = {
+  id: number;
+};
 export type deleteProductLinePayload = {
   id: number;
 };
@@ -129,6 +142,11 @@ export type deleteBrandPayload = {
   id: number;
 };
 
+export type DeleteTyreDetailProps = {
+  deleteTyreDetail: (
+    data: deleteTyreDetailPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
 export type DeleteProductLineProps = {
   deleteProductLine: (
     data: deleteProductLinePayload
@@ -153,6 +171,11 @@ export type DeleteBrandProps = {
   ) => Promise<ApiReturnType<createBrandResponse>>;
 };
 
+export type UpdateTyreSizeProps = {
+  updateTyreSize: (
+    payload: updateTyreSizePayload
+  ) => Promise<ApiReturnType<{}>>;
+};
 export type UpdateProductLineProps = {
   updateProductLine: (
     payload: updateProductLinePayload
@@ -179,6 +202,29 @@ export type UpdateBrandProps = {
   ) => Promise<ApiReturnType<createBrandResponse>>;
 };
 
+export type CreateTyreSizeProps = {
+  getTyreDetails: (
+    payload: getTyreDetailsPayload
+  ) => Promise<ApiReturnType<TyreDetailPayload[]>>;
+  createTyreSize: (data: createTyreSizePayload) => Promise<ApiReturnType<{}>>;
+  createPattern: (
+    data: createPatternPayload
+  ) => Promise<ApiReturnType<createPatternResponse>>;
+  getBrands: (
+    payload: getBrandsPayload
+  ) => Promise<ApiReturnType<BrandsPayload[]>>;
+  createBrand: (
+    data: createBrandPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
+  brands: BrandsPayload[];
+  tyreDetails: TyreDetail[];
+  createTyreDetailSize: (
+    data: createTyreDetailSizePayload
+  ) => Promise<ApiReturnType<createTyreDetailResponse>>;
+  getTyreDetailSizes: (
+    payload: getTyreDetailSizesPayload
+  ) => Promise<ApiReturnType<TyreDetailSizePayload[]>>;
+};
 export type CreateProductLineProps = {
   createProductLine: (
     data: createProductLinePayload
@@ -210,6 +256,12 @@ export type CreateBrandProps = {
   ) => Promise<ApiReturnType<createBrandResponse>>;
 };
 
+export type TyreSizeProps = {
+  tyreSizes: TyreSizePayload[];
+  getTyreSizes: (
+    payload: getTyreSizePayload
+  ) => Promise<ApiReturnType<TyreSizePayload[]>>;
+};
 export type ProductLineProps = {
   productLines: ProductLinePayload[];
   getProductLines: (
@@ -460,6 +512,16 @@ export type TyresStateProps = {
 
 export type TyreDataProps = TyresStateProps & TyresDispatchProps;
 
+type tyreDetailDeleteInit = {
+  type: typeof TYRE_DETAIL_DELETE_INIT;
+};
+type tyreDetailDeleteSuccess = {
+  type: typeof TYRE_DETAIL_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type tyreDetailDeleteFail = {
+  type: typeof TYRE_DETAIL_DELETE_FAIL;
+};
 type productLineDeleteInit = {
   type: typeof PRODUCT_LINE_DELETE_INIT;
 };
@@ -638,6 +700,16 @@ type tyreSizesFetchSuccess = {
 type tyreSizesFetchFail = {
   type: typeof TYRE_SIZES_FETCH_FAIL;
 };
+type tyreSizeUpdateInit = {
+  type: typeof TYRE_SIZE_UPDATE_INIT;
+};
+type tyreSizeUpdateSuccess = {
+  type: typeof TYRE_SIZE_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type tyreSizeUpdateFail = {
+  type: typeof TYRE_SIZE_UPDATE_FAIL;
+};
 type tyreSizeCreateInit = {
   type: typeof TYRE_SIZE_CREATE_INIT;
 };
@@ -732,6 +804,9 @@ type brandsFetchFail = {
 };
 
 export type TyreDataActionTypes =
+  | tyreDetailDeleteInit
+  | tyreDetailDeleteSuccess
+  | tyreDetailDeleteFail
   | productLineDeleteInit
   | productLineDeleteSuccess
   | productLineDeleteFail
@@ -780,6 +855,9 @@ export type TyreDataActionTypes =
   | tyreDetailsFetchInit
   | tyreDetailsFetchSuccess
   | tyreDetailsFetchFail
+  | tyreSizeUpdateInit
+  | tyreSizeUpdateSuccess
+  | tyreSizeUpdateFail
   | tyreSizeCreateInit
   | tyreSizeCreateSuccess
   | tyreSizeCreateFail

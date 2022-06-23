@@ -9,3 +9,19 @@ export type CreatePatternFormData = {
   };
   name: string;
 };
+
+export type CreateTyreSizeFormData = {
+  brand: {
+    id: number;
+    name: string;
+    patterns: {
+      id: number;
+      name: string;
+    }[];
+  };
+  pattern: {
+    id: number;
+    name: string;
+  };
+  tyreSize: { id: number; value: string };
+};

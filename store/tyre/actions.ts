@@ -26,6 +26,7 @@ import {
   deletePatternPayload,
   deleteProductLinePayload,
   deleteSpeedRatingPayload,
+  deleteTyreDetailPayload,
   getBrandsPayload,
   getLoadIndexesPayload,
   getPatternsPayload,
@@ -87,17 +88,24 @@ import {
   TYRE_DETAIL_CREATE_FAIL,
   TYRE_DETAIL_CREATE_INIT,
   TYRE_DETAIL_CREATE_SUCCESS,
+  TYRE_DETAIL_DELETE_FAIL,
+  TYRE_DETAIL_DELETE_INIT,
+  TYRE_DETAIL_DELETE_SUCCESS,
   TYRE_DETAIL_SIZE_CREATE_FAIL,
   TYRE_DETAIL_SIZE_CREATE_INIT,
   TYRE_DETAIL_SIZE_CREATE_SUCCESS,
   TYRE_SIZES_FETCH_FAIL,
   TYRE_SIZES_FETCH_INIT,
   TYRE_SIZES_FETCH_SUCCESS,
+  TYRE_SIZE_UPDATE_FAIL,
+  TYRE_SIZE_UPDATE_INIT,
+  TYRE_SIZE_UPDATE_SUCCESS,
   updateBrandPayload,
   updateLoadIndexPayload,
   updatePatternPayload,
   updateProductLinePayload,
   updateSpeedRatingPayload,
+  updateTyreSizePayload,
 } from "./types";
 
 export const deleteProductLine = async (data: deleteProductLinePayload) => {
@@ -343,6 +351,24 @@ export const createTyreDetailSize = async (
   };
   return fetchAsync(apiArgs);
 };
+
+export const deleteTyreDetail = async (data: deleteTyreDetailPayload) => {
+  const { TYRE_DETAIL } = API_END_POINTS;
+  const { id } = data;
+  const pathname = TYRE_DETAIL;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: TYRE_DETAIL_DELETE_INIT,
+      successType: TYRE_DETAIL_DELETE_SUCCESS,
+      failureType: TYRE_DETAIL_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
 export const createTyreDetail = async (data: createTyreDetailPayload) => {
   const { TYRE_DETAIL } = API_END_POINTS;
   const pathname = TYRE_DETAIL;
@@ -376,6 +402,26 @@ export const getTyreDetails = async (payload: getTyreDetailsPayload) => {
       requestType: TYRE_DETAILS_FETCH_INIT,
       successType: TYRE_DETAILS_FETCH_SUCCESS,
       failureType: TYRE_DETAILS_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateTyreSize = async ({
+  id,
+  ...data
+}: updateTyreSizePayload) => {
+  const { TYRE_SIZE } = API_END_POINTS;
+  const pathname = TYRE_SIZE;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: TYRE_SIZE_UPDATE_INIT,
+      successType: TYRE_SIZE_UPDATE_SUCCESS,
+      failureType: TYRE_SIZE_UPDATE_FAIL,
     },
   };
   return fetchAsync(apiArgs);

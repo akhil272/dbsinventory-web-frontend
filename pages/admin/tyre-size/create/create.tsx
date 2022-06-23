@@ -1,46 +1,82 @@
 import AutoComplete from "@Components/AutoComplete";
-import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CreatePatternProps } from "@Store/tyre/types";
-import { CreatePatternFormData } from "@Utils/formTypes/AdminFormData";
-import { CreatePatternSchema } from "@Utils/schemas/AdminSchema";
+import { CreateTyreSizeProps } from "@Store/tyre/types";
+import { CreateTyreSizeFormData } from "@Utils/formTypes/AdminFormData";
+import { CreateTyreSizeSchema } from "@Utils/schemas/AdminSchema";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 const Create = ({
   createPattern,
   getBrands,
   createBrand,
   brands,
-}: CreatePatternProps) => {
+  createTyreDetailSize,
+  getTyreDetails,
+  tyreDetails,
+}: CreateTyreSizeProps) => {
   const {
-    handleSubmit,
     control,
-    reset,
+    setValue,
+    watch,
     formState: { errors },
-  } = useForm<CreatePatternFormData>({
-    resolver: yupResolver(CreatePatternSchema),
+  } = useForm<CreateTyreSizeFormData>({
+    resolver: yupResolver(CreateTyreSizeSchema),
   });
-  const onSubmit = handleSubmit((data) => createNewBrand(data));
+  const router = useRouter();
+  // const onSubmit = handleSubmit((data) => createNewTyreSize(data));
 
-  const createNewBrand = async (data: CreatePatternFormData) => {
-    const response = await createPattern({
-      name: data.name,
-      brandId: data.brand.id,
+  // const createNewTyreSize = async (data: CreateTyreSizeFormData) => {
+  //   const response = await createTyreDetailSize({
+  //     tyreSizeValue: name,
+  //     patternId: selectedPattern?.id,
+  //   });
+  //   if (response.success && response.data) {
+  //     toast.success(`Successfully added ${data.brand} to system.`);
+  //     reset();
+  //   }
+  //   if (!response.success) {
+  //     toast.error(`Failed to pattern to system. ${response.message}`);
+  //   }
+  // };
+  const selectedBrand = watch("brand");
+  const selectedPattern = watch("pattern");
+  const createPatternAction = async ({ name }) => {
+    const response = await createPattern({ name, brandId: selectedBrand.id });
+    if (response.success) {
+      const { id, name, patterns } = selectedBrand;
+      setValue("brand", {
+        id,
+        name,
+        patterns: [
+          ...patterns,
+          { id: response.data.id, name: response.data.name },
+        ],
+      });
+    }
+    return response;
+  };
+  const createTyreSizeAction = async ({ name }) => {
+    const response = await createTyreDetailSize({
+      tyreSizeValue: name,
+      patternId: selectedPattern?.id,
     });
-    if (response.success && response.data) {
-      toast.success(`Successfully added ${data.name} to system.`);
-      reset();
+    if (response.success) {
+      router.back();
     }
-    if (!response.success) {
-      toast.error(`Failed to pattern to system. ${response.message}`);
-    }
+    return response;
   };
 
   useEffect(() => {
     getBrands({ search: "" });
   }, [getBrands]);
+  useEffect(() => {
+    setValue("pattern", null);
+  }, [selectedBrand]);
+  useEffect(() => {
+    getTyreDetails({ search: "" });
+  }, [getTyreDetails]);
 
   return (
     <div className="pb-4 ">
@@ -52,11 +88,11 @@ const Create = ({
       </div>
       <div className="border-b-4 border-neutral-400  w-full">
         <h1 className="text-2xl  font-medium  tracking-wide uppercase ">
-          Create pattern
+          Create Tyre size
         </h1>
       </div>
 
-      <form className="space-y-2 pt-6 " onSubmit={onSubmit}>
+      <form className="space-y-2 pt-6 ">
         <AutoComplete
           placeholder="Enter brand name"
           onSuccess={() => getBrands({ search: "" })}
@@ -66,20 +102,35 @@ const Create = ({
           data={brands}
           error={(errors.brand as any)?.message}
         />
-        <InputField
-          control={control}
-          name="name"
+        <AutoComplete
           placeholder="Enter pattern name"
-          type="text"
-          error={errors.name?.message}
-          defaultValue=""
+          onSuccess={() => {
+            getBrands({ search: "" });
+          }}
+          create={createPatternAction}
+          control={control}
+          name={"pattern"}
+          data={selectedBrand?.patterns ?? []}
+          error={(errors.pattern as any)?.message}
         />
-        <button
-          className="bg-primary w-full rounded-lg text-lg font-normal text-center text-white p-2"
-          onClick={onSubmit}
-        >
-          Add
-        </button>
+        <AutoComplete
+          placeholder="Enter tyre size eg. 265/65R17"
+          onSuccess={() => getTyreDetails({ search: "" })}
+          create={createTyreSizeAction}
+          control={control}
+          name={"tyreDetailId"}
+          data={tyreDetails
+            ?.filter((pattern) => pattern.patternId === selectedPattern?.id)
+            .map(({ tyreSize, id }) => ({
+              tyreSize,
+              id,
+            }))
+            .map(({ tyreSize, id }) => ({
+              name: tyreSize.value,
+              id,
+            }))}
+          error={(errors.tyreSize as any)?.message}
+        />
       </form>
     </div>
   );

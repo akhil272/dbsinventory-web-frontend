@@ -1,19 +1,19 @@
-import { PatternProps } from "@Store/tyre/types";
+import { TyreSizeProps } from "@Store/tyre/types";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const TyreSize = ({ patterns, getPatterns }: PatternProps) => {
+const TyreSize = ({ tyreSizes, getTyreSizes }: TyreSizeProps) => {
   const [userQuery, setUserQuery] = useState("");
   useEffect(() => {
-    getPatterns({ search: "" });
+    getTyreSizes({ search: "" });
   }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
     setUserQuery(e.target.value);
   };
-  const patternsFiltered = patterns?.filter((brand) =>
-    brand.name
+  const filtered = tyreSizes?.filter((tyreSize) =>
+    tyreSize.value
       .toLowerCase()
       .replace(/\s+/g, "")
       .includes(userQuery.toLowerCase().replace(/\s+/g, ""))
@@ -26,7 +26,7 @@ const TyreSize = ({ patterns, getPatterns }: PatternProps) => {
         </h1>
       </div>
       <div className="w-full flex pt-1 justify-end">
-        <Link href="/admin/pattern/create">
+        <Link href="/admin/tyre-size/create">
           <a className="py-2  bg-primary rounded-md  px-4 text-white ">
             Create new
           </a>
@@ -80,9 +80,9 @@ const TyreSize = ({ patterns, getPatterns }: PatternProps) => {
             </tr>
           </thead>
           <tbody>
-            {patternsFiltered?.map((pattern, index) => (
+            {filtered?.map((tyreSize, index) => (
               <tr
-                key={pattern.id}
+                key={tyreSize.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <th
@@ -91,14 +91,14 @@ const TyreSize = ({ patterns, getPatterns }: PatternProps) => {
                 >
                   {index + 1}
                 </th>
-                <td className="px-6 py-4">{pattern.name}</td>
+                <td className="px-6 py-4">{tyreSize.value}</td>
                 <td className="px-6 py-4 text-right">
                   <Link
                     href={{
-                      pathname: "/admin/pattern/update",
+                      pathname: "/admin/tyre-size/update",
                       query: {
-                        patternId: pattern.id,
-                        patternName: pattern.name,
+                        tyreSizeId: tyreSize.id,
+                        tyreSizeValue: tyreSize.value,
                       },
                     }}
                   >
@@ -110,10 +110,10 @@ const TyreSize = ({ patterns, getPatterns }: PatternProps) => {
                 <td className="px-6 py-4 text-right">
                   <Link
                     href={{
-                      pathname: "/admin/pattern/delete",
+                      pathname: "/admin/tyre-size/delete",
                       query: {
-                        patternId: pattern.id,
-                        patternName: pattern.name,
+                        tyreSizeId: tyreSize.id,
+                        tyreSizeValue: tyreSize.value,
                       },
                     }}
                   >

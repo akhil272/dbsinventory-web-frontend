@@ -23,3 +23,21 @@ export const CreateSpeedRatingSchema = Yup.object().shape({
 export const CreateLoadIndex = Yup.object().shape({
   name: Yup.number().required(),
 });
+
+export const CreateTyreSizeSchema = Yup.object().shape({
+  brand: Yup.object()
+    .shape({
+      name: Yup.string().required(),
+    })
+    .typeError("Please select a brand from drop down."),
+  pattern: Yup.object()
+    .shape({
+      name: Yup.string().required(),
+    })
+    .typeError("Please select a pattern from drop down."),
+  tyreDetailId: Yup.object()
+    .shape({
+      name: Yup.string().required(),
+    })
+    .typeError("Please select a tyre size from drop down."),
+});

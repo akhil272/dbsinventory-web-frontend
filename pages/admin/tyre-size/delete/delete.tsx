@@ -1,23 +1,23 @@
-import { DeletePatternProps } from "@Store/tyre/types";
+import { DeleteTyreDetailProps } from "@Store/tyre/types";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
-const Delete = ({ deletePattern }: DeletePatternProps) => {
+const Delete = ({ deleteTyreDetail }: DeleteTyreDetailProps) => {
   const router = useRouter();
   const {
-    query: { patternId, patternName },
+    query: { tyreSizeId, tyreSizeValue },
   } = router;
   const cancel = () => {
     router.back();
   };
   const confirmDelete = async () => {
-    const response = await deletePattern({ id: Number(patternId) });
+    const response = await deleteTyreDetail({ id: Number(tyreSizeId) });
     if (response.success) {
-      toast.success(`${patternName} deleted successfully.`);
+      toast.success(`${tyreSizeValue} deleted successfully.`);
       router.back();
     }
     if (!response.success) {
-      toast.error(`Failed to delete ${patternName}. ${response.message}`);
+      toast.error(`Failed to delete ${tyreSizeValue}. ${response.message}`);
     }
   };
 
@@ -31,16 +31,16 @@ const Delete = ({ deletePattern }: DeletePatternProps) => {
       </div>
       <div className="border-b-4 border-neutral-400  w-full">
         <h1 className="text-2xl  font-medium  tracking-wide uppercase ">
-          Delete pattern
+          Delete tyre size
         </h1>
       </div>
       <div className="space-y-2 pt-6 ">
         <div className="bg-white p-2 flex rounded-md space-x-2 ">
           <div className="w-1/2 text-neutral-400">
-            <div>Pattern</div>
+            <div>Tyre size value</div>
           </div>
           <div className="w-1/2 ">
-            <div>{patternName}</div>
+            <div>{tyreSizeValue}</div>
           </div>
         </div>
         <div className="flex  space-x-2 items-center justify-center">
