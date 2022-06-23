@@ -1,4 +1,3 @@
-import SearchField from "@Components/SearchField";
 import { initialState } from "@Store/rootReducer";
 import { getBrands, getTyreSizes } from "@Store/tyre/actions";
 import { SearchStocksFormData } from "@Utils/formTypes/StockFormData";
@@ -9,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputField from "@Components/InputField";
+import SearchBox from "@Components/SearchBox";
 
 const mapStateToProps = ({ tyres }: typeof initialState) => ({
   brands: tyres.brands,
@@ -79,7 +79,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
           <h1 className="font-bold text-2xl pb-4">Search for stocks</h1>
         </div>
         <form onSubmit={onSubmit} className="space-y-4">
-          <SearchField
+          <SearchBox
             placeholder="Enter brand name"
             control={control}
             name={"brand"}
@@ -87,7 +87,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
             error={(errors.brand as any)?.message}
           />
 
-          <SearchField
+          <SearchBox
             data={tyreSizes?.map(({ value, id }) => ({
               name: value,
               id,

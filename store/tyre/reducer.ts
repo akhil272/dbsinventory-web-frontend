@@ -61,6 +61,12 @@ import {
   PATTERN_UPDATE_FAIL,
   PATTERN_UPDATE_INIT,
   PATTERN_UPDATE_SUCCESS,
+  SPEED_RATING_DELETE_FAIL,
+  SPEED_RATING_DELETE_INIT,
+  SPEED_RATING_DELETE_SUCCESS,
+  SPEED_RATING_UPDATE_FAIL,
+  SPEED_RATING_UPDATE_INIT,
+  SPEED_RATING_UPDATE_SUCCESS,
 } from "./types";
 
 export const initialState: TyreData = {
@@ -105,6 +111,18 @@ const reducer = (state = initialState, action: TyreDataActionTypes) => {
         loadIndexes: action.payload.data,
       });
     case LOAD_INDEXES_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case SPEED_RATING_DELETE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case SPEED_RATING_DELETE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case SPEED_RATING_DELETE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case SPEED_RATING_UPDATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case SPEED_RATING_UPDATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case SPEED_RATING_UPDATE_FAIL:
       return Object.assign({}, state, { loading: false });
     case SPEED_RATING_CREATE_INIT:
       return Object.assign({}, state, { loading: true });

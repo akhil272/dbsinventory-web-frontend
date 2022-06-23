@@ -1,9 +1,9 @@
-import { createBrand } from "@Store/tyre/actions";
+import { createLoadIndex } from "@Store/tyre/actions";
 import { connect } from "react-redux";
 import Create from "./create";
 
 const mapDispatchToProps = () => ({
-  createBrand,
+  createLoadIndex,
 });
 
 export default connect(mapDispatchToProps)(Create);

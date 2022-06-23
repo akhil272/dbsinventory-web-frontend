@@ -22,7 +22,10 @@ import {
   createTyreDetailSizePayload,
   createTyreSizePayload,
   deleteBrandPayload,
+  deleteLoadIndexPayload,
   deletePatternPayload,
+  deleteProductLinePayload,
+  deleteSpeedRatingPayload,
   getBrandsPayload,
   getLoadIndexesPayload,
   getPatternsPayload,
@@ -36,6 +39,12 @@ import {
   LOAD_INDEX_CREATE_FAIL,
   LOAD_INDEX_CREATE_INIT,
   LOAD_INDEX_CREATE_SUCCESS,
+  LOAD_INDEX_DELETE_FAIL,
+  LOAD_INDEX_DELETE_INIT,
+  LOAD_INDEX_DELETE_SUCCESS,
+  LOAD_INDEX_UPDATE_FAIL,
+  LOAD_INDEX_UPDATE_INIT,
+  LOAD_INDEX_UPDATE_SUCCESS,
   PATTERNS_FETCH_FAIL,
   PATTERNS_FETCH_INIT,
   PATTERNS_FETCH_SUCCESS,
@@ -54,12 +63,24 @@ import {
   PRODUCT_LINE_CREATE_FAIL,
   PRODUCT_LINE_CREATE_INIT,
   PRODUCT_LINE_CREATE_SUCCESS,
+  PRODUCT_LINE_DELETE_FAIL,
+  PRODUCT_LINE_DELETE_INIT,
+  PRODUCT_LINE_DELETE_SUCCESS,
+  PRODUCT_LINE_UPDATE_FAIL,
+  PRODUCT_LINE_UPDATE_INIT,
+  PRODUCT_LINE_UPDATE_SUCCESS,
   SPEED_RATINGS_FETCH_FAIL,
   SPEED_RATINGS_FETCH_INIT,
   SPEED_RATINGS_FETCH_SUCCESS,
   SPEED_RATING_CREATE_FAIL,
   SPEED_RATING_CREATE_INIT,
   SPEED_RATING_CREATE_SUCCESS,
+  SPEED_RATING_DELETE_FAIL,
+  SPEED_RATING_DELETE_INIT,
+  SPEED_RATING_DELETE_SUCCESS,
+  SPEED_RATING_UPDATE_FAIL,
+  SPEED_RATING_UPDATE_INIT,
+  SPEED_RATING_UPDATE_SUCCESS,
   TYRE_DETAILS_FETCH_FAIL,
   TYRE_DETAILS_FETCH_INIT,
   TYRE_DETAILS_FETCH_SUCCESS,
@@ -73,8 +94,48 @@ import {
   TYRE_SIZES_FETCH_INIT,
   TYRE_SIZES_FETCH_SUCCESS,
   updateBrandPayload,
+  updateLoadIndexPayload,
   updatePatternPayload,
+  updateProductLinePayload,
+  updateSpeedRatingPayload,
 } from "./types";
+
+export const deleteProductLine = async (data: deleteProductLinePayload) => {
+  const { PRODUCT_LINE } = API_END_POINTS;
+  const { id } = data;
+  const pathname = PRODUCT_LINE;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: PRODUCT_LINE_DELETE_INIT,
+      successType: PRODUCT_LINE_DELETE_SUCCESS,
+      failureType: PRODUCT_LINE_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateProductLine = async ({
+  id,
+  ...data
+}: updateProductLinePayload) => {
+  const { PRODUCT_LINE } = API_END_POINTS;
+  const pathname = PRODUCT_LINE;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: PRODUCT_LINE_UPDATE_INIT,
+      successType: PRODUCT_LINE_UPDATE_SUCCESS,
+      failureType: PRODUCT_LINE_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const createProductLine = async (data: createProductLinePayload) => {
   const { PRODUCT_LINE } = API_END_POINTS;
@@ -114,6 +175,43 @@ export const getProductLines = async (payload: getProductLinePayload) => {
   return fetchAsync(apiArgs);
 };
 
+export const deleteLoadIndex = async (data: deleteLoadIndexPayload) => {
+  const { LOAD_INDEX } = API_END_POINTS;
+  const { id } = data;
+  const pathname = LOAD_INDEX;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: LOAD_INDEX_DELETE_INIT,
+      successType: LOAD_INDEX_DELETE_SUCCESS,
+      failureType: LOAD_INDEX_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateLoadIndex = async ({
+  id,
+  ...data
+}: updateLoadIndexPayload) => {
+  const { LOAD_INDEX } = API_END_POINTS;
+  const pathname = LOAD_INDEX;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: LOAD_INDEX_UPDATE_INIT,
+      successType: LOAD_INDEX_UPDATE_SUCCESS,
+      failureType: LOAD_INDEX_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
 export const createLoadIndex = async (data: createLoadIndexPayload) => {
   const { LOAD_INDEX } = API_END_POINTS;
   const pathname = LOAD_INDEX;
@@ -147,6 +245,43 @@ export const getLoadIndexes = async (payload: getLoadIndexesPayload) => {
       requestType: LOAD_INDEXES_FETCH_INIT,
       successType: LOAD_INDEXES_FETCH_SUCCESS,
       failureType: LOAD_INDEXES_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const deleteSpeedRating = async (data: deleteSpeedRatingPayload) => {
+  const { SPEED_RATING } = API_END_POINTS;
+  const { id } = data;
+  const pathname = SPEED_RATING;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: SPEED_RATING_DELETE_INIT,
+      successType: SPEED_RATING_DELETE_SUCCESS,
+      failureType: SPEED_RATING_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateSpeedRating = async ({
+  id,
+  ...data
+}: updateSpeedRatingPayload) => {
+  const { SPEED_RATING } = API_END_POINTS;
+  const pathname = SPEED_RATING;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: SPEED_RATING_UPDATE_INIT,
+      successType: SPEED_RATING_UPDATE_SUCCESS,
+      failureType: SPEED_RATING_UPDATE_FAIL,
     },
   };
   return fetchAsync(apiArgs);

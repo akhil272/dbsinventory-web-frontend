@@ -7,7 +7,7 @@ type dataType = {
   name: string;
 };
 
-type AutoCompleteProps = {
+type SearchBoxProps = {
   control: Control<any>;
   name: string;
   data: dataType[];
@@ -21,7 +21,7 @@ export default function SearchBox({
   name,
   data,
   error,
-}: AutoCompleteProps) {
+}: SearchBoxProps) {
   const [query, setQuery] = useState("");
   const [dataState, setDataState] = useState(data);
   const addDataToExistingState = () => {
@@ -47,9 +47,9 @@ export default function SearchBox({
         render={({ field: { onChange, value } }) => (
           <Combobox value={value} onChange={onChange}>
             <div className="relative">
-              <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+              <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 ">
                 <Combobox.Input
-                  className="w-full border-none py-2 pl-3 pr-10 text-md leading-5 text-gray-900 focus:ring-0"
+                  className=" p-2 placeholder-slate-400 text-md  focus:outline-none  focus:ring-slate-400 block w-full rounded-md  focus:ring-1"
                   displayValue={(item: dataType) => item?.name}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={placeholder}

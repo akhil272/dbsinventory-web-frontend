@@ -1,5 +1,11 @@
 import { ApiReturnType } from "@Store/api";
 
+export const PRODUCT_LINE_DELETE_INIT = "PRODUCT_LINE:DELETE:INIT";
+export const PRODUCT_LINE_DELETE_SUCCESS = "PRODUCT_LINE:DELETE:SUCCESS";
+export const PRODUCT_LINE_DELETE_FAIL = "PRODUCT_LINE:DELETE:FAIL";
+export const PRODUCT_LINE_UPDATE_INIT = "PRODUCT_LINE:UPDATE:INIT";
+export const PRODUCT_LINE_UPDATE_SUCCESS = "PRODUCT_LINE:UPDATE:SUCCESS";
+export const PRODUCT_LINE_UPDATE_FAIL = "PRODUCT_LINE:UPDATE:FAIL";
 export const PRODUCT_LINE_CREATE_INIT = "PRODUCT_LINE:CREATE:INIT";
 export const PRODUCT_LINE_CREATE_SUCCESS = "PRODUCT_LINE:CREATE:SUCCESS";
 export const PRODUCT_LINE_CREATE_FAIL = "PRODUCT_LINE:CREATE:FAIL";
@@ -7,6 +13,12 @@ export const PRODUCT_LINES_FETCH_INIT = "PRODUCT_LINES:FETCH:INIT";
 export const PRODUCT_LINES_FETCH_SUCCESS = "PRODUCT_LINES:FETCH:SUCCESS";
 export const PRODUCT_LINES_FETCH_FAIL = "PRODUCT_LINES:FETCH:FAIL";
 
+export const LOAD_INDEX_DELETE_INIT = "LOAD_INDEX:DELETE:INIT";
+export const LOAD_INDEX_DELETE_SUCCESS = "LOAD_INDEX:DELETE:SUCCESS";
+export const LOAD_INDEX_DELETE_FAIL = "LOAD_INDEX:DELETE:FAIL";
+export const LOAD_INDEX_UPDATE_INIT = "LOAD_INDEX:UPDATE:INIT";
+export const LOAD_INDEX_UPDATE_SUCCESS = "LOAD_INDEX:UPDATE:SUCCESS";
+export const LOAD_INDEX_UPDATE_FAIL = "LOAD_INDEX:UPDATE:FAIL";
 export const LOAD_INDEX_CREATE_INIT = "LOAD_INDEX:CREATE:INIT";
 export const LOAD_INDEX_CREATE_SUCCESS = "LOAD_INDEX:CREATE:SUCCESS";
 export const LOAD_INDEX_CREATE_FAIL = "LOAD_INDEX:CREATE:FAIL";
@@ -14,6 +26,12 @@ export const LOAD_INDEXES_FETCH_INIT = "LOAD_INDEXES:FETCH:INIT";
 export const LOAD_INDEXES_FETCH_SUCCESS = "LOAD_INDEXES:FETCH:SUCCESS";
 export const LOAD_INDEXES_FETCH_FAIL = "LOAD_INDEXES:FETCH:FAIL";
 
+export const SPEED_RATING_DELETE_INIT = "SPEED_RATING:DELETE:INIT";
+export const SPEED_RATING_DELETE_SUCCESS = "SPEED_RATING:DELETE:SUCCESS";
+export const SPEED_RATING_DELETE_FAIL = "SPEED_RATING:DELETE:FAIL";
+export const SPEED_RATING_UPDATE_INIT = "SPEED_RATING:UPDATE:INIT";
+export const SPEED_RATING_UPDATE_SUCCESS = "SPEED_RATING:UPDATE:SUCCESS";
+export const SPEED_RATING_UPDATE_FAIL = "SPEED_RATING:UPDATE:FAIL";
 export const SPEED_RATING_CREATE_INIT = "SPEED_RATING:CREATE:INIT";
 export const SPEED_RATING_CREATE_SUCCESS = "SPEED_RATING:CREATE:SUCCESS";
 export const SPEED_RATING_CREATE_FAIL = "SPEED_RATING:CREATE:FAIL";
@@ -70,14 +88,110 @@ export const BRANDS_FETCH_INIT = "BRANDS:FETCH:INIT";
 export const BRANDS_FETCH_SUCCESS = "BRANDS:FETCH:SUCCESS";
 export const BRANDS_FETCH_FAIL = "BRANDS:FETCH:FAIL";
 
-export type deletePatternPayload = {
+export type updateProductLinePayload = {
   id: number;
+  name: string;
+};
+export type updateLoadIndexPayload = {
+  id: number;
+  value: number;
+};
+export type updateSpeedRatingPayload = {
+  id: number;
+  value: string;
 };
 export type updatePatternPayload = {
   id: number;
   name: string;
 };
+export type updateBrandPayload = {
+  id: number;
+  name: string;
+};
 
+export type getPatternsPayload = {
+  search?: string;
+};
+
+export type deleteProductLinePayload = {
+  id: number;
+};
+export type deleteLoadIndexPayload = {
+  id: number;
+};
+export type deleteSpeedRatingPayload = {
+  id: number;
+};
+export type deletePatternPayload = {
+  id: number;
+};
+export type deleteBrandPayload = {
+  id: number;
+};
+
+export type DeleteProductLineProps = {
+  deleteProductLine: (
+    data: deleteProductLinePayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type DeleteLoadIndexProps = {
+  deleteLoadIndex: (data: deleteLoadIndexPayload) => Promise<ApiReturnType<{}>>;
+};
+export type DeleteSpeedRatingProps = {
+  deleteSpeedRating: (
+    data: deleteSpeedRatingPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type DeletePatternProps = {
+  deletePattern: (
+    data: deletePatternPayload
+  ) => Promise<ApiReturnType<createPatternResponse>>;
+};
+export type DeleteBrandProps = {
+  deleteBrand: (
+    data: deleteBrandPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
+};
+
+export type UpdateProductLineProps = {
+  updateProductLine: (
+    payload: updateProductLinePayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type UpdateLoadIndexProps = {
+  updateLoadIndex: (
+    payload: updateLoadIndexPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type UpdateSpeedRatingProps = {
+  updateSpeedRating: (
+    payload: updateSpeedRatingPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type UpdatePatternProps = {
+  updatePattern: (
+    payload: updatePatternPayload
+  ) => Promise<ApiReturnType<createPatternResponse>>;
+};
+export type UpdateBrandProps = {
+  updateBrand: (
+    payload: updateBrandPayload
+  ) => Promise<ApiReturnType<createBrandResponse>>;
+};
+
+export type CreateProductLineProps = {
+  createProductLine: (
+    data: createProductLinePayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type CreateLoadIndexProps = {
+  createLoadIndex: (data: createLoadIndexPayload) => Promise<ApiReturnType<{}>>;
+};
+export type CreateSpeedRatingProps = {
+  createSpeedRating: (
+    data: createSpeedRatingPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
 export type CreatePatternProps = {
   brands: Brand[];
   createPattern: (
@@ -90,44 +204,36 @@ export type CreatePatternProps = {
     payload: getBrandsPayload
   ) => Promise<ApiReturnType<BrandsPayload[]>>;
 };
-
-export type PatternProps = {
-  patterns: PatternPayload[];
-  getPatterns: (
-    payload: getPatternsPayload
-  ) => Promise<ApiReturnType<PatternPayload[]>>;
-};
-
-export type getPatternsPayload = {
-  search?: string;
-};
-
-export type deleteBrandPayload = {
-  id: number;
-};
-
-export type DeletePatternProps = {
-  deletePattern: (
-    data: deletePatternPayload
-  ) => Promise<ApiReturnType<createPatternResponse>>;
-};
-export type DeleteBrandProps = {
-  deleteBrand: (
-    data: deleteBrandPayload
-  ) => Promise<ApiReturnType<createBrandResponse>>;
-};
-
-export type updateBrandPayload = {
-  id: number;
-  name: string;
-};
-
 export type CreateBrandProps = {
   createBrand: (
     data: createBrandPayload
   ) => Promise<ApiReturnType<createBrandResponse>>;
 };
 
+export type ProductLineProps = {
+  productLines: ProductLinePayload[];
+  getProductLines: (
+    payload: getProductLinePayload
+  ) => Promise<ApiReturnType<ProductLinePayload[]>>;
+};
+export type LoadIndexProps = {
+  loadIndexes: LoadIndexPayload[];
+  getLoadIndexes: (
+    payload: getLoadIndexesPayload
+  ) => Promise<ApiReturnType<LoadIndexPayload[]>>;
+};
+export type SpeedRatingProps = {
+  speedRatings: SpeedRatingPayload[];
+  getSpeedRatings: (
+    payload: getSpeedRatingPayload
+  ) => Promise<ApiReturnType<SpeedRatingPayload[]>>;
+};
+export type PatternProps = {
+  patterns: PatternPayload[];
+  getPatterns: (
+    payload: getPatternsPayload
+  ) => Promise<ApiReturnType<PatternPayload[]>>;
+};
 export type BrandProps = {
   brands: BrandsPayload[];
   getBrands: (
@@ -293,17 +399,6 @@ export type createBrandPayload = {
   name: string;
 };
 
-export type UpdatePatternProps = {
-  updatePattern: (
-    payload: updatePatternPayload
-  ) => Promise<ApiReturnType<createPatternResponse>>;
-};
-export type UpdateBrandProps = {
-  updateBrand: (
-    payload: updateBrandPayload
-  ) => Promise<ApiReturnType<createBrandResponse>>;
-};
-
 export type createBrandResponse = {};
 
 export type TyresDispatchProps = {
@@ -365,6 +460,26 @@ export type TyresStateProps = {
 
 export type TyreDataProps = TyresStateProps & TyresDispatchProps;
 
+type productLineDeleteInit = {
+  type: typeof PRODUCT_LINE_DELETE_INIT;
+};
+type productLineDeleteSuccess = {
+  type: typeof PRODUCT_LINE_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type productLineDeleteFail = {
+  type: typeof PRODUCT_LINE_DELETE_FAIL;
+};
+type productLineUpdateInit = {
+  type: typeof PRODUCT_LINE_UPDATE_INIT;
+};
+type productLineUpdateSuccess = {
+  type: typeof PRODUCT_LINE_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type productLineUpdateFail = {
+  type: typeof PRODUCT_LINE_UPDATE_FAIL;
+};
 type productLineCreateInit = {
   type: typeof PRODUCT_LINE_CREATE_INIT;
 };
@@ -386,6 +501,28 @@ type productLinesFetchFail = {
   type: typeof PRODUCT_LINES_FETCH_FAIL;
 };
 
+type loadIndexDeleteInit = {
+  type: typeof LOAD_INDEX_DELETE_INIT;
+};
+type loadIndexDeleteSuccess = {
+  type: typeof LOAD_INDEX_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type loadIndexDeleteFail = {
+  type: typeof LOAD_INDEX_DELETE_FAIL;
+};
+
+type loadIndexUpdateInit = {
+  type: typeof LOAD_INDEX_UPDATE_INIT;
+};
+type loadIndexUpdateSuccess = {
+  type: typeof LOAD_INDEX_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type loadIndexUpdateFail = {
+  type: typeof LOAD_INDEX_UPDATE_FAIL;
+};
+
 type loadIndexCreateInit = {
   type: typeof LOAD_INDEX_CREATE_INIT;
 };
@@ -405,6 +542,26 @@ type loadIndexesFetchSuccess = {
 };
 type loadIndexesFetchFail = {
   type: typeof LOAD_INDEXES_FETCH_FAIL;
+};
+type speedRatingDeleteInit = {
+  type: typeof SPEED_RATING_DELETE_INIT;
+};
+type speedRatingDeleteSuccess = {
+  type: typeof SPEED_RATING_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type speedRatingDeleteFail = {
+  type: typeof SPEED_RATING_DELETE_FAIL;
+};
+type speedRatingUpdateInit = {
+  type: typeof SPEED_RATING_UPDATE_INIT;
+};
+type speedRatingUpdateSuccess = {
+  type: typeof SPEED_RATING_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type speedRatingUpdateFail = {
+  type: typeof SPEED_RATING_UPDATE_FAIL;
 };
 type speedRatingCreateInit = {
   type: typeof SPEED_RATING_CREATE_INIT;
@@ -575,18 +732,36 @@ type brandsFetchFail = {
 };
 
 export type TyreDataActionTypes =
+  | productLineDeleteInit
+  | productLineDeleteSuccess
+  | productLineDeleteFail
+  | productLineUpdateInit
+  | productLineUpdateSuccess
+  | productLineUpdateFail
   | productLineCreateInit
   | productLineCreateSuccess
   | productLineCreateFail
   | productLinesFetchInit
   | productLinesFetchSuccess
   | productLinesFetchFail
+  | loadIndexDeleteInit
+  | loadIndexDeleteSuccess
+  | loadIndexDeleteFail
+  | loadIndexUpdateInit
+  | loadIndexUpdateSuccess
+  | loadIndexUpdateFail
   | loadIndexCreateInit
   | loadIndexCreateSuccess
   | loadIndexCreateFail
   | loadIndexesFetchInit
   | loadIndexesFetchSuccess
   | loadIndexesFetchFail
+  | speedRatingDeleteInit
+  | speedRatingDeleteSuccess
+  | speedRatingDeleteFail
+  | speedRatingUpdateInit
+  | speedRatingUpdateSuccess
+  | speedRatingUpdateFail
   | speedRatingCreateInit
   | speedRatingCreateSuccess
   | speedRatingCreateFail
