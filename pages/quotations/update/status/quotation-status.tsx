@@ -45,7 +45,7 @@ const QuotationStatus = ({ updateQuotationById }) => {
       <div className="items-center justify-center flex ">
         <img
           className="object-contain rounded-xl"
-          src="/images/Create_Stock.png"
+          src="/images/Update_Quotation_Status.png"
         />
       </div>
       <div className="mt-2">

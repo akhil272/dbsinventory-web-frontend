@@ -7,6 +7,9 @@ import {
   CUSTOMER_CATEGORY_CREATE_FAIL,
   CUSTOMER_CATEGORY_CREATE_INIT,
   CUSTOMER_CATEGORY_CREATE_SUCCESS,
+  CUSTOMER_CATEGORY_NAME_UPDATE_FAIL,
+  CUSTOMER_CATEGORY_NAME_UPDATE_INIT,
+  CUSTOMER_CATEGORY_NAME_UPDATE_SUCCESS,
   CUSTOMER_CATEGORY_UPDATE_FAIL,
   CUSTOMER_CATEGORY_UPDATE_INIT,
   CUSTOMER_CATEGORY_UPDATE_SUCCESS,
@@ -19,6 +22,12 @@ export const initialState: Customer = {
 
 const reducer = (state = initialState, action: CustomerActionTypes) => {
   switch (action.type) {
+    case CUSTOMER_CATEGORY_NAME_UPDATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case CUSTOMER_CATEGORY_NAME_UPDATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case CUSTOMER_CATEGORY_NAME_UPDATE_FAIL:
+      return Object.assign({}, state, { loading: false });
     case CUSTOMER_CATEGORY_UPDATE_INIT:
       return Object.assign({}, state, { loading: true });
     case CUSTOMER_CATEGORY_UPDATE_SUCCESS:

@@ -13,7 +13,54 @@ import {
   CUSTOMER_CATEGORY_UPDATE_FAIL,
   CUSTOMER_CATEGORY_UPDATE_INIT,
   CUSTOMER_CATEGORY_UPDATE_SUCCESS,
+  CUSTOMER_CATEGORY_DELETE_FAIL,
+  CUSTOMER_CATEGORY_DELETE_INIT,
+  CUSTOMER_CATEGORY_DELETE_SUCCESS,
+  deleteCustomerCategoryPayload,
+  updateCustomerCategoryNamePayload,
+  CUSTOMER_CATEGORY_NAME_UPDATE_FAIL,
+  CUSTOMER_CATEGORY_NAME_UPDATE_INIT,
+  CUSTOMER_CATEGORY_NAME_UPDATE_SUCCESS,
 } from "./types";
+
+export const deleteCustomerCategory = async (
+  data: deleteCustomerCategoryPayload
+) => {
+  const { CUSTOMER_CATEGORY } = API_END_POINTS;
+  const { id } = data;
+  const pathname = CUSTOMER_CATEGORY;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: CUSTOMER_CATEGORY_DELETE_INIT,
+      successType: CUSTOMER_CATEGORY_DELETE_SUCCESS,
+      failureType: CUSTOMER_CATEGORY_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateCustomerCategoryName = async ({
+  id,
+  ...data
+}: updateCustomerCategoryNamePayload) => {
+  const { CUSTOMER_CATEGORY } = API_END_POINTS;
+  const pathname = CUSTOMER_CATEGORY;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: CUSTOMER_CATEGORY_NAME_UPDATE_INIT,
+      successType: CUSTOMER_CATEGORY_NAME_UPDATE_SUCCESS,
+      failureType: CUSTOMER_CATEGORY_NAME_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const updateCustomerCategory = async ({
   customerId,

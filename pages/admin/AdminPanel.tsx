@@ -67,55 +67,60 @@ const AdminPanel = ({
       <div className="grid grid-cols-2 gap-2 my-8">
         <DashboardMenuItem
           title="Brand"
-          color="bg-teal-400"
+          color="bg-zinc-200"
           address="/admin/brand"
         />
 
         <DashboardMenuItem
           title="Patterns"
-          color="bg-sky-400"
+          color="bg-zinc-200"
           address="/admin/pattern"
         />
         <DashboardMenuItem
           title="Tyre Size"
-          color="bg-teal-400"
+          color="bg-zinc-200"
           address="/admin/tyre-size"
         />
         <DashboardMenuItem
           title="Speed Rating"
-          color="bg-sky-400"
+          color="bg-zinc-200"
           address="/admin/speed-rating"
         />
         <DashboardMenuItem
           title="Load Index"
-          color="bg-teal-400"
+          color="bg-zinc-200"
           address="/admin/load-index"
         />
         <DashboardMenuItem
           title="Product Line"
-          color="bg-sky-400"
+          color="bg-zinc-200"
           address="/admin/product-line"
         />
         <DashboardMenuItem
           title="Vendor"
-          color="bg-teal-400"
+          color="bg-zinc-200"
           address="/admin/vendor"
         />
         <DashboardMenuItem
           title="Location"
-          color="bg-sky-400"
+          color="bg-zinc-200"
           address="/admin/location"
         />
         <DashboardMenuItem
           title="Transport"
-          color="bg-teal-400"
+          color="bg-zinc-200"
           address="/admin/transport"
+        />
+        <DashboardMenuItem
+          title="Customer Category"
+          color="bg-zinc-200"
+          address="/admin/customer-category"
         />
       </div>
       <div className="py-4">
         <Link href="/admin/downloads">
           <a className="text-md p-2 bg-primary text-white rounded-md ">
-            Visit Download Center
+            Download Center
           </a>
         </Link>
       </div>

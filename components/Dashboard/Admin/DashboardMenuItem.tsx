@@ -1,3 +1,4 @@
+import { BookOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 
 type DashboardMenuItemProps = {
@@ -18,10 +19,13 @@ const DashboardMenuItem = ({
   return (
     <div
       onClick={handleNavigation}
-      className={`${color} p-2 rounded-md hover:opacity-100 opacity-90  text-neutral-700  active:text-white `}
+      className={`${color} p-2 rounded-md hover:opacity-100 opacity-90  active:text-white `}
     >
       <div className="flex w-full items-center ">
-        <div className="text-md tracking-wider ">{title}</div>
+        <div className="h-10 w-8 items-center flex">
+          <BookOutlined />
+        </div>
+        <div className="text-md font-medium tracking-wider ">{title}</div>
       </div>
     </div>
   );
