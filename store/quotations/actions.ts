@@ -41,6 +41,14 @@ import {
   USER_AND_QUOTATION_CREATE_FAIL,
   USER_AND_QUOTATION_CREATE_INIT,
   USER_AND_QUOTATION_CREATE_SUCCESS,
+  deleteServicePayload,
+  SERVICE_DELETE_FAIL,
+  SERVICE_DELETE_INIT,
+  SERVICE_DELETE_SUCCESS,
+  SERVICE_UPDATE_FAIL,
+  SERVICE_UPDATE_INIT,
+  SERVICE_UPDATE_SUCCESS,
+  updateServicePayload,
 } from "./types";
 
 export const createUserAndQuotation = async (
@@ -57,6 +65,39 @@ export const createUserAndQuotation = async (
       requestType: USER_AND_QUOTATION_CREATE_INIT,
       successType: USER_AND_QUOTATION_CREATE_SUCCESS,
       failureType: USER_AND_QUOTATION_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+export const deleteService = async (data: deleteServicePayload) => {
+  const { SERVICES } = API_END_POINTS;
+  const { id } = data;
+  const pathname = SERVICES;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: SERVICE_DELETE_INIT,
+      successType: SERVICE_DELETE_SUCCESS,
+      failureType: SERVICE_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateService = async ({ id, ...data }: updateServicePayload) => {
+  const { SERVICES } = API_END_POINTS;
+  const pathname = SERVICES;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: SERVICE_UPDATE_INIT,
+      successType: SERVICE_UPDATE_SUCCESS,
+      failureType: SERVICE_UPDATE_FAIL,
     },
   };
   return fetchAsync(apiArgs);

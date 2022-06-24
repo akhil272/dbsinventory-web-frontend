@@ -24,6 +24,12 @@ export const USER_AND_QUOTATION_CREATE_SUCCESS =
   "USER:AND:QUOTATION:CREATE:SUCCESS";
 export const USER_AND_QUOTATION_CREATE_FAIL = "USER:AND:QUOTATION:CREATE:FAIL";
 
+export const SERVICE_DELETE_INIT = "SERVICE:DELETE:INIT";
+export const SERVICE_DELETE_SUCCESS = "SERVICE:DELETE:SUCCESS";
+export const SERVICE_DELETE_FAIL = "SERVICE:DELETE:FAIL";
+export const SERVICE_UPDATE_INIT = "SERVICE:UPDATE:INIT";
+export const SERVICE_UPDATE_SUCCESS = "SERVICE:UPDATE:SUCCESS";
+export const SERVICE_UPDATE_FAIL = "SERVICE:UPDATE:FAIL";
 export const SERVICE_CREATE_INIT = "SERVICE:CREATE:INIT";
 export const SERVICE_CREATE_SUCCESS = "SERVICE:CREATE:SUCCESS";
 export const SERVICE_CREATE_FAIL = "SERVICE:CREATE:FAIL";
@@ -55,6 +61,31 @@ export const QUOTATION_CREATE_FAIL = "QUOTATION:CREATE:FAIL";
 export const QUOTATIONS_FETCH_INIT = "QUOTATIONS:FETCH:INIT";
 export const QUOTATIONS_FETCH_SUCCESS = "QUOTATIONS:FETCH:SUCCESS";
 export const QUOTATIONS_FETCH_FAIL = "QUOTATIONS:FETCH:FAIL";
+
+export type deleteServicePayload = {
+  id: number;
+};
+export type updateServicePayload = {
+  id: number;
+  name: string;
+};
+
+export type UpdateServiceProps = {
+  updateService: (data: updateServicePayload) => Promise<ApiReturnType<{}>>;
+};
+export type DeleteServiceProps = {
+  deleteService: (data: deleteServicePayload) => Promise<ApiReturnType<{}>>;
+};
+export type CreateServiceProps = {
+  createService: (data: createServicePayload) => Promise<ApiReturnType<{}>>;
+};
+
+export type ServiceProps = {
+  services: ServicePayload[];
+  getServices: (
+    payload: getServicesPayload
+  ) => Promise<ApiReturnType<ServicePayload[]>>;
+};
 
 export type createUserAndQuotationPayload = {
   user?: registerPayload;
@@ -373,6 +404,26 @@ type userAndQuotationCreateFail = {
   type: typeof USER_AND_QUOTATION_CREATE_FAIL;
 };
 
+type serviceDeleteInit = {
+  type: typeof SERVICE_DELETE_INIT;
+};
+type serviceDeleteSuccess = {
+  type: typeof SERVICE_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type serviceDeleteFail = {
+  type: typeof SERVICE_DELETE_FAIL;
+};
+type serviceUpdateInit = {
+  type: typeof SERVICE_UPDATE_INIT;
+};
+type serviceUpdateSuccess = {
+  type: typeof SERVICE_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type serviceUpdateFail = {
+  type: typeof SERVICE_UPDATE_FAIL;
+};
 type serviceCreateInit = {
   type: typeof SERVICE_CREATE_INIT;
 };
@@ -473,6 +524,12 @@ export type QuotationActionTypes =
   | userAndQuotationCreateInit
   | userAndQuotationCreateSuccess
   | userAndQuotationCreateFail
+  | serviceDeleteInit
+  | serviceDeleteSuccess
+  | serviceDeleteFail
+  | serviceUpdateInit
+  | serviceUpdateSuccess
+  | serviceUpdateFail
   | serviceCreateInit
   | serviceCreateSuccess
   | serviceCreateFail

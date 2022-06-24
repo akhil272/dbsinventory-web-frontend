@@ -116,6 +116,11 @@ const AdminPanel = ({
           color="bg-zinc-200"
           address="/admin/customer-category"
         />
+        <DashboardMenuItem
+          title="Service"
+          color="bg-zinc-200"
+          address="/admin/service"
+        />
       </div>
       <div className="py-4">
         <Link href="/admin/downloads">
