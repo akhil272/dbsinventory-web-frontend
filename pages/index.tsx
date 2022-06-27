@@ -7,6 +7,7 @@ import { getUserInfo } from "@Store/users/actions";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Search from "./search";
+import AdminPanel from "./admin";
 
 const mapStateToProps = ({ users }: typeof initialState) => ({
   user: users.user,
@@ -30,6 +31,9 @@ const Homepage = ({ user, loading, getUserInfo }) => {
   }
   if (user?.role === "user") {
     return <GetAQuote />;
+  }
+  if (user?.role === "admin") {
+    return <AdminPanel />;
   }
   return <Search />;
 };

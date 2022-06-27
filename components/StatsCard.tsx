@@ -10,7 +10,7 @@ const StatsCard = ({ title, value, artCover }) => {
         </div>
         <div className="p-2 w-1/2 ">
           <div className="text-lg text-gray-500">{title}</div>
-          <div className="text-6xl font-bold">{value}</div>
+          <div className="text-6xl font-bold">{value ?? "0"}</div>
         </div>
       </div>
     </div>

@@ -42,3 +42,10 @@ export const CreateUserSchema = Yup.object().shape({
   addressLine1: Yup.string().optional().nullable(),
   addressLine2: Yup.string().optional().nullable(),
 });
+
+export const UpdateQuotationServiceCostSchema = Yup.object().shape({
+  price: Yup.number().required().typeError("Please enter cost"),
+  serviceId: Yup.number().required(),
+  name: Yup.string(),
+  serviceNote: Yup.string().nullable(null).notRequired(),
+});

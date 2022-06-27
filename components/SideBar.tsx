@@ -7,51 +7,12 @@ import {
   FileAddOutlined,
   LogoutOutlined,
   UserAddOutlined,
-  ControlOutlined,
   DatabaseOutlined,
   WindowsOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import storage from "@Utils/storage";
-
-const adminLink = [
-  { name: "Dashboard", to: "/admin", id: 1, iconName: <ControlOutlined /> },
-  { name: "Profile", to: "/user/profile", id: 2, iconName: <HomeOutlined /> },
-  {
-    name: "Quotations",
-    to: "/quotations",
-    id: 3,
-    iconName: <DatabaseOutlined />,
-  },
-  { name: "Search", to: "/search", id: 4, iconName: <SearchOutlined /> },
-  {
-    name: "Add Stock",
-    to: "/stocks/create",
-    id: 5,
-    iconName: <FileAddOutlined />,
-  },
-  {
-    name: "Manage Users",
-    to: "/admin/users",
-    id: 6,
-    iconName: <UserAddOutlined />,
-  },
-];
-const userLink = [
-  { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
-  { name: "Dashboard", to: "/user", id: 2, iconName: <WindowsOutlined /> },
-];
-const managerLink = [
-  { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
-  { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
-  {
-    name: "Add Stock",
-    to: "/stocks/create",
-    id: 3,
-    iconName: <FileAddOutlined />,
-  },
-];
 
 const itemVariants = {
   closed: {
@@ -75,7 +36,49 @@ const sideVariants = {
   },
 };
 
-export default function SideBar({ open, setOpen, userRole, userName }) {
+export default function SideBar({ open, setOpen, userRole, userName, userId }) {
+  const adminLink = [
+    { name: "Dashboard", to: "/admin", id: 1, iconName: <WindowsOutlined /> },
+    { name: "Profile", to: "/user/profile", id: 2, iconName: <HomeOutlined /> },
+    {
+      name: "Quotations",
+      to: "/quotations",
+      id: 3,
+      iconName: <DatabaseOutlined />,
+    },
+    { name: "Search", to: "/search", id: 4, iconName: <SearchOutlined /> },
+    {
+      name: "Add Stock",
+      to: "/stocks/create",
+      id: 5,
+      iconName: <FileAddOutlined />,
+    },
+    {
+      name: "Manage Users",
+      to: "/admin/users",
+      id: 6,
+      iconName: <UserAddOutlined />,
+    },
+  ];
+  const userLink = [
+    { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
+    {
+      name: "Dashboard",
+      to: { pathname: "/user", query: { userId } },
+      id: 2,
+      iconName: <WindowsOutlined />,
+    },
+  ];
+  const managerLink = [
+    { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
+    { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
+    {
+      name: "Add Stock",
+      to: "/stocks/create",
+      id: 3,
+      iconName: <FileAddOutlined />,
+    },
+  ];
   const router = useRouter();
   const signOutUser = () => {
     storage().clear();

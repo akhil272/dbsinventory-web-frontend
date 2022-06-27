@@ -41,3 +41,10 @@ export type UserQueryFormData = {
   userNotes?: string;
   loadIndex?: { id: number; name: string };
 };
+
+export type UpdateQuotationServiceCostForm = {
+  serviceId: number;
+  price: number;
+  serviceNote: string;
+  name: string;
+};

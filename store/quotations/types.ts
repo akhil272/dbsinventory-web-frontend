@@ -72,7 +72,7 @@ export const QUOTATIONS_FETCH_FAIL = "QUOTATIONS:FETCH:FAIL";
 export type updateQuotationServiceCostPayload = {
   id: number;
   price: number;
-  serviceNote: string;
+  serviceNote: string | null;
 };
 
 export type deleteServicePayload = {
@@ -83,6 +83,15 @@ export type updateServicePayload = {
   name: string;
 };
 
+export type QuotationServiceProps = {
+  quotation: QuotationPayload;
+  getQuotationById: (
+    data: getQuotationByIdPayload
+  ) => Promise<ApiReturnType<QuotationPayload>>;
+  updateQuotationServiceCostById: (
+    data: updateQuotationServiceCostPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
 export type UpdateServiceProps = {
   updateService: (data: updateServicePayload) => Promise<ApiReturnType<{}>>;
 };

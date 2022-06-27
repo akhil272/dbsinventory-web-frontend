@@ -15,7 +15,9 @@ const Layout = ({ children, user }) => {
   return (
     <div className="bg-neutral-100 min-h-screen ">
       <div className="bg-inherit">
-        {user?.role && <Header userRole={user?.role} userName={userName} />}
+        {user?.role && (
+          <Header userRole={user?.role} userName={userName} userId={user?.id} />
+        )}
       </div>
       <div className="grid justify-items-center pt-14 ">
         <div className="max-w-3xl w-screen px-4 ">{children}</div>

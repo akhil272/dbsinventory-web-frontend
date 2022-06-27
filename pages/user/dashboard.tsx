@@ -27,11 +27,13 @@ const UserDashboard = ({ getUserOverview, overview }: UserDashboardProps) => {
 
   return (
     <div>
-      <div className="w-full text-center font-medium text-lg uppercase border-b-4 border-primary">
-        Dashboard
+      <div className="border-b-4 border-neutral-400  w-full">
+        <h1 className="text-2xl text-center  tracking-widest uppercase ">
+          DashBoard
+        </h1>
       </div>
       <div>
-        <div className="lg:flex lg:space-x-6 mt-4 ">
+        <div className="lg:flex lg:space-x-6 mt-4 py-2 ">
           <StatsCard
             title="Total Quotations"
             value={overview?.quotationAndOrders?.customer?.quotations?.length}
@@ -43,11 +45,8 @@ const UserDashboard = ({ getUserOverview, overview }: UserDashboardProps) => {
             artCover="/images/Purchase_Stats_Card_Art.png"
           />
         </div>
-        <div>
-          <div
-            id="header section of quotation"
-            className="flex justify-between border-b-2 border-gray-600 pb-2 items-center"
-          >
+        <div className="py-10">
+          <div className="flex justify-between border-b-2 border-gray-600 pb-2 items-center">
             <h5>Quotations History</h5>
             <Link href="/quotations/get-a-quote">
               <a className="p-1 bg-primary text-white rounded-md px-4">
@@ -55,46 +54,54 @@ const UserDashboard = ({ getUserOverview, overview }: UserDashboardProps) => {
               </a>
             </Link>
           </div>
+          {overview?.quotationAndOrders?.customer?.quotations.length < 1 ? (
+            <div>No quotations created yet.</div>
+          ) : (
+            <div>
+              {overview?.quotationAndOrders?.customer?.quotations.map(
+                (quotation) => {
+                  return (
+                    <QuotationCard
+                      key={quotation.id}
+                      price={quotation.price}
+                      notes={quotation.notes}
+                      status={quotation.status}
+                      date={quotation.createdAt}
+                      count={quotation.count}
+                      validity={quotation.validity}
+                      id={quotation.id}
+                    />
+                  );
+                }
+              )}
+            </div>
+          )}
+        </div>
+        {overview?.quotationAndOrders?.customer?.orders.length < 1 ? (
+          <div>No purchases from DBS Tyres yet.</div>
+        ) : (
           <div>
-            {overview?.quotationAndOrders?.customer?.quotations.map(
-              (quotation) => {
+            <div
+              id="header section of purchase"
+              className="flex justify-between border-b-2 border-gray-600 py-2 items-center"
+            >
+              <h5>Purchase History</h5>
+            </div>
+            <div>
+              {overview?.quotationAndOrders?.customer?.orders.map((order) => {
                 return (
-                  <QuotationCard
-                    key={quotation.id}
-                    price={quotation.price}
-                    notes={quotation.notes}
-                    status={quotation.status}
-                    date={quotation.createdAt}
-                    count={quotation.count}
-                    validity={quotation.validity}
-                    id={quotation.id}
+                  <OrderCard
+                    key={order.id}
+                    salePrice={order.salePrice}
+                    quantity={order.quantity}
+                    saleDate={order.saleDate}
+                    id={order.id}
                   />
                 );
-              }
-            )}
+              })}
+            </div>
           </div>
-        </div>
-        <div>
-          <div
-            id="header section of purchase"
-            className="flex justify-between border-b-2 border-gray-600 py-2 items-center"
-          >
-            <h5>Purchase History</h5>
-          </div>
-          <div>
-            {overview?.quotationAndOrders?.customer?.orders.map((order) => {
-              return (
-                <OrderCard
-                  key={order.id}
-                  salePrice={order.salePrice}
-                  quantity={order.quantity}
-                  saleDate={order.saleDate}
-                  id={order.id}
-                />
-              );
-            })}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

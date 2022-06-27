@@ -1,101 +1,101 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 import { useEffect } from "react";
 import InputField from "@Components/InputField";
 import { useRouter } from "next/router";
 import TextAreaInputField from "@Components/TextAreaInputField";
 import { toast } from "react-toastify";
-import ServiceCostTable from "@Components/ServiceCostTable";
+import { UpdateQuotationServiceCostSchema } from "@Utils/schemas/QuotationSchema";
+import { UpdateQuotationServiceCostForm } from "@Utils/formTypes/QuotationFormData";
+import { QuotationServiceProps } from "@Store/quotations/types";
+
+type ServiceFormsProps = {
+  id: number;
+  name: string;
+};
 
 const QuotationService = ({
   quotation,
   getQuotationById,
   updateQuotationServiceCostById,
-}) => {
+}: QuotationServiceProps) => {
   const router = useRouter();
   const {
     query: { quotationId },
   } = router;
   const id = Number(quotationId);
-  const formSchema = Yup.object().shape({
-    service: Yup.array().of(
-      Yup.object().shape({
-        price: Yup.number().required().typeError("Please enter cost"),
-        name: Yup.string().required(),
-        serviceId: Yup.number().required(),
-        serviceNote: Yup.string().nullable(null).notRequired(),
-      })
-    ),
-  });
-  const formData = { resolver: yupResolver(formSchema) };
-  const services = quotation?.quotationServices;
-  const {
-    control,
-    handleSubmit,
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm(formData);
-  console.log(quotation);
-  const onSubmit = handleSubmit((data) => addServiceCost(data));
-  const addServiceCost = (data) => {
-    data.service.map(async (service) => {
-      const response = await updateQuotationServiceCostById({
-        id: service.serviceId,
-        price: service.price,
-        serviceNote: service.serviceNote,
-      });
-      if (response.success) {
-        toast.success(`Updated service cost for ${service.name}`);
-      } else {
-        toast.error(`Failed to update service cost for ${service.name}`);
-      }
-    });
-    reset();
-    router.back();
-  };
+
   useEffect(() => {
     if (router.isReady) {
       getQuotationById({ id });
     }
   }, [getQuotationById, router.isReady]);
 
-  useEffect(() => {
-    services?.map((item, i) => {
-      setValue(`service.${i}.name`, item.service.name);
-      setValue(`service.${i}.serviceId`, item.id);
+  function ServiceForms({ name, id }: ServiceFormsProps) {
+    const {
+      handleSubmit,
+      control,
+      setValue,
+      reset,
+      formState: { errors },
+    } = useForm<UpdateQuotationServiceCostForm>({
+      resolver: yupResolver(UpdateQuotationServiceCostSchema),
     });
-  }, []);
-
-  return (
-    <div>
-      <h2 className="font-bold text-2xl">Service cost</h2>
-      <form onSubmit={onSubmit}>
-        {services?.map((item, i) => {
-          return (
-            <div className="space-y-2 py-4" key={item.id}>
-              <InputField
-                control={control}
-                name={`service.${i}.price`}
-                placeholder={`Enter ${item.service.name} cost`}
-                type="number"
-                error={errors.service?.[i]?.price?.message}
-              />
-              <TextAreaInputField
-                placeholder={`Enter service note for ${item.service.name}`}
-                name={`service.${i}.serviceNote`}
-                control={control}
-                error={errors.service?.[i]?.serviceNote?.message}
-              />
-            </div>
-          );
-        })}
-
-        <div className="flex w-full justify-center p-2 bg-primary text-white rounded-md text-sm">
-          <button onClick={onSubmit}>Update</button>
+    useEffect(() => {
+      setValue("name", name);
+      setValue("serviceId", id);
+    });
+    const onSubmit = handleSubmit((data) => updateServiceCost(data));
+    const updateServiceCost = async (data: UpdateQuotationServiceCostForm) => {
+      const response = await updateQuotationServiceCostById({
+        id: data.serviceId,
+        price: data.price,
+        serviceNote: data.serviceNote.length < 1 ? null : `${data.serviceNote}`,
+      });
+      if (response.success) {
+        toast.success(`Updated service cost for ${data.name}`);
+        reset();
+      } else {
+        toast.error(`Failed to update service cost for ${data.name}`);
+      }
+    };
+    return (
+      <form className="py-4" onSubmit={onSubmit}>
+        <div className="space-y-2 ">
+          <h4 className="text-md text-gray-500 underline">{name}</h4>
+          <InputField
+            control={control}
+            name="price"
+            placeholder={`Enter cost for ${name}`}
+            type="number"
+            error={errors.price?.message}
+          />
+          <TextAreaInputField
+            placeholder={`Enter note for ${name}`}
+            name="serviceNote"
+            control={control}
+            error={errors.serviceNote?.message}
+          />
+          <div className="flex w-full justify-center p-2 bg-primary text-white rounded-md text-sm">
+            <button onClick={onSubmit}>Update</button>
+          </div>
         </div>
       </form>
+    );
+  }
+  return (
+    <div>
+      <h2 className="font-bold text-2xl">Services:</h2>
+      {quotation?.quotationServices?.map((serviceCostItem) => (
+        <ServiceForms
+          key={serviceCostItem.id}
+          name={serviceCostItem.service.name}
+          id={serviceCostItem.id}
+        />
+      ))}
+      <div className="flex w-full justify-center p-2 bg-pastel_green text-white rounded-md text-sm">
+        <button onClick={() => router.back()}>Update Completed</button>
+      </div>
     </div>
   );
 };
