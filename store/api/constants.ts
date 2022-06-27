@@ -27,6 +27,7 @@ const API_END_POINTS = {
   INFO: "/info",
   EXPORT: "/export",
   QUOTATIONS: "/quotations",
+  QUOTATION_SERVICES: "/quotation-services",
   USER_QUOTE: "/user-quote",
   MANAGE_QUOTATIONS: "/manage-quotations",
   SEND: "/send",

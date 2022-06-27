@@ -123,7 +123,19 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
             <div>
               <p className="text-sm text-gray-500">Role</p>
               <select
-                className="p-2 capitalize  w-full rounded-lg "
+                className="form-select 
+      block
+      w-full
+      px-3
+      py-2
+      text-base
+      font-normal
+      text-gray-700
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:outline-none rounded-md"
+                aria-label="Default select example"
                 {...register("role")}
               >
                 <option className="capitalize" defaultValue={user?.role ?? ""}>

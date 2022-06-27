@@ -132,22 +132,22 @@ const CreateQuotation = ({
     getTyreSizes({ search: "" });
   }, [getTyreSizes]);
   useEffect(() => {
-    if (users.find((user) => user.id === userPhoneNumber.id)) {
+    if (users.find((user) => user.id === userPhoneNumber?.id)) {
       setValue(
         "firstName",
-        users.find((user) => user.id === userPhoneNumber.id).firstName
+        users.find((user) => user.id === userPhoneNumber?.id).firstName
       );
       setValue(
         "lastName",
-        users.find((user) => user.id === userPhoneNumber.id).lastName
+        users.find((user) => user.id === userPhoneNumber?.id).lastName
       );
       setValue(
         "email",
-        users.find((user) => user.id === userPhoneNumber.id).email
+        users.find((user) => user.id === userPhoneNumber?.id).email
       );
       setValue(
         "addressLine1",
-        users.find((user) => user.id === userPhoneNumber.id).addressLine1 || ""
+        users.find((user) => user.id === userPhoneNumber?.id).addressLine1 || ""
       );
       setValue(
         "addressLine2",

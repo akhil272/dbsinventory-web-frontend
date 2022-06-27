@@ -8,7 +8,7 @@ const ServiceTags = ({ services }: ServiceTagsProps) => {
     <div className="flex px-2 pb-2 ">
       <label className="text-xs text-gray-400">Services:</label>
       {services.map((item) => (
-        <label className="text-xs text-gray-600 italic px-0.5">
+        <label key={item.id} className="text-xs text-gray-600 italic px-0.5">
           {item.service.name},
         </label>
       ))}

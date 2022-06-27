@@ -1,10 +1,13 @@
 import ContactCard from "@Components/ContactCard";
 import InputField from "@Components/InputField";
 import QuotationCard from "@Components/QuotationCard";
+import ServiceCostTable from "@Components/ServiceCostTable";
+import TextAreaInputField from "@Components/TextAreaInputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateQuotationProps } from "@Store/quotations/types";
 import { UpdateQuotationForm } from "@Utils/formTypes/QuotationFormData";
 import { UpdateQuotationFrom } from "@Utils/schemas/QuotationSchema";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -83,11 +86,27 @@ const UpdateQuotation = ({
         customerCategory={quotation?.customer.customerCategory.name}
         quotationsCount={quotation?.customer.quotationsCount}
         phoneNumber={quotation?.customer.user.phoneNumber}
+        services={quotation?.quotationServices}
       />
-      <form className="space-y-2 pb-2" onSubmit={onSubmit}>
-        <p className="text-sm px-2 text-gray-500">
-          Update validity and notes if any
-        </p>
+      {quotation?.quotationServices.length > 0 && (
+        <div className="pb-4 pt-2">
+          <div className="flex justify-between">
+            <h4 className="text-gray-500 font-medium">Service Cost</h4>
+            <Link
+              href={{
+                pathname: "/quotations/update/service-cost",
+                query: { quotationId: quotation.id },
+              }}
+            >
+              <a className="  text-primary ">Edit</a>
+            </Link>
+          </div>
+          <ServiceCostTable quotationServices={quotation?.quotationServices} />
+        </div>
+      )}
+
+      <form className="space-y-2 pb-4" onSubmit={onSubmit}>
+        <h4 className="text-gray-500 font-medium">Validity And Notes</h4>
         <InputField
           placeholder="Enter validity"
           type="number"
@@ -95,9 +114,8 @@ const UpdateQuotation = ({
           control={control}
           error={errors.validity?.message}
         />
-        <InputField
+        <TextAreaInputField
           placeholder="Enter notes about quotation"
-          type="text"
           name="notes"
           control={control}
           error={errors.notes?.message}
@@ -106,6 +124,7 @@ const UpdateQuotation = ({
           <button onClick={onSubmit}>Update</button>
         </div>
       </form>
+
       <ContactCard getContactOptions={getContactOptions} />
     </div>
   );

@@ -49,7 +49,31 @@ import {
   SERVICE_UPDATE_INIT,
   SERVICE_UPDATE_SUCCESS,
   updateServicePayload,
+  QUOTATION_SERVICE_COST_UPDATE_FAIL,
+  QUOTATION_SERVICE_COST_UPDATE_INIT,
+  QUOTATION_SERVICE_COST_UPDATE_SUCCESS,
+  updateQuotationServiceCostPayload,
 } from "./types";
+
+export const updateQuotationServiceCostById = async ({
+  id,
+  ...data
+}: updateQuotationServiceCostPayload) => {
+  const { QUOTATION_SERVICES } = API_END_POINTS;
+  const pathname = QUOTATION_SERVICES;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: QUOTATION_SERVICE_COST_UPDATE_INIT,
+      successType: QUOTATION_SERVICE_COST_UPDATE_SUCCESS,
+      failureType: QUOTATION_SERVICE_COST_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const createUserAndQuotation = async (
   data: createUserAndQuotationPayload

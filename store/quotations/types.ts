@@ -19,6 +19,13 @@ import {
 } from "@Store/tyre/types";
 import { getUsersPayload } from "@Store/users/types";
 
+export const QUOTATION_SERVICE_COST_UPDATE_INIT =
+  "QUOTATION_SERVICE_COST:UPDATE:INIT";
+export const QUOTATION_SERVICE_COST_UPDATE_SUCCESS =
+  "QUOTATION_SERVICE_COST:UPDATE:SUCCESS";
+export const QUOTATION_SERVICE_COST_UPDATE_FAIL =
+  "QUOTATION_SERVICE_COST:UPDATE:FAIL";
+
 export const USER_AND_QUOTATION_CREATE_INIT = "USER:AND:QUOTATION:CREATE:INIT";
 export const USER_AND_QUOTATION_CREATE_SUCCESS =
   "USER:AND:QUOTATION:CREATE:SUCCESS";
@@ -61,6 +68,12 @@ export const QUOTATION_CREATE_FAIL = "QUOTATION:CREATE:FAIL";
 export const QUOTATIONS_FETCH_INIT = "QUOTATIONS:FETCH:INIT";
 export const QUOTATIONS_FETCH_SUCCESS = "QUOTATIONS:FETCH:SUCCESS";
 export const QUOTATIONS_FETCH_FAIL = "QUOTATIONS:FETCH:FAIL";
+
+export type updateQuotationServiceCostPayload = {
+  id: number;
+  price: number;
+  serviceNote: string;
+};
 
 export type deleteServicePayload = {
   id: number;
@@ -393,6 +406,17 @@ export type QuotationsDispatchProps = {
 };
 export type QuotationProps = QuotationsStateProps & QuotationsDispatchProps;
 
+type quotationServiceCostUpdateInit = {
+  type: typeof QUOTATION_SERVICE_COST_UPDATE_INIT;
+};
+type quotationServiceCostUpdateSuccess = {
+  type: typeof QUOTATION_SERVICE_COST_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type quotationServiceCostUpdateFail = {
+  type: typeof QUOTATION_SERVICE_COST_UPDATE_FAIL;
+};
+
 type userAndQuotationCreateInit = {
   type: typeof USER_AND_QUOTATION_CREATE_INIT;
 };
@@ -521,6 +545,9 @@ type quotationsFetchInit = {
 };
 
 export type QuotationActionTypes =
+  | quotationServiceCostUpdateInit
+  | quotationServiceCostUpdateSuccess
+  | quotationServiceCostUpdateFail
   | userAndQuotationCreateInit
   | userAndQuotationCreateSuccess
   | userAndQuotationCreateFail
