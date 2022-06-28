@@ -78,11 +78,13 @@ const AddOrder = ({
                 placeholder="Enter quantity"
                 control={control}
                 name={"quantity"}
+                type="number"
                 error={errors.quantity?.message}
               />
               <InputField
                 placeholder="Enter selling price"
                 control={control}
+                type="number"
                 name={"salePrice"}
                 error={errors.salePrice?.message}
               />
@@ -102,6 +104,7 @@ const AddOrder = ({
                 placeholder="Enter customer phone number"
                 control={control}
                 name={"phoneNumber"}
+                type="tel"
                 error={errors.phoneNumber?.message}
               />
               <button

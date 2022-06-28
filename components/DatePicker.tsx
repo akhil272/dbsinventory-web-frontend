@@ -21,10 +21,10 @@ const DatePicker = ({
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
-          <div className="relative">
+          <div className="relative flex flex-col">
             <input
               onClick={() => setShowCalender(!showCalender)}
-              className="p-2 relative  w-full rounded-lg"
+              className="p-2  w-full rounded-lg"
               placeholder={placeholder}
               value={moment(value).format("DD/MM/YYYY")}
               onChange={onChange}
@@ -35,7 +35,9 @@ const DatePicker = ({
               <Calendar
                 className="absolute top-12 left-0 rounded-lg z-10"
                 date={value}
-                onChange={onChange}
+                onChange={(e) => {
+                  onChange(e), setShowCalender(!showCalender);
+                }}
               />
             )}
           </div>
