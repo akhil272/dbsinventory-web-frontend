@@ -28,7 +28,7 @@ export default function AutoComplete({
   error,
 }: AutoCompleteProps) {
   const [query, setQuery] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const filteredData =
     query === ""
       ? data
@@ -40,8 +40,10 @@ export default function AutoComplete({
         );
 
   const addItem = async () => {
+    setLoading(true);
     const response = await create({ name: query });
     if (response.success) {
+      setLoading(false);
       toast.success(`Successfully added ${query} to system.`);
       onSuccess();
     }
@@ -83,11 +85,17 @@ export default function AutoComplete({
                   {filteredData?.length === 0 && query !== "" ? (
                     <div className="relative flex items-center cursor-default select-none py-2 px-4 text-gray-700">
                       <div>{query}. Not found.</div>
-                      <PlusIcon
-                        className="h-5 w-5 absolute right-2 text-gray-400"
-                        aria-hidden="true"
-                        onClick={addItem}
-                      />
+                      {loading ? (
+                        <p className="h-5 w-5 right-20 absolute text-primary">
+                          Processing...
+                        </p>
+                      ) : (
+                        <PlusIcon
+                          className="h-5 w-5 absolute right-2 text-gray-400"
+                          aria-hidden="true"
+                          onClick={addItem}
+                        />
+                      )}
                     </div>
                   ) : (
                     filteredData?.map((item, i) => (

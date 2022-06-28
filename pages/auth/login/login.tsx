@@ -54,13 +54,13 @@ const Login = ({ login, sendOtp }: LoginProps) => {
   return (
     <div className="flex min-h-screen items-center w-full justify-center">
       <div className="md:max-w-sm w-full">
-        <div className="h-1/2 mt-12 items-center justify-center flex ">
+        <div className="h-1/2 items-center justify-center flex ">
           <img
-            className="object-contain h-96 mt-2  rounded-xl"
+            className="object-contain h-96 rounded-xl"
             src="/images/Login_ArtCover.png"
           />
         </div>
-        <div className="flex flex-col py-2 mt-2 font-bold text-3xl text-center">
+        <div className="flex flex-col font-bold text-3xl text-center">
           <h3 className="text-lg">Welcome to </h3>
           <h2>DBS Tyres</h2>
         </div>
@@ -93,7 +93,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                   )}
                 </div>
                 <button
-                  className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
+                  className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-2"
                   type="button"
                   onClick={onSubmit}
                 >
