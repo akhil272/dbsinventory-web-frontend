@@ -23,12 +23,10 @@ import {
   updateStockPayload,
 } from "./types";
 
-export const updateStock = async (data: updateStockPayload) => {
+export const updateStock = async ({ id, ...data }: updateStockPayload) => {
   const { STOCKS } = API_END_POINTS;
-  const { id } = data;
   const pathname = STOCKS;
   const url = `${pathname}/${id}`;
-  delete data.id;
   const apiArgs = {
     method: API_METHODS.PATCH,
     url,
@@ -100,10 +98,7 @@ export const getStocks = async (payload: getStocksPayload) => {
   const { STOCKS, SEARCH } = API_END_POINTS;
   const { search = "" } = payload;
   const pathname = `${STOCKS}?${SEARCH}`;
-  // const urlParams = new URLSearchParams();
-  // if (search) {
-  //   urlParams.append(SEARCH, search);
-  // }
+
   const url = `${pathname}${search}`;
   const apiArgs = {
     method: API_METHODS.GET,

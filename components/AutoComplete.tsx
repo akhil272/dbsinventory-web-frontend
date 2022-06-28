@@ -15,6 +15,7 @@ type AutoCompleteProps = {
   create: any;
   onSuccess?: () => void;
   placeholder: string;
+  error?: string;
 };
 
 export default function AutoComplete({
@@ -24,10 +25,11 @@ export default function AutoComplete({
   data,
   create,
   onSuccess,
+  error,
 }: AutoCompleteProps) {
   const [query, setQuery] = useState("");
 
-  const filtereddata =
+  const filteredData =
     query === ""
       ? data
       : data.filter((item) =>
@@ -40,15 +42,15 @@ export default function AutoComplete({
   const addItem = async () => {
     const response = await create({ name: query });
     if (response.success) {
-      toast.success(`Successfully added ${name} to system.`);
+      toast.success(`Successfully added ${query} to system.`);
       onSuccess();
     }
     if (!response.success) {
-      toast.error(`Failed to add ${name} to system. ${response.message}`);
+      toast.error(`Failed to add ${query} to system. ${response.message}`);
     }
   };
   return (
-    <div>
+    <div className="space-y-1">
       <Controller
         defaultValue=""
         control={control}
@@ -56,9 +58,9 @@ export default function AutoComplete({
         render={({ field: { onChange, value } }) => (
           <Combobox value={value} onChange={onChange}>
             <div className="relative">
-              <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
+              <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 ">
                 <Combobox.Input
-                  className="w-full border-none py-2 pl-3 pr-10 text-md leading-5 text-gray-900 focus:ring-0"
+                  className=" p-2 placeholder-slate-400 text-md  focus:outline-none  focus:ring-slate-400 block w-full rounded-md  focus:ring-1"
                   displayValue={(item: dataType) => item?.name}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={placeholder}
@@ -77,18 +79,18 @@ export default function AutoComplete({
                 leaveTo="opacity-0"
                 afterLeave={() => setQuery("")}
               >
-                <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                  {filtereddata?.length === 0 && query !== "" ? (
+                <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white  text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  {filteredData?.length === 0 && query !== "" ? (
                     <div className="relative flex items-center cursor-default select-none py-2 px-4 text-gray-700">
                       <div>{query}. Not found.</div>
                       <PlusIcon
                         className="h-5 w-5 absolute right-2 text-gray-400"
                         aria-hidden="true"
-                        onClick={() => addItem()}
+                        onClick={addItem}
                       />
                     </div>
                   ) : (
-                    filtereddata?.map((item, i) => (
+                    filteredData?.map((item, i) => (
                       <Combobox.Option
                         key={i}
                         className={({ active }) =>
@@ -130,6 +132,7 @@ export default function AutoComplete({
           </Combobox>
         )}
       />
+      <p className="text-sm text-red-600 px-2">{error}</p>
     </div>
   );
 }

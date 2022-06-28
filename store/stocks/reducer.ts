@@ -23,7 +23,7 @@ export const initialState: Stocks = {
   stocks: [],
   total: 1,
   page: 1,
-  last_page: 1,
+  lastPage: 1,
   stock: null,
 };
 
@@ -61,14 +61,14 @@ const reducer = (state = initialState, action: StockActionTypes) => {
     case STOCKS_FETCH_SUCCESS: {
       const {
         stocks,
-        meta: { total, page, last_page },
+        meta: { total, page, lastPage },
       } = action.payload.data;
       return Object.assign({}, state, {
         loading: false,
         stocks,
         total,
         page,
-        last_page,
+        lastPage,
       });
     }
     case STOCKS_FETCH_FAIL:

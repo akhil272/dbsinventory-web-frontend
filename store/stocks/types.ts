@@ -3,6 +3,8 @@ import { ApiReturnType } from "@Store/api";
 import { Order } from "@Store/orders/types";
 import {
   Brand,
+  LoadIndexes,
+  SpeedRating,
   TyreDataProps,
   TyresDispatchProps,
   TyresStateProps,
@@ -30,6 +32,8 @@ export type getStockByIdPayload = {
 };
 export type getStocksPayload = {
   search?: string;
+  brandId?: number;
+  tyreSize?: string;
 };
 export type deleteStockPayload = {
   id: number;
@@ -38,21 +42,23 @@ export type deleteStockPayload = {
 export type updateStockPayload = {
   id: number;
   dom: string;
-  purchase_date: Date;
+  purchaseDate: Date;
   quantity: number;
   cost: number;
 };
 
 export type createStockPayload = {
-  product_line: string;
-  tyre_detail_id: number;
-  dom: string;
-  purchase_date: Date;
-  transport_id: number;
-  vendor_id: number;
-  location_id: number;
+  productLineId: number;
+  tyreDetailId: number;
+  dom: number;
+  purchaseDate: Date;
+  transportId: number;
+  vendorId: number;
+  locationId: number;
   quantity: number;
   cost: number;
+  speedRatingId?: number;
+  loadIndexId?: number;
 };
 
 export type Pattern = {
@@ -62,7 +68,7 @@ export type Pattern = {
 };
 export type TyreSize = {
   id: number;
-  size: string;
+  value: string;
 };
 export type TyreDetail = {
   id: number;
@@ -89,28 +95,35 @@ export type Location = {
   stocks: Stock[];
 };
 
+export type ProductLine = {
+  id: number;
+  name: string;
+};
+
 export type Stock = {
   id: number;
-  product_line: string;
+  productLine: ProductLine;
   dom: string;
-  purchase_date: Date;
+  purchaseDate: Date;
   quantity: number;
   cost: number;
-  sold_out: boolean;
+  soldOut: boolean;
   tyreDetail: TyreDetail;
   transport: Transport;
   vendor: Vendor;
   location: Location;
+  loadIndex: LoadIndexes;
+  speedRating: SpeedRating;
   user: User;
   orders: Order[];
 };
 
-export type StocksDataPayload = {
+export type StocksResponsePayload = {
   stocks: Stock[];
   meta: {
     total: number;
     page: number;
-    last_page: number;
+    lastPage: number;
   };
 };
 
@@ -119,7 +132,7 @@ export type Stocks = {
   stocks: Stock[];
   total: number;
   page: number;
-  last_page: number;
+  lastPage: number;
   stock: Stock;
 };
 
@@ -130,7 +143,7 @@ export type StocksStateProps = {
   stocks: Stock[];
   total: number;
   page: number;
-  last_page: number;
+  lastPage: number;
   loading: boolean;
   user: User;
 };
@@ -210,7 +223,7 @@ type stocksFetchInit = {
 };
 type stocksFetchSuccess = {
   type: typeof STOCKS_FETCH_SUCCESS;
-  payload: ApiReturnType<StocksDataPayload>;
+  payload: ApiReturnType<StocksResponsePayload>;
 };
 type stocksFetchFail = {
   type: typeof STOCKS_FETCH_FAIL;

@@ -9,7 +9,7 @@ interface UserCardProps {
   deleteUser: any;
 }
 
-const UserCard = ({ first_name, last_name, role, id }) => {
+const UserCard = ({ firstName, lastName, role, id }) => {
   return (
     <div className="flex relative bg-white  rounded-lg p-4 my-2 ">
       <div className="w-1/3">
@@ -19,21 +19,21 @@ const UserCard = ({ first_name, last_name, role, id }) => {
       </div>
       <div className="flex flex-col items-start justify-center ">
         <div className="text-2xl font-semibold">
-          {first_name} {last_name}
+          {firstName} {lastName}
         </div>
         <div className="text-sm capitalize">{role}</div>
       </div>
       <div className="flex absolute bottom-0 right-0  text-white">
         <Link href={{ pathname: "/admin/users/update", query: { id } }}>
-          <a className="p-2 bg-pastel_green rounded-tl-lg ">Update</a>
+          <a className="px-4 py-1 bg-pastel_green rounded-tl-lg ">Update</a>
         </Link>
         <Link
           href={{
             pathname: "/admin/users/delete",
-            query: { id, first_name, last_name, role },
+            query: { id, firstName, lastName, role },
           }}
         >
-          <a className="p-2 bg-primary rounded-br-lg">Delete</a>
+          <a className="px-4 py-1 bg-primary rounded-br-lg">Delete</a>
         </Link>
       </div>
     </div>

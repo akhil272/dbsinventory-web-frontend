@@ -1,26 +1,27 @@
 import { initialState } from "@Store/rootReducer";
 import { getUserInfo } from "@Store/users/actions";
-import storage from "@Utils/storage";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import Header from "./Header";
 
 const mapStateToProps = ({ users }: typeof initialState) => ({
   user: users.user,
-  loading: users.loading,
 });
-const Layout = ({ children, user, loading }) => {
+const Layout = ({ children, user }) => {
+  const userName = user?.firstName;
   useEffect(() => {
-    storage().getAccessToken();
     getUserInfo();
   }, []);
-  const userName = user?.first_name;
   return (
     <div className="bg-neutral-100 min-h-screen ">
       <div className="bg-inherit">
-        {user?.roles && <Header userRole={user?.roles} userName={userName} />}
+        {user?.role && (
+          <Header userRole={user?.role} userName={userName} userId={user?.id} />
+        )}
       </div>
-      <div className="px-4">{children}</div>
+      <div className="grid justify-items-center pt-14 ">
+        <div className="max-w-3xl w-screen px-4 ">{children}</div>
+      </div>
     </div>
   );
 };

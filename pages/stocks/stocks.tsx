@@ -1,19 +1,27 @@
 import LoadingAnimation from "@Components/LoadingAnimation";
+import NotFound from "@Components/NotFound";
 import StockCard from "@Components/StockCard";
 import { StocksProps } from "@Store/stocks/types";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Stocks = ({
   stocks,
   getStocks,
   total,
-  last_page,
+  lastPage,
   page: metaPage,
   loading,
   user,
 }: StocksProps) => {
   const [page, setPage] = useState<number>(1);
+  const [found, setFound] = useState<boolean>(true);
 
+  const router = useRouter();
+  const {
+    query: { brand, tyreSize, searchTerm },
+  } = router;
   const take = 10;
   const nextPage = () => {
     setPage(page + 1);
@@ -23,34 +31,69 @@ const Stocks = ({
     setPage(page - 1);
   };
   useEffect(() => {
-    getStocks({ search: `&take=${take}&page=${page}` });
-  }, [getStocks, page]);
+    if (router.isReady) {
+      let url = `&take=${take}&page=${page}`;
+      if (brand) {
+        url = url + `&brand=${brand}`;
+      }
+      if (tyreSize) {
+        url = url + `&size=${tyreSize}`;
+      }
+      if (searchTerm?.length > 1) {
+        url = `=${searchTerm}` + url;
+      }
+      const fetchStocks = async () => {
+        const response = await getStocks({
+          search: url,
+        });
+        if (!response.success) {
+          toast.error(`${response.message}`);
+          setFound(false);
+        }
+      };
+      fetchStocks();
+    }
+  }, [getStocks, page, router.isReady]);
   if (loading) {
     return <LoadingAnimation message="Loading stocks. Please wait.." />;
   }
-
+  const handleReset = () => {
+    setFound(true);
+    router.push("/search");
+  };
+  if (!found) {
+    return (
+      <div onClick={handleReset}>
+        <NotFound message="No stocks found.">
+          <button className="bg-primary text-center hover:bg-red-500 text-white  py-2 px-4 rounded">
+            Go back
+          </button>
+        </NotFound>
+      </div>
+    );
+  }
   return (
     <div>
-      <div className="pt-10">
-        {stocks?.map((stock) => (
-          <StockCard
-            key={stock.id}
-            brand={stock.tyreDetail.pattern.brand.name}
-            vendor={stock.vendor?.name}
-            tyre_size={stock.tyreDetail?.tyreSize.size}
-            pattern_name={stock.tyreDetail?.pattern.name}
-            dom={stock.dom}
-            product_line={stock.product_line}
-            transport_mode={stock.transport.mode}
-            purchase_date={stock.purchase_date}
-            location={stock.location?.name}
-            quantity={stock.quantity}
-            cost={stock.cost}
-            stockId={stock.id}
-            role={user?.roles}
-          />
-        ))}
-      </div>
+      {stocks?.map((stock) => (
+        <StockCard
+          key={stock.id}
+          brand={stock.tyreDetail.pattern.brand.name}
+          vendor={stock.vendor.name}
+          tyreSize={stock.tyreDetail.tyreSize.value}
+          patternName={stock.tyreDetail.pattern.name}
+          dom={stock.dom}
+          productLine={stock.productLine.name}
+          transportMode={stock.transport.mode}
+          purchaseDate={stock.purchaseDate}
+          location={stock.location.name}
+          quantity={stock.quantity}
+          cost={stock.cost}
+          stockId={stock.id}
+          role={user?.role}
+          loadIndex={stock.loadIndex?.value}
+          speedRating={stock.speedRating?.value}
+        />
+      ))}
       <div className="flex place-items-center w-full pt-4 text-md justify-between">
         <button
           disabled={metaPage <= 1 ? true : false}
@@ -71,9 +114,9 @@ const Stocks = ({
         <div className="text-md py-1 font-bold px-3 text-white rounded-md bg-secondary">
           {page}
         </div>
-        {page <= last_page && (
+        {page <= lastPage && (
           <button
-            disabled={metaPage >= last_page ? true : false}
+            disabled={metaPage >= lastPage ? true : false}
             onClick={nextPage}
             className="text-sm text-gray-400"
           >
@@ -82,8 +125,8 @@ const Stocks = ({
         )}
 
         <button
-          disabled={metaPage >= last_page ? true : false}
-          className={metaPage >= last_page ? " text-stone-400  py-2" : "  py-2"}
+          disabled={metaPage >= lastPage ? true : false}
+          className={metaPage >= lastPage ? " text-stone-400  py-2" : "  py-2"}
           onClick={nextPage}
         >
           Next
@@ -91,7 +134,7 @@ const Stocks = ({
       </div>
       <div className="flex justify-between text-sm pb-2 text-gray-400">
         <div>Total Results : {total}</div>
-        Page : {metaPage} of {last_page} pages
+        Page : {metaPage} of {lastPage} pages
       </div>
     </div>
   );

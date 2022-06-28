@@ -3,6 +3,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { Calendar } from "react-date-range";
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import moment from "moment";
 
 const DatePicker = ({
   control,
@@ -25,7 +26,7 @@ const DatePicker = ({
               onClick={() => setShowCalender(!showCalender)}
               className="p-2 relative  w-full rounded-lg"
               placeholder={placeholder}
-              value={value.toLocaleDateString("en-US")}
+              value={moment(value).format("DD/MM/YYYY")}
               onChange={onChange}
               type="text"
               onBlur={onBlur}

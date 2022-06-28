@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons";
 import SideBar from "./SideBar";
 import Link from "next/link";
-const Header = ({ userRole, userName }) => {
+const Header = ({ userRole, userName, userId }) => {
   const [open, setOpen] = useState(false);
   return (
-    <header className="bg-inherit">
+    <header className="bg-inherit ">
       <nav className="flex bg-inherit fixed w-full  px-5 py-3 justify-between items-center">
         <Link href={"/"}>
-          <h2 className="font-bold text-lg">DBS Automotive</h2>
+          <h2 className="font-bold text-lg">DBS Tyres</h2>
         </Link>
         {!open && (
           <button onClick={() => setOpen(!open)}>
@@ -18,6 +18,7 @@ const Header = ({ userRole, userName }) => {
       </nav>
       {open && (
         <SideBar
+          userId={userId}
           userRole={userRole}
           open={open}
           setOpen={setOpen}

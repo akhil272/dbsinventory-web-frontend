@@ -16,11 +16,11 @@ const Create = ({ createUser }) => {
   const onSubmit = handleSubmit((data) => createAUserByAdmin(data));
   const createAUserByAdmin = async (data: CreateUserFormData) => {
     const response = await createUser({
-      first_name: data.first_name,
-      last_name: data.last_name,
-      phone_number: data.phone_number,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phoneNumber: data.phoneNumber,
       email: data.email,
-      roles: data.roles,
+      role: data.role,
     });
     if (response.success) {
       toast.success("Created user");
@@ -30,10 +30,10 @@ const Create = ({ createUser }) => {
     }
   };
   return (
-    <div className="pt-4 h-max flex justify-center">
+    <div className="h-max flex justify-center">
       <div className="max-w-xl">
         <div>
-          <div className="mt-12 items-center justify-center flex ">
+          <div className="items-center justify-center flex ">
             <img
               className="object-contain h-96 w-96 mt-2 rounded-xl"
               src="/images/Create_User.png"
@@ -52,17 +52,17 @@ const Create = ({ createUser }) => {
                   <div className="flex-col space-y-2 justify-center">
                     <InputField
                       control={control}
-                      name="first_name"
+                      name="firstName"
                       placeholder="Enter first name"
                       type="text"
-                      error={errors.first_name?.message}
+                      error={errors.firstName?.message}
                     />
                     <InputField
                       control={control}
-                      name="last_name"
+                      name="lastName"
                       placeholder="Enter last name"
                       type="text"
-                      error={errors.last_name?.message}
+                      error={errors.lastName?.message}
                     />
                     <InputField
                       control={control}
@@ -73,14 +73,14 @@ const Create = ({ createUser }) => {
                     />
                     <InputField
                       control={control}
-                      name="phone_number"
+                      name="phoneNumber"
                       placeholder="Enter your phone number"
                       type="text"
-                      error={errors.phone_number?.message}
+                      error={errors.phoneNumber?.message}
                     />
                     <select
                       className="p-2  w-full rounded-lg "
-                      {...register("roles")}
+                      {...register("role")}
                     >
                       <option value="" disabled selected>
                         Select a user role

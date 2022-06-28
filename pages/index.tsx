@@ -1,33 +1,41 @@
-import { getUserById, getUserInfo } from "@Store/users/actions";
-import { useEffect } from "react";
 import { connect } from "react-redux";
 import Login from "./auth/login";
-import Search from "./search";
 import { initialState } from "@Store/rootReducer";
-import storage from "@Utils/storage";
 import LoadingAnimation from "@Components/LoadingAnimation";
+import GetAQuote from "./quotations/get-a-quote";
+import { getUserInfo } from "@Store/users/actions";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import Search from "./search";
+import AdminPanel from "./admin";
 
 const mapStateToProps = ({ users }: typeof initialState) => ({
   user: users.user,
   loading: users.loading,
 });
 
-// const mapStateToProps = ({ auth }: typeof initialState) => ({
-//   user: auth.user,
-// });
+const mapDispatchToProps = () => ({
+  getUserInfo,
+});
 
-// const mapDispatchToProps = () => ({
-//   getUserById,
-// });
-
-const Homepage = ({ user, loading }) => {
+const Homepage = ({ user, loading, getUserInfo }) => {
+  const router = useRouter();
+  useEffect(() => {
+    getUserInfo();
+  }, []);
   if (loading) {
     return <LoadingAnimation message="Please wait..." />;
   }
   if (!user) {
     return <Login />;
   }
+  if (user?.role === "user") {
+    return <GetAQuote />;
+  }
+  if (user?.role === "admin") {
+    return <AdminPanel />;
+  }
   return <Search />;
 };
 
-export default connect(mapStateToProps)(Homepage);
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

@@ -6,7 +6,7 @@
   "author": "akhil272",
   "license": "MIT",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

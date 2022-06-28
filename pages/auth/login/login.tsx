@@ -1,48 +1,49 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginProps } from "@Store/auth/types";
-import { LoginSchema } from "@Utils/schemas/RegisterAuthSchema";
+import { LoginUserFormData } from "@Utils/formTypes/AuthFormData";
+import { LoginSchema } from "@Utils/schemas/AuthSchema";
 import storage from "@Utils/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-type formData = {
-  phone_number?: string;
-  otp?: string;
-};
 
 const Login = ({ login, sendOtp }: LoginProps) => {
   const [userOtp, setUserOtp] = useState(false);
+  const [showVerificationLink, setShowVerificationLink] = useState(false);
   const router = useRouter();
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<formData>({ resolver: yupResolver(LoginSchema) });
+  } = useForm<LoginUserFormData>({ resolver: yupResolver(LoginSchema) });
   const onSubmit = handleSubmit((data) => handleLogin(data));
-  const handleLogin = async (data) => {
+  const handleLogin = async (data: LoginUserFormData) => {
     if (!data.otp) {
       const response = await sendOtp({
-        phone_number: data.phone_number,
+        phoneNumber: data.phoneNumber,
       });
       if (response.success) {
         setUserOtp(true);
       }
       if (!response.success) {
         toast.error(`${response.message}`);
+        if (response.status === 403) {
+          setShowVerificationLink(true);
+        }
       }
     }
     if (data.otp) {
       const response = await login({
-        phone_number: data.phone_number,
+        phoneNumber: data.phoneNumber,
         otp: data.otp,
       });
       if (response.success && response.data) {
         storage().setAccessToken(response.data?.accessToken);
         storage().setRefreshToken(response.data?.refreshToken);
-        router.push("/search");
+        router.push("/");
       }
       if (!response.success) {
         toast.error(`Error. ${response.message} `);
@@ -60,13 +61,13 @@ const Login = ({ login, sendOtp }: LoginProps) => {
         </div>
         <div className="flex flex-col py-2 mt-2 font-bold text-3xl text-center">
           <h3 className="text-lg">Welcome to </h3>
-          <h2>DBS Automotive</h2>
+          <h2>DBS Tyres</h2>
         </div>
         <div className="w-full ">
           <div className="p-4 mt-4">
-            <div className="flex flex-col space-y-3 items-center justify-center">
-              <h1 className="font-semibold text-3xl ">Login Now</h1>
-              <p className="text-md ">
+            <div className="flex flex-col space-y-2 items-center justify-center">
+              <h1 className="font-semibold text-2xl ">Login Now</h1>
+              <p className="text-sm ">
                 Please enter your registered phone number
               </p>
             </div>
@@ -75,17 +76,17 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                 <div className="flex-col my-2 space-y-2 justify-center">
                   <InputField
                     control={control}
-                    name="phone_number"
+                    name="phoneNumber"
                     placeholder="Enter phone number"
-                    type="text"
-                    error={errors.phone_number?.message}
+                    type="tel"
+                    error={errors.phoneNumber?.message}
                   />
                   {userOtp && (
                     <InputField
                       control={control}
                       name="otp"
                       placeholder="Enter otp"
-                      type="text"
+                      type="number"
                       error={errors.otp?.message}
                     />
                   )}
@@ -103,6 +104,14 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                     <Link href="/auth/register">Register</Link>
                   </div>
                 </div>
+                {showVerificationLink && (
+                  <div className="flex">
+                    <div className="text-primary font-bold px-1">
+                      <Link href="auth/retry-verification">Click Here</Link>
+                    </div>
+                    to verify your account
+                  </div>
+                )}
               </form>
             </div>
           </div>

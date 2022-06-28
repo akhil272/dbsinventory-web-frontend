@@ -3,8 +3,8 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import StockSaleCard from "@Components/StockSaleCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AddOrderProps } from "@Store/orders/types";
-import { AddOrderToStockData } from "@Utils/formTypes/AddOrderToStockData";
-import OrderToStockSchema from "@Utils/schemas/OrderToStockSchema";
+import { OrderStockFormData } from "@Utils/formTypes/OrderFormData";
+import OrderStockSchema from "@Utils/schemas/OrderSchema";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -26,22 +26,25 @@ const AddOrder = ({
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<AddOrderToStockData>({
-    resolver: yupResolver(OrderToStockSchema),
+    reset,
+  } = useForm<OrderStockFormData>({
+    resolver: yupResolver(OrderStockSchema),
   });
 
   const onSubmit = handleSubmit((data) => addOrderStock(data));
-  const addOrderStock = async (data: AddOrderToStockData) => {
+  const addOrderStock = async (data: OrderStockFormData) => {
     const response = await addOrderToStock({
       id,
       quantity: data.quantity,
-      customer_name: data.customer_name,
-      sold_price: data.sold_price,
-      customer_phone_number: data.customer_phone_number,
+      salePrice: data.salePrice,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phoneNumber: data.phoneNumber,
     });
 
     if (response.success) {
       toast.success(`Successfully recorded sale in the system.`);
+      reset();
       getOrders({ id });
     }
     if (!response.success) {
@@ -58,68 +61,71 @@ const AddOrder = ({
     return <LoadingAnimation message="Loading orders. Please wait.." />;
   }
   return (
-    <div className="pt-4 flex justify-center">
-      <div className="max-w-xl">
+    <div className="pb-4 ">
+      <div>
+        <img
+          className="object-contain h-96  rounded-xl"
+          src="/images/Record_Sale.png"
+        />
+
+        <div className="pt-10 ">
+          <h1 className="font-bold text-2xl capitalize pb-2">Record sale</h1>
+        </div>
         <div>
-          <div className="mt-12 items-center justify-center flex ">
-            <img
-              className="object-contain max-h-[600px]  mt-2 rounded-xl"
-              src="/images/Record_Sale.png"
-            />
-          </div>
-          <div className="pt-10 ">
-            <h1 className="font-bold text-2xl capitalize pb-2">Record sale</h1>
-          </div>
-          <div>
-            <form className="space-y-5 " onSubmit={onSubmit}>
-              <div className="flex-col space-y-2 justify-center">
-                <InputField
-                  placeholder="Enter quantity"
-                  control={control}
-                  name={"quantity"}
-                  error={errors.quantity?.message}
-                />
-                <InputField
-                  placeholder="Enter selling price"
-                  control={control}
-                  name={"sold_price"}
-                  error={errors.sold_price?.message}
-                />
-                <InputField
-                  placeholder="Enter customer name"
-                  control={control}
-                  name={"customer_name"}
-                  error={errors.customer_name?.message}
-                />
-                <InputField
-                  placeholder="Enter customer phone number"
-                  control={control}
-                  name={"customer_phone_number"}
-                  error={errors.customer_phone_number?.message}
-                />
-                <button
-                  className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-                  onClick={onSubmit}
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-          </div>
-          <div>
-            {user?.roles === "admin" &&
-              orders?.map((order) => (
-                <StockSaleCard
-                  key={order.id}
-                  employee_name={order.employee_name}
-                  sold_price={order.sold_price}
-                  customer_name={order.customer_name}
-                  sale_date={order.sale_date}
-                  quantity={order.quantity}
-                  profit={order.profit}
-                />
-              ))}
-          </div>
+          <form className="space-y-5 " onSubmit={onSubmit}>
+            <div className="flex-col space-y-2 justify-center">
+              <InputField
+                placeholder="Enter quantity"
+                control={control}
+                name={"quantity"}
+                error={errors.quantity?.message}
+              />
+              <InputField
+                placeholder="Enter selling price"
+                control={control}
+                name={"salePrice"}
+                error={errors.salePrice?.message}
+              />
+              <InputField
+                placeholder="Enter customer first name"
+                control={control}
+                name={"firstName"}
+                error={errors.firstName?.message}
+              />
+              <InputField
+                placeholder="Enter customer last name"
+                control={control}
+                name={"lastName"}
+                error={errors.lastName?.message}
+              />
+              <InputField
+                placeholder="Enter customer phone number"
+                control={control}
+                name={"phoneNumber"}
+                error={errors.phoneNumber?.message}
+              />
+              <button
+                className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
+                onClick={onSubmit}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+        <div>
+          {user?.role === "admin" &&
+            orders?.map((order) => (
+              <StockSaleCard
+                key={order.id}
+                employee_name={order.employeeName}
+                salePrice={order.salePrice}
+                customerName={`${order.customer.user.firstName} ${order.customer.user.lastName}`}
+                saleDate={order.saleDate}
+                quantity={order.quantity}
+                profit={order.profit}
+              />
+            ))}
         </div>
       </div>
     </div>

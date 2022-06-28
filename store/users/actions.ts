@@ -21,10 +21,29 @@ import {
   USER_INFO_FETCH_FAIL,
   USER_INFO_FETCH_INIT,
   USER_INFO_FETCH_SUCCESS,
+  USER_OVERVIEW_FETCH_FAIL,
+  USER_OVERVIEW_FETCH_INIT,
+  USER_OVERVIEW_FETCH_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_INIT,
   USER_UPDATE_SUCCESS,
 } from "./types";
+
+export const getUserOverview = async (userId: number) => {
+  const { USERS, OVERVIEW } = API_END_POINTS;
+  const url = `${USERS}${OVERVIEW}/${userId}`;
+  const apiArgs = {
+    method: API_METHODS.GET,
+    url,
+    authRequired: true,
+    TYPES: {
+      requestType: USER_OVERVIEW_FETCH_INIT,
+      successType: USER_OVERVIEW_FETCH_SUCCESS,
+      failureType: USER_OVERVIEW_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const deleteUser = async (data: deleteUserPayload) => {
   const { USERS } = API_END_POINTS;
@@ -43,12 +62,10 @@ export const deleteUser = async (data: deleteUserPayload) => {
   return fetchAsync(apiArgs);
 };
 
-export const updateUser = async (data: updateUserPayload) => {
+export const updateUser = async ({ id, ...data }: updateUserPayload) => {
   const { USERS } = API_END_POINTS;
-  const { id } = data;
   const pathname = `${USERS}/${id}`;
   const url = `${pathname}`;
-  delete data.id;
   const apiArgs = {
     method: API_METHODS.PATCH,
     url,

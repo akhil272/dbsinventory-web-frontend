@@ -1,41 +1,49 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RegisterDispatchProps } from "@Store/auth/types";
-import { ValidateVerificationSchema } from "@Utils/schemas/RegisterAuthSchema";
+import { VerifyUserProps } from "@Store/auth/types";
+import { VerifyUserOtpFormData } from "@Utils/formTypes/AuthFormData";
+import { VerifyUserOtpSchema } from "@Utils/schemas/AuthSchema";
+import storage from "@Utils/storage";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-type formData = {
-  verification_code: string;
-};
 
-const VerifyUser = ({ validateVerification }: RegisterDispatchProps) => {
+const VerifyUser = ({ validateOtpAndVerifyPhoneNumber }: VerifyUserProps) => {
   const router = useRouter();
+  const {
+    query: { phoneNumber },
+  } = router;
 
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<formData>({ resolver: yupResolver(ValidateVerificationSchema) });
+  } = useForm<VerifyUserOtpFormData>({
+    resolver: yupResolver(VerifyUserOtpSchema),
+  });
   const onSubmit = handleSubmit((data) => handleVerification(data));
-  const handleVerification = async (data: formData) => {
-    const response = await validateVerification({
-      verification_code: data.verification_code,
+  const handleVerification = async (data: VerifyUserOtpFormData) => {
+    const response = await validateOtpAndVerifyPhoneNumber({
+      otp: data.otp,
+      phoneNumber: String(phoneNumber),
     });
     if (response.success) {
       toast.success("Phone number successfully verified.");
-      router.push("/auth/login");
+      storage().setAccessToken(response.data?.accessToken);
+      storage().setRefreshToken(response.data?.refreshToken);
+      router.push("/");
     }
     if (!response.success) {
       toast.error(`Error. ${response.message} `);
     }
   };
+
   return (
     <div className="h-screen  flex items-center justify-center">
       <div className=" w-96 p-4  rounded-2xl">
         <div className="p-4">
           <div className="flex items-center justify-center">
-            <h1 className="font-semibold text-3xl ">Enter the OTP</h1>
+            <h1 className="font-semibold text-3xl ">Enter OTP</h1>
           </div>
           <div className="flex items-center justify-center">
             <p className="text-md py-2">Please check your phone for OTP</p>
@@ -45,10 +53,10 @@ const VerifyUser = ({ validateVerification }: RegisterDispatchProps) => {
               <div className="flex-col justify-center">
                 <InputField
                   control={control}
-                  name="verification_code"
+                  name="otp"
                   placeholder="Enter verification code"
-                  type="text"
-                  error={errors.verification_code?.message}
+                  type="number"
+                  error={errors.otp?.message}
                 />
               </div>
               <button
