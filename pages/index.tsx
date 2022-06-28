@@ -5,7 +5,6 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import GetAQuote from "./quotations/get-a-quote";
 import { getUserInfo } from "@Store/users/actions";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import Search from "./search";
 import AdminPanel from "./admin";
 
@@ -19,7 +18,6 @@ const mapDispatchToProps = () => ({
 });
 
 const Homepage = ({ user, loading, getUserInfo }) => {
-  const router = useRouter();
   useEffect(() => {
     getUserInfo();
   }, []);
