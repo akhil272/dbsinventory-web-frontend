@@ -66,7 +66,7 @@ const Quotations = ({
     customerCategory,
   ]);
   if (loading) {
-    return <LoadingAnimation message="Loading stocks. Please wait.." />;
+    return <LoadingAnimation message="Loading quotations. Please wait.." />;
   }
   const handleReset = () => {
     setSearchByPhoneNumber("");

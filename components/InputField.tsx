@@ -64,6 +64,8 @@ const InputField = ({
               type={type}
               onBlur={onBlur}
               autoComplete={autoComplete}
+              inputMode={type === "number" ? "numeric" : "text"}
+              pattern={type === "number" ? "[0-9]*" : null}
             />
           )}
         />

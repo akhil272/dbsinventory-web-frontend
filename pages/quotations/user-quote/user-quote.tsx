@@ -46,7 +46,7 @@ const UserQuote = ({
     }
   }, [getUserQuoteById, router.isReady]);
   if (loading) {
-    return <LoadingAnimation message="Loading orders. Please wait.." />;
+    return <LoadingAnimation message="Loading quotation. Please wait.." />;
   }
 
   return (
