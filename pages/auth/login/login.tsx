@@ -43,6 +43,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
       if (response.success && response.data) {
         storage().setAccessToken(response.data?.accessToken);
         storage().setRefreshToken(response.data?.refreshToken);
+        router.reload();
         router.push("/");
       }
       if (!response.success) {

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import SearchBox from "./SearchBox";
 import ServiceListCard from "./ServiceListCard";
 import { useState } from "react";
+import { PlusOutlined } from "@ant-design/icons";
 
 type AddServiceProps = {
   services: ServicePayload[];
@@ -53,12 +54,20 @@ const AddService = ({ services, setSelectedServices }: AddServiceProps) => {
               data={services}
             />
           </div>
-          <button
-            onClick={onSubmit}
-            className="w-1/3 rounded-md text-center py-2 bg-gray-300"
-          >
-            Add More
-          </button>
+          <div className="w-1/3 flex space-x-1 text-white ">
+            <button
+              onClick={onSubmit}
+              className="w-1/2 rounded-md items-center justify-center flex py-2 bg-pastel_green"
+            >
+              <PlusOutlined className="text-white text-lg" />
+            </button>
+            <button
+              onClick={onSubmit}
+              className="w-1/2 rounded-md text-center py-2 bg-primary"
+            >
+              Done
+            </button>
+          </div>
         </div>
       </form>
     </div>

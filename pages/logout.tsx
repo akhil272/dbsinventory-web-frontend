@@ -5,7 +5,6 @@ const LogOut = () => {
   useEffect(() => {
     storage().clear();
   }, []);
-
   return (
     <div className="min-h-screen flex justify-center ">
       <div className="flex flex-col max-w-3xl">
