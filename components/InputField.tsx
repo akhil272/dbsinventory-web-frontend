@@ -25,7 +25,7 @@ const InputField = ({
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="space-y-1">
-      {type === "password" ? (
+      {type === "password" && (
         <Controller
           defaultValue={defaultValue}
           control={control}
@@ -50,26 +50,34 @@ const InputField = ({
             </div>
           )}
         />
-      ) : (
-        <Controller
-          defaultValue={defaultValue}
-          control={control}
-          name={name}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <input
-              className="p-2 placeholder-slate-400 focus:outline-none  focus:ring-slate-400 block w-full rounded-md  focus:ring-1 "
-              placeholder={placeholder}
-              value={value}
-              onChange={onChange}
-              type={type}
-              onBlur={onBlur}
-              autoComplete={autoComplete}
-              inputMode={type === "number" ? "numeric" : "text"}
-              pattern={type === "number" ? "[0-9]*" : null}
-            />
-          )}
-        />
       )}
+      <Controller
+        defaultValue={defaultValue}
+        control={control}
+        name={name}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <input
+            className="p-2 placeholder-slate-400 focus:outline-none  focus:ring-slate-400 block w-full rounded-md  focus:ring-1 "
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            type={type}
+            onBlur={onBlur}
+            autoComplete={autoComplete}
+            inputMode={
+              type === "number" ? "numeric" : type === "tel" ? "tel" : "text"
+            }
+            pattern={
+              type === "number"
+                ? "[0-9]*"
+                : type === "tel"
+                ? 'pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"'
+                : "none"
+            }
+          />
+        )}
+      />
+
       <p className="text-sm text-red-600 px-2">{error}</p>
     </div>
   );
