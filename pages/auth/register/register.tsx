@@ -94,14 +94,14 @@ const Register = ({ register }: RegisterProps) => {
                     control={control}
                     name="addressLine1"
                     placeholder="Enter your address line 1 [optional]"
-                    type="tel"
+                    type="text"
                     error={errors.addressLine1?.message}
                   />
                   <InputField
                     control={control}
                     name="addressLine2"
                     placeholder="Enter your address line 2 [optional]"
-                    type="tel"
+                    type="text"
                     error={errors.addressLine2?.message}
                   />
                 </div>
