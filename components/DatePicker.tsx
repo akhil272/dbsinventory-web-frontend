@@ -30,7 +30,7 @@ const DatePicker = ({
               onChange={onChange}
               type="string"
               onBlur={onBlur}
-              onKeyDown={(e) => e.preventDefault()}
+              readOnly
             />
             {showCalender && (
               <Calendar
