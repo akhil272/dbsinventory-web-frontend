@@ -27,7 +27,7 @@ const DashboardItemCard = ({
       <div>
         <div className="text-4xl font-bold pt-4">
           {" "}
-          {value ? `${value}%` : "N/A"}
+          {value ? `${value}` : "N/A"}
         </div>
         <div className="text-sm text-neutral-500">{title}</div>
       </div>

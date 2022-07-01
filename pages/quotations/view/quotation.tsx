@@ -60,28 +60,20 @@ const Quotation = ({
       )}
 
       {status === "WAITING" && (
-        <div className="flex space-x-2">
-          <div className="bg-pastel_green w-1/2 rounded-md text-white font-semibold p-2 text-center mb-4">
-            <Link
-              href={{
-                pathname: "/quotations/update/status",
-                query: {
-                  quotationId: quotation?.id,
-                  status: status,
-                  customerName: quotation?.customer.user.firstName,
-                  customerPhoneNumber: quotation?.customer.user.phoneNumber,
-                },
-              }}
-            >
-              <a>Update Status</a>
-            </Link>
-          </div>
-          <div className="bg-red-500 w-1/2 rounded-md text-white font-semibold p-2 text-center mb-4">
-            Expiries on {""}
-            {moment(quotation?.createdAt)
-              .add(quotation?.validity, "days")
-              .format("MMM Do ")}
-          </div>
+        <div className="bg-primary rounded-md text-white font-semibold p-2 text-center mb-4">
+          <Link
+            href={{
+              pathname: "/quotations/update/status",
+              query: {
+                quotationId: quotation?.id,
+                status: status,
+                customerName: quotation?.customer.user.firstName,
+                customerPhoneNumber: quotation?.customer.user.phoneNumber,
+              },
+            }}
+          >
+            <a>Update Status</a>
+          </Link>
         </div>
       )}
 

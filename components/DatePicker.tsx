@@ -28,8 +28,9 @@ const DatePicker = ({
               placeholder={placeholder}
               value={moment(value).format("DD/MM/YYYY")}
               onChange={onChange}
-              type="text"
+              type="string"
               onBlur={onBlur}
+              onKeyDown={(e) => e.preventDefault()}
             />
             {showCalender && (
               <Calendar

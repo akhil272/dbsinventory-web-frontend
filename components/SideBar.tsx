@@ -79,11 +79,9 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
       iconName: <FileAddOutlined />,
     },
   ];
-  const router = useRouter();
   const signOutUser = () => {
+    setOpen(!open);
     storage().clear();
-    router.reload();
-    router.push("/logout");
   };
   return (
     <main>
@@ -272,7 +270,7 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
                 variants={itemVariants}
                 className=" h-10 align-middle items-center"
               >
-                Sign Out
+                <a href="/logout"> Sign Out</a>
               </motion.label>
             </motion.div>
           </motion.div>
