@@ -53,6 +53,7 @@ export default function SearchBox({
                   displayValue={(item: dataType) => item?.name}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={placeholder}
+                  type="text"
                 />
                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                   <SelectorIcon

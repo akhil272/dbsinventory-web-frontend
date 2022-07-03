@@ -3,6 +3,7 @@ import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuoteListCard from "@Components/QuoteListCard";
 import SearchBox from "@Components/SearchBox";
+import TextAreaInputField from "@Components/TextAreaInputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateUserAndQuotationProps } from "@Store/quotations/types";
 import { CreateUserFormData } from "@Utils/formTypes/AuthFormData";
@@ -304,14 +305,13 @@ const CreateQuotation = ({
             control={control}
             name="quantity"
             placeholder="Enter quantity"
-            type="text"
+            type="number"
             error={errors.quantity?.message}
           />
-          <InputField
+          <TextAreaInputField
             control={control}
             name="userNotes"
             placeholder="Enter notes"
-            type="text"
             error={errors.userNotes?.message}
           />
           <div className="flex space-x-1 py-2">
