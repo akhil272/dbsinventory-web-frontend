@@ -6,7 +6,6 @@ import { QuotationProps } from "@Store/quotations/types";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
 const Quotations = ({
   quotations,
   getQuotations,
@@ -97,40 +96,58 @@ const Quotations = ({
         </Link>
       </div>
 
-      <div className="grid grid-cols-2  font-bold text-white text-md gap-1">
+      <div className="grid grid-cols-2  font-bold text-white text-md gap-2 py-4">
         <button
-          className="p-4 rounded-md bg-pending "
+          className={`p-4 rounded-md  ${
+            quotationStatus === "PENDING"
+              ? "bg-pending "
+              : "border-2 border-pending text-pending "
+          }`}
           onClick={() => setQuotationStatus("PENDING")}
         >
           Pending
         </button>
         <button
-          className="p-4 rounded-md bg-waiting"
+          className={`p-4 rounded-md  ${
+            quotationStatus === "WAITING"
+              ? "bg-waiting"
+              : "border-2 border-waiting text-waiting "
+          }`}
           onClick={() => setQuotationStatus("WAITING")}
         >
           Waiting
         </button>
 
         <button
-          className="p-4 rounded-md bg-followup"
+          className={`p-4 rounded-md  ${
+            quotationStatus === "FOLLOWUP"
+              ? "bg-followup"
+              : "border-2 border-followup text-followup "
+          }`}
           onClick={() => setQuotationStatus("FOLLOWUP")}
         >
           Follow Up
         </button>
         <button
-          className="p-4 rounded-md bg-accepted"
+          className={`p-4 rounded-md  ${
+            quotationStatus === "ACCEPTED"
+              ? "bg-accepted"
+              : "border-2 border-accepted text-accepted "
+          }`}
           onClick={() => setQuotationStatus("ACCEPTED")}
         >
           Accepted
         </button>
       </div>
-      <FilterCard
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        setSearchByPhoneNumber={setSearchByPhoneNumber}
-        customerCategories={customerCategories}
-        onChange={onCustomerCategoryChange}
-      />
+      <div className="py-2">
+        <FilterCard
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+          setSearchByPhoneNumber={setSearchByPhoneNumber}
+          customerCategories={customerCategories}
+          onChange={onCustomerCategoryChange}
+        />
+      </div>
 
       <div>
         {quotations?.map((quotation) => (
