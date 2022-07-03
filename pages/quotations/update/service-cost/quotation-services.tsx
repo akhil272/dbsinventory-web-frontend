@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { UpdateQuotationServiceCostSchema } from "@Utils/schemas/QuotationSchema";
 import { UpdateQuotationServiceCostForm } from "@Utils/formTypes/QuotationFormData";
 import { QuotationServiceProps } from "@Store/quotations/types";
+import LoadingAnimation from "@Components/LoadingAnimation";
 
 type ServiceFormsProps = {
   id: number;
@@ -18,6 +19,7 @@ const QuotationService = ({
   quotation,
   getQuotationById,
   updateQuotationServiceCostById,
+  loading,
 }: QuotationServiceProps) => {
   const router = useRouter();
   const {
@@ -59,6 +61,7 @@ const QuotationService = ({
         toast.error(`Failed to update service cost for ${data.name}`);
       }
     };
+    if (loading) return <LoadingAnimation message="Loading, please wait" />;
     return (
       <form className="py-4" onSubmit={onSubmit}>
         <div className="space-y-2 ">

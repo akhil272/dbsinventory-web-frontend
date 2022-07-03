@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateQuotationStatusFrom } from "@Utils/schemas/QuotationSchema";
+import LoadingAnimation from "@Components/LoadingAnimation";
+import { QuotationStatusUpdateProps } from "@Store/quotations/types";
 
 const data = [
   { id: 1, name: "PENDING" },
@@ -13,7 +15,10 @@ const data = [
   { id: 4, name: "ACCEPTED" },
 ];
 
-const QuotationStatus = ({ updateQuotationById }) => {
+const QuotationStatus = ({
+  updateQuotationById,
+  loading,
+}: QuotationStatusUpdateProps) => {
   const router = useRouter();
   const {
     query: { quotationId, status, customerName, customerPhoneNumber },
@@ -29,7 +34,7 @@ const QuotationStatus = ({ updateQuotationById }) => {
 
   const updateStatus = async (data: UpdateQuotationStatusForm) => {
     const response = await updateQuotationById({
-      id: quotationId,
+      id: Number(quotationId),
       status: data.quotationStatus.name,
     });
     if (response.success) {
@@ -39,7 +44,7 @@ const QuotationStatus = ({ updateQuotationById }) => {
       toast.error(`Failed to update quotation status: ${response.message}`);
     }
   };
-
+  if (loading) return <LoadingAnimation message="Please wait..." />;
   return (
     <div className="pb-4">
       <div className="items-center justify-center flex ">

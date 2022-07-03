@@ -17,6 +17,7 @@ const mapStateToProps = ({
 }: typeof initialState) => ({
   loadingUsers: users.loading,
   loadingTyreData: tyres.loading,
+  loadingQuotationState: quotations.loading,
   users: users.users,
   brands: tyres.brands,
   loadIndexes: tyres.loadIndexes,

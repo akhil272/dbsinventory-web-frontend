@@ -31,6 +31,7 @@ const CreateQuotation = ({
   getLoadIndexes,
   getSpeedRatings,
   createUserAndQuotation,
+  loadingQuotationState,
 }: CreateUserAndQuotationProps) => {
   const [userQuery, setUserQuery] = useState<UserQueryFormData[]>([]);
   const [selectedServices, setSelectedServices] = useState([]);
@@ -82,6 +83,10 @@ const CreateQuotation = ({
       behavior: "smooth",
     });
     setUserService(!userService);
+  };
+  const onRemove = (id: number) => {
+    const newUserQuery = userQuery.filter((userQuery) => userQuery.id !== id);
+    setUserQuery(newUserQuery);
   };
   const submitAllQuotes = async () => {
     const userAndQuotationPayload = {
@@ -168,6 +173,7 @@ const CreateQuotation = ({
       );
     }
   }, [userPhoneNumber]);
+
   if (loadingUsers)
     return <LoadingAnimation message="Loading users, please wait.." />;
   if (loadingTyreData)
@@ -179,11 +185,9 @@ const CreateQuotation = ({
     return <LoadingAnimation message="Loading speed ratings..." />;
   if (!loadIndexes?.length)
     return <LoadingAnimation message="Loading load indexes..." />;
+  if (loadingQuotationState)
+    return <LoadingAnimation message="Please wait..." />;
 
-  const onRemove = (id: number) => {
-    const newUserQuery = userQuery.filter((userQuery) => userQuery.id !== id);
-    setUserQuery(newUserQuery);
-  };
   return (
     <div>
       <div className="pt-2 ">

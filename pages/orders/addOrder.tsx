@@ -58,7 +58,7 @@ const AddOrder = ({
   }, [getOrders, router.isReady]);
 
   if (loading) {
-    return <LoadingAnimation message="Loading orders. Please wait.." />;
+    return <LoadingAnimation message="Please wait..." />;
   }
   return (
     <div className="pb-4 ">

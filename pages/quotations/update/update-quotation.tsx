@@ -1,5 +1,6 @@
 import ContactCard from "@Components/ContactCard";
 import InputField from "@Components/InputField";
+import LoadingAnimation from "@Components/LoadingAnimation";
 import QuotationCard from "@Components/QuotationCard";
 import ServiceCostTable from "@Components/ServiceCostTable";
 import TextAreaInputField from "@Components/TextAreaInputField";
@@ -71,7 +72,7 @@ const UpdateQuotation = ({
       toast.error(`Error updating quotation: ${response.message}`);
     }
   };
-
+  if (loading) return <LoadingAnimation message="Loading, please wait..." />;
   return (
     <div className="pb-4 space-y-2">
       <QuotationCard

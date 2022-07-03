@@ -25,7 +25,11 @@ import {
 } from "@Store/tyre/actions";
 import { connect } from "react-redux";
 import CreateStock from "./create";
-const mapStateToProps = ({ tyres, adminPanel }: typeof initialState) => ({
+const mapStateToProps = ({
+  tyres,
+  adminPanel,
+  stocks,
+}: typeof initialState) => ({
   brands: tyres.brands,
   tyreSizes: tyres.tyreSizes,
   tyreDetails: tyres.tyreDetails,
@@ -35,6 +39,7 @@ const mapStateToProps = ({ tyres, adminPanel }: typeof initialState) => ({
   vendors: adminPanel.vendors,
   transports: adminPanel.transports,
   productLines: tyres.productLines,
+  loading: stocks.loading,
 });
 
 const mapDispatchToProps = () => ({

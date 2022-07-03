@@ -83,8 +83,16 @@ export type updateServicePayload = {
   name: string;
 };
 
+export type QuotationStatusUpdateProps = {
+  loading: boolean;
+  updateQuotationById: (
+    payload: updateQuotation
+  ) => Promise<ApiReturnType<QuotationPayload>>;
+};
+
 export type QuotationServiceProps = {
   quotation: QuotationPayload;
+  loading: boolean;
   getQuotationById: (
     data: getQuotationByIdPayload
   ) => Promise<ApiReturnType<QuotationPayload>>;
@@ -372,6 +380,7 @@ export type CreateUserAndQuotationStateProps = {
   services: ServicePayload[];
   loadIndexes: LoadIndexPayload[];
   speedRatings: SpeedRatingPayload[];
+  loadingQuotationState: boolean;
 };
 export type CreateUserAndQuotationProps = CreateUserAndQuotationDispatchProps &
   CreateUserAndQuotationStateProps;
