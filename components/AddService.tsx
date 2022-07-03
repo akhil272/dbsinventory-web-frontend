@@ -6,12 +6,14 @@ import SearchBox from "./SearchBox";
 import ServiceListCard from "./ServiceListCard";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
+import { toast } from "react-toastify";
 
 type AddServiceProps = {
   services: ServicePayload[];
   setSelectedServices: any;
 };
 type AddServiceFormData = {
+  id: number;
   service: {
     id: number;
     name: string;
@@ -19,6 +21,7 @@ type AddServiceFormData = {
 };
 const AddService = ({ services, setSelectedServices }: AddServiceProps) => {
   const [selectedService, setSelectedService] = useState([]);
+  const [count, setCount] = useState(1);
   const {
     handleSubmit,
     control,
@@ -26,6 +29,13 @@ const AddService = ({ services, setSelectedServices }: AddServiceProps) => {
     reset,
   } = useForm<AddServiceFormData>({ resolver: yupResolver(AddServiceSchema) });
   const onSubmit = handleSubmit((data) => {
+    data.id = count;
+    const findDuplicate = selectedService.filter(
+      (service) => service.service.name === data.service.name
+    );
+    if (findDuplicate.length > 0) {
+      return toast.warning("Services already added");
+    }
     setSelectedService([...selectedService, data]);
     setSelectedServices([...selectedService, data]);
     window.scrollTo({
@@ -34,13 +44,21 @@ const AddService = ({ services, setSelectedServices }: AddServiceProps) => {
       behavior: "smooth",
     });
     reset();
+    setCount(count + 1);
   });
+  const onDelete = (serviceId: number) => {
+    const filterService = selectedService.filter(
+      (service) => service.id !== serviceId
+    );
+    setSelectedService(filterService);
+    setSelectedServices(filterService);
+  };
   return (
     <div>
-      {selectedService.length > 0 && (
+      {selectedService?.length > 0 && (
         <>
           <h4 className="font-semibold text-lg">Service List </h4>
-          <ServiceListCard serviceItems={selectedService} />
+          <ServiceListCard onDelete={onDelete} serviceItems={selectedService} />
         </>
       )}
       <h4 className="font-semibold text-lg"> Add Service</h4>

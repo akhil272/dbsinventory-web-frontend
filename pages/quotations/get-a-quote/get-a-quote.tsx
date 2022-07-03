@@ -28,6 +28,7 @@ const GetQuote = ({
   const [userQuery, setUserQuery] = useState<UserQueryFormData[]>([]);
   const [selectedServices, setSelectedServices] = useState([]);
   const [userService, setUserService] = useState(false);
+  const [count, setCount] = useState(1);
   const {
     handleSubmit,
     control,
@@ -35,7 +36,9 @@ const GetQuote = ({
     reset,
   } = useForm<UserQueryFormData>({ resolver: yupResolver(UserQuoteSchema) });
   const onSubmit = handleSubmit((data) => {
+    data.id = count;
     setUserQuery([...userQuery, data]), reset();
+    setCount(count + 1);
   });
 
   const handleSingleQuote = handleSubmit((data) => {
@@ -57,7 +60,15 @@ const GetQuote = ({
   const submitAllQuotes = async () => {
     const userQuotesPayload = {
       userQuotes: userQuery.map(
-        ({ brand, pattern, tyreSize, loadIndex, speedRating, ...query }) => ({
+        ({
+          brand,
+          pattern,
+          tyreSize,
+          loadIndex,
+          speedRating,
+          id,
+          ...query
+        }) => ({
           brandName: brand?.name,
           patternName: pattern?.name,
           tyreSizeValue: tyreSize?.name,
@@ -103,7 +114,10 @@ const GetQuote = ({
     return <LoadingAnimation message="Loading speed ratings..." />;
   if (!loadIndexes?.length)
     return <LoadingAnimation message="Loading load indexes..." />;
-
+  const onRemove = (id: number) => {
+    const newUserQuery = userQuery.filter((userQuery) => userQuery.id !== id);
+    setUserQuery(newUserQuery);
+  };
   return (
     <div>
       <div className="items-center justify-center flex ">
@@ -193,8 +207,10 @@ const GetQuote = ({
               <h3 className="font-semibold text-lg ">User Quotation List</h3>
               {userQuery.map((query, index) => (
                 <QuoteListCard
-                  key={index}
-                  id={index + 1}
+                  key={query.id}
+                  index={index}
+                  id={query.id}
+                  onRemove={onRemove}
                   brand={query?.brand?.name ?? "Error please refresh"}
                   pattern={query?.pattern?.name ?? "-"}
                   tyreSize={query?.tyreSize?.name ?? "Error please refresh"}

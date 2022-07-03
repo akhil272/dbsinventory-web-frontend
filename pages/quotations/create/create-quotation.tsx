@@ -35,6 +35,7 @@ const CreateQuotation = ({
   const [selectedServices, setSelectedServices] = useState([]);
   const [userService, setUserService] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [count, setCount] = useState(1);
   const {
     handleSubmit: handleSubmitUser,
     control: controlUser,
@@ -59,8 +60,11 @@ const CreateQuotation = ({
     formState: { errors },
     reset,
   } = useForm<UserQueryFormData>({ resolver: yupResolver(UserQuoteSchema) });
+
   const onSubmit = handleSubmit((data) => {
+    data.id = count;
     setUserQuery([...userQuery, data]), reset();
+    setCount(count + 1);
   });
   const handleSingleQuote = handleSubmit((data) => {
     setUserQuery([...userQuery, data]), reset();
@@ -81,7 +85,15 @@ const CreateQuotation = ({
   const submitAllQuotes = async () => {
     const userAndQuotationPayload = {
       userQuotes: userQuery.map(
-        ({ brand, pattern, tyreSize, loadIndex, speedRating, ...query }) => ({
+        ({
+          brand,
+          pattern,
+          tyreSize,
+          loadIndex,
+          speedRating,
+          id,
+          ...query
+        }) => ({
           brandName: brand?.name,
           patternName: pattern?.name,
           tyreSizeValue: tyreSize?.name,
@@ -155,8 +167,14 @@ const CreateQuotation = ({
       );
     }
   }, [userPhoneNumber]);
-  if (loadingUsers || loadingTyreData)
-    return <LoadingAnimation message="Please wait.." />;
+  if (loadingUsers)
+    return <LoadingAnimation message="Loading users, please wait.." />;
+  if (loadingTyreData)
+    return <LoadingAnimation message="Loading tyres data, please wait.." />;
+  const onRemove = (id: number) => {
+    const newUserQuery = userQuery.filter((userQuery) => userQuery.id !== id);
+    setUserQuery(newUserQuery);
+  };
   return (
     <div>
       <div className="pt-2 ">
@@ -317,8 +335,10 @@ const CreateQuotation = ({
               <h3 className="font-semibold text-lg ">User Quotation List</h3>
               {userQuery.map((query, index) => (
                 <QuoteListCard
-                  key={index}
-                  id={index + 1}
+                  onRemove={onRemove}
+                  key={query.id}
+                  index={index}
+                  id={query.id}
                   brand={query?.brand?.name ?? "Error please refresh"}
                   pattern={query?.pattern?.name ?? "-"}
                   tyreSize={query?.tyreSize?.name ?? "Error please refresh"}

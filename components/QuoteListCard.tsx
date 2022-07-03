@@ -11,6 +11,8 @@ interface QuoteListCardProps {
   adminComments?: string;
   type?: string;
   price?: number;
+  onRemove?: (id: number) => void;
+  index?: number;
 }
 const QuoteListCard = ({
   brand,
@@ -24,16 +26,21 @@ const QuoteListCard = ({
   type = "basic",
   price,
   adminComments,
+  onRemove,
+  index,
 }: QuoteListCardProps) => {
   return (
     <div className="bg-white p-2 rounded-md mb-4">
-      <h3
-        className={`font-semibold text-md border-b-2 my-2 ${
+      <div
+        className={`font-semibold flex justify-between text-md border-b-2 my-2 ${
           price ? "border-pastel_green" : "border-primary"
         }`}
       >
-        #{id}
-      </h3>
+        <h3>#{index + 1}</h3>
+        <button onClick={() => onRemove(id)} className="text-primary">
+          Remove
+        </button>
+      </div>
       <div className="flex flex-col space-y-2">
         <div className="flex">
           <div className="flex w-1/2">

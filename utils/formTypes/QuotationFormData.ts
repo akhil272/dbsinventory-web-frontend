@@ -23,6 +23,7 @@ export type UpdateQuotationStatusForm = {
 };
 
 export type UserQueryFormData = {
+  id: number;
   brand: {
     id: number;
     name: string;
