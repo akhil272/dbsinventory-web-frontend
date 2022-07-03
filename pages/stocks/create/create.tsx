@@ -6,6 +6,7 @@ import { CreateStockProps } from "@Store/stocks/types";
 
 import { CreateStockFormData } from "@Utils/formTypes/StockFormData";
 import { CreateStockSchema } from "@Utils/schemas/StockSchema";
+import Image from "next/image";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -150,7 +151,7 @@ const CreateStock = ({
 
   return (
     <div className="pb-4">
-      <div className="items-center justify-center flex ">
+      <div className="items-center justify-center flex  ">
         <img
           className="object-contain rounded-xl"
           src="/images/Create_Stock.png"

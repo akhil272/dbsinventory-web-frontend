@@ -22,10 +22,10 @@ const InputField = ({
   control,
   defaultValue = "",
 }: InputFieldProps) => {
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="space-y-1">
-      {type === "password" && (
+      {/* {type === "password" && (
         <Controller
           defaultValue={defaultValue}
           control={control}
@@ -50,7 +50,7 @@ const InputField = ({
             </div>
           )}
         />
-      )}
+      )} */}
       <Controller
         defaultValue={defaultValue}
         control={control}
