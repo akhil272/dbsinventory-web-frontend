@@ -146,6 +146,7 @@ export type createUserResponse = {};
 export type UserDashboardProps = {
   getUserOverview: (userId: number) => Promise<ApiReturnType<Overview>>;
   overview: Overview;
+  loading: boolean;
 };
 
 type userOverviewFetchInit = {

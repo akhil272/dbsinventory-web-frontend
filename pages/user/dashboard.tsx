@@ -1,5 +1,6 @@
 import OrderCard from "@Components/Dashboard/User/OrderCard";
 import QuotationCard from "@Components/Dashboard/User/QuotationCard";
+import LoadingAnimation from "@Components/LoadingAnimation";
 import StatsCard from "@Components/StatsCard";
 import { UserDashboardProps } from "@Store/users/types";
 import Link from "next/link";
@@ -7,7 +8,11 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-const UserDashboard = ({ getUserOverview, overview }: UserDashboardProps) => {
+const UserDashboard = ({
+  getUserOverview,
+  overview,
+  loading,
+}: UserDashboardProps) => {
   const router = useRouter();
   const {
     query: { userId },
@@ -24,7 +29,7 @@ const UserDashboard = ({ getUserOverview, overview }: UserDashboardProps) => {
       fetchUserOverview();
     }
   }, [userId, router.isReady]);
-
+  if (loading) return <LoadingAnimation message="Loading, please wait..." />;
   return (
     <div>
       <div className="border-b-4 border-neutral-400  w-full">
