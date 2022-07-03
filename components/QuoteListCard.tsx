@@ -13,6 +13,7 @@ interface QuoteListCardProps {
   price?: number;
   onRemove?: (id: number) => void;
   index?: number;
+  isRemoveAllowed?: boolean;
 }
 const QuoteListCard = ({
   brand,
@@ -28,6 +29,7 @@ const QuoteListCard = ({
   adminComments,
   onRemove,
   index,
+  isRemoveAllowed = false,
 }: QuoteListCardProps) => {
   return (
     <div className="bg-white p-2 rounded-md mb-4">
@@ -37,9 +39,11 @@ const QuoteListCard = ({
         }`}
       >
         <h3>#{index + 1}</h3>
-        <button onClick={() => onRemove(id)} className="text-primary">
-          Remove
-        </button>
+        {isRemoveAllowed && (
+          <button onClick={() => onRemove(id)} className="text-primary">
+            Remove
+          </button>
+        )}
       </div>
       <div className="flex flex-col space-y-2">
         <div className="flex">

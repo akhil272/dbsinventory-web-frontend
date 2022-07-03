@@ -3,6 +3,7 @@ import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuoteListCard from "@Components/QuoteListCard";
 import SearchBox from "@Components/SearchBox";
+import TextAreaInputField from "@Components/TextAreaInputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GetQuoteProps } from "@Store/quotations/types";
 import { UserQueryFormData } from "@Utils/formTypes/QuotationFormData";
@@ -179,11 +180,10 @@ const GetQuote = ({
             type="text"
             error={errors.quantity?.message}
           />
-          <InputField
+          <TextAreaInputField
             control={control}
             name="userNotes"
             placeholder="Enter notes"
-            type="text"
             error={errors.userNotes?.message}
           />
           <div className="flex space-x-1 py-2">
@@ -210,6 +210,7 @@ const GetQuote = ({
                   key={query.id}
                   index={index}
                   id={query.id}
+                  isRemoveAllowed={true}
                   onRemove={onRemove}
                   brand={query?.brand?.name ?? "Error please refresh"}
                   pattern={query?.pattern?.name ?? "-"}

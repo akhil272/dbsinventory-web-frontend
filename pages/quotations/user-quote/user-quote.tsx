@@ -52,6 +52,7 @@ const UserQuote = ({
   return (
     <div>
       <QuoteListCard
+        index={userQuoteDetails?.userQuote?.id}
         type="advanced"
         brand={userQuoteDetails?.userQuote?.brandName ?? "Error please refresh"}
         pattern={userQuoteDetails?.userQuote?.patternName ?? "-"}

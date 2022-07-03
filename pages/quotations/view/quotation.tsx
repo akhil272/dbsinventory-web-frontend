@@ -117,6 +117,7 @@ const Quotation = ({
           >
             <a>
               <QuoteListCard
+                index={quote.id}
                 key={quote?.id}
                 brand={quote?.brandName ?? "Error please refresh"}
                 pattern={quote?.patternName ?? "-"}
