@@ -1,6 +1,5 @@
 import { QuotationService } from "@Store/quotations/types";
 import moment from "moment";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import ServiceTags from "./ServiceTags";
 
@@ -86,23 +85,7 @@ const QuotationCard = ({
       <div className="flex px-2 text-sm">
         <div className="w-1/2 flex-col flex">
           <label className="text-xs text-gray-400">Customer Category</label>
-          <Link
-            href={{
-              pathname: "/quotations/update/customer-category",
-              query: {
-                quotationId: id,
-                customerId: customerId,
-                customerName: name,
-                customerPhoneNumber: phoneNumber,
-                category: customerCategory,
-                quotationsCount: quotationsCount,
-              },
-            }}
-          >
-            <a>
-              <label className="capitalize ">{customerCategory}</label>
-            </a>
-          </Link>
+          <label className="capitalize ">{customerCategory}</label>
         </div>
         <div className="w-1/2 flex-col flex">
           <label className="text-xs text-gray-400">Transaction Count</label>
