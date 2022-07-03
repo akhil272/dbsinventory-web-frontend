@@ -9,6 +9,8 @@ import {
 import { connect } from "react-redux";
 import GetQuote from "./get-a-quote";
 const mapStateToProps = ({ tyres, quotations }: typeof initialState) => ({
+  loadingTyreData: tyres.loading,
+  loadingQuotationState: quotations.loading,
   brands: tyres.brands,
   loadIndexes: tyres.loadIndexes,
   speedRatings: tyres.speedRatings,

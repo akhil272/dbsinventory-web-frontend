@@ -25,6 +25,8 @@ const GetQuote = ({
   speedRatings,
   getLoadIndexes,
   getSpeedRatings,
+  loadingQuotationState,
+  loadingTyreData,
 }: GetQuoteProps) => {
   const [userQuery, setUserQuery] = useState<UserQueryFormData[]>([]);
   const [selectedServices, setSelectedServices] = useState([]);
@@ -108,13 +110,19 @@ const GetQuote = ({
   useEffect(() => {
     getTyreSizes({ search: "" });
   }, [getTyreSizes]);
-  if (!brands?.length) return <LoadingAnimation message="Loading brands..." />;
-  if (!tyreSizes?.length)
-    return <LoadingAnimation message="Loading tyre sizes..." />;
-  if (!speedRatings?.length)
-    return <LoadingAnimation message="Loading speed ratings..." />;
-  if (!loadIndexes?.length)
-    return <LoadingAnimation message="Loading load indexes..." />;
+  // if (!brands?.length) return <LoadingAnimation message="Loading brands..." />;
+  // if (!tyreSizes?.length)
+  //   return <LoadingAnimation message="Loading tyre sizes..." />;
+  // if (!speedRatings?.length)
+  //   return <LoadingAnimation message="Loading speed ratings..." />;
+  // if (!loadIndexes?.length)
+  //   return <LoadingAnimation message="Loading load indexes..." />;
+  if (loadingTyreData) {
+    return <LoadingAnimation message="Loading, please wait..." />;
+  }
+  if (loadingQuotationState) {
+    return <LoadingAnimation message="Processing, please wait..." />;
+  }
   const onRemove = (id: number) => {
     const newUserQuery = userQuery.filter((userQuery) => userQuery.id !== id);
     setUserQuery(newUserQuery);

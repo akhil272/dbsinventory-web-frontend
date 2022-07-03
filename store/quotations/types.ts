@@ -272,6 +272,8 @@ export type GetQuoteStateProps = {
   services: ServicePayload[];
   loadIndexes: LoadIndexPayload[];
   speedRatings: SpeedRatingPayload[];
+  loadingTyreData: boolean;
+  loadingQuotationState: boolean;
 };
 
 export type UserQuoteStateProps = {
