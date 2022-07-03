@@ -172,6 +172,14 @@ const CreateQuotation = ({
     return <LoadingAnimation message="Loading users, please wait.." />;
   if (loadingTyreData)
     return <LoadingAnimation message="Loading tyres data, please wait.." />;
+  if (!brands?.length) return <LoadingAnimation message="Loading brands..." />;
+  if (!tyreSizes?.length)
+    return <LoadingAnimation message="Loading tyre sizes..." />;
+  if (!speedRatings?.length)
+    return <LoadingAnimation message="Loading speed ratings..." />;
+  if (!loadIndexes?.length)
+    return <LoadingAnimation message="Loading load indexes..." />;
+
   const onRemove = (id: number) => {
     const newUserQuery = userQuery.filter((userQuery) => userQuery.id !== id);
     setUserQuery(newUserQuery);

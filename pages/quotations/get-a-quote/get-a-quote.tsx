@@ -110,13 +110,13 @@ const GetQuote = ({
   useEffect(() => {
     getTyreSizes({ search: "" });
   }, [getTyreSizes]);
-  // if (!brands?.length) return <LoadingAnimation message="Loading brands..." />;
-  // if (!tyreSizes?.length)
-  //   return <LoadingAnimation message="Loading tyre sizes..." />;
-  // if (!speedRatings?.length)
-  //   return <LoadingAnimation message="Loading speed ratings..." />;
-  // if (!loadIndexes?.length)
-  //   return <LoadingAnimation message="Loading load indexes..." />;
+  if (!brands?.length) return <LoadingAnimation message="Loading brands..." />;
+  if (!tyreSizes?.length)
+    return <LoadingAnimation message="Loading tyre sizes..." />;
+  if (!speedRatings?.length)
+    return <LoadingAnimation message="Loading speed ratings..." />;
+  if (!loadIndexes?.length)
+    return <LoadingAnimation message="Loading load indexes..." />;
   if (loadingTyreData) {
     return <LoadingAnimation message="Loading, please wait..." />;
   }
