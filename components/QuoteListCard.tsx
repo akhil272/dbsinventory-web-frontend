@@ -34,7 +34,7 @@ const QuoteListCard = ({
   return (
     <div className="bg-white p-2 rounded-md mb-4">
       <div
-        className={`font-semibold flex justify-between text-md border-b-2 my-2 ${
+        className={`font-semibold flex justify-between text-base border-b-2 my-2 ${
           price ? "border-pastel_green" : "border-primary"
         }`}
       >

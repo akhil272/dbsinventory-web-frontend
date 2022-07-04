@@ -12,7 +12,7 @@ const Button: React.FC<Props> = ({
   children,
   onClick,
   width = "w-full",
-  textSize = "text-md",
+  textSize = "text-base",
   fontWeight = "font-medium",
 }) => {
   return (

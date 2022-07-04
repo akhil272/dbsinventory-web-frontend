@@ -78,7 +78,7 @@ const Quotation = ({
       )}
 
       {status === "WAITING" && (
-        <div className="bg-primary rounded-md text-white font-medium p-2 text-center mb-4">
+        <div className="flex">
           <Link
             href={{
               pathname: "/quotations/update/status",
@@ -90,14 +90,16 @@ const Quotation = ({
               },
             }}
           >
-            <a>Update Status</a>
+            <a className="w-full rounded-md text-white bg-primary text-base font-medium p-2 text-center mb-4">
+              Update Status
+            </a>
           </Link>
         </div>
       )}
 
       {status === "FOLLOWUP" && (
         <div className="flex space-x-2">
-          <div className="bg-pastel_green w-1/2 rounded-md text-white font-medium p-2 text-center mb-4">
+          <div className="bg-pastel_green w-1/2 rounded-md text-white text-base font-medium p-2 text-center mb-4">
             <Link
               href={{
                 pathname: "/quotations/update/status",
@@ -112,7 +114,7 @@ const Quotation = ({
               <a>Update Status</a>
             </Link>
           </div>
-          <div className="bg-red-500 w-1/2 rounded-md text-white font-medium p-2 text-center mb-4">
+          <div className="bg-red-500 w-1/2 rounded-md text-white text-base font-medium p-2 text-center mb-4">
             <Link
               href={{
                 pathname: "/quotations/update",

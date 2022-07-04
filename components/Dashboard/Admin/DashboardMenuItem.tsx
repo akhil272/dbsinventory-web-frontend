@@ -25,7 +25,7 @@ const DashboardMenuItem = ({
         <div className="h-10 w-8 items-center flex">
           <BookOutlined />
         </div>
-        <div className="text-md font-medium tracking-wider ">{title}</div>
+        <div className="text-base font-medium tracking-wider ">{title}</div>
       </div>
     </div>
   );

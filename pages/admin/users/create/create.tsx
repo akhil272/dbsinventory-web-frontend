@@ -45,7 +45,7 @@ const Create = ({ createUser }) => {
                 <h1 className="font-semibold text-3xl ">Create User</h1>
               </div>
               <div className="flex items-center justify-center">
-                <p className="text-md py-2">Fill in the details below</p>
+                <p className="text-base py-2">Fill in the details below</p>
               </div>
               <div>
                 <form className="space-y-5" onSubmit={onSubmit}>

@@ -139,7 +139,7 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
                     {userName}
                   </motion.div>
                   <motion.div
-                    className="text-md capitalize font-normal"
+                    className="text-base capitalize font-normal"
                     variants={itemVariants}
                   >
                     {userRole}
@@ -152,7 +152,7 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
                     <motion.div onClick={() => setOpen(!open)} key={id}>
                       <Link href={to}>
                         <motion.a
-                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          className="text-gray-700 h-10 items-center flex p-1 text-base  "
                           whileHover={{
                             scale: 1.1,
                             x: 50,
@@ -177,7 +177,7 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
                     <motion.div onClick={() => setOpen(!open)} key={id}>
                       <Link href={to}>
                         <motion.a
-                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          className="text-gray-700 h-10 items-center flex p-1 text-base  "
                           whileHover={{
                             scale: 1.1,
                             x: 50,
@@ -202,7 +202,7 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
                     <motion.div onClick={() => setOpen(!open)} key={id}>
                       <Link href={to}>
                         <motion.a
-                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          className="text-gray-700 h-10 items-center flex p-1 text-base  "
                           whileHover={{
                             scale: 1.1,
                             x: 50,
@@ -227,7 +227,7 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
                     <motion.div onClick={() => setOpen(!open)} key={id}>
                       <Link href={to}>
                         <motion.a
-                          className="text-gray-700 h-10 items-center flex p-1 text-md  "
+                          className="text-gray-700 h-10 items-center flex p-1 text-base  "
                           whileHover={{
                             scale: 1.1,
                             x: 50,

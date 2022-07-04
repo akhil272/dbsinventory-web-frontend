@@ -18,7 +18,7 @@ export default function ListBox({ control, name, data, error }) {
         render={({ field: { onChange, value } }) => (
           <Listbox value={value} onChange={onChange}>
             <div className="relative">
-              <Listbox.Button className="relative w-full cursor-default rounded-lg  bg-white pl-3 pr-10 text-left  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-md">
+              <Listbox.Button className="relative w-full cursor-default rounded-lg  bg-white pl-3 pr-10 text-left  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-base">
                 <span className="block truncate py-2 ">
                   {value.name ? value.name : "Update quotation status"}
                 </span>

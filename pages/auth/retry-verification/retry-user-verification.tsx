@@ -56,7 +56,7 @@ const RetryUserVerification = ({
             <h1 className="font-semibold text-3xl ">User Verification</h1>
           </div>
           <div className="flex items-center justify-center">
-            <p className="text-md py-2">Please enter your phone number.</p>
+            <p className="text-base py-2">Please enter your phone number.</p>
           </div>
           <div>
             <form className="space-y-5" onSubmit={onSubmit}>

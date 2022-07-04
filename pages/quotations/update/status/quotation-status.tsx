@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateQuotationStatusFrom } from "@Utils/schemas/QuotationSchema";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import { QuotationStatusUpdateProps } from "@Store/quotations/types";
+import Button from "@Components/Button";
 
 const data = [
   { id: 1, name: "PENDING" },
@@ -54,7 +55,7 @@ const QuotationStatus = ({
         />
       </div>
       <div className="mt-2">
-        <h1 className="font-bold text-2xl pb-4">Update Quotation Status</h1>
+        <h1 className="font-bold text-2xl pb-4">Update quotation status</h1>
       </div>
       <div>
         <div className="space-y-4">
@@ -77,13 +78,7 @@ const QuotationStatus = ({
               data={data}
               error={(errors.quotationStatus as any)?.message}
             />
-
-            <button
-              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-              onClick={onSubmit}
-            >
-              Update
-            </button>
+            <Button onClick={onSubmit}>Update</Button>
           </form>
         </div>
       </div>

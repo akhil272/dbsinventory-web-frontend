@@ -14,13 +14,13 @@ const DateRangePicker = ({ state, setState }) => {
       >
         <div className="flex space-x-2 w-1/2">
           <label className="text-gray-400">From: </label>
-          <label className="text-md font-semibold">
+          <label className="text-base font-semibold">
             {String(moment(state[0]?.startDate).format("MMM DD YYYY"))}
           </label>
         </div>
         <div className="flex space-x-2 w-1/2">
           <label className="text-gray-400">To: </label>
-          <label className="text-md font-semibold">
+          <label className="text-base font-semibold">
             {String(moment(state[0]?.endDate).format("MMM DD YYYY"))}
           </label>
         </div>

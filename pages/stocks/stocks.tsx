@@ -94,7 +94,7 @@ const Stocks = ({
           speedRating={stock.speedRating?.value}
         />
       ))}
-      <div className="flex place-items-center w-full pt-4 text-md justify-between">
+      <div className="flex place-items-center w-full pt-4 text-base justify-between">
         <button
           disabled={metaPage <= 1 ? true : false}
           className={metaPage <= 1 ? " text-stone-400 py-2" : " py-2"}
@@ -111,7 +111,7 @@ const Stocks = ({
             {page - 1}
           </button>
         )}
-        <div className="text-md py-1 font-bold px-3 text-white rounded-md bg-secondary">
+        <div className="text-base py-1 font-bold px-3 text-white rounded-md bg-secondary">
           {page}
         </div>
         {page <= lastPage && (
