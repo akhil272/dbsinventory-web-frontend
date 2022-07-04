@@ -10,6 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import InputField from "@Components/InputField";
 import SearchBox from "@Components/SearchBox";
 import LoadingAnimation from "@Components/LoadingAnimation";
+import Button from "@Components/Button";
 
 const mapStateToProps = ({ tyres }: typeof initialState) => ({
   brands: tyres.brands,
@@ -107,13 +108,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
             control={control}
             inputMode="search"
           />
-
-          <button
-            onClick={onSubmit}
-            className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-          >
-            Search
-          </button>
+          <Button onClick={onSubmit}>Search</Button>
         </form>
       </div>
     </div>

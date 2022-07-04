@@ -2,7 +2,6 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import QuotationCard from "@Components/QuotationCard";
 import QuoteListCard from "@Components/QuoteListCard";
 import { ViewQuotationProps } from "@Store/quotations/types";
-import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -61,7 +60,7 @@ const Quotation = ({
               },
             }}
           >
-            <a className="w-1/2 rounded-md text-white bg-pastel_green font-semibold p-2 text-center mb-4">
+            <a className="w-1/2 rounded-md text-white bg-pastel_green font-medium p-2 text-center mb-4">
               <label className="capitalize ">Update category</label>
             </a>
           </Link>
@@ -71,7 +70,7 @@ const Quotation = ({
               query: { quotationId: quotation?.id },
             }}
           >
-            <a className="w-1/2 rounded-md text-white bg-primary font-semibold p-2 text-center mb-4">
+            <a className="w-1/2 rounded-md text-white bg-primary font-medium p-2 text-center mb-4">
               Finalize Quotation
             </a>
           </Link>
@@ -79,7 +78,7 @@ const Quotation = ({
       )}
 
       {status === "WAITING" && (
-        <div className="bg-primary rounded-md text-white font-semibold p-2 text-center mb-4">
+        <div className="bg-primary rounded-md text-white font-medium p-2 text-center mb-4">
           <Link
             href={{
               pathname: "/quotations/update/status",
@@ -98,7 +97,7 @@ const Quotation = ({
 
       {status === "FOLLOWUP" && (
         <div className="flex space-x-2">
-          <div className="bg-pastel_green w-1/2 rounded-md text-white font-semibold p-2 text-center mb-4">
+          <div className="bg-pastel_green w-1/2 rounded-md text-white font-medium p-2 text-center mb-4">
             <Link
               href={{
                 pathname: "/quotations/update/status",
@@ -113,7 +112,7 @@ const Quotation = ({
               <a>Update Status</a>
             </Link>
           </div>
-          <div className="bg-red-500 w-1/2 rounded-md text-white font-semibold p-2 text-center mb-4">
+          <div className="bg-red-500 w-1/2 rounded-md text-white font-medium p-2 text-center mb-4">
             <Link
               href={{
                 pathname: "/quotations/update",
