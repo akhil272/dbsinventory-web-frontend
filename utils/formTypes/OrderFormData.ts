@@ -3,5 +3,5 @@ export type OrderStockFormData = {
   quantity: number;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
+  phoneNumber: { id: number; name: string };
 };
