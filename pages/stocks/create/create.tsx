@@ -297,7 +297,7 @@ const CreateStock = ({
               error={errors.cost?.message}
             />
             <button
-              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
+              className="bg-primary w-full rounded-lg text-md font-medium text-center text-white p-2"
               onClick={onSubmit}
             >
               {loading ? "Adding stock..." : "Submit"}
