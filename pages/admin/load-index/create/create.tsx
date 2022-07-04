@@ -51,6 +51,7 @@ const Create = ({ createLoadIndex }: CreateLoadIndexProps) => {
           placeholder="Load Index eg. 90"
           type="number"
           error={errors.name?.message}
+          inputMode="numeric"
         />
         <button
           className="bg-primary w-full rounded-lg text-lg font-normal text-center text-white p-2"

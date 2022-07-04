@@ -11,7 +11,11 @@ const ServicePriceInput = ({ services }: ServicePriceInputProps) => {
   const JsSchema = Yup.object().shape({
     service: Yup.array().of(
       Yup.object().shape({
-        price: Yup.number().required().typeError("Please enter cost"),
+        price: Yup.number()
+          .required()
+          .positive()
+          .min(1)
+          .typeError("Please enter cost"),
         name: Yup.string().required(),
         serviceId: Yup.number().required(),
       })
@@ -51,6 +55,7 @@ const ServicePriceInput = ({ services }: ServicePriceInputProps) => {
                 name={`service.${i}.price`}
                 placeholder={`Enter ${item.service.name}`}
                 type="number"
+                inputMode="numeric"
                 error={errors.service?.[i]?.price?.message}
               />
             </div>

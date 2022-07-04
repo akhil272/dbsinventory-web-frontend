@@ -47,14 +47,33 @@ const Quotation = ({
         services={quotation?.quotationServices}
       />
       {status === "PENDING" && (
-        <div className="w-full bg-primary rounded-md text-white font-semibold p-2 text-center mb-4">
+        <div className="flex space-x-2">
+          <Link
+            href={{
+              pathname: "/quotations/update/customer-category",
+              query: {
+                quotationId: id,
+                customerId: quotation?.customer.id,
+                customerName: quotation?.customer.user.firstName,
+                customerPhoneNumber: quotation?.customer.user.phoneNumber,
+                category: quotation?.customer.customerCategory.name,
+                quotationsCount: quotation?.count,
+              },
+            }}
+          >
+            <a className="w-1/2 rounded-md text-white bg-pastel_green font-semibold p-2 text-center mb-4">
+              <label className="capitalize ">Update category</label>
+            </a>
+          </Link>
           <Link
             href={{
               pathname: "/quotations/update",
               query: { quotationId: quotation?.id },
             }}
           >
-            <a>Finalize Quotation</a>
+            <a className="w-1/2 rounded-md text-white bg-primary font-semibold p-2 text-center mb-4">
+              Finalize Quotation
+            </a>
           </Link>
         </div>
       )}

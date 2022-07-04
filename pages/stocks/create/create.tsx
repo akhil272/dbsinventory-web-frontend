@@ -1,6 +1,7 @@
 import AutoComplete from "@Components/AutoComplete";
 import DatePicker from "@Components/DatePicker";
 import InputField from "@Components/InputField";
+import LoadingAnimation from "@Components/LoadingAnimation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateStockProps } from "@Store/stocks/types";
 
@@ -20,6 +21,7 @@ const CreateStock = ({
   loadIndexes,
   speedRatings,
   productLines,
+  loading,
   getBrands,
   createBrand,
   createPattern,
@@ -177,6 +179,7 @@ const CreateStock = ({
               name="dom"
               placeholder="Enter DOM"
               type="number"
+              inputMode="numeric"
               error={errors.dom?.message}
             />
             <AutoComplete
@@ -282,6 +285,7 @@ const CreateStock = ({
               name="quantity"
               placeholder="Enter quantity"
               type="number"
+              inputMode="numeric"
               error={errors.quantity?.message}
             />
             <InputField
@@ -289,13 +293,14 @@ const CreateStock = ({
               name="cost"
               placeholder="Enter cost"
               type="number"
+              inputMode="numeric"
               error={errors.cost?.message}
             />
             <button
               className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
               onClick={onSubmit}
             >
-              Submit
+              {loading ? "Adding stock..." : "Submit"}
             </button>
           </form>
         </div>

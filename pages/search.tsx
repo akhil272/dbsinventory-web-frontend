@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputField from "@Components/InputField";
 import SearchBox from "@Components/SearchBox";
+import LoadingAnimation from "@Components/LoadingAnimation";
 
 const mapStateToProps = ({ tyres }: typeof initialState) => ({
   brands: tyres.brands,
@@ -68,6 +69,9 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
     getBrands({ search: "" });
     getTyreSizes({ search: "" });
   }, []);
+  if (!brands.length) return <LoadingAnimation message="Loading brands..." />;
+  if (!tyreSizes.length)
+    return <LoadingAnimation message="Loading tyre data..." />;
   return (
     <div className="pb-4">
       <div>
@@ -101,11 +105,12 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
             error={errors.searchTerm?.message}
             name="searchTerm"
             control={control}
+            inputMode="search"
           />
 
           <button
             onClick={onSubmit}
-            className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-1"
+            className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
           >
             Search
           </button>

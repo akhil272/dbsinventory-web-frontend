@@ -79,6 +79,7 @@ const UserQuote = ({
               error={errors.quotePrice?.message}
               name="quotePrice"
               control={control}
+              inputMode="numeric"
             />
             <InputField
               type="text"

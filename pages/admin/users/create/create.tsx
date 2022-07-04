@@ -69,6 +69,7 @@ const Create = ({ createUser }) => {
                       name="email"
                       placeholder="Enter your email (optional)"
                       type="text"
+                      inputMode="email"
                       error={errors.email?.message}
                     />
                     <InputField
@@ -76,6 +77,7 @@ const Create = ({ createUser }) => {
                       name="phoneNumber"
                       placeholder="Enter your phone number"
                       type="text"
+                      inputMode="tel"
                       error={errors.phoneNumber?.message}
                     />
                     <select

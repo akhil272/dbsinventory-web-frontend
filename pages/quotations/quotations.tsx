@@ -31,10 +31,8 @@ const Quotations = ({
   const previousPage = () => {
     setPage(page - 1);
   };
-  const onCustomerCategoryChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setCustomerCategory(e.target.value);
+  const onCustomerCategoryChange = (label: string) => {
+    setCustomerCategory(label);
   };
   useEffect(() => {
     getCustomerCategories({ search: "" });

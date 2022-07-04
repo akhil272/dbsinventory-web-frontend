@@ -53,9 +53,7 @@ const UpdateCustomerCategory = ({
     getCustomerCategories({ search: "" });
   }, [getCustomerCategories]);
 
-  if (loading) {
-    return <LoadingAnimation message="Please wait.." />;
-  }
+  if (loading) return <LoadingAnimation message="Please wait..." />;
 
   return (
     <div className="pb-4">

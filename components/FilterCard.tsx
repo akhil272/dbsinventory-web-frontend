@@ -7,7 +7,7 @@ type FilterCardProps = {
   setSortBy: React.Dispatch<React.SetStateAction<string>>;
   setSearchByPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
   customerCategories: CustomerCategoryPayload[];
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (label: string) => void;
 };
 
 const FilterCard = ({
@@ -32,10 +32,10 @@ const FilterCard = ({
       <div>
         <h4 className="text-gray-500 text-center text-md">Filters</h4>
         <div className="flex flex-col justify-around text-xs pb-2">
-          <div className="flex justify-between pb-2">
+          <div className="flex items-center  justify-between pb-2">
             <div
               onClick={() => setSortBy("ASC")}
-              className={`px-2 py-1 rounded-md  ${
+              className={`px-2 py-2 rounded-md  ${
                 sortBy === "ASC" ? "bg-gray-300" : "bg-gray-50"
               }`}
             >
@@ -43,7 +43,7 @@ const FilterCard = ({
             </div>
             <div
               onClick={() => setSortBy("DESC")}
-              className={`px-2 py-1 rounded-md  ${
+              className={`px-2 py-2 rounded-md  ${
                 sortBy === "DESC" ? "bg-gray-300" : "bg-gray-50"
               }`}
             >
@@ -67,7 +67,7 @@ const FilterCard = ({
             />
             <div
               onClick={searchUserByPhoneNumber}
-              className="absolute p-1.5 flex items-center bg-gray-200 h-full right-0 rounded-r-md"
+              className="absolute p-1.5 px-5 flex items-center bg-gray-200 h-full right-0 rounded-r-md"
             >
               Go
             </div>

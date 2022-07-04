@@ -81,6 +81,7 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
                 placeholder={"Enter DOM"}
                 name={"dom"}
                 control={control}
+                inputMode="numeric"
                 error={errors.dom?.message}
                 defaultValue={stock?.dom ?? ""}
               />
@@ -101,6 +102,7 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
                 placeholder={"Enter quantity"}
                 name={"quantity"}
                 control={control}
+                inputMode="numeric"
                 error={errors.quantity?.message}
                 defaultValue={String(stock?.quantity ?? 0)}
               />
@@ -111,6 +113,7 @@ const Update = ({ stock, getStockById, updateStock, loading }: UpdateProps) => {
                 placeholder={"Enter cost"}
                 name={"cost"}
                 control={control}
+                inputMode="numeric"
                 error={errors.cost?.message}
                 defaultValue={String(stock?.cost ?? 0)}
               />

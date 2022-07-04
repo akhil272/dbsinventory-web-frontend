@@ -185,7 +185,8 @@ const GetQuote = ({
             control={control}
             name="quantity"
             placeholder="Enter quantity"
-            type="text"
+            type="number"
+            inputMode="numeric"
             error={errors.quantity?.message}
           />
           <TextAreaInputField

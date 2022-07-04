@@ -58,7 +58,7 @@ const AddOrder = ({
   }, [getOrders, router.isReady]);
 
   if (loading) {
-    return <LoadingAnimation message="Loading orders. Please wait.." />;
+    return <LoadingAnimation message="Please wait..." />;
   }
   return (
     <div className="pb-4 ">
@@ -79,6 +79,7 @@ const AddOrder = ({
                 control={control}
                 name={"quantity"}
                 type="number"
+                inputMode="numeric"
                 error={errors.quantity?.message}
               />
               <InputField
@@ -86,6 +87,7 @@ const AddOrder = ({
                 control={control}
                 type="number"
                 name={"salePrice"}
+                inputMode="numeric"
                 error={errors.salePrice?.message}
               />
               <InputField
@@ -105,6 +107,7 @@ const AddOrder = ({
                 control={control}
                 name={"phoneNumber"}
                 type="tel"
+                inputMode="tel"
                 error={errors.phoneNumber?.message}
               />
               <button
