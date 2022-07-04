@@ -223,6 +223,7 @@ const CreateQuotation = ({
             name="email"
             placeholder="Enter your email (optional)"
             type="email"
+            inputMode="email"
             error={errorsUser.email?.message}
           />
           <InputField

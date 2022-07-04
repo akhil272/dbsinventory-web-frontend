@@ -67,6 +67,7 @@ const Register = ({ register }: RegisterProps) => {
                     name="firstName"
                     placeholder="Enter first name"
                     type="text"
+                    autoComplete="on"
                     error={errors.firstName?.message}
                   />
                   <InputField
@@ -74,6 +75,7 @@ const Register = ({ register }: RegisterProps) => {
                     name="lastName"
                     placeholder="Enter last name"
                     type="text"
+                    autoComplete="on"
                     error={errors.lastName?.message}
                   />
                   <InputField
@@ -81,6 +83,8 @@ const Register = ({ register }: RegisterProps) => {
                     name="email"
                     placeholder="Enter your email (optional)"
                     type="email"
+                    inputMode="email"
+                    autoComplete="on"
                     error={errors.email?.message}
                   />
                   <InputField
@@ -88,6 +92,8 @@ const Register = ({ register }: RegisterProps) => {
                     name="phoneNumber"
                     placeholder="Enter your phone number"
                     type="tel"
+                    inputMode="tel"
+                    autoComplete="on"
                     error={errors.phoneNumber?.message}
                   />
                   <InputField
@@ -95,6 +101,7 @@ const Register = ({ register }: RegisterProps) => {
                     name="addressLine1"
                     placeholder="Enter your address line 1 [optional]"
                     type="text"
+                    autoComplete="on"
                     error={errors.addressLine1?.message}
                   />
                   <InputField
@@ -102,6 +109,7 @@ const Register = ({ register }: RegisterProps) => {
                     name="addressLine2"
                     placeholder="Enter your address line 2 [optional]"
                     type="text"
+                    autoComplete="on"
                     error={errors.addressLine2?.message}
                   />
                 </div>

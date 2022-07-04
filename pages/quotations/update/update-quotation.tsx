@@ -112,6 +112,7 @@ const UpdateQuotation = ({
           placeholder="Enter validity"
           type="number"
           name="validity"
+          inputMode="numeric"
           control={control}
           error={errors.validity?.message}
         />

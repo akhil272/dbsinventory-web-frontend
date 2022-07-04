@@ -56,6 +56,7 @@ const VerifyUser = ({ validateOtpAndVerifyPhoneNumber }: VerifyUserProps) => {
                   name="otp"
                   placeholder="Enter verification code"
                   type="number"
+                  inputMode="numeric"
                   error={errors.otp?.message}
                 />
               </div>

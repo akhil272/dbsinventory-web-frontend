@@ -106,6 +106,7 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 placeholder={"Enter phone number"}
                 name={"phoneNumber"}
                 control={control}
+                inputMode="tel"
                 error={errors.phoneNumber?.message}
                 defaultValue={user?.phoneNumber ?? ""}
               />
@@ -115,6 +116,7 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
               <InputField
                 placeholder={"Enter email"}
                 name={"email"}
+                inputMode="email"
                 control={control}
                 error={errors.email?.message}
                 defaultValue={user?.email ?? ""}

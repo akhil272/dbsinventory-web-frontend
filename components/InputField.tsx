@@ -1,6 +1,3 @@
-import EyeInvisibleOutlined from "@ant-design/icons/lib/icons/EyeInvisibleOutlined";
-import EyeOutlined from "@ant-design/icons/lib/icons/EyeOutlined";
-import { useState } from "react";
 import { Controller } from "react-hook-form";
 
 interface InputFieldProps {
@@ -11,6 +8,15 @@ interface InputFieldProps {
   name: string;
   control: any;
   defaultValue?: string;
+  inputMode?:
+    | "text"
+    | "search"
+    | "email"
+    | "tel"
+    | "url"
+    | "none"
+    | "numeric"
+    | "decimal";
 }
 
 const InputField = ({
@@ -21,36 +27,10 @@ const InputField = ({
   name,
   control,
   defaultValue = "",
+  inputMode = "text",
 }: InputFieldProps) => {
-  // const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="space-y-1">
-      {/* {type === "password" && (
-        <Controller
-          defaultValue={defaultValue}
-          control={control}
-          name={name}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <div className="flex relative">
-              <input
-                className="p-2  w-full rounded-md"
-                placeholder={placeholder}
-                value={value}
-                onChange={onChange}
-                type={showPassword ? "text" : "password"}
-                onBlur={onBlur}
-                autoComplete={autoComplete}
-              />
-              <div
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-2 bottom-5"
-              >
-                {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
-              </div>
-            </div>
-          )}
-        />
-      )} */}
       <Controller
         defaultValue={defaultValue}
         control={control}
@@ -64,16 +44,7 @@ const InputField = ({
             type={type}
             onBlur={onBlur}
             autoComplete={autoComplete}
-            inputMode={
-              type === "number" ? "numeric" : type === "tel" ? "tel" : "text"
-            }
-            pattern={
-              type === "number"
-                ? "[0-9]*"
-                : type === "tel"
-                ? 'pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"'
-                : "none"
-            }
+            inputMode={inputMode}
           />
         )}
       />

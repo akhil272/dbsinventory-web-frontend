@@ -54,8 +54,9 @@ const Update = ({ updateLoadIndex }: UpdateLoadIndexProps) => {
         <InputField
           control={control}
           name="name"
-          placeholder="Enter speed rating"
+          placeholder="Enter load index"
           type="number"
+          inputMode="numeric"
           error={errors.name?.message}
           defaultValue={String(loadIndexValue) ?? "N/A"}
         />

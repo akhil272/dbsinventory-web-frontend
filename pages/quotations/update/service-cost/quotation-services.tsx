@@ -71,6 +71,7 @@ const QuotationService = ({
             name="price"
             placeholder={`Enter cost for ${name}`}
             type="number"
+            inputMode="numeric"
             error={errors.price?.message}
           />
           <TextAreaInputField

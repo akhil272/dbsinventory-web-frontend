@@ -105,6 +105,7 @@ const Search = ({ getBrands, getTyreSizes, brands, tyreSizes }) => {
             error={errors.searchTerm?.message}
             name="searchTerm"
             control={control}
+            inputMode="search"
           />
 
           <button

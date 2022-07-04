@@ -55,8 +55,14 @@ export const CreateStockSchema = Yup.object().shape({
     .nullable(),
   quantity: Yup.number()
     .typeError("You must enter a number")
-    .required("Required"),
-  cost: Yup.number().typeError("You must enter a number").required(),
+    .required("Required")
+    .positive()
+    .min(1),
+  cost: Yup.number()
+    .typeError("You must enter a number")
+    .required()
+    .positive()
+    .min(1),
 });
 
 export const UpdateStockSchema = Yup.object().shape({
@@ -65,8 +71,14 @@ export const UpdateStockSchema = Yup.object().shape({
     .required("You must enter DOM"),
   quantity: Yup.number()
     .typeError("You must enter a number")
-    .required("Required"),
-  cost: Yup.number().typeError("You must enter a number").required(),
+    .required("Required")
+    .positive()
+    .min(1),
+  cost: Yup.number()
+    .typeError("You must enter a number")
+    .required()
+    .positive()
+    .min(1),
   purchaseDate: Yup.date().required(),
 });
 

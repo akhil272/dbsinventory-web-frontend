@@ -179,6 +179,7 @@ const CreateStock = ({
               name="dom"
               placeholder="Enter DOM"
               type="number"
+              inputMode="numeric"
               error={errors.dom?.message}
             />
             <AutoComplete
@@ -284,6 +285,7 @@ const CreateStock = ({
               name="quantity"
               placeholder="Enter quantity"
               type="number"
+              inputMode="numeric"
               error={errors.quantity?.message}
             />
             <InputField
@@ -291,6 +293,7 @@ const CreateStock = ({
               name="cost"
               placeholder="Enter cost"
               type="number"
+              inputMode="numeric"
               error={errors.cost?.message}
             />
             <button

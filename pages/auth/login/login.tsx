@@ -80,6 +80,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                     name="phoneNumber"
                     placeholder="Enter phone number"
                     type="tel"
+                    inputMode="tel"
                     error={errors.phoneNumber?.message}
                   />
                   {userOtp && (
@@ -88,6 +89,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                       name="otp"
                       placeholder="Enter otp"
                       type="number"
+                      inputMode="numeric"
                       error={errors.otp?.message}
                     />
                   )}

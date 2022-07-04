@@ -2,12 +2,20 @@ import * as Yup from "yup";
 
 export const AddUserQuoteFormSchema = Yup.object().shape({
   notes: Yup.string().notRequired().nullable(),
-  quotePrice: Yup.number().typeError("You must enter a number").required(),
+  quotePrice: Yup.number()
+    .typeError("You must enter a number")
+    .required()
+    .positive()
+    .min(1),
 });
 
 export const UpdateQuotationFrom = Yup.object().shape({
   notes: Yup.string().notRequired().nullable(),
-  validity: Yup.number().typeError("You must enter a number").required(),
+  validity: Yup.number()
+    .typeError("You must enter a number")
+    .required()
+    .positive()
+    .min(1),
 });
 
 export const UpdateCustomerCategoryFrom = Yup.object().shape({
@@ -44,7 +52,11 @@ export const CreateUserSchema = Yup.object().shape({
 });
 
 export const UpdateQuotationServiceCostSchema = Yup.object().shape({
-  price: Yup.number().required().typeError("Please enter cost"),
+  price: Yup.number()
+    .required()
+    .typeError("Please enter cost")
+    .positive()
+    .min(1),
   serviceId: Yup.number().required(),
   name: Yup.string(),
   serviceNote: Yup.string().nullable(null).notRequired(),

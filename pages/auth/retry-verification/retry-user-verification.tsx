@@ -66,6 +66,7 @@ const RetryUserVerification = ({
                   name="phoneNumber"
                   placeholder="Enter phone number"
                   type="tel"
+                  inputMode="tel"
                   error={errors.phoneNumber?.message}
                 />
                 {userOtp && (
@@ -74,6 +75,7 @@ const RetryUserVerification = ({
                     name="otp"
                     placeholder="Enter verification code"
                     type="number"
+                    inputMode="numeric"
                     error={errors.otp?.message}
                   />
                 )}
