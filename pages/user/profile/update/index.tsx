@@ -1,7 +1,7 @@
 import { initialState } from "@Store/rootReducer";
-import { getUserById } from "@Store/users/actions";
+import { getUserById, updateUserProfile } from "@Store/users/actions";
 import { connect } from "react-redux";
-import Profile from "./profile";
+import Update from "./update";
 
 const mapStateToProps = ({ users }: typeof initialState) => ({
   userProfile: users.userProfile,
@@ -10,5 +10,6 @@ const mapStateToProps = ({ users }: typeof initialState) => ({
 
 const mapDispatchToProps = () => ({
   getUserById,
+  updateUserProfile,
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Update);
