@@ -4,7 +4,7 @@ import { getUserById, updateUser } from "@Store/users/actions";
 import { connect } from "react-redux";
 import Update from "./update";
 const mapStateToProps = ({ users }: typeof initialState) => ({
-  user: users.user,
+  userProfile: users.userProfile,
   loading: users.loading,
 });
 

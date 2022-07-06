@@ -3,9 +3,27 @@ import LoadingAnimation from "@Components/LoadingAnimation";
 import { ProfileProps } from "@Store/users/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
+  const uploadedImage = React.useRef(null);
+  const handleImageUpload = (e) => {
+    const [file] = e.target.files;
+    const fileSize = file.size / 1024 / 1024;
+    if (fileSize > 2) {
+      return toast.error("Image size exceed more than 2mb.");
+    }
+    if (file) {
+      const reader = new FileReader();
+      const { current } = uploadedImage;
+      current.file = file;
+      reader.onload = (e) => {
+        current.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   const router = useRouter();
   const {
     query: { userId },
@@ -19,10 +37,17 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
   return (
     <div className="min-h-screen">
       <div className="h-1/2  rounded-lg space-y-2 flex flex-col items-center justify-center">
+        <input
+          type="file"
+          accept="image/*"
+          multiple={false}
+          onChange={handleImageUpload}
+        />
         <div className="max-h-64 max-w-64">
           <img
+            ref={uploadedImage}
             className="bg-contain max-h-64 max-w-64"
-            src="/images/Avatar.png"
+            src={"/images/Avatar.png"}
           />
         </div>
         <div className="flex flex-col -space-y-2 capitalize place-items-center">

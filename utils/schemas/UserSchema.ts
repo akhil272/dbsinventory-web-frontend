@@ -15,7 +15,7 @@ export const CreateUserSchema = Yup.object().shape({
 export const UpdateUserSchema = Yup.object().shape({
   firstName: Yup.string(),
   lastName: Yup.string(),
-  email: Yup.string().email(),
+  email: Yup.string().email().nullable(),
   phoneNumber: Yup.string().matches(/^\+[1-9]\d{1,14}$/, {
     message: "Please enter phone number in the format +91XXXXXXXXXX",
   }),

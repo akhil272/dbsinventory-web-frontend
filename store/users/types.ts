@@ -87,7 +87,7 @@ export type createUserPayload = {
   lastName: string;
   role: string;
   phoneNumber: string;
-  email?: string;
+  email?: string | null;
 };
 
 export type getUsersPayload = {
@@ -165,6 +165,12 @@ export type UsersStateProps = {
   loading: boolean;
 };
 
+export type AdminCreateUserProps = {
+  createUser: (
+    data: createUserPayload
+  ) => Promise<ApiReturnType<createUserResponse>>;
+};
+
 export type UsersDispatchProps = {
   getUsers: (payload: getUsersPayload) => Promise<ApiReturnType<UserPayload[]>>;
   createUser: (
@@ -173,7 +179,7 @@ export type UsersDispatchProps = {
 };
 
 export type UserUpdateStateProps = {
-  user: User;
+  userProfile: UserProfilePayload;
   loading: boolean;
 };
 export type UserUpdateDispatchProps = {

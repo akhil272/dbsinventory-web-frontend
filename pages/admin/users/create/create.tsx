@@ -1,12 +1,13 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AdminCreateUserProps } from "@Store/users/types";
 import { CreateUserFormData } from "@Utils/formTypes/UserFormData";
 import { CreateUserSchema } from "@Utils/schemas/UserSchema";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const Create = ({ createUser }) => {
+const Create = ({ createUser }: AdminCreateUserProps) => {
   const {
     handleSubmit,
     control,
@@ -19,7 +20,7 @@ const Create = ({ createUser }) => {
       firstName: data.firstName,
       lastName: data.lastName,
       phoneNumber: data.phoneNumber,
-      email: data.email,
+      email: data.email === "" ? null : data.email,
       role: data.role,
     });
     if (response.success) {

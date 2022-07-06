@@ -75,7 +75,7 @@ const Update = ({
       <div className="flex items-center justify-center">
         <img
           className="object-contain h-96 rounded-xl"
-          src="/images/Update_Stock.png"
+          src="/images/Update_User_Profile_Art.png"
         />
       </div>
       <div>
