@@ -44,6 +44,7 @@ const API_END_POINTS = {
   OVERVIEW: "/overview",
   ADMIN: "/admin",
   ROLE: "/role",
+  AVATAR: "/avatar",
 };
 
 enum API_METHODS {

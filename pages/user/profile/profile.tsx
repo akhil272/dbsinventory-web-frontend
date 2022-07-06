@@ -1,5 +1,8 @@
-import { WarningFilled } from "@ant-design/icons";
+import { EditOutlined, WarningFilled } from "@ant-design/icons";
+import Button from "@Components/Button";
 import LoadingAnimation from "@Components/LoadingAnimation";
+import dbsServer from "@Pages/api/dbsServer";
+import { API_END_POINTS } from "@Store/api/constants";
 import { ProfileProps } from "@Store/users/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,6 +10,8 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
+  const [confirmAvatar, setConfirmAvatar] = useState(false);
+  const [avatarForUpload, setAvatarForUpload] = useState(null);
   const uploadedImage = React.useRef(null);
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
@@ -14,6 +19,8 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
     if (fileSize > 2) {
       return toast.error("Image size exceed more than 2mb.");
     }
+    setConfirmAvatar(true);
+    setAvatarForUpload(file);
     if (file) {
       const reader = new FileReader();
       const { current } = uploadedImage;
@@ -28,25 +35,39 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
   const {
     query: { userId },
   } = router;
+  const onConfirmAvatar = async () => {};
+
+  const onCancelAvatar = () => {
+    setConfirmAvatar(false);
+  };
   useEffect(() => {
     if (router.isReady) {
       getUserById(+userId);
     }
   }, [router.isReady]);
+
   if (loading) return <LoadingAnimation message="Please wait..." />;
   return (
     <div className="min-h-screen">
-      <div className="h-1/2  rounded-lg space-y-2 flex flex-col items-center justify-center">
-        <input
-          type="file"
-          accept="image/*"
-          multiple={false}
-          onChange={handleImageUpload}
-        />
-        <div className="max-h-64 max-w-64">
+      <div className="h-1/2 rounded-lg space-y-2 flex flex-col items-center justify-center">
+        <div className="max-h-64 max-w-64 relative">
+          <div className="image-upload ">
+            <label className=" w-full " htmlFor="file-input">
+              <EditOutlined className="absolute  right-0" />
+            </label>
+            <input
+              className="hidden"
+              id="file-input"
+              type="file"
+              accept="image/*"
+              multiple={false}
+              onChange={handleImageUpload}
+            />
+          </div>
+
           <img
             ref={uploadedImage}
-            className="bg-contain max-h-64 max-w-64"
+            className="bg-contain rounded-full  max-h-64 max-w-64"
             src={"/images/Avatar.png"}
           />
         </div>
@@ -57,6 +78,20 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
           <h4 className="text-base lowercase">{userProfile?.role}</h4>
         </div>
       </div>
+      {confirmAvatar ? (
+        <div className="flex  space-x-2">
+          <Button
+            bgColor="bg-pastel_green"
+            width="w-1/2"
+            onClick={onConfirmAvatar}
+          >
+            Update
+          </Button>
+          <Button bgColor="bg-gray-400" width="w-1/2" onClick={onCancelAvatar}>
+            Cancel
+          </Button>
+        </div>
+      ) : null}
       <div className="rounded-lg  p-4 my-5 bg-white flex flex-col space-y-4">
         <div className="flex flex-col -space-y-2  ">
           <div className="text-base text-gray-400">Name</div>
