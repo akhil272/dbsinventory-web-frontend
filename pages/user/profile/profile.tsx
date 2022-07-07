@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
   const [confirmAvatar, setConfirmAvatar] = useState(false);
   const [avatarForUpload, setAvatarForUpload] = useState(null);
+  const [avatarFileName, setAvatarFileName] = useState("/images/Avatar.png");
   const uploadedImage = React.useRef(null);
   const handleImageUpload = (e) => {
     const [file] = e.target.files;
@@ -35,7 +36,22 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
   const {
     query: { userId },
   } = router;
-  const onConfirmAvatar = async () => {};
+  const onConfirmAvatar = async () => {
+    const { USERS, AVATAR } = API_END_POINTS;
+    const url = `${USERS}${AVATAR}`;
+    const formData = new FormData();
+    formData.append("image", avatarForUpload);
+    const response = await dbsServer.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if ((response.status = 201)) {
+      toast.success("Avatar uploaded.");
+      setConfirmAvatar(false);
+    }
+  };
 
   const onCancelAvatar = () => {
     setConfirmAvatar(false);
@@ -45,6 +61,21 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
       getUserById(+userId);
     }
   }, [router.isReady]);
+
+  useEffect(() => {
+    if (userProfile?.avatarId) {
+      const id = userProfile?.avatarId;
+      const getFileName = async () => {
+        const response = await dbsServer.get(`/users/avatars/${id}`);
+        if (response.status === 200) {
+          setAvatarFileName(
+            `http://localhost:3000/${response.data.data.fileName}`
+          );
+        }
+      };
+      getFileName();
+    }
+  }, [userProfile?.avatarId]);
 
   if (loading) return <LoadingAnimation message="Please wait..." />;
   return (
@@ -68,7 +99,7 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
           <img
             ref={uploadedImage}
             className="bg-contain rounded-full  max-h-64 max-w-64"
-            src={"/images/Avatar.png"}
+            src={avatarFileName}
           />
         </div>
         <div className="flex flex-col -space-y-2 capitalize place-items-center">
