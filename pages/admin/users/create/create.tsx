@@ -1,12 +1,13 @@
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AdminCreateUserProps } from "@Store/users/types";
 import { CreateUserFormData } from "@Utils/formTypes/UserFormData";
 import { CreateUserSchema } from "@Utils/schemas/UserSchema";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const Create = ({ createUser }) => {
+const Create = ({ createUser }: AdminCreateUserProps) => {
   const {
     handleSubmit,
     control,
@@ -19,7 +20,7 @@ const Create = ({ createUser }) => {
       firstName: data.firstName,
       lastName: data.lastName,
       phoneNumber: data.phoneNumber,
-      email: data.email,
+      email: data.email === "" ? null : data.email,
       role: data.role,
     });
     if (response.success) {
@@ -45,7 +46,7 @@ const Create = ({ createUser }) => {
                 <h1 className="font-semibold text-3xl ">Create User</h1>
               </div>
               <div className="flex items-center justify-center">
-                <p className="text-md py-2">Fill in the details below</p>
+                <p className="text-base py-2">Fill in the details below</p>
               </div>
               <div>
                 <form className="space-y-5" onSubmit={onSubmit}>

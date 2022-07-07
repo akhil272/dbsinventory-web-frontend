@@ -27,6 +27,7 @@ import {
 export const initialState: Users = {
   loading: false,
   user: null,
+  userProfile: null,
   users: [],
   overview: null,
 };
@@ -84,7 +85,7 @@ const reducer = (state = initialState, action: UsersActionTypes) => {
     case GET_USER_SUCCESS:
       return Object.assign({}, state, {
         loading: false,
-        user: action.payload?.data,
+        userProfile: action.payload?.data,
       });
     case GET_USER_FAIL:
       return Object.assign({}, state, { loading: false });

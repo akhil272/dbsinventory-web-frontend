@@ -1,5 +1,6 @@
 import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
+import SearchBox from "@Components/SearchBox";
 import StockSaleCard from "@Components/StockSaleCard";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AddOrderProps } from "@Store/orders/types";
@@ -15,7 +16,9 @@ const AddOrder = ({
   getOrders,
   addOrderToStock,
   loading,
+  getUsers,
   user,
+  users,
 }: AddOrderProps) => {
   const router = useRouter();
   const {
@@ -25,12 +28,14 @@ const AddOrder = ({
   const {
     handleSubmit,
     control,
-    formState: { errors },
     reset,
+    watch,
+    setValue,
+    formState: { errors },
   } = useForm<OrderStockFormData>({
     resolver: yupResolver(OrderStockSchema),
   });
-
+  const userPhoneNumber = watch("phoneNumber");
   const onSubmit = handleSubmit((data) => addOrderStock(data));
   const addOrderStock = async (data: OrderStockFormData) => {
     const response = await addOrderToStock({
@@ -39,27 +44,47 @@ const AddOrder = ({
       salePrice: data.salePrice,
       firstName: data.firstName,
       lastName: data.lastName,
-      phoneNumber: data.phoneNumber,
+      phoneNumber: data.phoneNumber.name,
     });
 
     if (response.success) {
       toast.success(`Successfully recorded sale in the system.`);
-      reset();
       getOrders({ id });
+      reset();
     }
     if (!response.success) {
       toast.error(`Failed to record sale in the system. ${response.message}`);
+      reset();
     }
   };
+
+  useEffect(() => {
+    getUsers({ search: "" });
+  }, []);
   useEffect(() => {
     if (router.isReady) {
       getOrders({ id });
     }
   }, [getOrders, router.isReady]);
 
+  useEffect(() => {
+    if (users.find((user) => user.id === userPhoneNumber?.id)) {
+      setValue(
+        "firstName",
+        users.find((user) => user.id === userPhoneNumber?.id).firstName
+      );
+      setValue(
+        "lastName",
+        users.find((user) => user.id === userPhoneNumber?.id).lastName
+      );
+    }
+  }, [userPhoneNumber]);
+
   if (loading) {
     return <LoadingAnimation message="Please wait..." />;
   }
+  if (!users?.length) return <LoadingAnimation message="Loading users..." />;
+
   return (
     <div className="pb-4 ">
       <div>
@@ -67,8 +92,7 @@ const AddOrder = ({
           className="object-contain h-96  rounded-xl"
           src="/images/Record_Sale.png"
         />
-
-        <div className="pt-10 ">
+        <div>
           <h1 className="font-bold text-2xl capitalize pb-2">Record sale</h1>
         </div>
         <div>
@@ -90,6 +114,15 @@ const AddOrder = ({
                 inputMode="numeric"
                 error={errors.salePrice?.message}
               />
+              <SearchBox
+                placeholder="Enter phone number [+91XXXXXXXXXX]"
+                control={control}
+                name={"phoneNumber"}
+                data={users?.map(({ phoneNumber, id }) => ({
+                  name: phoneNumber,
+                  id,
+                }))}
+              />
               <InputField
                 placeholder="Enter customer first name"
                 control={control}
@@ -102,14 +135,7 @@ const AddOrder = ({
                 name={"lastName"}
                 error={errors.lastName?.message}
               />
-              <InputField
-                placeholder="Enter customer phone number"
-                control={control}
-                name={"phoneNumber"}
-                type="tel"
-                inputMode="tel"
-                error={errors.phoneNumber?.message}
-              />
+
               <button
                 className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
                 onClick={onSubmit}

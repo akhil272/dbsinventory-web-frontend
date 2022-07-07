@@ -55,7 +55,7 @@ const Register = ({ register }: RegisterProps) => {
               <h1 className="font-semibold text-3xl ">Register Now</h1>
             </div>
             <div className="flex items-center justify-center">
-              <p className="text-md py-2">
+              <p className="text-base py-2">
                 Fill in the details below to register
               </p>
             </div>

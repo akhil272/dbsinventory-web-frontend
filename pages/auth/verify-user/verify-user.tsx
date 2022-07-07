@@ -46,7 +46,7 @@ const VerifyUser = ({ validateOtpAndVerifyPhoneNumber }: VerifyUserProps) => {
             <h1 className="font-semibold text-3xl ">Enter OTP</h1>
           </div>
           <div className="flex items-center justify-center">
-            <p className="text-md py-2">Please check your phone for OTP</p>
+            <p className="text-base py-2">Please check your phone for OTP</p>
           </div>
           <div>
             <form className="space-y-5" onSubmit={onSubmit}>

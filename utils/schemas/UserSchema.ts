@@ -15,7 +15,7 @@ export const CreateUserSchema = Yup.object().shape({
 export const UpdateUserSchema = Yup.object().shape({
   firstName: Yup.string(),
   lastName: Yup.string(),
-  email: Yup.string().email(),
+  email: Yup.string().email().nullable(),
   phoneNumber: Yup.string().matches(/^\+[1-9]\d{1,14}$/, {
     message: "Please enter phone number in the format +91XXXXXXXXXX",
   }),
@@ -27,4 +27,17 @@ export const RetryPhoneVerificationSchema = Yup.object().shape({
     message: "Please enter phone number in the format +91XXXXXXXXXX",
   }),
   otp: Yup.string(),
+});
+
+export const UpdateUserProfileSchema = Yup.object().shape({
+  firstName: Yup.string().optional(),
+  lastName: Yup.string().optional(),
+  email: Yup.string().email().optional(),
+  phoneNumber: Yup.string()
+    .required("Required")
+    .matches(/^\+[1-9]\d{1,14}$/, {
+      message: "Please enter phone number in the format +91XXXXXXXXXX",
+    }),
+  addressLine1: Yup.string().optional().nullable(),
+  addressLine2: Yup.string().optional().nullable(),
 });

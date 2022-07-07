@@ -1,3 +1,4 @@
+import Button from "@Components/Button";
 import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -5,19 +6,18 @@ import { getUserById } from "@Store/users/actions";
 import { UpdateUserProps } from "@Store/users/types";
 
 import { UpdateUserFormData } from "@Utils/formTypes/UserFormData";
-import { UpdateStockSchema } from "@Utils/schemas/StockSchema";
 import { UpdateUserSchema } from "@Utils/schemas/UserSchema";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
+const Update = ({ userProfile, loading, updateUser }: UpdateUserProps) => {
   const router = useRouter();
   const {
     query: { id },
   } = router;
-
+  console.log(id);
   const {
     handleSubmit,
     control,
@@ -54,14 +54,14 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
   }, [router.isReady]);
 
   useEffect(() => {
-    if (user) {
-      setValue("firstName", user.firstName);
-      setValue("lastName", user.lastName);
-      setValue("email", user.email);
-      setValue("phoneNumber", user.phoneNumber);
-      setValue("role", user.role);
+    if (userProfile) {
+      setValue("firstName", userProfile.firstName);
+      setValue("lastName", userProfile.lastName);
+      setValue("email", userProfile.email);
+      setValue("phoneNumber", userProfile.phoneNumber);
+      setValue("role", userProfile.role);
     }
-  }, [user]);
+  }, [userProfile]);
 
   if (loading) {
     return <LoadingAnimation message="Please wait.." />;
@@ -86,7 +86,7 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 name={"firstName"}
                 control={control}
                 error={errors.firstName?.message}
-                defaultValue={user?.firstName ?? ""}
+                defaultValue={userProfile?.firstName ?? ""}
               />
             </div>
             <div>
@@ -96,7 +96,7 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 name={"lastName"}
                 control={control}
                 error={errors.lastName?.message}
-                defaultValue={user?.lastName ?? ""}
+                defaultValue={userProfile?.lastName ?? ""}
               />
             </div>
 
@@ -108,7 +108,7 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 control={control}
                 inputMode="tel"
                 error={errors.phoneNumber?.message}
-                defaultValue={user?.phoneNumber ?? ""}
+                defaultValue={userProfile?.phoneNumber ?? ""}
               />
             </div>
             <div>
@@ -119,7 +119,7 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 inputMode="email"
                 control={control}
                 error={errors.email?.message}
-                defaultValue={user?.email ?? ""}
+                defaultValue={userProfile?.email ?? ""}
               />
             </div>
             <div>
@@ -140,8 +140,11 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 aria-label="Default select example"
                 {...register("role")}
               >
-                <option className="capitalize" defaultValue={user?.role ?? ""}>
-                  Current Role {user?.role ?? ""}
+                <option
+                  className="capitalize"
+                  defaultValue={userProfile?.role ?? ""}
+                >
+                  Current Role {userProfile?.role ?? ""}
                 </option>
                 <option value="user">User</option>
                 <option value="employee">Employee</option>
@@ -149,12 +152,7 @@ const Update = ({ user, loading, updateUser }: UpdateUserProps) => {
                 <option value="admin">Admin</option>
               </select>
             </div>
-            <button
-              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-              onClick={onSubmit}
-            >
-              Submit
-            </button>
+            <Button onClick={onSubmit}>Update</Button>
           </form>
         </div>
       </div>

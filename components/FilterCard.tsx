@@ -30,7 +30,7 @@ const FilterCard = ({
   return (
     <div className="p-2 bg-white rounded-md">
       <div>
-        <h4 className="text-gray-500 text-center text-md">Filters</h4>
+        <h4 className="text-gray-500 text-center text-base">Filters</h4>
         <div className="flex flex-col justify-around text-xs pb-2">
           <div className="flex items-center  justify-between pb-2">
             <div

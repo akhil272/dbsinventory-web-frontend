@@ -60,7 +60,7 @@ const UpdateCustomerCategory = ({
       <div className="items-center justify-center flex ">
         <img
           className="object-contain rounded-xl"
-          src="/images/Create_Stock.png"
+          src="/images/Update_Customer_Category_Art.png"
         />
       </div>
       <div className="mt-2">

@@ -15,7 +15,7 @@ const NotFound: React.FC<Props> = ({
             />
           </div>
           <div className="pt-10 text-center ">
-            <h1 className=" pb-1 text-md md:text-lg">{message}</h1>
+            <h1 className=" pb-1 text-base md:text-lg">{message}</h1>
           </div>
         </div>
       </div>

@@ -122,11 +122,13 @@ const UpdateQuotation = ({
           control={control}
           error={errors.notes?.message}
         />
-        <div className="flex w-full justify-center p-2 bg-primary text-white rounded-md text-sm">
-          <button onClick={onSubmit}>Update</button>
-        </div>
+        <button
+          className="flex w-full justify-center p-2 bg-primary text-white rounded-md text-sm "
+          onClick={onSubmit}
+        >
+          Update
+        </button>
       </form>
-
       <ContactCard getContactOptions={getContactOptions} />
     </div>
   );

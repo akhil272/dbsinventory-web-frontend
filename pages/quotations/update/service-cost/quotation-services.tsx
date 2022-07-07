@@ -65,7 +65,7 @@ const QuotationService = ({
     return (
       <form className="py-4" onSubmit={onSubmit}>
         <div className="space-y-2 ">
-          <h4 className="text-md text-gray-500 underline">{name}</h4>
+          <h4 className="text-base text-gray-500 underline">{name}</h4>
           <InputField
             control={control}
             name="price"

@@ -68,7 +68,7 @@ const UserQuote = ({
         adminComments={userQuoteDetails?.userQuote?.adminComments}
       />
       <div className="pt-4">
-        <h1 className="font-bold text-md capitalize ">Enter quote price</h1>
+        <h1 className="font-bold text-base capitalize ">Enter quote price</h1>
       </div>
       <div className="py-2">
         <form className="space-y-5 " onSubmit={onSubmit}>
@@ -100,7 +100,7 @@ const UserQuote = ({
       {!userQuoteDetails?.exactStock && <p>No exact stock match found.</p>}
       {userQuoteDetails?.exactStock && (
         <div className="py-6">
-          <h4 className="font-semibold text-md border-b-2 border-primary">
+          <h4 className="font-semibold text-base border-b-2 border-primary">
             Exact Match
           </h4>
           <StockCard
@@ -129,7 +129,7 @@ const UserQuote = ({
       )}
       {userQuoteDetails?.stocks.length > 0 && (
         <div className="py-6">
-          <h4 className="font-semibold text-md border-b-2 border-primary">
+          <h4 className="font-semibold text-base border-b-2 border-primary">
             Match by brand and tyre size
           </h4>
           {userQuoteDetails?.stocks?.map((stock) => (

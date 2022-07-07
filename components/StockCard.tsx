@@ -41,19 +41,19 @@ const StockCard = ({
       <div className="bg-secondary space-y-3 text-white px-1  pb-3 w-1/3 rounded-l-xl">
         <div className="px-2 pt-4 -space-y-1 ">
           <div className="text-xs">Brand</div>
-          <div className="text-md font-semibold">{brand}</div>
+          <div className="text-base font-semibold">{brand}</div>
           <div className="text-lg font-semibold">{tyreSize}</div>
         </div>
         <div className="px-2 pt-2 -space-y-1 ">
           <div className="text-xs">Pattern</div>
-          <div className="text-md font-semibold">{patternName}</div>
+          <div className="text-base font-semibold">{patternName}</div>
         </div>
         <div className="px-2 pt-2 -space-y-1 ">
           <div className="text-xs">Vendor</div>
-          <div className="text-md font-semibold">{vendor}</div>
+          <div className="text-base font-semibold">{vendor}</div>
         </div>
         <div className="px-2 pt-2">
-          <div className="text-md font-semibold">
+          <div className="text-base font-semibold">
             {role === "user" || role == undefined
               ? "Contact Us"
               : `Rs. ${cost}`}
@@ -65,21 +65,21 @@ const StockCard = ({
           <div className="flex-col w-1/2 px-2">
             <div className=" -space-y-1">
               <div className=" pt-2 text-xs">Purchase Date</div>
-              <div className="text-md font-semibold">
+              <div className="text-base font-semibold">
                 {moment(purchaseDate).format("DD/MM/YYYY")}
               </div>
             </div>
             <div className=" -space-y-1">
               <div className="pt-2 text-xs">Transport</div>
-              <div className="text-md font-semibold">{transportMode}</div>
+              <div className="text-base font-semibold">{transportMode}</div>
             </div>
             <div className=" -space-y-1">
               <div className=" pt-2 text-xs">DOM</div>
-              <div className="text-md font-semibold">{dom}</div>
+              <div className="text-base font-semibold">{dom}</div>
             </div>
             <div className=" -space-y-1">
               <div className=" pt-2 text-xs">Speed Rating</div>
-              <div className="text-md font-semibold">
+              <div className="text-base font-semibold">
                 {speedRating ? `${speedRating}` : "N/A"}
               </div>
             </div>
@@ -87,19 +87,19 @@ const StockCard = ({
           <div className="px-2 w-1/2">
             <div className=" -space-y-1">
               <div className=" pt-2 text-xs">Product Line</div>
-              <div className="text-md font-semibold">{productLine}</div>
+              <div className="text-base font-semibold">{productLine}</div>
             </div>
             <div className=" -space-y-1">
               <div className=" pt-2 text-xs">Location</div>
-              <div className="text-md font-semibold">{location}</div>
+              <div className="text-base font-semibold">{location}</div>
             </div>
             <div className=" -space-y-1">
               <div className=" pt-2 text-xs">Quantity</div>
-              <div className="text-md font-semibold">{quantity}</div>
+              <div className="text-base font-semibold">{quantity}</div>
             </div>
             <div className=" -space-y-1">
               <div className=" pt-2 text-xs">Load Index</div>
-              <div className="text-md font-semibold">
+              <div className="text-base font-semibold">
                 {loadIndex ? `${loadIndex}` : "N/A"}
               </div>
             </div>

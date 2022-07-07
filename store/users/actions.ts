@@ -9,6 +9,7 @@ import {
   GET_USER_INIT,
   GET_USER_SUCCESS,
   updateUserPayload,
+  updateUserProfilePayload,
   USERS_FETCH_FAIL,
   USERS_FETCH_INIT,
   USERS_FETCH_SUCCESS,
@@ -24,6 +25,9 @@ import {
   USER_OVERVIEW_FETCH_FAIL,
   USER_OVERVIEW_FETCH_INIT,
   USER_OVERVIEW_FETCH_SUCCESS,
+  USER_PROFILE_UPDATE_FAIL,
+  USER_PROFILE_UPDATE_INIT,
+  USER_PROFILE_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_INIT,
   USER_UPDATE_SUCCESS,
@@ -62,9 +66,28 @@ export const deleteUser = async (data: deleteUserPayload) => {
   return fetchAsync(apiArgs);
 };
 
-export const updateUser = async ({ id, ...data }: updateUserPayload) => {
+export const updateUserProfile = async ({
+  id,
+  ...data
+}: updateUserProfilePayload) => {
   const { USERS } = API_END_POINTS;
   const pathname = `${USERS}/${id}`;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: USER_PROFILE_UPDATE_INIT,
+      successType: USER_PROFILE_UPDATE_SUCCESS,
+      failureType: USER_PROFILE_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+export const updateUser = async ({ id, ...data }: updateUserPayload) => {
+  const { USERS, ROLE } = API_END_POINTS;
+  const pathname = `${USERS}${ROLE}/${id}`;
   const url = `${pathname}`;
   const apiArgs = {
     method: API_METHODS.PATCH,

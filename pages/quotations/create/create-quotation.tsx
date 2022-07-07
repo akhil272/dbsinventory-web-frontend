@@ -161,15 +161,15 @@ const CreateQuotation = ({
       );
       setValue(
         "email",
-        users.find((user) => user.id === userPhoneNumber?.id).email
+        users.find((user) => user.id === userPhoneNumber?.id).email ?? ""
       );
       setValue(
         "addressLine1",
-        users.find((user) => user.id === userPhoneNumber?.id).addressLine1 || ""
+        users.find((user) => user.id === userPhoneNumber?.id).addressLine1 ?? ""
       );
       setValue(
         "addressLine2",
-        users.find((user) => user.id === userPhoneNumber.id).addressLine2 || ""
+        users.find((user) => user.id === userPhoneNumber.id).addressLine2 ?? ""
       );
     }
   }, [userPhoneNumber]);

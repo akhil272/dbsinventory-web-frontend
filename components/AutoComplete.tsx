@@ -62,7 +62,7 @@ export default function AutoComplete({
             <div className="relative">
               <div className="relative w-full cursor-default p-1 rounded-lg bg-white text-left  focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 ">
                 <Combobox.Input
-                  className=" p-2 placeholder-slate-400 text-md  focus:outline-none  focus:ring-slate-400 block w-full rounded-md  focus:ring-1"
+                  className=" p-2 placeholder-slate-400 text-base  focus:outline-none  focus:ring-slate-400 block w-full rounded-md  focus:ring-1"
                   displayValue={(item: dataType) => item?.name}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={placeholder}

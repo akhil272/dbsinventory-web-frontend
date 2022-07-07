@@ -8,6 +8,10 @@ export const USER_DELETE_INIT = "USER:DELETE:INIT";
 export const USER_DELETE_SUCCESS = "USER:DELETE:SUCCESS";
 export const USER_DELETE_FAIL = "USER:DELETE:FAIL";
 
+export const USER_PROFILE_UPDATE_INIT = "USER_PROFILE:UPDATE:INIT";
+export const USER_PROFILE_UPDATE_SUCCESS = "USER_PROFILE:UPDATE:SUCCESS";
+export const USER_PROFILE_UPDATE_FAIL = "USER_PROFILE:UPDATE:FAIL";
+
 export const USER_UPDATE_INIT = "USER:UPDATE:INIT";
 export const USER_UPDATE_SUCCESS = "USER:UPDATE:SUCCESS";
 export const USER_UPDATE_FAIL = "USER:UPDATE:FAIL";
@@ -31,6 +35,21 @@ export type deleteUserPayload = {
   id: number;
 };
 
+export type ProfileUpdateProps = {
+  updateUserProfile: (
+    data: updateUserProfilePayload
+  ) => Promise<ApiReturnType<{}>>;
+  loading: boolean;
+  getUserById: (id: number) => Promise<ApiReturnType<UserProfilePayload>>;
+  userProfile: UserProfilePayload;
+};
+
+export type ProfileProps = {
+  loading: boolean;
+  getUserById: (id: number) => Promise<ApiReturnType<UserProfilePayload>>;
+  userProfile: UserProfilePayload;
+};
+
 export type UserPayload = {
   id: number;
   firstName: string;
@@ -42,6 +61,16 @@ export type UserPayload = {
   addressLine1: string;
   addressLine2: string;
   isPhoneNumberVerified: boolean;
+};
+
+export type updateUserProfilePayload = {
+  id: number;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  email?: string;
+  addressLine1?: string;
+  addressLine2?: string;
 };
 
 export type updateUserPayload = {
@@ -58,7 +87,7 @@ export type createUserPayload = {
   lastName: string;
   role: string;
   phoneNumber: string;
-  email?: string;
+  email?: string | null;
 };
 
 export type getUsersPayload = {
@@ -95,10 +124,25 @@ export type Overview = {
   };
 };
 
+export type UserProfilePayload = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  role: string;
+  phoneNumber: string;
+  email: string;
+  avatarId: string;
+  addressLine1: string;
+  addressLine2: string;
+  isPhoneNumberVerified: boolean;
+  isEmailVerified: boolean;
+};
+
 export type User = UserPayload;
 export type Users = {
   loading: boolean;
   user: User | null;
+  userProfile: UserPayload | null;
   users: User[];
   overview: Overview;
 };
@@ -121,6 +165,12 @@ export type UsersStateProps = {
   loading: boolean;
 };
 
+export type AdminCreateUserProps = {
+  createUser: (
+    data: createUserPayload
+  ) => Promise<ApiReturnType<createUserResponse>>;
+};
+
 export type UsersDispatchProps = {
   getUsers: (payload: getUsersPayload) => Promise<ApiReturnType<UserPayload[]>>;
   createUser: (
@@ -129,7 +179,7 @@ export type UsersDispatchProps = {
 };
 
 export type UserUpdateStateProps = {
-  user: User;
+  userProfile: UserProfilePayload;
   loading: boolean;
 };
 export type UserUpdateDispatchProps = {
@@ -171,6 +221,16 @@ type userDeleteFail = {
   type: typeof USER_DELETE_FAIL;
 };
 
+type userProfileUpdateInit = {
+  type: typeof USER_PROFILE_UPDATE_INIT;
+};
+type userProfileUpdateSuccess = {
+  type: typeof USER_PROFILE_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type userProfileUpdateFail = {
+  type: typeof USER_PROFILE_UPDATE_FAIL;
+};
 type userUpdateInit = {
   type: typeof USER_UPDATE_INIT;
 };
@@ -235,6 +295,9 @@ export type UsersActionTypes =
   | userDeleteInit
   | userDeleteSuccess
   | userDeleteFail
+  | userProfileUpdateInit
+  | userProfileUpdateSuccess
+  | userProfileUpdateFail
   | userUpdateInit
   | userUpdateSuccess
   | userUpdateFail

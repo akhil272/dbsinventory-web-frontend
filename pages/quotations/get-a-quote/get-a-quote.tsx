@@ -141,7 +141,7 @@ const GetQuote = ({
       <div>
         <form className="space-y-2 " onSubmit={onSubmit}>
           <SearchBox
-            placeholder="Enter brand name"
+            placeholder="Enter brand name*"
             control={control}
             name={"brand"}
             data={brands}
@@ -154,7 +154,7 @@ const GetQuote = ({
             data={patterns}
           />
           <SearchBox
-            placeholder="Enter tyre size name"
+            placeholder="Enter tyre size value*"
             control={control}
             name={"tyreSize"}
             data={tyreSizes?.map(({ value, id }) => ({
@@ -184,7 +184,7 @@ const GetQuote = ({
           <InputField
             control={control}
             name="quantity"
-            placeholder="Enter quantity"
+            placeholder="Enter quantity*"
             type="number"
             inputMode="numeric"
             error={errors.quantity?.message}

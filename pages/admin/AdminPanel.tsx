@@ -124,7 +124,7 @@ const AdminPanel = ({
       </div>
       <div className="py-4">
         <Link href="/admin/downloads">
-          <a className="text-md p-2 bg-primary text-white rounded-md ">
+          <a className="text-base p-2 bg-primary text-white rounded-md ">
             Download Center
           </a>
         </Link>

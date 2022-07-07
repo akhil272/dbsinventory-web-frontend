@@ -1,6 +1,6 @@
 import { ApiReturnType } from "@Store/api";
 import { Stock } from "@Store/stocks/types";
-import { User } from "@Store/users/types";
+import { getUsersPayload, User, UserPayload } from "@Store/users/types";
 
 export const ORDER_TO_STOCK_CREATE_INIT = "ORDER_TO_STOCK:CREATE:INIT";
 export const ORDER_TO_STOCK_CREATE_SUCCESS = "ORDER_TO_STOCK:CREATE:SUCCESS";
@@ -51,12 +51,14 @@ export type OrderDispatchProps = {
   addOrderToStock: (
     data: addOrderToStockPayload
   ) => Promise<ApiReturnType<createOrderToStockResponse>>;
+  getUsers: (payload: getUsersPayload) => Promise<ApiReturnType<UserPayload[]>>;
 };
 
 export type AddOrderStateProps = {
   orders: Order[];
   loading: boolean;
   user: User;
+  users: UserPayload[];
 };
 
 export type AddOrderProps = AddOrderStateProps & OrderDispatchProps;
