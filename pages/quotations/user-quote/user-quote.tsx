@@ -1,7 +1,9 @@
+import Button from "@Components/Button";
 import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuoteListCard from "@Components/QuoteListCard";
 import StockCard from "@Components/StockCard";
+import TextAreaInputField from "@Components/TextAreaInputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserQuoteProps } from "@Store/quotations/types";
 import { AddUserQuoteForm } from "@Utils/formTypes/QuotationFormData";
@@ -35,7 +37,7 @@ const UserQuote = ({
     const response = await updateUserQuoteById(data);
     if (response.success) {
       toast.success("Quote updated successfully");
-      getUserQuoteById({ id });
+      router.back();
     } else {
       toast.error("Something went wrong");
     }
@@ -81,19 +83,13 @@ const UserQuote = ({
               control={control}
               inputMode="numeric"
             />
-            <InputField
-              type="text"
+            <TextAreaInputField
               placeholder="Enter comments"
               error={errors.adminComments?.message}
               name="adminComments"
               control={control}
             />
-            <button
-              className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-              onClick={onSubmit}
-            >
-              Submit
-            </button>
+            <Button onClick={onSubmit}>Submit</Button>
           </div>
         </form>
       </div>
