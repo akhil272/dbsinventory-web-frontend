@@ -83,7 +83,7 @@ const AddOrder = ({
   if (loading) {
     return <LoadingAnimation message="Please wait..." />;
   }
-  if (!users.length) return <LoadingAnimation message="Loading users..." />;
+  if (!users?.length) return <LoadingAnimation message="Loading users..." />;
 
   return (
     <div className="pb-4 ">

@@ -14,8 +14,9 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
   const [avatarForUpload, setAvatarForUpload] = useState(null);
   const [avatarFileName, setAvatarFileName] = useState("/images/Avatar.png");
   const uploadedImage = React.useRef(null);
-  const handleImageUpload = (e) => {
-    const [file] = e.target.files;
+  const handleImageUpload = (e: React.ChangeEvent) => {
+    const target = e.target as HTMLInputElement;
+    const file = target.files[0];
     const fileSize = file.size / 1024 / 1024;
     if (fileSize > 2) {
       return toast.error("Image size exceed more than 2mb.");
@@ -98,7 +99,7 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
 
           <img
             ref={uploadedImage}
-            className="bg-contain rounded-full  max-h-64 max-w-64"
+            className="bg-contain rounded-full h-64 w-64"
             src={avatarFileName}
           />
         </div>
