@@ -11,7 +11,6 @@ import {
   WindowsOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import storage from "@Utils/storage";
 
 const itemVariants = {
@@ -39,7 +38,12 @@ const sideVariants = {
 export default function SideBar({ open, setOpen, userRole, userName, userId }) {
   const adminLink = [
     { name: "Dashboard", to: "/admin", id: 1, iconName: <WindowsOutlined /> },
-    { name: "Profile", to: "/user/profile", id: 2, iconName: <HomeOutlined /> },
+    {
+      name: "Profile",
+      to: { pathname: "/user/profile", query: { userId } },
+      id: 2,
+      iconName: <HomeOutlined />,
+    },
     {
       name: "Quotations",
       to: "/quotations",
@@ -61,16 +65,26 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
     },
   ];
   const userLink = [
-    { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
     {
       name: "Dashboard",
       to: { pathname: "/user", query: { userId } },
-      id: 2,
+      id: 1,
       iconName: <WindowsOutlined />,
+    },
+    {
+      name: "Profile",
+      to: { pathname: "/user/profile", query: { userId } },
+      id: 2,
+      iconName: <HomeOutlined />,
     },
   ];
   const managerLink = [
-    { name: "Profile", to: "/user/profile", id: 1, iconName: <HomeOutlined /> },
+    {
+      name: "Profile",
+      to: { pathname: "/user/profile", query: { userId } },
+      id: 1,
+      iconName: <HomeOutlined />,
+    },
     { name: "Search", to: "/search", id: 2, iconName: <SearchOutlined /> },
     {
       name: "Add Stock",
