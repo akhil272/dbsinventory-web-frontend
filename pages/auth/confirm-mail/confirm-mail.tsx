@@ -1,5 +1,6 @@
 import LoadingAnimation from "@Components/LoadingAnimation";
 import dbsServer from "@Pages/api/dbsServer";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -58,6 +59,11 @@ const ConfirmMail = () => {
           {!IsVerified && !alreadyVerified && "Failed to verify email."}
         </h1>
       </div>
+      <Link href="/">
+        <a className="flex justify-center  rounded-md text-center bg-primary text-white h-10  p-2 text-base">
+          Back to home
+        </a>
+      </Link>
     </div>
   );
 };
