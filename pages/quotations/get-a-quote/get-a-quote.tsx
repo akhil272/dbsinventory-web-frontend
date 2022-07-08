@@ -216,7 +216,7 @@ const GetQuote = ({
               <h3 className="font-semibold text-lg ">User Quotation List</h3>
               {userQuery.map((query, index) => (
                 <QuoteListCard
-                  key={query.id}
+                  key={index}
                   index={index}
                   id={query.id}
                   isRemoveAllowed={true}

@@ -64,7 +64,9 @@ const UserDashboard = ({
           ) : (
             <div>
               {overview?.quotationAndOrders?.customer?.quotations
-                .filter((q) => q.status !== "FOLLOWUP")
+                .filter(
+                  (q) => q.status !== "FOLLOWUP" && q.status !== "DECLINED"
+                )
                 .map((quotation) => {
                   return (
                     <QuotationCard
