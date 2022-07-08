@@ -69,6 +69,9 @@ export const QUOTATIONS_FETCH_INIT = "QUOTATIONS:FETCH:INIT";
 export const QUOTATIONS_FETCH_SUCCESS = "QUOTATIONS:FETCH:SUCCESS";
 export const QUOTATIONS_FETCH_FAIL = "QUOTATIONS:FETCH:FAIL";
 
+export type UserQuotationProps = ViewQuotationProps &
+  QuotationStatusUpdateProps;
+
 export type updateQuotationServiceCostPayload = {
   id: number;
   price: number;
