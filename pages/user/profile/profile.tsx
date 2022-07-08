@@ -57,6 +57,14 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
   const onCancelAvatar = () => {
     setConfirmAvatar(false);
   };
+
+  const verifyMail = async () => {
+    const response = await dbsServer.post("/auth/mail-confirmation-link");
+    if (response.status === 201) {
+      toast.success("Verification mail send. Please check your mail address");
+    }
+  };
+
   useEffect(() => {
     if (router.isReady) {
       getUserById(+userId);
@@ -159,12 +167,12 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
           </span>
 
           {userProfile?.isEmailVerified ? null : (
-            <div>
-              <Link href="#">
-                <a className="text-blue-500">Click Here</a>
-              </Link>{" "}
+            <p>
+              <strong onClick={verifyMail} className="text-blue-500">
+                Click Here
+              </strong>{" "}
               to verify mail id.
-            </div>
+            </p>
           )}
           {userProfile?.isPhoneNumberVerified ? null : (
             <div>

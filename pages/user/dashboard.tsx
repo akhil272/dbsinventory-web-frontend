@@ -52,7 +52,7 @@ const UserDashboard = ({
         </div>
         <div className="py-10">
           <div className="flex justify-between border-b-2 border-gray-600 pb-2 items-center">
-            <h5>Quotations History</h5>
+            <h5>Quotation History</h5>
             <Link href="/quotations/get-a-quote">
               <a className="p-1 bg-primary text-white rounded-md px-4">
                 Create New
@@ -63,8 +63,11 @@ const UserDashboard = ({
             <div>No quotations created yet.</div>
           ) : (
             <div>
-              {overview?.quotationAndOrders?.customer?.quotations.map(
-                (quotation) => {
+              {overview?.quotationAndOrders?.customer?.quotations
+                .filter(
+                  (q) => q.status !== "FOLLOWUP" && q.status !== "DECLINED"
+                )
+                .map((quotation) => {
                   return (
                     <QuotationCard
                       key={quotation.id}
@@ -77,8 +80,7 @@ const UserDashboard = ({
                       id={quotation.id}
                     />
                   );
-                }
-              )}
+                })}
             </div>
           )}
         </div>

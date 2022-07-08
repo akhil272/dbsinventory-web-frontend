@@ -1,6 +1,4 @@
-import { QuotationService } from "@Store/quotations/types";
 import moment from "moment";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 type QuotationCardProps = {
@@ -31,7 +29,9 @@ const QuotationCard = ({
       ? "bg-accepted text-white"
       : "bg-followup text-white";
   const router = useRouter();
-  const handleClick = () => {};
+  const handleClick = () => {
+    router.push({ pathname: "/user/quotation", query: { quotationId: id } });
+  };
 
   return (
     <div onClick={handleClick} className=" space-y-2 my-4 bg-white rounded-md">
