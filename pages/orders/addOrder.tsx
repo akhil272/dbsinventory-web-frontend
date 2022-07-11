@@ -1,3 +1,4 @@
+import Button from "@Components/Button";
 import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import SearchBox from "@Components/SearchBox";
@@ -45,6 +46,7 @@ const AddOrder = ({
       firstName: data.firstName,
       lastName: data.lastName,
       phoneNumber: data.phoneNumber.name,
+      email: data.email === "" ? null : data.email,
     });
 
     if (response.success) {
@@ -76,6 +78,10 @@ const AddOrder = ({
       setValue(
         "lastName",
         users.find((user) => user.id === userPhoneNumber?.id).lastName
+      );
+      setValue(
+        "email",
+        users.find((user) => user.id === userPhoneNumber?.id).email ?? ""
       );
     }
   }, [userPhoneNumber]);
@@ -115,7 +121,7 @@ const AddOrder = ({
                 error={errors.salePrice?.message}
               />
               <SearchBox
-                placeholder="Enter phone number [+91XXXXXXXXXX]"
+                placeholder="Enter phone number [+91XXXXXXXXXX]*"
                 control={control}
                 name={"phoneNumber"}
                 data={users?.map(({ phoneNumber, id }) => ({
@@ -124,24 +130,24 @@ const AddOrder = ({
                 }))}
               />
               <InputField
-                placeholder="Enter customer first name"
+                placeholder="Enter customer first name*"
                 control={control}
                 name={"firstName"}
                 error={errors.firstName?.message}
               />
               <InputField
-                placeholder="Enter customer last name"
+                placeholder="Enter customer last name*"
                 control={control}
                 name={"lastName"}
                 error={errors.lastName?.message}
               />
-
-              <button
-                className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-                onClick={onSubmit}
-              >
-                Submit
-              </button>
+              <InputField
+                placeholder="Enter email"
+                control={control}
+                name={"email"}
+                error={errors.email?.message}
+              />
+              <Button onClick={onSubmit}>Submit</Button>
             </div>
           </form>
         </div>

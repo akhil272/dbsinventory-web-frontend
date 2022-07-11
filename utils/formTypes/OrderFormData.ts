@@ -4,4 +4,5 @@ export type OrderStockFormData = {
   firstName: string;
   lastName: string;
   phoneNumber: { id: number; name: string };
+  email: string;
 };

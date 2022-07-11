@@ -35,6 +35,7 @@ export type addOrderToStockPayload = {
   firstName: string;
   lastName: string;
   phoneNumber: string;
+  email: string;
   id: number;
   salePrice: number;
   quantity: number;

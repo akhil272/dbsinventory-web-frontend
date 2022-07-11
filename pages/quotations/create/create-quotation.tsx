@@ -114,7 +114,7 @@ const CreateQuotation = ({
       user: {
         firstName: userData?.firstName,
         lastName: userData?.lastName,
-        email: userData?.email,
+        email: userData?.email === "" ? null : userData?.email,
         phoneNumber: userData?.phoneNumber.name,
         addressLine1: userData?.addressLine1,
         addressLine2: userData?.addressLine2,
@@ -196,7 +196,7 @@ const CreateQuotation = ({
       <form className="space-y-4" onSubmit={onUserSubmit}>
         <div className="flex-col space-y-2 justify-center">
           <SearchBox
-            placeholder="Enter phone number [+91XXXXXXXXXX]"
+            placeholder="Enter phone number [+91XXXXXXXXXX]*"
             control={controlUser}
             name={"phoneNumber"}
             data={users?.map(({ phoneNumber, id }) => ({
@@ -207,21 +207,21 @@ const CreateQuotation = ({
           <InputField
             control={controlUser}
             name="firstName"
-            placeholder="Enter first name"
+            placeholder="Enter first name*"
             type="text"
             error={errorsUser.firstName?.message}
           />
           <InputField
             control={controlUser}
             name="lastName"
-            placeholder="Enter last name"
+            placeholder="Enter last name*"
             type="text"
             error={errorsUser.lastName?.message}
           />
           <InputField
             control={controlUser}
             name="email"
-            placeholder="Enter your email (optional)"
+            placeholder="Enter your email"
             type="email"
             inputMode="email"
             error={errorsUser.email?.message}
@@ -229,14 +229,14 @@ const CreateQuotation = ({
           <InputField
             control={controlUser}
             name="addressLine1"
-            placeholder="Enter your address line 1 [optional]"
+            placeholder="Enter your address line 1"
             type="text"
             error={errorsUser.addressLine1?.message}
           />
           <InputField
             control={controlUser}
             name="addressLine2"
-            placeholder="Enter your address line 2 [optional]"
+            placeholder="Enter your address line 2"
             type="text"
             error={errorsUser.addressLine2?.message}
           />
@@ -274,20 +274,20 @@ const CreateQuotation = ({
       <div>
         <form className="space-y-2 " onSubmit={onSubmit}>
           <SearchBox
-            placeholder="Enter brand name"
+            placeholder="Enter brand name*"
             control={control}
             name={"brand"}
             data={brands}
             error={(errors.brand as any)?.message}
           />
           <SearchBox
-            placeholder="Enter patterns name"
+            placeholder="Enter pattern name"
             control={control}
             name={"pattern"}
             data={patterns}
           />
           <SearchBox
-            placeholder="Enter tyre size name"
+            placeholder="Enter tyre size value*"
             control={control}
             name={"tyreSize"}
             data={tyreSizes?.map(({ value, id }) => ({
@@ -317,7 +317,7 @@ const CreateQuotation = ({
           <InputField
             control={control}
             name="quantity"
-            placeholder="Enter quantity"
+            placeholder="Enter quantity*"
             type="number"
             error={errors.quantity?.message}
           />

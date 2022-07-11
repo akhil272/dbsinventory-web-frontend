@@ -3,7 +3,7 @@ import * as Yup from "yup";
 export const RegisterAuthSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
-  email: Yup.string().email().optional(),
+  email: Yup.string().email().optional().nullable(),
   phoneNumber: Yup.string()
     .required("Required")
     .matches(/^\+[1-9]\d{1,14}$/, {
