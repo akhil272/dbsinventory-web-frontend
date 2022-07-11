@@ -81,7 +81,7 @@ const Register = ({ register }: RegisterProps) => {
                   <InputField
                     control={control}
                     name="email"
-                    placeholder="Enter your email (optional)"
+                    placeholder="Enter your email [optional]"
                     type="email"
                     inputMode="email"
                     autoComplete="on"

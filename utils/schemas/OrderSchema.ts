@@ -3,6 +3,7 @@ import * as Yup from "yup";
 const OrderStockSchema = Yup.object().shape({
   firstName: Yup.string().required("Required"),
   lastName: Yup.string().required("Required"),
+  email: Yup.string().email().optional().nullable(),
   phoneNumber: Yup.object()
     .shape({
       name: Yup.string()
