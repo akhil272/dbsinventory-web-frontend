@@ -1,3 +1,4 @@
+import Button from "@Components/Button";
 import InputField from "@Components/InputField";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import SearchBox from "@Components/SearchBox";
@@ -146,12 +147,7 @@ const AddOrder = ({
                 name={"email"}
                 error={errors.email?.message}
               />
-              <button
-                className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-                onClick={onSubmit}
-              >
-                Submit
-              </button>
+              <Button onClick={onSubmit}>Submit</Button>
             </div>
           </form>
         </div>
