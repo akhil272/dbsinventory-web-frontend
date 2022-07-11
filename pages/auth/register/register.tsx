@@ -25,7 +25,7 @@ const Register = ({ register }: RegisterProps) => {
       firstName: data.firstName,
       lastName: data.lastName,
       phoneNumber: data.phoneNumber,
-      email: data.email,
+      email: data.email === "" ? null : data.email,
       addressLine1: data.addressLine1,
       addressLine2: data.addressLine2,
     });

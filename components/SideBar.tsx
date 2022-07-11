@@ -9,6 +9,7 @@ import {
   UserAddOutlined,
   DatabaseOutlined,
   WindowsOutlined,
+  BookOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import storage from "@Utils/storage";
@@ -50,17 +51,23 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
       id: 3,
       iconName: <DatabaseOutlined />,
     },
-    { name: "Search", to: "/search", id: 4, iconName: <SearchOutlined /> },
+    {
+      name: "Stocks",
+      to: "/stocks",
+      id: 4,
+      iconName: <BookOutlined />,
+    },
+    { name: "Search", to: "/search", id: 5, iconName: <SearchOutlined /> },
     {
       name: "Add Stock",
       to: "/stocks/create",
-      id: 5,
+      id: 6,
       iconName: <FileAddOutlined />,
     },
     {
       name: "Manage Users",
       to: "/admin/users",
-      id: 6,
+      id: 7,
       iconName: <UserAddOutlined />,
     },
   ];
