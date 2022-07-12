@@ -6,8 +6,6 @@ import {
   LoadIndexes,
   SpeedRating,
   TyreDataProps,
-  TyresDispatchProps,
-  TyresStateProps,
 } from "@Store/tyre/types";
 import { User } from "@Store/users/types";
 

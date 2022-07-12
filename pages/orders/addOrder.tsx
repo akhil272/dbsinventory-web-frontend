@@ -18,6 +18,7 @@ const AddOrder = ({
   addOrderToStock,
   loading,
   getUsers,
+  deleteOrder,
   user,
   users,
 }: AddOrderProps) => {
@@ -58,6 +59,13 @@ const AddOrder = ({
       toast.error(`Failed to record sale in the system. ${response.message}`);
       reset();
     }
+  };
+
+  const onRemove = async (orderId: number) => {
+    const response = await deleteOrder({ id: orderId });
+    if (response.success)
+      toast.success("Sale record removed successfully."), getOrders({ id });
+    if (!response.success) toast.error("Failed to remove record.");
   };
 
   useEffect(() => {
@@ -155,13 +163,17 @@ const AddOrder = ({
           {user?.role === "admin" &&
             orders?.map((order) => (
               <StockSaleCard
+                id={+order.id}
                 key={order.id}
                 employee_name={order.employeeName}
                 salePrice={order.salePrice}
-                customerName={`${order.customer.user.firstName} ${order.customer.user.lastName}`}
+                customerName={`${order.customer.user?.firstName ?? "Deleted"} ${
+                  order.customer.user?.lastName ?? "User"
+                }`}
                 saleDate={order.saleDate}
                 quantity={order.quantity}
                 profit={order.profit}
+                onRemove={onRemove}
               />
             ))}
         </div>
