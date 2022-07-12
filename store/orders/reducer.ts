@@ -4,6 +4,9 @@ import {
   ORDERS_FETCH_FAIL,
   ORDERS_FETCH_INIT,
   ORDERS_FETCH_SUCCESS,
+  ORDER_DELETE_FAIL,
+  ORDER_DELETE_INIT,
+  ORDER_DELETE_SUCCESS,
   ORDER_TO_STOCK_CREATE_FAIL,
   ORDER_TO_STOCK_CREATE_INIT,
   ORDER_TO_STOCK_CREATE_SUCCESS,
@@ -16,6 +19,12 @@ export const initialState: Orders = {
 
 const reducer = (state = initialState, action: OrderActionTypes) => {
   switch (action.type) {
+    case ORDER_DELETE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case ORDER_DELETE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case ORDER_DELETE_FAIL:
+      return Object.assign({}, state, { loading: false });
     case ORDER_TO_STOCK_CREATE_INIT:
       return Object.assign({}, state, { loading: true });
     case ORDER_TO_STOCK_CREATE_SUCCESS:

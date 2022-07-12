@@ -2,12 +2,21 @@ import { ApiReturnType } from "@Store/api";
 import { Stock } from "@Store/stocks/types";
 import { getUsersPayload, User, UserPayload } from "@Store/users/types";
 
+export const ORDER_DELETE_INIT = "ORDER:DELETE:INIT";
+export const ORDER_DELETE_SUCCESS = "ORDER:DELETE:SUCCESS";
+export const ORDER_DELETE_FAIL = "ORDER:DELETE:FAIL";
+
 export const ORDER_TO_STOCK_CREATE_INIT = "ORDER_TO_STOCK:CREATE:INIT";
 export const ORDER_TO_STOCK_CREATE_SUCCESS = "ORDER_TO_STOCK:CREATE:SUCCESS";
 export const ORDER_TO_STOCK_CREATE_FAIL = "ORDER_TO_STOCK:CREATE:FAIL";
+
 export const ORDERS_FETCH_INIT = "ORDERS:FETCH:INIT";
 export const ORDERS_FETCH_SUCCESS = "ORDERS:FETCH:SUCCESS";
 export const ORDERS_FETCH_FAIL = "ORDERS:FETCH:FAIL";
+
+export type deleteOrderPayload = {
+  id: number;
+};
 
 export type Order = {
   id: string;
@@ -53,6 +62,7 @@ export type OrderDispatchProps = {
     data: addOrderToStockPayload
   ) => Promise<ApiReturnType<createOrderToStockResponse>>;
   getUsers: (payload: getUsersPayload) => Promise<ApiReturnType<UserPayload[]>>;
+  deleteOrder: (data: deleteOrderPayload) => Promise<ApiReturnType<{}>>;
 };
 
 export type AddOrderStateProps = {
@@ -65,6 +75,17 @@ export type AddOrderStateProps = {
 export type AddOrderProps = AddOrderStateProps & OrderDispatchProps;
 
 export type createOrderToStockResponse = {};
+
+type orderDeleteInit = {
+  type: typeof ORDER_DELETE_INIT;
+};
+type orderDeleteSuccess = {
+  type: typeof ORDER_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type orderDeleteFail = {
+  type: typeof ORDER_DELETE_FAIL;
+};
 
 type orderToStockCreateInit = {
   type: typeof ORDER_TO_STOCK_CREATE_INIT;
@@ -89,6 +110,9 @@ type ordersFetchFail = {
 };
 
 export type OrderActionTypes =
+  | orderDeleteInit
+  | orderDeleteSuccess
+  | orderDeleteFail
   | orderToStockCreateInit
   | orderToStockCreateSuccess
   | orderToStockCreateFail

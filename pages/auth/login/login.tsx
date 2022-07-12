@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 const Login = ({ login, sendOtp }: LoginProps) => {
   const [userOtp, setUserOtp] = useState(false);
   const [showVerificationLink, setShowVerificationLink] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     handleSubmit,
@@ -21,16 +22,20 @@ const Login = ({ login, sendOtp }: LoginProps) => {
   } = useForm<LoginUserFormData>({ resolver: yupResolver(LoginSchema) });
   const onSubmit = handleSubmit((data) => handleLogin(data));
   const handleLogin = async (data: LoginUserFormData) => {
+    setIsLoading(true);
     if (!data.otp) {
       const response = await sendOtp({
         phoneNumber: data.phoneNumber,
       });
       if (response.success) {
+        setIsLoading(false);
         setUserOtp(true);
       }
       if (!response.success) {
+        setIsLoading(false);
         toast.error(`${response.message}`);
         if (response.status === 403) {
+          setIsLoading(false);
           setShowVerificationLink(true);
         }
       }
@@ -41,12 +46,14 @@ const Login = ({ login, sendOtp }: LoginProps) => {
         otp: data.otp,
       });
       if (response.success && response.data) {
+        setIsLoading(false);
         storage().setAccessToken(response.data?.accessToken);
         storage().setRefreshToken(response.data?.refreshToken);
         router.reload();
         router.push("/");
       }
       if (!response.success) {
+        setIsLoading(false);
         toast.error(`Error. ${response.message} `);
       }
     }
@@ -99,7 +106,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
                   type="button"
                   onClick={onSubmit}
                 >
-                  Submit
+                  {isLoading ? "Processing" : "Submit"}
                 </button>
                 <div className="flex">
                   Don't have an account?

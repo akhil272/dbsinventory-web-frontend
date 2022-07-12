@@ -9,7 +9,28 @@ import {
   ORDERS_FETCH_FAIL,
   ORDERS_FETCH_INIT,
   ORDERS_FETCH_SUCCESS,
+  deleteOrderPayload,
+  ORDER_DELETE_FAIL,
+  ORDER_DELETE_INIT,
+  ORDER_DELETE_SUCCESS,
 } from "./types";
+
+export const deleteOrder = async (data: deleteOrderPayload) => {
+  const { ORDERS } = API_END_POINTS;
+  const { id } = data;
+  const pathname = ORDERS;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: ORDER_DELETE_INIT,
+      successType: ORDER_DELETE_SUCCESS,
+      failureType: ORDER_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
 
 export const addOrderToStock = async (data: addOrderToStockPayload) => {
   const { ORDERS } = API_END_POINTS;
