@@ -66,10 +66,11 @@ const AddService = ({ services, setSelectedServices }: AddServiceProps) => {
         <div className="flex items-center ">
           <div className="w-2/3 pr-2">
             <SearchBox
-              placeholder="Enter brand name"
+              placeholder="Enter service"
               control={control}
               name={"service"}
               data={services}
+              addValue={false}
             />
           </div>
           <div className="w-1/3 flex space-x-1 text-white ">

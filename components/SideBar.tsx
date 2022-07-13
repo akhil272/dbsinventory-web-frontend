@@ -10,6 +10,7 @@ import {
   DatabaseOutlined,
   WindowsOutlined,
   BookOutlined,
+  SmileOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import storage from "@Utils/storage";
@@ -83,6 +84,12 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
       to: { pathname: "/user/profile", query: { userId } },
       id: 2,
       iconName: <HomeOutlined />,
+    },
+    {
+      name: "Contact Us",
+      to: "tel:+919711983699",
+      id: 3,
+      iconName: <SmileOutlined />,
     },
   ];
   const managerLink = [

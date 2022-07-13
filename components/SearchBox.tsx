@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 import { Control, Controller } from "react-hook-form";
+import { toast } from "react-toastify";
 type dataType = {
   id: number;
   name: string;
@@ -13,6 +14,7 @@ type SearchBoxProps = {
   data: dataType[];
   placeholder: string;
   error?: string;
+  addValue?: boolean;
 };
 
 export default function SearchBox({
@@ -21,12 +23,16 @@ export default function SearchBox({
   name,
   data,
   error,
+  addValue = true,
 }: SearchBoxProps) {
   const [query, setQuery] = useState("");
   const [dataState, setDataState] = useState(data);
   const addDataToExistingState = () => {
-    const newData = { id: dataState.length + 1, name: query };
-    setDataState([...dataState, newData]);
+    if (addValue) {
+      const newData = { id: dataState.length + 1, name: query };
+      return setDataState([...dataState, newData]);
+    }
+    toast.warn("Not available");
   };
   const filterData =
     query === ""

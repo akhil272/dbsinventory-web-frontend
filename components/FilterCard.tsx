@@ -67,7 +67,7 @@ const FilterCard = ({
             />
             <div
               onClick={searchUserByPhoneNumber}
-              className="absolute p-1.5 px-5 flex items-center bg-gray-200 h-full right-0 rounded-r-md"
+              className="absolute p-1.5 px-5 flex items-center bg-gray-200 h-full right-0 rounded-r-md active:bg-gray-50 active:text-gray-400"
             >
               Go
             </div>
