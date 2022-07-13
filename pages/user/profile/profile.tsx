@@ -56,6 +56,7 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
 
   const onCancelAvatar = () => {
     setConfirmAvatar(false);
+    uploadedImage.current.src = "/images/Avatar.png";
   };
 
   const verifyMail = async () => {

@@ -68,7 +68,7 @@ const UserQuotation = ({
     return <LoadingAnimation message="Loading quotation. Please wait..." />;
   }
   return (
-    <div className=" pb-4">
+    <div className="pb-4">
       <QuotationCard
         key={quotation?.id}
         price={quotation?.price}
@@ -127,6 +127,11 @@ const UserQuotation = ({
           />
         </div>
       ))}
+      <div className="flex items-end justify-end ">
+        <a className="font-bold text-primary" href="tel:+919446821132">
+          Contact Us
+        </a>
+      </div>
     </div>
   );
 };
