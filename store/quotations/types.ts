@@ -258,6 +258,7 @@ export type QuotationPayload = {
       firstName: string;
       lastName: string;
       phoneNumber: string;
+      deletedAt: Date;
     };
     quotationsCount: number;
   };

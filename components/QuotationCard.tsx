@@ -18,6 +18,7 @@ type QuotationCardProps = {
   mode?: "view" | "update";
   customerId?: number;
   services?: QuotationService[];
+  deletedAt?: Date | null;
 };
 
 const QuotationCard = ({
@@ -35,6 +36,7 @@ const QuotationCard = ({
   mode = "view",
   customerId,
   services,
+  deletedAt,
 }: QuotationCardProps) => {
   const color =
     status === "PENDING"
@@ -101,6 +103,11 @@ const QuotationCard = ({
         <label className="text-sm">{notes ? `${notes}` : "N/A"}</label>
       </div>
       {services?.length > 0 && <ServiceTags services={services} />}
+      {deletedAt && (
+        <p className="text-primary text-sm text-center pb-2">
+          Attention: The user has been deleted.
+        </p>
+      )}
     </div>
   );
 };

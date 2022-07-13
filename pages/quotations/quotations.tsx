@@ -153,18 +153,17 @@ const Quotations = ({
             id={quotation.id}
             status={quotation.status}
             key={quotation.id}
-            name={`${quotation.customer.user?.firstName ?? "User"} ${
-              quotation.customer.user?.lastName ?? "Deleted"
-            }`}
+            name={`${quotation.customer.user.firstName} ${quotation.customer.user.lastName} `}
             price={quotation.price}
             notes={quotation.notes}
             date={quotation.createdAt}
             count={quotation.count}
             validity={quotation.validity}
-            phoneNumber={quotation.customer.user?.phoneNumber ?? "Deleted"}
+            phoneNumber={quotation.customer.user.phoneNumber}
             quotationsCount={quotation.customer.quotationsCount}
             customerCategory={quotation.customer.customerCategory.name}
             services={quotation?.quotationServices}
+            deletedAt={quotation.customer.user.deletedAt}
           />
         ))}
       </div>
