@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 
 const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
   const [confirmAvatar, setConfirmAvatar] = useState(false);
+  const [verifyRequest, setVerifyRequest] = useState(false);
   const [avatarForUpload, setAvatarForUpload] = useState(null);
   const [avatarFileName, setAvatarFileName] = useState("/images/Avatar.png");
   const uploadedImage = React.useRef(null);
@@ -60,10 +61,15 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
   };
 
   const verifyMail = async () => {
+    setVerifyRequest(true);
     const response = await dbsServer.post("/auth/mail-confirmation-link");
     if (response.status === 201) {
-      toast.success("Verification mail send. Please check your mail address");
+      setVerifyRequest(false);
+      return toast.success(
+        "Verification mail send. Please check your mail address"
+      );
     }
+    setVerifyRequest(false);
   };
 
   useEffect(() => {
@@ -170,7 +176,7 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
           {userProfile?.isEmailVerified ? null : (
             <p>
               <strong onClick={verifyMail} className="text-blue-500">
-                Click Here
+                {verifyRequest ? "Sending request..." : "Click Here"}
               </strong>{" "}
               to verify mail id.
             </p>
