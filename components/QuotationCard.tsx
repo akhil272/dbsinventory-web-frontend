@@ -45,6 +45,8 @@ const QuotationCard = ({
       ? "bg-waiting text-white"
       : status === "ACCEPTED"
       ? "bg-accepted text-white"
+      : status === "DECLINED"
+      ? "bg-red-500 text-white"
       : "bg-followup text-white";
   const router = useRouter();
   const handleClick = () => {
