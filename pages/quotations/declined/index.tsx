@@ -1,4 +1,3 @@
-import { getCustomerCategories } from "@Store/customers/action";
 import { getQuotations } from "@Store/quotations/actions";
 import { initialState } from "@Store/rootReducer";
 import { connect } from "react-redux";

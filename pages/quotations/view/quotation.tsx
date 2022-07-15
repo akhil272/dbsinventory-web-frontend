@@ -96,7 +96,6 @@ const Quotation = ({
           </Link>
         </div>
       )}
-
       {status === "FOLLOWUP" && (
         <div className="flex space-x-2">
           <div className="bg-pastel_green w-1/2 rounded-md text-white text-base font-medium p-2 text-center mb-4">
