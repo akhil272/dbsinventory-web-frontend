@@ -106,7 +106,7 @@ const QuotationCard = ({
       </div>
       {services?.length > 0 && <ServiceTags services={services} />}
       {deletedAt && (
-        <p className="text-primary text-sm text-center pb-2">
+        <p className="text-primary text-sm pl-2 pb-2">
           Attention: The user has been deleted.
         </p>
       )}

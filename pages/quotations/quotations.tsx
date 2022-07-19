@@ -18,6 +18,7 @@ const Quotations = ({
 }: QuotationProps) => {
   const [page, setPage] = useState<number>(1);
   const [searchByPhoneNumber, setSearchByPhoneNumber] = useState<string>("");
+  const [viewDeletedUsers, setViewDeletedUsers] = useState(false);
   const [customerCategory, setCustomerCategory] = useState(null);
   const [quotationStatus, setQuotationStatus] = useState<string>("PENDING");
   const [sortBy, setSortBy] = useState("ASC");
@@ -34,6 +35,11 @@ const Quotations = ({
   const onCustomerCategoryChange = (label: string) => {
     setCustomerCategory(label);
   };
+
+  const onViewDeletedUsers = () => {
+    setViewDeletedUsers(!viewDeletedUsers);
+  };
+
   useEffect(() => {
     getCustomerCategories({ search: "" });
   }, [getCustomerCategories]);
@@ -137,35 +143,60 @@ const Quotations = ({
           Accepted
         </button>
       </div>
-      <div className="py-2">
+      <div>
         <FilterCard
           sortBy={sortBy}
           setSortBy={setSortBy}
           setSearchByPhoneNumber={setSearchByPhoneNumber}
           customerCategories={customerCategories}
           onChange={onCustomerCategoryChange}
+          onViewDeletedUsers={onViewDeletedUsers}
+          viewDeletedUsers={viewDeletedUsers}
         />
       </div>
 
       <div>
-        {quotations?.map((quotation) => (
-          <QuotationCard
-            id={quotation.id}
-            status={quotation.status}
-            key={quotation.id}
-            name={`${quotation.customer.user.firstName} ${quotation.customer.user.lastName} `}
-            price={quotation.price}
-            notes={quotation.notes}
-            date={quotation.createdAt}
-            count={quotation.count}
-            validity={quotation.validity}
-            phoneNumber={quotation.customer.user.phoneNumber}
-            quotationsCount={quotation.customer.quotationsCount}
-            customerCategory={quotation.customer.customerCategory.name}
-            services={quotation?.quotationServices}
-            deletedAt={quotation.customer.user.deletedAt}
-          />
-        ))}
+        {viewDeletedUsers
+          ? quotations
+              ?.filter((q) => q.customer.user.deletedAt !== null)
+              .map((quotation) => (
+                <QuotationCard
+                  id={quotation.id}
+                  status={quotation.status}
+                  key={quotation.id}
+                  name={`${quotation.customer.user.firstName} ${quotation.customer.user.lastName} `}
+                  price={quotation.price}
+                  notes={quotation.notes}
+                  date={quotation.createdAt}
+                  count={quotation.count}
+                  validity={quotation.validity}
+                  phoneNumber={quotation.customer.user.phoneNumber}
+                  quotationsCount={quotation.customer.quotationsCount}
+                  customerCategory={quotation.customer.customerCategory.name}
+                  services={quotation?.quotationServices}
+                  deletedAt={quotation.customer.user.deletedAt}
+                />
+              ))
+          : quotations
+              ?.filter((q) => q.customer.user.deletedAt === null)
+              .map((quotation) => (
+                <QuotationCard
+                  id={quotation.id}
+                  status={quotation.status}
+                  key={quotation.id}
+                  name={`${quotation.customer.user.firstName} ${quotation.customer.user.lastName} `}
+                  price={quotation.price}
+                  notes={quotation.notes}
+                  date={quotation.createdAt}
+                  count={quotation.count}
+                  validity={quotation.validity}
+                  phoneNumber={quotation.customer.user.phoneNumber}
+                  quotationsCount={quotation.customer.quotationsCount}
+                  customerCategory={quotation.customer.customerCategory.name}
+                  services={quotation?.quotationServices}
+                  deletedAt={quotation.customer.user.deletedAt}
+                />
+              ))}
       </div>
       <div className="flex place-items-center w-full pt-4 text-base justify-between">
         <button
