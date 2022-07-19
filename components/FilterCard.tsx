@@ -8,6 +8,8 @@ type FilterCardProps = {
   setSearchByPhoneNumber: React.Dispatch<React.SetStateAction<string>>;
   customerCategories: CustomerCategoryPayload[];
   onChange: (label: string) => void;
+  onViewDeletedUsers: () => void;
+  viewDeletedUsers: boolean;
 };
 
 const FilterCard = ({
@@ -16,6 +18,8 @@ const FilterCard = ({
   setSearchByPhoneNumber,
   customerCategories,
   onChange,
+  onViewDeletedUsers,
+  viewDeletedUsers,
 }: FilterCardProps) => {
   const [userInput, setUserInput] = useState("");
   const handleUserInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +35,7 @@ const FilterCard = ({
     <div className="p-2 bg-white rounded-md">
       <div>
         <h4 className="text-gray-500 text-center text-base">Filters</h4>
-        <div className="flex flex-col justify-around text-xs pb-2">
+        <div className="flex flex-col justify-around text-xs ">
           <div className="flex items-center  justify-between pb-2">
             <div
               onClick={() => setSortBy("ASC")}
@@ -71,6 +75,14 @@ const FilterCard = ({
             >
               Go
             </div>
+          </div>
+          <div className="flex items-end justify-end">
+            <p className="text-sm pt-2">
+              <span onClick={onViewDeletedUsers} className="text-primary">
+                {viewDeletedUsers ? "Hide deleted" : "View deleted"}
+              </span>{" "}
+              users quotation
+            </p>
           </div>
         </div>
       </div>

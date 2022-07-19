@@ -38,7 +38,7 @@ const UserDashboard = ({
         </h1>
       </div>
       <div>
-        <div className="lg:flex lg:space-x-6 mt-4 py-2 ">
+        <div className="lg:flex lg:space-x-6  ">
           <StatsCard
             title="Total Quotations"
             value={overview?.quotationAndOrders?.customer?.quotations?.length}
@@ -50,7 +50,7 @@ const UserDashboard = ({
             artCover="/images/Purchase_Stats_Card_Art.png"
           />
         </div>
-        <div className="py-10">
+        <div>
           <div className="flex justify-between border-b-2 border-gray-600 pb-2 items-center">
             <h5>Quotation History</h5>
             <Link href="/quotations/get-a-quote">

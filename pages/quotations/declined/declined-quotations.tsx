@@ -2,28 +2,28 @@ import FilterCard from "@Components/FilterCard";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import NotFound from "@Components/NotFound";
 import QuotationCard from "@Components/QuotationCard";
-import { QuotationProps } from "@Store/quotations/types";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-const Quotations = ({
+
+const DeclinedQuotations = ({
   quotations,
-  getQuotations,
-  loading,
   total,
-  lastPage,
   page: metaPage,
-  customerCategories,
+  lastPage,
+  loading,
+  getQuotations,
   getCustomerCategories,
-}: QuotationProps) => {
+  customerCategories,
+}) => {
   const [page, setPage] = useState<number>(1);
   const [searchByPhoneNumber, setSearchByPhoneNumber] = useState<string>("");
   const [viewDeletedUsers, setViewDeletedUsers] = useState(false);
   const [customerCategory, setCustomerCategory] = useState(null);
-  const [quotationStatus, setQuotationStatus] = useState<string>("PENDING");
-  const [sortBy, setSortBy] = useState("ASC");
+  const [sortBy, setSortBy] = useState("DESC");
   const [take, setTake] = useState<number>(10);
   const [found, setFound] = useState<boolean>(true);
+  const router = useRouter();
   const nextPage = () => {
     setPage(page + 1);
     1;
@@ -35,19 +35,14 @@ const Quotations = ({
   const onCustomerCategoryChange = (label: string) => {
     setCustomerCategory(label);
   };
-
   const onViewDeletedUsers = () => {
     setViewDeletedUsers(!viewDeletedUsers);
   };
 
   useEffect(() => {
-    getCustomerCategories({ search: "" });
-  }, [getCustomerCategories]);
-
-  useEffect(() => {
     const fetchQuotations = async () => {
       const response = await getQuotations({
-        status: quotationStatus,
+        status: "DECLINED",
         take: String(take),
         page: String(page),
         sortBy,
@@ -60,27 +55,16 @@ const Quotations = ({
       }
     };
     fetchQuotations();
-  }, [
-    getQuotations,
-    page,
-    quotationStatus,
-    sortBy,
-    searchByPhoneNumber,
-    customerCategory,
-  ]);
+  }, [getQuotations, page, sortBy, searchByPhoneNumber, customerCategory]);
+  useEffect(() => {
+    getCustomerCategories({ search: "" });
+  }, [getCustomerCategories]);
   if (loading) {
     return <LoadingAnimation message="Loading quotations. Please wait.." />;
   }
-  const handleReset = () => {
-    setSearchByPhoneNumber("");
-    setCustomerCategory(null);
-    setQuotationStatus("PENDING");
-    setSortBy("ASC");
-    setFound(true);
-  };
   if (!found) {
     return (
-      <div onClick={handleReset}>
+      <div onClick={() => router.reload()}>
         <NotFound message="Oops no quotations to list on selected filters.">
           <button className="bg-primary text-center hover:bg-red-500 text-white  py-1 w-full rounded">
             Go back
@@ -92,56 +76,7 @@ const Quotations = ({
   return (
     <div>
       <div className="flex justify-between pb-2 border-b-2 border-gray-500 mb-2">
-        <h1 className="text-xl font-semibold w-full">Quotations</h1>
-        <Link href="/quotations/create">
-          <a className="px-6 py-1 bg-primary text-sm text-center flex items-center rounded-md text-white">
-            Create
-          </a>
-        </Link>
-      </div>
-
-      <div className="grid grid-cols-2  font-bold text-white text-base gap-2 py-4">
-        <button
-          className={`p-4 rounded-md  ${
-            quotationStatus === "PENDING"
-              ? "bg-pending "
-              : "border-2 border-pending text-pending "
-          }`}
-          onClick={() => setQuotationStatus("PENDING")}
-        >
-          Pending
-        </button>
-        <button
-          className={`p-4 rounded-md  ${
-            quotationStatus === "WAITING"
-              ? "bg-waiting"
-              : "border-2 border-waiting text-waiting "
-          }`}
-          onClick={() => setQuotationStatus("WAITING")}
-        >
-          Waiting
-        </button>
-
-        <button
-          className={`p-4 rounded-md  ${
-            quotationStatus === "FOLLOWUP"
-              ? "bg-followup"
-              : "border-2 border-followup text-followup "
-          }`}
-          onClick={() => setQuotationStatus("FOLLOWUP")}
-        >
-          Follow Up
-        </button>
-        <button
-          className={`p-4 rounded-md  ${
-            quotationStatus === "ACCEPTED"
-              ? "bg-accepted"
-              : "border-2 border-accepted text-accepted "
-          }`}
-          onClick={() => setQuotationStatus("ACCEPTED")}
-        >
-          Accepted
-        </button>
+        <h1 className="text-xl font-semibold w-full">Declined Quotations</h1>
       </div>
       <div>
         <FilterCard
@@ -154,7 +89,6 @@ const Quotations = ({
           viewDeletedUsers={viewDeletedUsers}
         />
       </div>
-
       <div>
         {viewDeletedUsers
           ? quotations
@@ -244,4 +178,4 @@ const Quotations = ({
   );
 };
 
-export default Quotations;
+export default DeclinedQuotations;

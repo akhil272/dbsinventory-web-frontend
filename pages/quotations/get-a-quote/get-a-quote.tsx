@@ -148,7 +148,7 @@ const GetQuote = ({
             error={(errors.brand as any)?.message}
           />
           <SearchBox
-            placeholder="Enter patterns name"
+            placeholder="Enter pattern name"
             control={control}
             name={"pattern"}
             data={patterns}

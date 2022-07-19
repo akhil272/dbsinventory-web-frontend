@@ -1,4 +1,5 @@
 import AutoComplete from "@Components/AutoComplete";
+import Button from "@Components/Button";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdateCustomerCategoryProps } from "@Store/customers/types";
@@ -93,12 +94,7 @@ const UpdateCustomerCategory = ({
               error={(errors.customerCategory as any)?.message}
             />
 
-            <button
-              className="bg-primary w-full rounded-lg text-lg font-medium text-center text-white p-2"
-              onClick={onSubmit}
-            >
-              Update
-            </button>
+            <Button onClick={onSubmit}>Update</Button>
           </form>
         </div>
       </div>
