@@ -53,6 +53,7 @@ const Quotations = ({
         sortBy,
         search: searchByPhoneNumber,
         customerCategory: customerCategory,
+        isUserDeleted: viewDeletedUsers,
       });
       if (!response.success) {
         toast.error(`${response.message}`);
@@ -67,6 +68,7 @@ const Quotations = ({
     sortBy,
     searchByPhoneNumber,
     customerCategory,
+    viewDeletedUsers,
   ]);
   if (loading) {
     return <LoadingAnimation message="Loading quotations. Please wait.." />;
@@ -156,47 +158,24 @@ const Quotations = ({
       </div>
 
       <div>
-        {viewDeletedUsers
-          ? quotations
-              ?.filter((q) => q.customer.user.deletedAt !== null)
-              .map((quotation) => (
-                <QuotationCard
-                  id={quotation.id}
-                  status={quotation.status}
-                  key={quotation.id}
-                  name={`${quotation.customer.user.firstName} ${quotation.customer.user.lastName} `}
-                  price={quotation.price}
-                  notes={quotation.notes}
-                  date={quotation.createdAt}
-                  count={quotation.count}
-                  validity={quotation.validity}
-                  phoneNumber={quotation.customer.user.phoneNumber}
-                  quotationsCount={quotation.customer.quotationsCount}
-                  customerCategory={quotation.customer.customerCategory.name}
-                  services={quotation?.quotationServices}
-                  deletedAt={quotation.customer.user.deletedAt}
-                />
-              ))
-          : quotations
-              ?.filter((q) => q.customer.user.deletedAt === null)
-              .map((quotation) => (
-                <QuotationCard
-                  id={quotation.id}
-                  status={quotation.status}
-                  key={quotation.id}
-                  name={`${quotation.customer.user.firstName} ${quotation.customer.user.lastName} `}
-                  price={quotation.price}
-                  notes={quotation.notes}
-                  date={quotation.createdAt}
-                  count={quotation.count}
-                  validity={quotation.validity}
-                  phoneNumber={quotation.customer.user.phoneNumber}
-                  quotationsCount={quotation.customer.quotationsCount}
-                  customerCategory={quotation.customer.customerCategory.name}
-                  services={quotation?.quotationServices}
-                  deletedAt={quotation.customer.user.deletedAt}
-                />
-              ))}
+        {quotations.map((quotation) => (
+          <QuotationCard
+            id={quotation.id}
+            status={quotation.status}
+            key={quotation.id}
+            name={`${quotation.customer.user.firstName} ${quotation.customer.user.lastName} `}
+            price={quotation.price}
+            notes={quotation.notes}
+            date={quotation.createdAt}
+            count={quotation.count}
+            validity={quotation.validity}
+            phoneNumber={quotation.customer.user.phoneNumber}
+            quotationsCount={quotation.customer.quotationsCount}
+            customerCategory={quotation.customer.customerCategory.name}
+            services={quotation?.quotationServices}
+            deletedAt={quotation.customer.user.deletedAt}
+          />
+        ))}
       </div>
       <div className="flex place-items-center w-full pt-4 text-base justify-between">
         <button

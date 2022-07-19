@@ -277,6 +277,7 @@ export const getQuotations = async (payload: getQuotationsPayload) => {
     page = "",
     sortBy = "",
     customerCategory = "",
+    isUserDeleted = "",
   } = payload;
   const pathname = `${QUOTATIONS}`;
   const urlParams = new URLSearchParams();
@@ -298,6 +299,7 @@ export const getQuotations = async (payload: getQuotationsPayload) => {
   if (customerCategory) {
     urlParams.append("customerCategory", customerCategory);
   }
+  urlParams.append("isUserDeleted", String(isUserDeleted));
   const url = `${pathname}?${urlParams.toString()}`;
   const apiArgs = {
     method: API_METHODS.GET,

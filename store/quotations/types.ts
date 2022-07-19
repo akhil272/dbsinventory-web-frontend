@@ -165,6 +165,7 @@ export type getQuotationsPayload = {
   page?: string;
   sortBy?: string;
   customerCategory?: string;
+  isUserDeleted?: boolean;
 };
 
 export type getUserQuoteByIdPayload = {
