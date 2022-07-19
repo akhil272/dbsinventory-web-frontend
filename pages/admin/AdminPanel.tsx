@@ -112,14 +112,19 @@ const AdminPanel = ({
           address="/admin/transport"
         />
         <DashboardMenuItem
+          title="Service"
+          color="bg-zinc-200"
+          address="/admin/service"
+        />
+        <DashboardMenuItem
           title="Customer Category"
           color="bg-zinc-200"
           address="/admin/customer-category"
         />
         <DashboardMenuItem
-          title="Service"
+          title="Declined Quotations"
           color="bg-zinc-200"
-          address="/admin/service"
+          address="/quotations/declined"
         />
       </div>
       <div className="py-4">
