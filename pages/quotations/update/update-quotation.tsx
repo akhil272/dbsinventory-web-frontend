@@ -51,7 +51,7 @@ const UpdateQuotation = ({
     });
     if (response.success) {
       toast.success("Quotation sent successfully");
-      getQuotationById({ id });
+      router.push("/quotations");
     } else {
       toast.error("Something went wrong");
     }

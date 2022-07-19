@@ -96,7 +96,6 @@ const Quotation = ({
           </Link>
         </div>
       )}
-
       {status === "FOLLOWUP" && (
         <div className="flex space-x-2">
           <div className="bg-pastel_green w-1/2 rounded-md text-white text-base font-medium p-2 text-center mb-4">
@@ -122,6 +121,30 @@ const Quotation = ({
               }}
             >
               <a>Resend</a>
+            </Link>
+          </div>
+        </div>
+      )}
+      {status === "DECLINED" && (
+        <div className="flex space-x-2">
+          <div className="bg-pastel_green w-1/2 rounded-md text-g text-white text-base p-2 text-center mb-4">
+            <Link href={`tel:${quotation?.customer.user.phoneNumber}`}>
+              <a>Call Customer</a>
+            </Link>
+          </div>
+          <div className="bg-red-500 w-1/2 rounded-md text-white  text-base p-2 text-center mb-4">
+            <Link
+              href={{
+                pathname: "/quotations/update/status",
+                query: {
+                  quotationId: quotation?.id,
+                  status: status,
+                  customerName: quotation?.customer.user.firstName,
+                  customerPhoneNumber: quotation?.customer.user.phoneNumber,
+                },
+              }}
+            >
+              <a>Update Status</a>
             </Link>
           </div>
         </div>

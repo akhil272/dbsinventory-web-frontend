@@ -11,6 +11,7 @@ import {
   WindowsOutlined,
   BookOutlined,
   SmileOutlined,
+  StopOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import storage from "@Utils/storage";
@@ -51,6 +52,12 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
       to: "/quotations",
       id: 3,
       iconName: <DatabaseOutlined />,
+    },
+    {
+      name: "Declined Quotations",
+      to: "/quotations/declined",
+      id: 8,
+      iconName: <StopOutlined />,
     },
     {
       name: "Stocks",
@@ -105,6 +112,12 @@ export default function SideBar({ open, setOpen, userRole, userName, userId }) {
       to: "/stocks/create",
       id: 3,
       iconName: <FileAddOutlined />,
+    },
+    {
+      name: "Declined Quotations",
+      to: "/quotations/declined",
+      id: 4,
+      iconName: <StopOutlined />,
     },
   ];
   const signOutUser = () => {

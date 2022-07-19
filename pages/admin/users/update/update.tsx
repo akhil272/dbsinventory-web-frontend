@@ -17,7 +17,7 @@ const Update = ({ userProfile, loading, updateUser }: UpdateUserProps) => {
   const {
     query: { id },
   } = router;
-  console.log(id);
+
   const {
     handleSubmit,
     control,

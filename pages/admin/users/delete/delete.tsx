@@ -1,3 +1,4 @@
+import Button from "@Components/Button";
 import { DeleteUserProps } from "@Store/users/types";
 import { useRouter } from "next/router";
 import React from "react";
@@ -47,21 +48,11 @@ const DeleteAUser = ({ deleteUser }: DeleteUserProps) => {
                 <div>{role}</div>
               </div>
             </div>
-            <div className="flex flex-col space-y-2 items-center justify-center">
-              <button
-                className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-                type="button"
-                onClick={confirmDelete}
-              >
-                Yes
-              </button>
-              <button
-                className="bg-pastel_green w-full rounded-lg text-xl font-medium text-center text-white p-3"
-                type="button"
-                onClick={cancel}
-              >
+            <div className="flex space-x-2">
+              <Button onClick={confirmDelete}>Yes</Button>
+              <Button bgColor="bg-pastel_green" onClick={cancel}>
                 No
-              </button>
+              </Button>
             </div>
           </div>
         </div>
