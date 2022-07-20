@@ -2,6 +2,7 @@ import FilterCard from "@Components/FilterCard";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import NotFound from "@Components/NotFound";
 import QuotationCard from "@Components/QuotationCard";
+import { QuotationProps } from "@Store/quotations/types";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -15,7 +16,7 @@ const DeclinedQuotations = ({
   getQuotations,
   getCustomerCategories,
   customerCategories,
-}) => {
+}: QuotationProps) => {
   const [page, setPage] = useState<number>(1);
   const [searchByPhoneNumber, setSearchByPhoneNumber] = useState<string>("");
   const [viewDeletedUsers, setViewDeletedUsers] = useState(false);
@@ -98,7 +99,7 @@ const DeclinedQuotations = ({
         />
       </div>
       <div>
-        {quotations.map((quotation) => (
+        {quotations?.map((quotation) => (
           <QuotationCard
             id={quotation.id}
             status={quotation.status}
