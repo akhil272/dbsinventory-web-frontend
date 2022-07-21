@@ -3,7 +3,7 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import moment from "moment";
-import { addDays, subDays } from "date-fns";
+import { subDays } from "date-fns";
 
 interface DateData {
   startDate?: Date;
@@ -11,7 +11,18 @@ interface DateData {
   key?: string;
 }
 
-const DateRangePicker = ({ setDates, onChange, open, setOpen }) => {
+const DateRangePicker = ({ setDates }) => {
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const onChange = (ranges) => {
+    if (
+      moment(ranges.startDate).format("MM-DD-YYYY") !==
+      moment(ranges.endDate).format("MM-DD-YYYY")
+    ) {
+      setShowDatePicker(false);
+    } else if (ranges.startDate === "" && ranges.endDate === "") {
+      setShowDatePicker(false);
+    }
+  };
   const [state, setState] = useState<DateData[]>([
     {
       startDate: subDays(new Date(), 7),
@@ -23,9 +34,12 @@ const DateRangePicker = ({ setDates, onChange, open, setOpen }) => {
     const { selection } = ranges;
     onChange(selection);
     setState([selection]);
+    setDates({
+      startDate: `${String(moment(selection?.startDate).format("L"))}`,
+      endDate: `${String(moment(selection?.endDate).format("L"))}`,
+    });
   };
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
   return (
     <div>
       <div
@@ -48,15 +62,7 @@ const DateRangePicker = ({ setDates, onChange, open, setOpen }) => {
       {showDatePicker && (
         <DateRange
           editableDateInputs={true}
-          onChange={(item) => {
-            setState([item.selection]);
-            setDates({
-              startDate: `${String(
-                moment(item.selection?.startDate).format("L")
-              )}`,
-              endDate: `${String(moment(item.selection?.endDate).format("L"))}`,
-            });
-          }}
+          onChange={handleOnChange}
           moveRangeOnFirstSelection={false}
           ranges={state}
           maxDate={new Date()}

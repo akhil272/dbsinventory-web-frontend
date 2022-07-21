@@ -15,17 +15,6 @@ const DownloadSection = ({
   requireDate,
   urlAddress,
 }: DownloadSectionProps) => {
-  const [open, setOpen] = useState(false);
-  const onChange = (ranges) => {
-    if (
-      moment(ranges.startDate).format("MM-DD-YYYY") !==
-      moment(ranges.endDate).format("MM-DD-YYYY")
-    ) {
-      setOpen(false);
-    } else if (ranges.startDate === "" && ranges.endDate === "") {
-      setOpen(false);
-    }
-  };
   const [isDownloading, setIsDownloading] = useState(false);
   const [dates, setDates] = useState({
     startDate: moment(new Date()).subtract(7, "days").format("L"),
@@ -66,12 +55,7 @@ const DownloadSection = ({
           <>
             <label className="text-sm text-gray-400">Select Date Range</label>
             <div>
-              <DateRangePicker
-                setDates={setDates}
-                onChange={onChange}
-                open={open}
-                setOpen={setOpen}
-              />
+              <DateRangePicker setDates={setDates} />
             </div>
           </>
         )}
