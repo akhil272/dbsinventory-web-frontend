@@ -3,8 +3,23 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import moment from "moment";
+import { addDays } from "date-fns";
 
-const DateRangePicker = ({ state, setState }) => {
+interface DateData {
+  startDate?: Date;
+  endDate?: Date;
+  key?: string;
+}
+
+const DateRangePicker = ({ setDates }) => {
+  const [state, setState] = useState<DateData[]>([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 7),
+      key: "selection",
+    },
+  ]);
+
   const [showDatePicker, setShowDatePicker] = useState(false);
   return (
     <div>
@@ -28,9 +43,18 @@ const DateRangePicker = ({ state, setState }) => {
       {showDatePicker && (
         <DateRange
           editableDateInputs={true}
-          onChange={(item) => setState([item.selection])}
+          onChange={(item) => {
+            setState([item.selection]);
+            setDates({
+              startDate: `${String(
+                moment(item.selection?.startDate).format("L")
+              )}`,
+              endDate: `${String(moment(item.selection?.endDate).format("L"))}`,
+            });
+          }}
           moveRangeOnFirstSelection={false}
           ranges={state}
+          maxDate={new Date()}
         />
       )}
     </div>
