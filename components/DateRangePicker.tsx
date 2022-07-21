@@ -3,7 +3,7 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import moment from "moment";
-import { addDays } from "date-fns";
+import { addDays, subDays } from "date-fns";
 
 interface DateData {
   startDate?: Date;
@@ -11,14 +11,19 @@ interface DateData {
   key?: string;
 }
 
-const DateRangePicker = ({ setDates }) => {
+const DateRangePicker = ({ setDates, onChange, open, setOpen }) => {
   const [state, setState] = useState<DateData[]>([
     {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      startDate: subDays(new Date(), 7),
+      endDate: new Date(),
       key: "selection",
     },
   ]);
+  const handleOnChange = (ranges) => {
+    const { selection } = ranges;
+    onChange(selection);
+    setState([selection]);
+  };
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   return (
