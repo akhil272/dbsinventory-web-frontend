@@ -85,7 +85,7 @@ const Profile = ({ userProfile, getUserById, loading }: ProfileProps) => {
         const response = await dbsServer.get(`/users/avatars/${id}`);
         if (response.status === 200) {
           setAvatarFileName(
-            `http://localhost:3000/${response.data.data.fileName}`
+            `${process.env.BASE_URL}/${response.data.data.fileName}`
           );
         }
       };

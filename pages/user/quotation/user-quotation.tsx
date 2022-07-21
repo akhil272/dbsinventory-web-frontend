@@ -2,7 +2,7 @@ import Button from "@Components/Button";
 import QuotationCard from "@Components/Dashboard/User/QuotationCard";
 import LoadingAnimation from "@Components/LoadingAnimation";
 import QuoteListCard from "@Components/QuoteListCard";
-import dbsServer from "@Pages/api/dbsServer";
+import fetchDownloadAsync from "@Store/api/fetchDownload";
 import { UserQuotationProps } from "@Store/quotations/types";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -35,21 +35,17 @@ const UserQuotation = ({
 
   const onDownload = async () => {
     setDownloadProcessing(true);
-    await dbsServer
-      .get(
-        `manage-quotations/download/pdf/${id}`,
-
-        { responseType: "blob" }
-      )
-      .then((response) => {
-        setDownloadProcessing(false);
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", `DBS_Quotation_#${id}.pdf`);
-        document.body.appendChild(link);
-        link.click();
-      });
+    const url = `/manage-quotations/download/pdf/${id}`;
+    const response = await fetchDownloadAsync({
+      url,
+      fileType: `DBS_Quotation#${id}.pdf`,
+      contentType: "text/pdf",
+    });
+    if (response.success) {
+      setDownloadProcessing(false);
+      return toast.success("Success.");
+    }
+    toast.error("Failed to download.");
   };
 
   useEffect(() => {
