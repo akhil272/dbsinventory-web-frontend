@@ -1,3 +1,4 @@
+import Button from "@Components/Button";
 import InputField from "@Components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AdminCreateUserProps } from "@Store/users/types";
@@ -32,78 +33,79 @@ const Create = ({ createUser }: AdminCreateUserProps) => {
   };
   return (
     <div className="h-max flex justify-center">
-      <div className="max-w-xl">
-        <div>
-          <div className="items-center justify-center flex ">
-            <img
-              className="object-contain h-96 w-96 mt-2 rounded-xl"
-              src="/images/Create_User.png"
-            />
-          </div>
-          <div className="w-full rounded-2xl">
-            <div className="p-4">
-              <div className="flex items-center justify-center">
-                <h1 className="font-semibold text-3xl ">Create User</h1>
-              </div>
-              <div className="flex items-center justify-center">
-                <p className="text-base py-2">Fill in the details below</p>
-              </div>
-              <div>
-                <form className="space-y-5" onSubmit={onSubmit}>
-                  <div className="flex-col space-y-2 justify-center">
-                    <InputField
-                      control={control}
-                      name="firstName"
-                      placeholder="Enter first name"
-                      type="text"
-                      error={errors.firstName?.message}
-                    />
-                    <InputField
-                      control={control}
-                      name="lastName"
-                      placeholder="Enter last name"
-                      type="text"
-                      error={errors.lastName?.message}
-                    />
-                    <InputField
-                      control={control}
-                      name="email"
-                      placeholder="Enter your email (optional)"
-                      type="text"
-                      inputMode="email"
-                      error={errors.email?.message}
-                    />
-                    <InputField
-                      control={control}
-                      name="phoneNumber"
-                      placeholder="Enter your phone number"
-                      type="text"
-                      inputMode="tel"
-                      error={errors.phoneNumber?.message}
-                    />
-                    <select
-                      className="p-2  w-full rounded-lg "
-                      {...register("role")}
-                    >
-                      <option value="" disabled selected>
-                        Select a user role
-                      </option>
-                      <option value="user">User</option>
-                      <option value="employee">Employee</option>
-                      <option value="manager">Manager</option>
-                      <option value="admin">Admin</option>
-                    </select>
-                  </div>
-
-                  <button
-                    className="bg-primary w-full rounded-lg text-xl font-medium text-center text-white p-3"
-                    type="button"
-                    onClick={onSubmit}
+      <div>
+        <div className="items-center justify-center flex ">
+          <img
+            className="object-contain h-96 w-96 mt-2 rounded-xl"
+            src="/images/Create_User.png"
+          />
+        </div>
+        <div className="w-full rounded-2xl">
+          <div>
+            <div className="flex items-center justify-center">
+              <h1 className="font-semibold text-3xl ">Create User</h1>
+            </div>
+            <div className="flex items-center justify-center">
+              <p className="text-base py-2">Fill in the details below</p>
+            </div>
+            <div>
+              <form className="space-y-5" onSubmit={onSubmit}>
+                <div className="flex-col space-y-2 justify-center">
+                  <InputField
+                    control={control}
+                    name="firstName"
+                    placeholder="Enter first name"
+                    type="text"
+                    error={errors.firstName?.message}
+                  />
+                  <InputField
+                    control={control}
+                    name="lastName"
+                    placeholder="Enter last name"
+                    type="text"
+                    error={errors.lastName?.message}
+                  />
+                  <InputField
+                    control={control}
+                    name="email"
+                    placeholder="Enter your email (optional)"
+                    type="text"
+                    inputMode="email"
+                    error={errors.email?.message}
+                  />
+                  <InputField
+                    control={control}
+                    name="phoneNumber"
+                    placeholder="Enter your phone number"
+                    type="text"
+                    inputMode="tel"
+                    error={errors.phoneNumber?.message}
+                  />
+                  <select
+                    className="form-select 
+      block
+      w-full
+      px-3
+      py-2
+      text-base
+      font-normal
+      text-gray-700
+      transition
+      ease-in-out
+      m-0
+      focus:text-gray-700 focus:bg-white focus:outline-none rounded-md"
+                    aria-label="Default select example"
+                    {...register("role")}
                   >
-                    Submit
-                  </button>
-                </form>
-              </div>
+                    <option value="user">User</option>
+                    <option value="employee">Employee</option>
+                    <option value="manager">Manager</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+
+                <Button onClick={onSubmit}>Create</Button>
+              </form>
             </div>
           </div>
         </div>
