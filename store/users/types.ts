@@ -92,6 +92,7 @@ export type createUserPayload = {
 
 export type getUsersPayload = {
   search?: string;
+  role?: string;
 };
 export type OrderPayload = {
   id: number;
@@ -145,6 +146,9 @@ export type Users = {
   userProfile: UserPayload | null;
   users: User[];
   overview: Overview;
+  total: number;
+  page: number;
+  lastPage: number;
 };
 
 export type deleteUserResponse = {};
@@ -163,6 +167,9 @@ export type LayoutDispatchProps = {
 export type UsersStateProps = {
   users: User[];
   loading: boolean;
+  total: number;
+  lastPage: number;
+  page: number;
 };
 
 export type AdminCreateUserProps = {
@@ -197,6 +204,15 @@ export type UserDashboardProps = {
   getUserOverview: (userId: number) => Promise<ApiReturnType<Overview>>;
   overview: Overview;
   loading: boolean;
+};
+
+export type UsersResponsePayload = {
+  users: UserPayload[];
+  meta: {
+    total: number;
+    page: number;
+    lastPage: number;
+  };
 };
 
 type userOverviewFetchInit = {
@@ -269,7 +285,7 @@ type usersFetchInit = {
 };
 type usersFetchSuccess = {
   type: typeof USERS_FETCH_SUCCESS;
-  payload: ApiReturnType<UserPayload[]>;
+  payload: ApiReturnType<UsersResponsePayload>;
 };
 type usersFetchFail = {
   type: typeof USERS_FETCH_FAIL;

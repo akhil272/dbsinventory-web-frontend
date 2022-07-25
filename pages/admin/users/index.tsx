@@ -6,6 +6,9 @@ import { getUsers, createUser } from "@Store/users/actions";
 const mapStateToProps = ({ users }: typeof initialState) => ({
   users: users.users,
   loading: users.loading,
+  page: users.page,
+  lastPage: users.lastPage,
+  total: users.total,
 });
 
 const mapDispatchToProps = () => ({
