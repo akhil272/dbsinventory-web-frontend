@@ -15,14 +15,13 @@ import { useRouter } from "next/router";
 import React from "react";
 import MenuItem from "./MenuItem";
 import SubMenu from "./SubMenu";
-
 const QuotationMenu = [
-  { id: 1, name: "View all quotation", link: "/quotations" },
+  { id: 1, name: "View all quotations", link: "/quotations" },
   { id: 2, name: "Create quotation", link: "/quotations/create" },
-  { id: 3, name: "Declined quotation", link: "/quotations/declined" },
+  { id: 3, name: "Declined quotations", link: "/quotations/declined" },
 ];
 const StockMenu = [
-  { id: 1, name: "View all Stock", link: "/stocks" },
+  { id: 1, name: "View all Stocks", link: "/stocks" },
   { id: 2, name: "Add a stock", link: "/stocks/create" },
   { id: 3, name: "Search stock", link: "/search" },
 ];
@@ -32,7 +31,6 @@ const UsersMenu = [
 ];
 
 const SideBar = ({ userId, userRole, open, setOpen, userName }) => {
-  const router = useRouter();
   const signOutUser = () => {
     setOpen(!open);
     storage().clear();
@@ -42,7 +40,7 @@ const SideBar = ({ userId, userRole, open, setOpen, userName }) => {
   };
 
   return (
-    <div className="w-64 h-full fixed shadow-md bg-white right-0 z-10">
+    <div>
       <div className="py-6">
         <div className="flex items-center px-6">
           <Image width={50} height={50} src="/images/Avatar.png" />
