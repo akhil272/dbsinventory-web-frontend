@@ -13,7 +13,7 @@ const LogOut = () => {
         setCounter(counter - 1);
       }, 1000);
     if (counter === 1) {
-      router.push("/");
+      router.push("/auth/login");
     }
     return () => clearInterval(timer);
   }, [counter]);
