@@ -39,7 +39,7 @@ const SubMenu = ({
             <li
               onClick={handleClose}
               key={subMenu.id}
-              className="flex items-center active:text-white active:bg-gray-500 transition-all hover:rounded-md hover:bg-gray-200 hover:pl-1 "
+              className="flex py-1 items-center active:text-white active:bg-gray-500 transition-all hover:rounded-md hover:bg-gray-200 hover:pl-1 "
             >
               <div className="pl-2 pr-2  flex">
                 <CaretRightFilled />
