@@ -8,7 +8,7 @@ const mapStateToProps = ({ users }: typeof initialState) => ({
   user: users.user,
 });
 const Layout = ({ children, user }) => {
-  const userName = user?.firstName;
+  const userName = `${user?.firstName} ${user?.lastName}`;
   useEffect(() => {
     getUserInfo();
   }, []);
