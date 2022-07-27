@@ -42,7 +42,7 @@ const SideBar = ({ userId, userRole, open, setOpen, userName }) => {
   };
 
   return (
-    <div className="w-60 h-full fixed shadow-md bg-white right-0 z-10">
+    <div className="w-64 h-full fixed shadow-md bg-white right-0 z-10">
       <div className="py-6">
         <div className="flex items-center px-6">
           <Image width={50} height={50} src="/images/Avatar.png" />
