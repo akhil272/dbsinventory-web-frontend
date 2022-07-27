@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const LogOut = () => {
   const router = useRouter();
-  const [counter, setCounter] = useState(10);
+  const [counter, setCounter] = useState(5);
   useEffect(() => {
     const timer =
       counter > 0 &&
@@ -13,7 +13,7 @@ const LogOut = () => {
         setCounter(counter - 1);
       }, 1000);
     if (counter === 1) {
-      router.push("/auth/login");
+      router.push("/");
     }
     return () => clearInterval(timer);
   }, [counter]);

@@ -14,9 +14,9 @@ const DashboardItemCard = ({
   return (
     <div className="bg-white rounded-md p-4  w-full my-2">
       <div className="relative flex justify-between items-center">
-        <div className="flex items-center justify-center">
+        <div className="flex items-center  justify-center">
           <div className="h-10 w-10 rounded-md bg-gray-200" />
-          <div className="h-10 w-10 rounded-md flex items-center justify-center  absolute ">
+          <div className="h-10 w-10 rounded-md flex items-center justify-center absolute ">
             {icon}
           </div>
         </div>

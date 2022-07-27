@@ -11,6 +11,7 @@ import {
 import storage from "@Utils/storage";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import MenuItem from "./MenuItem";
 import SubMenu from "./SubMenu";
@@ -31,6 +32,7 @@ const UsersMenu = [
 ];
 
 const SideBar = ({ userId, userRole, open, setOpen, userName }) => {
+  const router = useRouter();
   const signOutUser = () => {
     setOpen(!open);
     storage().clear();
@@ -119,15 +121,18 @@ const SideBar = ({ userId, userRole, open, setOpen, userName }) => {
           )}
         </div>
       </div>
-      <div className="bottom-10 py-1 w-full px-6 absolute text-primary capitalize  hover:bg-gray-200  transition-all  active:text-white active:bg-gray-500">
-        <label onClick={signOutUser} className="flex items-center">
-          <div className="mr-4 flex">
-            <LeftCircleFilled />
-          </div>
-          <Link href="/logout">
-            <a>Sign out</a>
-          </Link>
-        </label>
+      <div
+        onClick={signOutUser}
+        className="bottom-10  py-1 w-full px-6 absolute text-primary capitalize  hover:bg-gray-200  transition-all  active:text-white active:bg-gray-500"
+      >
+        <a href="/logout">
+          <label className="flex items-center">
+            <div className="mr-4 flex">
+              <LeftCircleFilled />
+            </div>
+            Sign Out
+          </label>
+        </a>
       </div>
       <div className="text-center bottom-0 absolute w-full">
         <hr className="m-0" />
