@@ -1,19 +1,22 @@
 import storage from "@Utils/storage";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const LogOut = () => {
   const router = useRouter();
+  const [counter, setCounter] = useState(10);
   useEffect(() => {
-    const timeoutID = window.setTimeout(() => {
-      storage().clear();
+    const timer =
+      counter > 0 &&
+      setInterval(() => {
+        storage().clear();
+        setCounter(counter - 1);
+      }, 1000);
+    if (counter === 1) {
       router.push("/");
-    }, 5000);
-
-    return () => {
-      window.clearTimeout(timeoutID);
-    };
-  }, []);
+    }
+    return () => clearInterval(timer);
+  }, [counter]);
 
   return (
     <div className="min-h-screen flex justify-center ">
@@ -28,6 +31,9 @@ const LogOut = () => {
           <h3 className="text-lg">You have been</h3>
           <h2>Logged Out</h2>
         </div>
+        <p className="text-sm text-gray-500 text-center italic">
+          Redirecting to login page in {counter}s
+        </p>
       </div>
     </div>
   );
