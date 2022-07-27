@@ -21,10 +21,10 @@ const SubMenu = ({
 
   return (
     <div>
-      <div className="flex place-items-center ">
+      <div className="flex relative place-items-center ">
         <Link href={link}>
           <a
-            className="flex px-6 w-full py-1 items-center hover:bg-gray-200  transition-all  active:text-white active:bg-gray-500"
+            className="flex px-6 py-1 w-full items-center hover:bg-gray-200  transition-all  active:text-white active:bg-gray-500"
             onClick={handleClose}
           >
             <div className="mr-4 flex">{icon}</div>
@@ -33,7 +33,7 @@ const SubMenu = ({
         </Link>
         <CaretDownFilled
           onClick={() => setShowSubMenu(!showSubMenu)}
-          className={`absolute right-6  transition-all ${
+          className={`absolute w-1/5 right-0 flex justify-center h-full items-center  transition-all ${
             showSubMenu ? "rotate-180" : "rotate-0"
           }`}
         />
