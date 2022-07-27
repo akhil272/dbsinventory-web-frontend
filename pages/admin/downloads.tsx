@@ -1,55 +1,6 @@
-import DateRangePicker from "@Components/DateRangePicker";
-import dbsServer from "@Pages/api/dbsServer";
-import { addDays } from "date-fns";
-import moment from "moment";
-import { useState } from "react";
-
-interface DateData {
-  startDate?: Date;
-  endDate?: Date;
-  key?: string;
-}
+import DownloadSection from "@Components/Dashboard/Admin/DownloadSection";
 
 const Downloads = () => {
-  const [state, setState] = useState<DateData[]>([
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
-      key: "selection",
-    },
-  ]);
-  const handleExportStocks = async () => {
-    const { data } = await dbsServer.post(
-      "/stocks/export",
-      {
-        startDate: `${String(moment(state[0]?.startDate).format("L"))}`,
-        endDate: `${String(moment(state[0]?.endDate).format("L"))}`,
-      },
-      { responseType: "blob" }
-    );
-    const blob = new Blob([data], { type: "text/csv" });
-    const url = window.URL.createObjectURL(data);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "stocks.csv";
-    link.click();
-  };
-  const handleExportOrders = async () => {
-    const { data } = await dbsServer.post(
-      "/orders/export",
-      {
-        startDate: `${String(moment(state[0]?.startDate).format("L"))}`,
-        endDate: `${String(moment(state[0]?.endDate).format("L"))}`,
-      },
-      { responseType: "blob" }
-    );
-    const blob = new Blob([data], { type: "text/csv" });
-    const url = window.URL.createObjectURL(data);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "orders.csv";
-    link.click();
-  };
   return (
     <div className="pb-4">
       <div className="flex items-center justify-center">
@@ -58,45 +9,97 @@ const Downloads = () => {
           src="/images/Admin_Panel.png"
         />
       </div>
-
       <div className="mt-2">
         <h1 className="font-bold text-2xl pb-4">Download Center</h1>
       </div>
       <div className="space-y-4">
-        <div className="w-full ">
-          <div className="bg-white p-2 rounded-md relative ">
-            <div className="absolute top-0 right-0">
-              <button
-                onClick={handleExportStocks}
-                className="p-2 bg-primary rounded-tr-md rounded-bl-md text-white font-normal"
-              >
-                Download
-              </button>
-            </div>
-            <div className="font-medium text-xl my-2">Stocks</div>
-            <label className="text-sm text-gray-400">Select Date Range</label>
-            <div>
-              <DateRangePicker state={state} setState={setState} />
-            </div>
-          </div>
-        </div>
-        <div className="w-full ">
-          <div className="bg-white p-2 rounded-md relative ">
-            <div className="absolute top-0 right-0">
-              <button
-                onClick={handleExportOrders}
-                className="p-2 bg-primary rounded-tr-md rounded-bl-md text-white font-normal"
-              >
-                Download
-              </button>
-            </div>
-            <div className="font-medium text-xl my-2">Orders</div>
-            <label className="text-sm text-gray-400">Select Date Range</label>
-            <div>
-              <DateRangePicker state={state} setState={setState} />
-            </div>
-          </div>
-        </div>
+        <DownloadSection
+          title="Stocks"
+          requireDate={true}
+          urlAddress="stocks"
+        />
+        <DownloadSection
+          title="Orders"
+          requireDate={true}
+          urlAddress="orders"
+        />
+        <DownloadSection title="Users" requireDate={true} urlAddress="users" />
+        <DownloadSection
+          title="Customers"
+          requireDate={true}
+          urlAddress="customers"
+        />
+        <DownloadSection
+          title="Quotations"
+          requireDate={true}
+          urlAddress="quotations"
+        />
+        <DownloadSection
+          title="User Quotes"
+          requireDate={true}
+          urlAddress="user-quote"
+        />
+        <div className="pt-4 px-2 uppercase">System Data</div>
+        <DownloadSection
+          title="Brands"
+          requireDate={false}
+          urlAddress="brand"
+        />
+        <DownloadSection
+          title="Patterns"
+          requireDate={false}
+          urlAddress="pattern"
+        />
+        <DownloadSection
+          title="Tyre Size"
+          requireDate={false}
+          urlAddress="tyre-size"
+        />
+        <DownloadSection
+          title="Tyre Details"
+          requireDate={false}
+          urlAddress="tyre-detail"
+        />
+        <DownloadSection
+          title="Product Line"
+          requireDate={false}
+          urlAddress="product-line"
+        />
+        <DownloadSection
+          title="Speed Rating"
+          requireDate={false}
+          urlAddress="speed-rating"
+        />
+        <DownloadSection
+          title="Load Index"
+          requireDate={false}
+          urlAddress="load-index"
+        />
+        <DownloadSection
+          title="Locations"
+          requireDate={false}
+          urlAddress="location"
+        />
+        <DownloadSection
+          title="Transport Modes"
+          requireDate={false}
+          urlAddress="transport"
+        />
+        <DownloadSection
+          title="Vendors"
+          requireDate={false}
+          urlAddress="vendor"
+        />
+        <DownloadSection
+          title="Customer Categories"
+          requireDate={false}
+          urlAddress="customer-category"
+        />
+        <DownloadSection
+          title="Services"
+          requireDate={false}
+          urlAddress="services"
+        />
       </div>
     </div>
   );

@@ -3,9 +3,43 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import moment from "moment";
+import { subDays } from "date-fns";
 
-const DateRangePicker = ({ state, setState }) => {
+interface DateData {
+  startDate?: Date;
+  endDate?: Date;
+  key?: string;
+}
+
+const DateRangePicker = ({ setDates }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const onChange = (ranges) => {
+    if (
+      moment(ranges.startDate).format("MM-DD-YYYY") !==
+      moment(ranges.endDate).format("MM-DD-YYYY")
+    ) {
+      setShowDatePicker(false);
+    } else if (ranges.startDate === "" && ranges.endDate === "") {
+      setShowDatePicker(false);
+    }
+  };
+  const [state, setState] = useState<DateData[]>([
+    {
+      startDate: subDays(new Date(), 7),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+  const handleOnChange = (ranges) => {
+    const { selection } = ranges;
+    onChange(selection);
+    setState([selection]);
+    setDates({
+      startDate: `${String(moment(selection?.startDate).format("L"))}`,
+      endDate: `${String(moment(selection?.endDate).format("L"))}`,
+    });
+  };
+
   return (
     <div>
       <div
@@ -28,9 +62,10 @@ const DateRangePicker = ({ state, setState }) => {
       {showDatePicker && (
         <DateRange
           editableDateInputs={true}
-          onChange={(item) => setState([item.selection])}
+          onChange={handleOnChange}
           moveRangeOnFirstSelection={false}
           ranges={state}
+          maxDate={new Date()}
         />
       )}
     </div>

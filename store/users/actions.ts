@@ -138,12 +138,8 @@ export const createUser = async (data: createUserPayload) => {
 export const getUsers = async (payload: getUsersPayload) => {
   const { USERS, SEARCH } = API_END_POINTS;
   const { search = "" } = payload;
-  const pathname = `${USERS}`;
-  const urlParams = new URLSearchParams();
-  if (search) {
-    urlParams.append(SEARCH, search);
-  }
-  const url = `${pathname}?${urlParams}`;
+  const pathname = `${USERS}?${SEARCH}`;
+  const url = `${pathname}${search}`;
   const apiArgs = {
     method: API_METHODS.GET,
     url,

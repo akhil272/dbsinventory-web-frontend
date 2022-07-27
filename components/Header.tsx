@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MenuOutlined } from "@ant-design/icons";
-import SideBar from "./SideBar";
+import SideBar from "./SideBar/SideBar";
 import Link from "next/link";
 const Header = ({ userRole, userName, userId }) => {
   const [open, setOpen] = useState(false);

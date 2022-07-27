@@ -16,7 +16,7 @@ const refreshSession = async (payload: ApiPayload): Promise<ApiReturnType> => {
   const refreshToken = storage().getRefreshToken();
   if (!accessToken || !refreshToken) {
     storage().clear();
-    router.push("/login");
+    router.push("/auth/login");
     return failureResponse;
   }
   const API_URL = `${process.env.BASE_URL}${AUTH}${REFRESH}`;
@@ -43,12 +43,12 @@ const refreshSession = async (payload: ApiPayload): Promise<ApiReturnType> => {
       return await fetchAsync(apiArgs);
     } else {
       storage().clear();
-      router.push("/login");
+      router.push("/auth/login");
       return failureResponse;
     }
   } catch (err) {
     storage().clear();
-    router.push("/login");
+    router.push("/auth/login");
     return failureResponse;
   }
 };

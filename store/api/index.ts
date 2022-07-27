@@ -73,7 +73,7 @@ const fetchAsync = async (payload: ApiPayload): Promise<ApiReturnType> => {
     if (response?.status === 401) {
       if (retried) {
         storage().clear();
-        Router.push("/login");
+        Router.push("/auth/login");
       }
       return await refreshSession(payload);
     }

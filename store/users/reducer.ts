@@ -29,6 +29,9 @@ export const initialState: Users = {
   user: null,
   userProfile: null,
   users: [],
+  total: 1,
+  page: 1,
+  lastPage: 1,
   overview: null,
 };
 
@@ -73,9 +76,16 @@ const reducer = (state = initialState, action: UsersActionTypes) => {
     case USERS_FETCH_INIT:
       return Object.assign({}, state, { loading: true });
     case USERS_FETCH_SUCCESS: {
+      const {
+        users,
+        meta: { total, page, lastPage },
+      } = action.payload.data;
       return Object.assign({}, state, {
         loading: false,
-        users: action.payload?.data,
+        users,
+        total,
+        page,
+        lastPage,
       });
     }
     case USERS_FETCH_FAIL:

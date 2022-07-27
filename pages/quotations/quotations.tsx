@@ -158,7 +158,7 @@ const Quotations = ({
       </div>
 
       <div>
-        {quotations.map((quotation) => (
+        {quotations?.map((quotation) => (
           <QuotationCard
             id={quotation.id}
             status={quotation.status}
