@@ -21,7 +21,7 @@ const SubMenu = ({
 
   return (
     <div>
-      <div className="flex relative place-items-center ">
+      <div className="flex relative">
         <Link href={link}>
           <a
             className="flex px-6 py-1 w-full items-center hover:bg-gray-200  transition-all  active:text-white active:bg-gray-500"
@@ -31,12 +31,14 @@ const SubMenu = ({
             {title}
           </a>
         </Link>
-        <CaretDownFilled
-          onClick={() => setShowSubMenu(!showSubMenu)}
+        <div
           className={`absolute w-1/5 right-0 flex justify-center h-full items-center  transition-all ${
             showSubMenu ? "rotate-180" : "rotate-0"
           }`}
-        />
+          onClick={() => setShowSubMenu(!showSubMenu)}
+        >
+          <CaretDownFilled />
+        </div>
       </div>
       {showSubMenu && (
         <ul className="flex flex-col px-6  py-2 space-y-1">
