@@ -11,17 +11,17 @@ import {
 import storage from "@Utils/storage";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 import MenuItem from "./MenuItem";
 import SubMenu from "./SubMenu";
-
 const QuotationMenu = [
-  { id: 1, name: "View all quotation", link: "/quotations" },
+  { id: 1, name: "View all quotations", link: "/quotations" },
   { id: 2, name: "Create quotation", link: "/quotations/create" },
-  { id: 3, name: "Declined quotation", link: "/quotations/declined" },
+  { id: 3, name: "Declined quotations", link: "/quotations/declined" },
 ];
 const StockMenu = [
-  { id: 1, name: "View all Stock", link: "/stocks" },
+  { id: 1, name: "View all Stocks", link: "/stocks" },
   { id: 2, name: "Add a stock", link: "/stocks/create" },
   { id: 3, name: "Search stock", link: "/search" },
 ];
@@ -40,7 +40,7 @@ const SideBar = ({ userId, userRole, open, setOpen, userName }) => {
   };
 
   return (
-    <div className="w-60 h-full fixed shadow-md bg-white right-0 z-10">
+    <div>
       <div className="py-6">
         <div className="flex items-center px-6">
           <Image width={50} height={50} src="/images/Avatar.png" />
@@ -119,15 +119,18 @@ const SideBar = ({ userId, userRole, open, setOpen, userName }) => {
           )}
         </div>
       </div>
-      <div className="bottom-10 py-1 w-full px-6 absolute text-primary capitalize  hover:bg-gray-200  transition-all  active:text-white active:bg-gray-500">
-        <label onClick={signOutUser} className="flex items-center">
-          <div className="mr-4 flex">
-            <LeftCircleFilled />
-          </div>
-          <Link href="/logout">
-            <a>Sign out</a>
-          </Link>
-        </label>
+      <div
+        onClick={signOutUser}
+        className="bottom-10  py-1 w-full px-6 absolute text-primary capitalize  hover:bg-gray-200  transition-all  active:text-white active:bg-gray-500"
+      >
+        <a href="/logout">
+          <label className="flex items-center">
+            <div className="mr-4 flex">
+              <LeftCircleFilled />
+            </div>
+            Sign Out
+          </label>
+        </a>
       </div>
       <div className="text-center bottom-0 absolute w-full">
         <hr className="m-0" />
