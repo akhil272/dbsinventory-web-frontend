@@ -1,7 +1,7 @@
 import fetchAsync, { ApiReturnType, ApiPayload } from ".";
 import storage from "../../utils/storage";
 import { API_END_POINTS, API_METHODS } from "./constants";
-import { useRouter } from "next/router";
+import Router from "next/router";
 const failureResponse: ApiReturnType = {
   success: false,
   status: 401,
@@ -10,13 +10,12 @@ const failureResponse: ApiReturnType = {
 };
 
 const refreshSession = async (payload: ApiPayload): Promise<ApiReturnType> => {
-  const router = useRouter();
   const { AUTH, REFRESH } = API_END_POINTS;
   const accessToken = storage().getAccessToken();
   const refreshToken = storage().getRefreshToken();
   if (!accessToken || !refreshToken) {
     storage().clear();
-    router.push("/auth/login");
+    Router.push("/auth/login");
     return failureResponse;
   }
   const API_URL = `${process.env.BASE_URL}${AUTH}${REFRESH}`;
@@ -35,7 +34,7 @@ const refreshSession = async (payload: ApiPayload): Promise<ApiReturnType> => {
     if (responseJson?.data?.accessToken) {
       storage().setAccessToken(responseJson?.data?.accessToken);
       storage().setRefreshToken(responseJson?.data?.refreshToken);
-      router.replace("/");
+      Router.replace("/");
       const apiArgs = {
         ...payload,
         retried: true,
@@ -43,12 +42,12 @@ const refreshSession = async (payload: ApiPayload): Promise<ApiReturnType> => {
       return await fetchAsync(apiArgs);
     } else {
       storage().clear();
-      router.push("/auth/login");
+      Router.push("/auth/login");
       return failureResponse;
     }
   } catch (err) {
     storage().clear();
-    router.push("/auth/login");
+    Router.push("/auth/login");
     return failureResponse;
   }
 };
