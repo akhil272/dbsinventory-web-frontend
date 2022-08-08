@@ -69,6 +69,22 @@ import {
   VEHICLE_BRAND_UPDATE_FAIL,
   VEHICLE_BRAND_UPDATE_INIT,
   VEHICLE_BRAND_UPDATE_SUCCESS,
+  getVehicleModelsPayload,
+  VEHICLE_MODELS_FETCH_FAIL,
+  VEHICLE_MODELS_FETCH_INIT,
+  VEHICLE_MODELS_FETCH_SUCCESS,
+  VEHICLE_MODEL_CREATE_FAIL,
+  VEHICLE_MODEL_CREATE_INIT,
+  VEHICLE_MODEL_CREATE_SUCCESS,
+  VEHICLE_MODEL_DELETE_FAIL,
+  VEHICLE_MODEL_DELETE_INIT,
+  VEHICLE_MODEL_DELETE_SUCCESS,
+  VEHICLE_MODEL_UPDATE_FAIL,
+  VEHICLE_MODEL_UPDATE_INIT,
+  VEHICLE_MODEL_UPDATE_SUCCESS,
+  deleteVehicleModelPayload,
+  updateVehicleModelPayload,
+  createVehicleModelPayload,
 } from "./types";
 
 export const getOverview = async (data: getOverviewPayload) => {
@@ -83,6 +99,81 @@ export const getOverview = async (data: getOverviewPayload) => {
       requestType: OVERVIEW_FETCH_INIT,
       successType: OVERVIEW_FETCH_SUCCESS,
       failureType: OVERVIEW_FETCH_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const deleteVehicleModel = async (data: deleteVehicleModelPayload) => {
+  const { VEHICLE_MODEL } = API_END_POINTS;
+  const { id } = data;
+  const pathname = VEHICLE_MODEL;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.DELETE,
+    url,
+    TYPES: {
+      requestType: VEHICLE_MODEL_DELETE_INIT,
+      successType: VEHICLE_MODEL_DELETE_SUCCESS,
+      failureType: VEHICLE_MODEL_DELETE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const updateVehicleModel = async ({
+  id,
+  ...data
+}: updateVehicleModelPayload) => {
+  const { VEHICLE_MODEL } = API_END_POINTS;
+  const pathname = VEHICLE_MODEL;
+  const url = `${pathname}/${id}`;
+  const apiArgs = {
+    method: API_METHODS.PATCH,
+    url,
+    data,
+    TYPES: {
+      requestType: VEHICLE_MODEL_UPDATE_INIT,
+      successType: VEHICLE_MODEL_UPDATE_SUCCESS,
+      failureType: VEHICLE_MODEL_UPDATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const createVehicleModel = async (data: createVehicleModelPayload) => {
+  const { VEHICLE_MODEL } = API_END_POINTS;
+  const pathname = VEHICLE_MODEL;
+  const url = `${pathname}`;
+  const apiArgs = {
+    method: API_METHODS.POST,
+    url,
+    data,
+    TYPES: {
+      requestType: VEHICLE_MODEL_CREATE_INIT,
+      successType: VEHICLE_MODEL_CREATE_SUCCESS,
+      failureType: VEHICLE_MODEL_CREATE_FAIL,
+    },
+  };
+  return fetchAsync(apiArgs);
+};
+
+export const getVehicleModels = async (payload: getVehicleModelsPayload) => {
+  const { VEHICLE_MODEL, SEARCH } = API_END_POINTS;
+  const { search = "" } = payload;
+  const pathname = `${VEHICLE_MODEL}`;
+  const urlParams = new URLSearchParams();
+  if (search) {
+    urlParams.append(SEARCH, search);
+  }
+  const url = `${pathname}?${urlParams}`;
+  const apiArgs = {
+    method: API_METHODS.GET,
+    url,
+    TYPES: {
+      requestType: VEHICLE_MODELS_FETCH_INIT,
+      successType: VEHICLE_MODELS_FETCH_SUCCESS,
+      failureType: VEHICLE_MODELS_FETCH_FAIL,
     },
   };
   return fetchAsync(apiArgs);
