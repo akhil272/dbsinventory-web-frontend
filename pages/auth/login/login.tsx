@@ -49,8 +49,7 @@ const Login = ({ login, sendOtp }: LoginProps) => {
         setIsLoading(false);
         storage().setAccessToken(response.data?.accessToken);
         storage().setRefreshToken(response.data?.refreshToken);
-        router.reload();
-        router.push("/");
+        router.replace("/");
       }
       if (!response.success) {
         setIsLoading(false);

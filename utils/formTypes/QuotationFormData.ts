@@ -36,6 +36,14 @@ export type UserQueryFormData = {
     id: number;
     name: string;
   };
+  vehicleBrand: {
+    id: number;
+    name: string;
+  };
+  vehicleModel: {
+    id: number;
+    name: string;
+  };
   tyreSize: { id: number; name: string };
   speedRating?: { id: number; name: string };
   quantity: number;

@@ -3,6 +3,14 @@ export const GenericSchema = Yup.object().shape({
   name: Yup.string().required(),
 });
 
+export const CreateVehicleModelSchema = Yup.object().shape({
+  vehicleBrand: Yup.object()
+    .shape({
+      name: Yup.string().required(),
+    })
+    .typeError("Please select a brand from drop down."),
+  model: Yup.string().required().typeError("Please enter name for model"),
+});
 export const CreatePatternSchema = Yup.object().shape({
   brand: Yup.object()
     .shape({

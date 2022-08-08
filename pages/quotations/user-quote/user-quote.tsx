@@ -56,6 +56,12 @@ const UserQuote = ({
       <QuoteListCard
         index={userQuoteDetails?.userQuote?.id}
         type="advanced"
+        vehicleBrand={
+          userQuoteDetails?.userQuote?.vehicleBrand ?? "Error please refresh"
+        }
+        vehicleModel={
+          userQuoteDetails?.userQuote?.vehicleModel ?? "Error please refresh"
+        }
         brand={userQuoteDetails?.userQuote?.brandName ?? "Error please refresh"}
         pattern={userQuoteDetails?.userQuote?.patternName ?? "-"}
         tyreSize={

@@ -91,7 +91,7 @@ const SideBar = ({ userId, userRole, open, setOpen, userName }) => {
                 icon={<SwitcherFilled />}
                 title="Stock"
                 subMenuItem={StockMenu}
-                link="/stocks"
+                link="/search"
                 handleClose={handleCloseSideBar}
               />
             </>

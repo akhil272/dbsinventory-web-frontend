@@ -9,6 +9,13 @@ export type CreatePatternFormData = {
   };
   name: string;
 };
+export type CreateVehicleModelFormData = {
+  vehicleBrand: {
+    id: number;
+    name: string;
+  };
+  model: string;
+};
 
 export type CreateTyreSizeFormData = {
   brand: {

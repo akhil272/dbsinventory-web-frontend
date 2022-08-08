@@ -117,6 +117,16 @@ const AdminPanel = ({
           address="/admin/service"
         />
         <DashboardMenuItem
+          title="Vehicle Brand"
+          color="bg-zinc-200"
+          address="/admin/vehicle-brand"
+        />
+        <DashboardMenuItem
+          title="Vehicle Model"
+          color="bg-zinc-200"
+          address="/admin/vehicle-model"
+        />
+        <DashboardMenuItem
           title="Customer Category"
           color="bg-zinc-200"
           address="/admin/customer-category"

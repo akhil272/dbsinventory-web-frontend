@@ -162,6 +162,8 @@ const Quotation = ({
               <QuoteListCard
                 index={quote.id}
                 key={quote?.id}
+                vehicleBrand={quote?.vehicleBrand ?? "Error please refresh"}
+                vehicleModel={quote?.vehicleModel ?? "Error please refresh"}
                 brand={quote?.brandName ?? "Error please refresh"}
                 pattern={quote?.patternName ?? "-"}
                 tyreSize={quote?.tyreSizeValue ?? "Error please refresh"}

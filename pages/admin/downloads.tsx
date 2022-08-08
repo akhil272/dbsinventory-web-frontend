@@ -100,6 +100,16 @@ const Downloads = () => {
           requireDate={false}
           urlAddress="services"
         />
+        <DownloadSection
+          title="Vehicle Brands"
+          requireDate={false}
+          urlAddress="vehicle-brand"
+        />
+        <DownloadSection
+          title="Vehicle Models"
+          requireDate={false}
+          urlAddress="vehicle-model"
+        />
       </div>
     </div>
   );
