@@ -32,6 +32,10 @@ const CreateQuotation = ({
   getSpeedRatings,
   createUserAndQuotation,
   loadingQuotationState,
+  getVehicleModels,
+  getVehicleBrands,
+  vehicleBrands,
+  vehicleModels,
 }: CreateUserAndQuotationProps) => {
   const [userQuery, setUserQuery] = useState<UserQueryFormData[]>([]);
   const [selectedServices, setSelectedServices] = useState([]);
@@ -97,6 +101,8 @@ const CreateQuotation = ({
           tyreSize,
           loadIndex,
           speedRating,
+          vehicleBrand,
+          vehicleModel,
           id,
           ...query
         }) => ({
@@ -105,6 +111,8 @@ const CreateQuotation = ({
           tyreSizeValue: tyreSize?.name,
           tyreLoadIndex: Number(loadIndex.name),
           tyreSpeedRating: speedRating?.name,
+          vehicleBrand: vehicleBrand?.name,
+          vehicleModel: vehicleModel?.name,
           ...query,
         })
       ),
@@ -134,6 +142,12 @@ const CreateQuotation = ({
   useEffect(() => {
     getUsers({ search: "" });
   }, []);
+  useEffect(() => {
+    getVehicleBrands({ search: "" });
+  }, [getVehicleBrands]);
+  useEffect(() => {
+    getVehicleModels({ search: "" });
+  }, [getVehicleModels]);
   useEffect(() => {
     getBrands({ search: "" });
   }, [getBrands]);
@@ -178,6 +192,10 @@ const CreateQuotation = ({
     return <LoadingAnimation message="Loading users, please wait.." />;
   if (loadingTyreData)
     return <LoadingAnimation message="Loading tyres data, please wait.." />;
+  if (!vehicleBrands?.length)
+    return <LoadingAnimation message="Loading vehicleBrands..." />;
+  if (!vehicleModels?.length)
+    return <LoadingAnimation message="Loading vehicleModels..." />;
   if (!brands?.length) return <LoadingAnimation message="Loading brands..." />;
   if (!tyreSizes?.length)
     return <LoadingAnimation message="Loading tyre sizes..." />;
@@ -274,7 +292,27 @@ const CreateQuotation = ({
       <div>
         <form className="space-y-2 " onSubmit={onSubmit}>
           <SearchBox
-            placeholder="Enter brand name*"
+            placeholder="Enter vehicle brand name*"
+            control={control}
+            name={"vehicleBrand"}
+            data={vehicleBrands?.map(({ id, vehicleBrand }) => ({
+              id,
+              name: vehicleBrand,
+            }))}
+            error={(errors.vehicleBrand as any)?.message}
+          />
+          <SearchBox
+            placeholder="Enter vehicle model name*"
+            control={control}
+            name={"vehicleModel"}
+            data={vehicleModels?.map(({ model, id }) => ({
+              id,
+              name: model,
+            }))}
+            error={(errors.vehicleModel as any)?.message}
+          />
+          <SearchBox
+            placeholder="Enter tyre brand name*"
             control={control}
             name={"brand"}
             data={brands}
@@ -348,6 +386,12 @@ const CreateQuotation = ({
               <h3 className="font-semibold text-lg ">User Quotation List</h3>
               {userQuery.map((query, index) => (
                 <QuoteListCard
+                  vehicleBrand={
+                    query?.vehicleBrand?.name ?? "Error please refresh"
+                  }
+                  vehicleModel={
+                    query?.vehicleModel?.name ?? "Error please refresh"
+                  }
                   isRemoveAllowed={true}
                   onRemove={onRemove}
                   key={query.id}

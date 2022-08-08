@@ -1,3 +1,4 @@
+import { getVehicleBrands, getVehicleModels } from "@Store/adminPanel/actions";
 import { createUserAndQuotation, getServices } from "@Store/quotations/actions";
 import { initialState } from "@Store/rootReducer";
 import {
@@ -14,6 +15,7 @@ const mapStateToProps = ({
   users,
   tyres,
   quotations,
+  adminPanel,
 }: typeof initialState) => ({
   loadingUsers: users.loading,
   loadingTyreData: tyres.loading,
@@ -24,6 +26,8 @@ const mapStateToProps = ({
   speedRatings: tyres.speedRatings,
   tyreSizes: tyres.tyreSizes,
   services: quotations.services,
+  vehicleBrands: adminPanel.vehicleBrands,
+  vehicleModels: adminPanel.vehicleModels,
   patterns: tyres.brands.reduce(
     (acc, curr) => [
       ...acc,
@@ -43,5 +47,7 @@ const mapDispatchToProps = () => ({
   getSpeedRatings,
   getLoadIndexes,
   createUserAndQuotation,
+  getVehicleBrands,
+  getVehicleModels,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CreateQuotation);

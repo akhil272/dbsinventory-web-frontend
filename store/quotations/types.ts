@@ -1,3 +1,9 @@
+import {
+  getVehicleBrandsPayload,
+  getVehicleModelsPayload,
+  VehicleBrandPayload,
+  VehicleModelPayload,
+} from "@Store/adminPanel/types";
 import { ApiReturnType } from "@Store/api";
 import { registerPayload } from "@Store/auth/types";
 import {
@@ -184,6 +190,8 @@ export type createQuotationPayload = {
     tyreLoadIndex?: number;
     userNotes?: string;
     quantity: number;
+    vehicleBrand: string;
+    vehicleModel: string;
   }[];
   serviceIds: {
     id: number;
@@ -224,6 +232,8 @@ export type userQuote = {
   quotePrice: number;
   userNotes: string;
   adminComments: string;
+  vehicleBrand: string;
+  vehicleModel: string;
 };
 export type userQuotePayload = {
   userQuote: userQuote;
@@ -285,6 +295,8 @@ export type GetQuoteStateProps = {
   services: ServicePayload[];
   loadIndexes: LoadIndexPayload[];
   speedRatings: SpeedRatingPayload[];
+  vehicleBrands: VehicleBrandPayload[];
+  vehicleModels: VehicleModelPayload[];
   loadingTyreData: boolean;
   loadingQuotationState: boolean;
 };
@@ -374,11 +386,19 @@ export type CreateUserAndQuotationDispatchProps = {
   createUserAndQuotation: (
     data: createUserAndQuotationPayload
   ) => Promise<ApiReturnType<createQuotationResponse>>;
+  getVehicleBrands: (
+    payload: getVehicleBrandsPayload
+  ) => Promise<ApiReturnType<VehicleBrandPayload[]>>;
+  getVehicleModels: (
+    payload: getVehicleModelsPayload
+  ) => Promise<ApiReturnType<VehicleModelPayload[]>>;
 };
 export type CreateUserAndQuotationStateProps = {
   users: UserPayload[];
   loadingUsers: boolean;
   loadingTyreData: boolean;
+  vehicleBrands: VehicleBrandPayload[];
+  vehicleModels: VehicleModelPayload[];
   brands: Brand[];
   tyreSizes: TyreSize[];
   patterns: { id: number; name: string }[];
@@ -410,6 +430,12 @@ export type GetQuoteDispatchProps = {
   createQuotation: (
     data: createQuotationPayload
   ) => Promise<ApiReturnType<createQuotationResponse>>;
+  getVehicleBrands: (
+    payload: getVehicleBrandsPayload
+  ) => Promise<ApiReturnType<VehicleBrandPayload[]>>;
+  getVehicleModels: (
+    payload: getVehicleModelsPayload
+  ) => Promise<ApiReturnType<VehicleModelPayload[]>>;
 };
 export type GetQuoteProps = GetQuoteStateProps & GetQuoteDispatchProps;
 

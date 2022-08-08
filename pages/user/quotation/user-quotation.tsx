@@ -109,6 +109,8 @@ const UserQuotation = ({
       {quotation?.userQuotes.map((quote) => (
         <div key={quote.id}>
           <QuoteListCard
+            vehicleBrand={quote?.vehicleBrand ?? "Error please refresh"}
+            vehicleModel={quote?.vehicleModel ?? "Error please refresh"}
             index={quote.id}
             key={quote?.id}
             brand={quote?.brandName ?? "Error please refresh"}

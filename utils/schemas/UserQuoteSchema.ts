@@ -6,12 +6,23 @@ const OrderToStockSchema = Yup.object().shape({
       name: Yup.string().required(),
     })
     .typeError("Please enter/select a brand from drop down."),
+  vehicleBrand: Yup.object()
+    .shape({
+      name: Yup.string().required(),
+    })
+    .typeError("Please enter/select a vehicle brand from drop down."),
+  vehicleModel: Yup.object()
+    .shape({
+      name: Yup.string().required(),
+    })
+    .typeError("Please enter/select a vehicle model from drop down."),
   tyreSize: Yup.object()
     .shape({
       name: Yup.string().required(),
     })
     .typeError("Please enter/select a tyre size from drop down."),
   quantity: Yup.number()
+    .positive()
     .typeError("You must enter a number")
     .required("Required"),
 });

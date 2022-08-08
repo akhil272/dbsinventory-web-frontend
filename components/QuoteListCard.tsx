@@ -5,6 +5,8 @@ interface QuoteListCardProps {
   tyreSize: string;
   loadIndex?: number | string;
   speedRating?: string;
+  vehicleBrand: string;
+  vehicleModel: string;
   notes: string;
   id: number;
   quantity: number;
@@ -30,6 +32,8 @@ const QuoteListCard = ({
   onRemove,
   index,
   isRemoveAllowed = false,
+  vehicleBrand,
+  vehicleModel,
 }: QuoteListCardProps) => {
   return (
     <div className="bg-white p-2 rounded-md mb-4">
@@ -46,6 +50,20 @@ const QuoteListCard = ({
         )}
       </div>
       <div className="flex flex-col space-y-2">
+        <div className="flex">
+          <div className="flex w-1/2">
+            <div className="flex flex-col -space-y-1">
+              <label className="text-xs text-gray-400">Vehicle Brand</label>
+              <label>{vehicleBrand}</label>
+            </div>
+          </div>
+          <div className="flex w-1/2">
+            <div className="flex flex-col -space-y-1">
+              <label className="text-xs text-gray-400">Vehicle Model</label>
+              <label>{vehicleModel}</label>
+            </div>
+          </div>
+        </div>
         <div className="flex">
           <div className="flex w-1/2">
             <div className="flex flex-col -space-y-1">
