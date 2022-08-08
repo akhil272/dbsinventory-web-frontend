@@ -45,6 +45,7 @@ const API_END_POINTS = {
   ADMIN: "/admin",
   ROLE: "/role",
   AVATAR: "/avatar",
+  VEHICLE_BRAND: "/vehicle-brand",
 };
 
 enum API_METHODS {

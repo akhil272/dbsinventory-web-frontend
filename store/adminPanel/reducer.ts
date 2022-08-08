@@ -16,6 +16,12 @@ import {
   TRANSPORT_CREATE_FAIL,
   TRANSPORT_CREATE_INIT,
   TRANSPORT_CREATE_SUCCESS,
+  VEHICLE_BRANDS_FETCH_FAIL,
+  VEHICLE_BRANDS_FETCH_INIT,
+  VEHICLE_BRANDS_FETCH_SUCCESS,
+  VEHICLE_BRAND_CREATE_FAIL,
+  VEHICLE_BRAND_CREATE_INIT,
+  VEHICLE_BRAND_CREATE_SUCCESS,
   VENDORS_FETCH_FAIL,
   VENDORS_FETCH_INIT,
   VENDORS_FETCH_SUCCESS,
@@ -26,6 +32,7 @@ import {
 
 export const initialState: AdminPanel = {
   loading: false,
+  vehicleBrands: [],
   vendors: [],
   locations: [],
   transports: [],
@@ -42,6 +49,21 @@ const reducer = (state = initialState, action: AdminPanelActionTypes) => {
         overview: action.payload.data,
       });
     case OVERVIEW_FETCH_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case VEHICLE_BRAND_CREATE_INIT:
+      return Object.assign({}, state, { loading: true });
+    case VEHICLE_BRAND_CREATE_SUCCESS:
+      return Object.assign({}, state, { loading: false });
+    case VEHICLE_BRAND_CREATE_FAIL:
+      return Object.assign({}, state, { loading: false });
+    case VEHICLE_BRANDS_FETCH_INIT:
+      return Object.assign({}, state, { loading: true });
+    case VEHICLE_BRANDS_FETCH_SUCCESS:
+      return Object.assign({}, state, {
+        loading: false,
+        vehicleBrands: action.payload.data,
+      });
+    case VEHICLE_BRANDS_FETCH_FAIL:
       return Object.assign({}, state, { loading: false });
     case TRANSPORT_CREATE_INIT:
       return Object.assign({}, state, { loading: true });

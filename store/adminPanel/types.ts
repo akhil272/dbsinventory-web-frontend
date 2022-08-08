@@ -1,6 +1,19 @@
 import { ApiReturnType } from "@Store/api";
 import { Vendor, Transport, Location } from "@Store/stocks/types";
 
+export const VEHICLE_BRAND_DELETE_INIT = "VEHICLE_BRAND:DELETE:INIT";
+export const VEHICLE_BRAND_DELETE_SUCCESS = "VEHICLE_BRAND:DELETE:SUCCESS";
+export const VEHICLE_BRAND_DELETE_FAIL = "VEHICLE_BRAND:DELETE:FAIL";
+export const VEHICLE_BRAND_UPDATE_INIT = "VEHICLE_BRAND:UPDATE:INIT";
+export const VEHICLE_BRAND_UPDATE_SUCCESS = "VEHICLE_BRAND:UPDATE:SUCCESS";
+export const VEHICLE_BRAND_UPDATE_FAIL = "VEHICLE_BRAND:UPDATE:FAIL";
+export const VEHICLE_BRAND_CREATE_INIT = "VEHICLE_BRAND:CREATE:INIT";
+export const VEHICLE_BRAND_CREATE_SUCCESS = "VEHICLE_BRAND:CREATE:SUCCESS";
+export const VEHICLE_BRAND_CREATE_FAIL = "VEHICLE_BRAND:CREATE:FAIL";
+export const VEHICLE_BRANDS_FETCH_INIT = "VEHICLE_BRANDS:FETCH:INIT";
+export const VEHICLE_BRANDS_FETCH_SUCCESS = "VEHICLE_BRANDS:FETCH:SUCCESS";
+export const VEHICLE_BRANDS_FETCH_FAIL = "VEHICLE_BRANDS:FETCH:FAIL";
+
 export const OVERVIEW_FETCH_INIT = "OVERVIEW:FETCH:INIT";
 export const OVERVIEW_FETCH_SUCCESS = "OVERVIEW:FETCH:SUCCESS";
 export const OVERVIEW_FETCH_FAIL = "OVERVIEW:FETCH:FAIL";
@@ -44,6 +57,12 @@ export const VENDORS_FETCH_INIT = "VENDORS:FETCH:INIT";
 export const VENDORS_FETCH_SUCCESS = "VENDORS:FETCH:SUCCESS";
 export const VENDORS_FETCH_FAIL = "VENDORS:FETCH:FAIL";
 
+export type deleteVehicleModelPayload = {
+  id: number;
+};
+export type deleteVehicleBrandPayload = {
+  id: number;
+};
 export type deleteTransportPayload = {
   id: number;
 };
@@ -52,6 +71,14 @@ export type deleteLocationPayload = {
 };
 export type deleteVendorPayload = {
   id: number;
+};
+export type updateVehicleModelPayload = {
+  id: number;
+  model: string;
+};
+export type updateVehicleBrandPayload = {
+  id: number;
+  vehicleBrand: string;
 };
 export type updateTransportPayload = {
   id: number;
@@ -66,6 +93,16 @@ export type updateVendorPayload = {
   name: string;
 };
 
+export type UpdateVehicleModelProps = {
+  updateVehicleModel: (
+    payload: updateVehicleModelPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type UpdateVehicleBrandProps = {
+  updateVehicleBrand: (
+    payload: updateVehicleBrandPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
 export type UpdateTransportProps = {
   updateTransport: (
     payload: updateTransportPayload
@@ -80,6 +117,16 @@ export type UpdateVendorProps = {
   updateVendor: (payload: updateVendorPayload) => Promise<ApiReturnType<{}>>;
 };
 
+export type DeleteVehicleModelProps = {
+  deleteVehicleModel: (
+    data: deleteVehicleModelPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
+export type DeleteVehicleBrandProps = {
+  deleteVehicleBrand: (
+    data: deleteVehicleBrandPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
 export type DeleteTransportProps = {
   deleteTransport: (data: deleteTransportPayload) => Promise<ApiReturnType<{}>>;
 };
@@ -90,6 +137,11 @@ export type DeleteVendorProps = {
   deleteVendor: (data: deleteVendorPayload) => Promise<ApiReturnType<{}>>;
 };
 
+export type CreateVehicleBrandProps = {
+  createVehicleBrand: (
+    data: createVehicleBrandPayload
+  ) => Promise<ApiReturnType<{}>>;
+};
 export type CreateTransportProps = {
   createTransport: (data: createTransportPayload) => Promise<ApiReturnType<{}>>;
 };
@@ -100,6 +152,18 @@ export type CreateVendorProps = {
   createVendor: (data: createVendorPayload) => Promise<ApiReturnType<{}>>;
 };
 
+export type VehicleModelProps = {
+  vehicleModels: VehicleModelPayload[];
+  getVehicleModels: (
+    payload: getVehicleModelsPayload
+  ) => Promise<ApiReturnType<VehicleModelPayload[]>>;
+};
+export type VehicleBrandProps = {
+  vehicleBrands: VehicleBrandPayload[];
+  getVehicleBrands: (
+    payload: getVehicleBrandsPayload
+  ) => Promise<ApiReturnType<VehicleBrandPayload[]>>;
+};
 export type TransportProps = {
   transports: TransportPayload[];
   getTransports: (
@@ -124,8 +188,21 @@ export type getOverviewPayload = {
   endDate: string;
 };
 
+export type createVehicleModelPayload = {
+  model: string;
+  vehicleBrandId: number;
+};
+export type createVehicleBrandPayload = {
+  vehicleBrand: string;
+};
 export type createTransportPayload = {
   mode: string;
+};
+export type getVehicleModelsPayload = {
+  search?: string;
+};
+export type getVehicleBrandsPayload = {
+  search?: string;
 };
 export type getTransportsPayload = {
   search?: string;
@@ -150,6 +227,7 @@ export type AdminPanel = {
   vendors: Vendor[];
   locations: Location[];
   transports: Transport[];
+  vehicleBrands: VehicleBrandPayload[];
   overview: OverviewPayload;
 };
 
@@ -185,6 +263,14 @@ export type AdminPanelProps = AdminPanelStateProps & AdminPanelDispatchProps;
 export type createVendorResponse = {};
 export type createLocationResponse = {};
 export type createTransportResponse = {};
+export type VehicleModelPayload = {
+  id: number;
+  model: string;
+};
+export type VehicleBrandPayload = {
+  id: number;
+  vehicleBrand: string;
+};
 export type VendorPayload = {
   id: number;
   name: string;
@@ -215,6 +301,47 @@ export type AdminDashboardProps = {
   getOverview: (
     data: getOverviewPayload
   ) => Promise<ApiReturnType<OverviewPayload>>;
+};
+
+type vehicleBrandDeleteInit = {
+  type: typeof VEHICLE_BRAND_DELETE_INIT;
+};
+type vehicleBrandDeleteSuccess = {
+  type: typeof VEHICLE_BRAND_DELETE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type vehicleBrandDeleteFail = {
+  type: typeof VEHICLE_BRAND_DELETE_FAIL;
+};
+type vehicleBrandUpdateInit = {
+  type: typeof VEHICLE_BRAND_UPDATE_INIT;
+};
+type vehicleBrandUpdateSuccess = {
+  type: typeof VEHICLE_BRAND_UPDATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type vehicleBrandUpdateFail = {
+  type: typeof VEHICLE_BRAND_UPDATE_FAIL;
+};
+type vehicleBrandCreateInit = {
+  type: typeof VEHICLE_BRAND_CREATE_INIT;
+};
+type vehicleBrandCreateSuccess = {
+  type: typeof VEHICLE_BRAND_CREATE_SUCCESS;
+  payload: ApiReturnType<{}>;
+};
+type vehicleBrandCreateFail = {
+  type: typeof VEHICLE_BRAND_CREATE_FAIL;
+};
+type vehicleBrandsFetchInit = {
+  type: typeof VEHICLE_BRANDS_FETCH_INIT;
+};
+type vehicleBrandsFetchSuccess = {
+  type: typeof VEHICLE_BRANDS_FETCH_SUCCESS;
+  payload: ApiReturnType<VehicleBrandPayload[]>;
+};
+type vehicleBrandsFetchFail = {
+  type: typeof VEHICLE_BRANDS_FETCH_FAIL;
 };
 
 type overviewFetchInit = {
@@ -355,6 +482,18 @@ export type AdminPanelActionTypes =
   | overviewFetchInit
   | overviewFetchSuccess
   | overviewFetchFail
+  | vehicleBrandDeleteInit
+  | vehicleBrandDeleteSuccess
+  | vehicleBrandDeleteFail
+  | vehicleBrandUpdateInit
+  | vehicleBrandUpdateSuccess
+  | vehicleBrandUpdateFail
+  | vehicleBrandCreateInit
+  | vehicleBrandCreateSuccess
+  | vehicleBrandCreateFail
+  | vehicleBrandsFetchInit
+  | vehicleBrandsFetchSuccess
+  | vehicleBrandsFetchFail
   | transportDeleteInit
   | transportDeleteSuccess
   | transportDeleteFail
