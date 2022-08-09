@@ -60,6 +60,7 @@ export default function SearchBox({
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={placeholder}
                   type="text"
+                  autoComplete="off"
                 />
                 <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                   <SelectorIcon
