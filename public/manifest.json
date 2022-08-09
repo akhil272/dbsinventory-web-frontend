@@ -4,9 +4,9 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "DBS Inventory",
+  "name": "DBS Tyres",
   "short_name": "DBS",
-  "description": "DBS Inventory Management Application",
+  "description": "DBS Tyres Application",
   "icons": [
     {
       "src": "/icon-192x192.png",
